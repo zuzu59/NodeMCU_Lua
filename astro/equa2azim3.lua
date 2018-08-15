@@ -58,15 +58,15 @@ End Function
 Function Hauteur(Dec As Single, Latitude As Single, H As Single) As Single
 	Dim Sin_hauteur, PI As Single
 	PI = 3.14159
-	Sin_hauteur = Sin(Dec * PI / 180) * Sin(Latitude * PI / 180) - Cos(Dec * PI / 180) * Cos(Latitude * PI / 180) * Cos(H * PI / 180)
+	Sin_hauteur = Sin(Dec) * Sin(Latitude) - Cos(Dec) * Cos(Latitude) * Cos(H)
 	Hauteur = Arsin(Sin_hauteur) * 180 / PI
 End Function
 
 Function Azimuth(Dec As Single, Lat As Single, H As Single, Haut As Single) As Single
 	Dim Cosazimuth, Sinazimuth, test, Az As Single
 	PI = 3.14159
-	Cosazimuth = (Sin(Dec * PI / 180) - Sin(Lat * PI / 180) * Sin(Haut * PI / 180)) / (Cos(Lat * PI / 180) * Cos(Haut * PI / 180))
-	Sinazimuth = (Cos(Dec * PI / 180) * Sin(H * PI / 180)) / Cos(Haut * PI / 180)
+	Cosazimuth = (Sin(Dec) - Sin(Lat) * Sin(Haut)) / (Cos(Lat) * Cos(Haut))
+	Sinazimuth = (Cos(Dec) * Sin(H)) / Cos(Haut)
 	If (Sinazimuth > 0) Then Az = Arcos(Cosazimuth) * 180 / PI Else Az = -Arcos(Cosazimuth) * 180 / PI
 	If (Az < 0) Then Azimuth = 360 + Az Else Azimuth = Az
 End Function
