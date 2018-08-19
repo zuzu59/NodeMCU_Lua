@@ -32,16 +32,30 @@ end
 ]]
 
 
-
 lat = math.rad(46.52)  -- latitude de l'observateur
 long = math.rad(6.55)  -- longitude de l'observateur
-timsid = math.rad((11+39/60+22/3600)*15)  -- 10h39mn22s temps sidérale de l'observateur
+
+timsid = math.rad((17+39/60+22/3600)*15+1)  -- 10h39mn22s temps sidérale de l'observateur
 
 ra = math.rad(18+12/60+56/3600)   -- 18h12mn56, -22o38'34 ascension droite de la coordonnée équatoriale de l'objet céleste
 dec = math.rad(-(22+38/60+34/3600))  -- -22o38'34 déclinaison de la coordonnée équatoriale de l'objet céleste
 
 haut = math.rad(20+45/60)  -- +20o45 hauteur de la coordonnée horizontale du télescope
 azmt = math.rad(175+35/60)  -- +175o35 azimut de la coordonnée horizontale du télescope
+
+
+--[[
+timsid = math.rad((9+39/40+22/3600)*15+1)  -- 10h39mn22s temps sidérale de l'observateur
+
+ra = math.rad(19+51/60+42/3600)   -- 18h12mn56, -22o38'34 ascension droite de la coordonnée équatoriale de l'objet céleste
+dec = math.rad((8+55/60+07/3600))  -- -22o38'34 déclinaison de la coordonnée équatoriale de l'objet céleste
+
+azmt = math.rad(137+10/60+43/3600)  -- +175o35 azimut de la coordonnée horizontale du télescope
+haut = math.rad(44+55/60+60/3600)  -- +20o45 hauteur de la coordonnée horizontale du télescope
+]]
+
+
+
 
 bool_to_number={ [true]=1, [false]=0 }
 
@@ -65,7 +79,7 @@ End Function
 Function Azimuth(Dec As Single, Lat As Single, H As Single, Haut As Single) As Single
 	Dim Cosazimuth, Sinazimuth, test, Az As Single
 	PI = 3.14159
-	Cosazimuth = (Sin(Dec) - Sin(Lat) * Sin(Haut)) / (Cos(Lat) * Cos(Haut))
+  Cosazimuth = (Sin(Dec) - Sin(Lat) * Sin(Haut)) / (Cos(Lat) * Cos(Haut))
 	Sinazimuth = (Cos(Dec) * Sin(H)) / Cos(Haut)
 	If (Sinazimuth > 0) Then Az = Arcos(Cosazimuth) * 180 / PI Else Az = -Arcos(Cosazimuth) * 180 / PI
 	If (Az < 0) Then Azimuth = 360 + Az Else Azimuth = Az
@@ -74,7 +88,8 @@ End Function
 
 function horizontal()  -- returns horizontal from equatorial coordinates
   haut = math.asin(math.sin(dec) * math.sin(lat)  - math.cos(dec) * math.cos(lat) * math.cos(timsid))
-  azmt = math.atan2(math.sin(timsid - ra), math.sin(lat) * math.cos(timsid - ra) - math.cos(lat) * math.tan(dec))
+--  azmt = math.atan2(math.sin(dec) - math.sin(lat) * math.sin(ra) / math.cos(lat) * math.cos(ra) , math.cos(dec) * math.sin(timsid) / math.cos(ra))
+  azmt = math.atan2(math.cos(dec) * math.sin(timsid) / math.cos(ra) , math.sin(dec) - math.sin(lat) * math.sin(ra) / math.cos(lat) * math.cos(ra))
   azmt = azmt + 2 * math.pi * bool_to_number[azmt < 0]
 end
 
