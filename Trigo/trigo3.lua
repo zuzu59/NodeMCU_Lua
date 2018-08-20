@@ -1,20 +1,26 @@
--- 3e Essais de faire des fonctions trigos qui manque dans NodeMCU
+-- 3e Essais de faire des fonctions trigos qui manquent dans NodeMCU
 -- source pour arctan,arcsin et arccos: http://mathonweb.com/help_ebook/html/algorithms.htm
 -- source pour sin&cos: https://www.esp8266.com/viewtopic.php?p=64415#
 -- source pour arcsin&arctan: http://www.electronicwings.com/nodemcu/magnetometer-hmc5883l-interfacing-with-nodemcu
-print("\ntrigo3.lua   zf180819.1745   \n")
 
-pi = 3.14159265358979323846
+print("\ntrigo3.lua   zf180820.2205   \n")
+
+Gros problème encore avec les atan négatives et du coup avec les acos, zf180820.2252
+
 
 function zsin(x)
-   local p=-x*x*x   local f=6   local r=x+p/f
-   for j=1,60 do
-      p=-p*x*x   f=f*2*(j+1)*(j+j+3)   r=r+p/f
-   end
-   return r
+    local y=1
+    if x>math.pi*2 then   x=x%(math.pi*2)   end
+    if x>math.pi then   y=-1   x=x-math.pi   end
+    if x>math.pi/2 then   x=math.pi-x   end
+    local p=x   local f=1   local r=p
+    for j=2,10,2 do   p=-p * x * x   f=f*j*(j+1)   r=r+p/f   end
+   return(y*r)
 end
 
 function zcos(x)
+   if x>math.pi*2 then   x=x%(math.pi*2)   end
+   if x>math.pi then   x=math.pi-x   end
    return zsin(math.pi/2-x)
 end
 
@@ -22,19 +28,22 @@ function ztan(x)
    return zsin(x)/zcos(x)
 end
 
+function zasin(x)
+   return zatan(x/math.sqrt(1-x*x))
+end
+
+function zacos(x)
+   return zatan(math.sqrt(1-x*x)/x)
+end
+
+
 
 
 
 function zatan(x)
   local y=1  local z
-  if x<0 then
-    y=-1  x=y*x
-  end
-  if x<1 then
-    z=zzatan(x)
-  else
-    z=pi/2-zatan(1/x)
-  end
+  if x<0 then   y=-1  x=y*x   end
+  if x<1 then   z=zzatan(x)   else   z=math.pi/2-zatan(1/x)   end
   return y*z
 end
 
@@ -44,24 +53,6 @@ end
 
 
 
-
---[[
---print("On voit que l'arc sinus est précis au 1/2% prêt !")
-a=0.9
-print("théorique tan("..a.."): "..math.tan(a))
-print("calculée  tan("..a.."): "..ztan(a))
-b=math.tan(a)
-print("théorique atan("..b.."): "..math.atan(b))
-print("calculée  atan("..b.."): "..zatan(b)..", "..pi/2-zatan(1/b))
---print("pi/(arcsin(1)*2): "..pi/(arcsin(1)*2))
-]]
-
-
---[[
-print("On voit que l'arc sinus est précis au 1/2% prêt !")
-print("sin(3.14/2): "..sin(3.14/2))
-print("pi/(arcsin(1)*2): "..pi/(arcsin(1)*2))
-]]
 
 
 --[[
