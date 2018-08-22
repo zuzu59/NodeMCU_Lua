@@ -5,7 +5,7 @@
 
 print("\ntrigo3.lua   zf180820.2205   \n")
 
-Gros problème encore avec les atan négatives et du coup avec les acos, zf180820.2252
+-- encore des problèmes, 8% d'erreur, avec les atan vers pi/4, zf180821.1849
 
 
 function zsin(x)
@@ -33,7 +33,9 @@ function zasin(x)
 end
 
 function zacos(x)
-   return zatan(math.sqrt(1-x*x)/x)
+--  return zatan(math.sqrt(1-x*x)/x)
+--return math.pi/2-zatan(x/math.sqrt(1-x*x))
+return math.pi/2-zasin(x)
 end
 
 
