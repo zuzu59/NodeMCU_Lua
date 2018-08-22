@@ -1,26 +1,11 @@
 -- Démarre le WIFI en mode AP
-print("\wifi_ap_stop.lua   zf180822.1425   \n")
+print("\wifi_cli_stop.lua   zf180822.1506   \n")
 
 local zmodewifi=wifi.getmode()
-if zmodewifi == wifi.STATIONAP then
+if zmodewifi == wifi.STATION then
     wifi.setmode(wifi.NULLMODE)
-elseif zmodewifi == wifi.SOFTAP then
-    wifi.setmode(wifi.STATION)
+elseif zmodewifi == wifi.STATIONAP then
+    wifi.setmode(wifi.SOFTAP)
 end
-print("WIFI AP arrêté")
+print("WIFI CLI arrêté")
 
-
-
-
---[[
-wifi.setmode(wifi.NULLMODE)
-print(wifi.ap.getconfig())
-print(wifi.ap.getmac())
-print(wifi.getdefaultmode())
-
-print(wifi.getmode())
-print(wifi.NULLMODE, wifi.STATION, wifi.SOFTAP, wifi.STATIONAP)
-
-print(wifi.getphymode())
-print(wifi.PHYMODE_B, wifi.PHYMODE_G, wifi.PHYMODE_N)
-]]
