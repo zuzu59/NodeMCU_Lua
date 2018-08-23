@@ -1,5 +1,5 @@
 -- Enclenche le mode configuration WIFI
-print("\nzf180718.1107\n")
+print("\n wifi_cnf_start.lua   zf180823.1039   \n")
 
 function get_ip()
     if wifi.sta.getip() == nil then
@@ -16,4 +16,3 @@ wifi.sta.clearconfig()
 print("\nwifi config http://192.168.4.1\n")
 tmr.alarm(0, 1000, tmr.ALARM_AUTO , get_ip)
 enduser_setup.start()
-

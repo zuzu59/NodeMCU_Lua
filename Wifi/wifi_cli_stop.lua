@@ -1,5 +1,5 @@
 -- Démarre le WIFI en mode AP
-print("\wifi_cli_stop.lua   zf180822.1506   \n")
+print("\n wifi_cli_stop.lua   zf180823.1039   \n")
 
 local zmodewifi=wifi.getmode()
 if zmodewifi == wifi.STATION then
@@ -8,4 +8,3 @@ elseif zmodewifi == wifi.STATIONAP then
     wifi.setmode(wifi.SOFTAP)
 end
 print("WIFI CLI arrêté")
-

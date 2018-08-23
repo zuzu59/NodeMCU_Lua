@@ -1,4 +1,4 @@
 -- Déconnecte le WIFI
--- zf180713.1453
+print("\n wifi_off.lua   zf180823.1039   \n")
 
 wifi.sta.disconnect()
