@@ -1,0 +1,6 @@
+zf180824.0930
+
+You successfully commissioned a NodeMCU custom build from the master branch. You selected the following 24 modules: adc bit cron ds18b20 enduser_setup file gpio http i2c mdns mqtt net node ow pwm rtcmem rtctime sntp spi tmr u8g uart websocket wifi.
+font_5x7,font_5x8,font_6x10,font_7x13,font_9x15,font_9x18_67_75,font_9x18,font_cu12
+
+
