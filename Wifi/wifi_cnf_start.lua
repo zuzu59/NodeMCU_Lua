@@ -1,18 +1,6 @@
--- Enclenche le mode configuration WIFI
-print("\n wifi_cnf_start.lua   zf180823.1039   \n")
+-- Petit script pour démarrer le mode configuration WIFI du NodeMCU
+print("\n wifi_cnf_start.lua   zf180824.2000   \n")
 
-function get_ip()
-    if wifi.sta.getip() == nil then
-        print("Connecting to AP...")
-    else
-        tmr.stop(0)
-        print("Connected! IP: ",wifi.sta.getip())
-        tmr.alarm(0,3000,tmr.ALARM_SINGLE, function() node.restart() end)
-    end
-end
-
-wifi.sta.disconnect()
-wifi.sta.clearconfig()
 print("\nwifi config http://192.168.4.1\n")
-tmr.alarm(0, 1000, tmr.ALARM_AUTO , get_ip)
+dofile("wifi_get_ip.lua")
 enduser_setup.start()

@@ -1,5 +1,5 @@
 -- Démarre le WIFI en mode AP
-print("\n wifi_cli_stop.lua   zf180823.1039   \n")
+print("\n wifi_cli_stop.lua   zf180824.2000   \n")
 
 local zmodewifi=wifi.getmode()
 if zmodewifi == wifi.STATION then
