@@ -13,6 +13,6 @@ disp_oled()
 
 --dofile("wifi_ap_start.lua")
 --dofile("telnet_srv.lua")
---dofile("start_demo.lua")
+dofile("start_demo.lua")
 
 end)
