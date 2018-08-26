@@ -1,5 +1,5 @@
--- a simple telnet server
-print("\ntelnet_srv.lua   zf180724.2241   \n")
+-- Serveur telnet pour connexion en remote WIFI
+print("\n telnet_srv.lua   zf180826.1020   \n")
 
 -- restart server if needed
 if telnet_srv ~= nil then
@@ -41,5 +41,4 @@ telnet_srv:listen(23, function(socket)
 end)
 
 print("Telnet server running...\nUsage: telnet -r ip\n")
---dofile("get_ip.lua")
 
