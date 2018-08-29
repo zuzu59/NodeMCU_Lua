@@ -18,7 +18,11 @@ function disp_mesure ()
     oled_line4=""
     oled_line5="180826.2213"
     disp_oled()
+    disp_send()
 end
+
+dofile("web_cli.lua")
 
 dofile("ultra_son.lua")
 tmr.alarm(detectortimer1, 1000, tmr.ALARM_AUTO, zmesure_pulse)
+
