@@ -1,6 +1,6 @@
 -- Petit script pour recevoir la LED IR 
 
-print("\n ir_receive.lua  zf180906.1645  \n")
+print("\n ir_receive1.lua  zf180909.1935  \n")
 
 adc.force_init_mode(adc.INIT_ADC)
 print(adc.read(0))
