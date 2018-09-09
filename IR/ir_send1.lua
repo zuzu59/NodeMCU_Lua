@@ -1,6 +1,6 @@
 -- Petit script pour faire clignoter la LED IR
 
-print("\n ir_send.lua  zf180906.1709  \n")
+print("\n ir_send1.lua  zf180906.1709  \n")
 
 pin_ir_send = 8
 

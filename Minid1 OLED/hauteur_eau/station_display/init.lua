@@ -1,5 +1,5 @@
 -- super mini bootstrap 
-print("\n init_minizf1.lua   zf180828.1825   \n")
+print("\n init_minizf1.lua   zf180909.1901   \n")
 
 tmr.alarm(0, 5000, tmr.ALARM_SINGLE, function()
 
@@ -15,5 +15,6 @@ dofile("wifi_ap_start.lua")
 dofile("telnet_srv.lua")
 dofile("web_oled_minid1.lua")
 dofile("start_demo.lua")
+--dofile("ir_send4.lua")
 
 end)

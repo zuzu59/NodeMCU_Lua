@@ -22,4 +22,3 @@ end
 
 sendir_tmr1=tmr.create()
 tmr.alarm(sendir_tmr1, 1, tmr.ALARM_AUTO, pulse_ir)
-
