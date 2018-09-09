@@ -1,5 +1,5 @@
 -- super mini bootstrap 
-print("\n init_minizf1.lua   zf180909.1112   \n")
+print("\n init_minizf1.lua   zf180909.2306   \n")
 
 zswitch=3     --switch flash
 gpio.mode(zswitch, gpio.INT, gpio.PULLUP)
@@ -14,8 +14,8 @@ end
 
 gpio.trig(zswitch, "both", zbutton)
 
-tmr.alarm(initalarme, 8000,  tmr.ALARM_SINGLE, function()
+tmr.alarm(initalarme, 5000,  tmr.ALARM_SINGLE, function()
     print("\nStart\n")
-    dofile("start_boot.lua")
+    dofile("ir_receive2.lua")
 --    dofile("start_job.lua")
 end)

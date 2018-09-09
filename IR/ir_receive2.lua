@@ -12,7 +12,7 @@ gpio.mode(pin_ir_receive, gpio.INT, gpio.PULLUP)
 
 function pulse_detected()
     gpio.write(pin_hp,gpio.HIGH)
-    tmr.delay(900)
+    tmr.delay(500)
     --print("pulse")
     gpio.write(pin_hp,gpio.LOW)
 end
