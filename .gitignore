@@ -2,7 +2,7 @@ Icon?
 Tools*
 .DS_Store
 
-ESPlorer.Log*
+ESPlorer*Log*
 
 # Compiled Lua sources
 luac.out

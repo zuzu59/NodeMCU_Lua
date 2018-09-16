@@ -1,7 +1,7 @@
 -- super mini bootstrap 
-print("\n init_minizf1.lua   zf180909.1921   \n")
+print("\n init_minizf1.lua   zf180915.1341   \n")
 
-tmr.alarm(0, 5000, tmr.ALARM_SINGLE, function()
+tmr.alarm(0, 7000, tmr.ALARM_SINGLE, function()
 
 dofile("disp_oled.lua")
 oled_line1="RESET"
@@ -14,6 +14,6 @@ disp_oled()
 --dofile("wifi_ap_start.lua")
 --dofile("telnet_srv.lua")
 dofile("start_demo.lua")
-dofile("ir_send4.lua")
+dofile("ir_send.lua")
 
 end)

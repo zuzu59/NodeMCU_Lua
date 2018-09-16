@@ -2,7 +2,7 @@
 -- ATTENTION, on utilise ici l'astuce du gpio.serout pour faire la pulse,
 -- car on n'arrive pas avec le gpio.write à faire une pulse plus courte que 400uS
 
-print("\n ir_send4.lua  zf180909.2308  \n")
+print("\n ir_send4.lua  zf180915.1330  \n")
 
 pin_ir_send = 7
 gpio.mode(pin_ir_send,gpio.OUTPUT)
