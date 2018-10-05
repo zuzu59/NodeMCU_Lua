@@ -1,10 +1,10 @@
 -- Script pour la gestion de l'émetteur IR à 38kHz (LED, infrared, infrarouge)
--- permet l'envoi d'un code avec le protocole zIR, protocole de mon invention ;-)
+-- permet l'envoi d'un code (4bits seulement) avec le protocole zIR, protocole de mon invention ;-)
 -- exprès pas standard afin de ne pas être parasité par les autres sources IR !
 -- ATTENTION, on utilise ici l'astuce du gpio.serout pour faire la pulse de 26uS (38kHz),
 -- car on n'arrive pas avec le gpio.write à faire une pulse plus courte que 400uS
 
-print("\n ir_send.lua  zf180916.1706  \n")
+print("\n ir_send.lua  zf180918.1826  \n")
 
 pin_ir_send = 7
 gpio.mode(pin_ir_send,gpio.OUTPUT)
@@ -13,9 +13,9 @@ gpio.write(pin_ir_send,gpio.HIGH)
 Mark_Coeff = 0.5
 -- en mS/uS
 Mark_Start = 3 *Mark_Coeff *1000
-Mark_Bit1 = 1 *Mark_Coeff *1000
-Mark_Bit0 = 2 *Mark_Coeff *1000
-Mark_Space = 1 *Mark_Coeff *1000
+Mark_Bit1 = 2 *Mark_Coeff *1000
+Mark_Bit0 = 1 *Mark_Coeff *1000
+Mark_Space = 0.5 *Mark_Coeff *1000
 
 -- envoi une série de pulses à 38kHz de durée zduration en uS
 function pulse_ir(zduration)
