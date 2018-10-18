@@ -1,6 +1,6 @@
 --Petit script pour la gestion de la LED, juste pour comprendre la prog ;-)
 
-print("\n led_job.lua   zf181018.1104   \n")
+print("\n led_job.lua   zf181018.1616   \n")
 
 zLED=0
 gpio.mode(zLED, gpio.OUTPUT)
@@ -19,14 +19,3 @@ end
 led_on()
 led_off()
 
-
-
-    local _on, _off = "", ""
-    if (_GET.pin == "ON") then
-      _on = " selected=\"true\""
-      gpio.write(zLED, gpio.LOW)
-    elseif (_GET.pin == "OFF") then
-      _off = " selected=\"true\""
-      gpio.write(zLED, gpio.HIGH)
-    end
-    buf = buf .. "<option" .. _off .. ">OFF</option><option" .. _on .. ">ON</option></select></form></body></html>"
