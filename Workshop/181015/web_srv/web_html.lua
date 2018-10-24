@@ -1,6 +1,6 @@
 -- petit script pour le HTML du serveur web
 
-print("\n web_html.lua   zf181018.1621  \n")
+print("\n web_html.lua   zf181019.1130  \n")
 
 --Partie HTML et CSS pour la page web
 function html_home()  
@@ -12,3 +12,14 @@ function html_home()
     buf = buf .. "</body></html>"
 end
 
+function html_status()  
+    buf = "<!DOCTYPE html><html><body><meta charset='utf-8' name='viewport' content='width=device-width, initial-scale=1.0'>\n" 
+    buf = buf .. "<h1>Hello, this is NodeMCU.  1608  </h1>\n"
+    buf = buf .. "Toto\n"
+    if gpio.read(zLED) == 1 then
+        buf = buf .. "<p>Led is off</p>\n"
+    else
+        buf = buf .. "<p>Led is on</p>\n"
+    end
+    buf = buf .. "</body></html>"
+end

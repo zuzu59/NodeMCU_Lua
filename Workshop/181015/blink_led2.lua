@@ -1,6 +1,6 @@
 -- programme pour faire clignoter une LED version simplifiée
 
-print("\n blink_led2.lua zf181015.1138 \n")
+print("\n blink_led2.lua zf181019.2000 \n")
 
 zLED=0
 gpio.mode(zLED, gpio.OUTPUT)
@@ -14,4 +14,5 @@ tmr.alarm(ztmr_LED, 100, tmr.ALARM_AUTO, function ()
         gpio.write(zLED, gpio.LOW)
     end
     value = not value
+    
 end)
