@@ -19,8 +19,12 @@ local ultra_son_stop=0
 --Function pour envoyer la pulse
 function zmesure_pulse()
 --t1=tmr.now()
-    fast_write(ztrig, 1)
-    fast_write(ztrig, 0)
+--    fast_write(ztrig, 1)
+--    fast_write(ztrig, 0)
+
+--gpio.serout(ztrig,gpio.LOW,{1,10})
+gpio.serout(ztrig,gpio.HIGH,{10,1})
+
 --t2=tmr.now()
 --print("durée: "..t2-t1-314)
 end
