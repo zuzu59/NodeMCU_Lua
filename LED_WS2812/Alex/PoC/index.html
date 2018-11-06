@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>LED Strip Control</title>
+<style>
+
+body {
+  font-family: Bitstream Vera Sans, Verdana, Helvetica, Arial, sans-serif;
+  font-size: 12px; 
+  background-color: #dddddd;
+}
+
+h1 {
+  font-size: 32px;
+}
+
+h2 {
+  font-size: 24px;
+}
+
+/* this matches 'retina' displays */
+@media screen and (-webkit-min-device-pixel-ratio: 2) {
+  body {
+    font-size: 24px;
+  }
+  h1 {
+    font-size: 64px;
+  }
+  h2 {
+    font-size: 48px;
+  }
+}
+
+</style>
+</head>
+<body>
+
+<h1>LED strip control page</h1>
+
+<h2>Choose an effect:</h2>
+<ul>
+<li><a href="/?set=effect&effect=rainbow_cycle">Rainbow Cycle</a></li>
+<li><a href="/?set=effect&effect=larson_scanner">Larson Scanner</a></li>
+<li><a href="/?set=effect&effect=fire">Fire</a></li>
+<li><a href="/?set=effect&effect=blink">Blink</a></li>
+<li><a href="/?set=effect&effect=circus_combustus">Circus Combustus</a></li>
+</ul>
+
+<h2>Pick a color:</h2>
+<ul>
+<li><a href="/?set=color&r=255&g=0&b=0">Red</a></li>
+<li><a href="/?set=color&r=0&g=255&b=0">Green</a></li>
+<li><a href="/?set=color&r=0&g=0&b=255">Blue</a></li>
+<li><a href="/?set=color&r=255&g=255&b=255">White</a></li>
+<li><a href="/?set=color&r=0&g=0&b=0">Black</a></li>
+</ul>
+
+</body>
+</html>
+
