@@ -1,9 +1,9 @@
 -- Scripts de seconde chance pour réparer une boucle dans le restart
 
-print("\n repair.lua zf181119.006 \n")
+print("\n repair.lua zf181119.2356 \n")
 
-if file.exists("wifi_ap_start.lua") then dofile("wifi_ap_start.lua") end
-if file.exists("telnet_srv.lua") then dofile("telnet_srv.lua") end
+f= "wifi_ap_start.lua"   if file.exists(f) then dofile(f) end
+f= "telnet_srv.lua"   if file.exists(f) then dofile(f) end
 
 jobtimer1=tmr.create()
 tmr.alarm(jobtimer1, 5*1000,  tmr.ALARM_AUTO, function()

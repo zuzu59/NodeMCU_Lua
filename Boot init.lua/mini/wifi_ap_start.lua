@@ -1,6 +1,6 @@
 -- Démarre le WIFI en mode AP
 
-print("\n wifi_ap_start.lua   zf181118.2331   \n")
+print("\n wifi_ap_start.lua   zf181119.2359   \n")
 
 local zmodewifi=wifi.getmode()
 if zmodewifi == wifi.NULLMODE then
@@ -11,4 +11,4 @@ elseif zmodewifi == wifi.STATION then
     wifi.setmode(wifi.STATIONAP)
 end
 wifi.ap.config({ ssid = "NodeMCU "..wifi.ap.getmac(), pwd = "12345678" })
-if file.exists("wifi_info.lua") then dofile("wifi_info.lua") end
+f= "wifi_info.lua"   if file.exists(f) then dofile(f) end

@@ -2,17 +2,17 @@
 -- Si la cause est un power on ou une connexion depuis l'IDE, alors
 -- le script repair.lua pendant 30 secondes avant de continuer
 
-print("\n init.lua zf181119.0024 \n")
+print("\n init.lua zf181120.0002 \n")
 
 _, reset_reason = node.bootreason()
 print("reset_reason:",reset_reason)
 if reset_reason == 0 or reset_reason == 6 then
     print("seconde chance...")
-    if file.exists("repair.lua") then dofile("repair.lua") end
+    f= "repair.lua"   if file.exists(f) then dofile(f) end
     initalarme=tmr.create()
     tmr.alarm(initalarme, 30*1000,  tmr.ALARM_SINGLE, function()
-        if file.exists("boot.lua") then dofile("boot.lua") end
+        f= "boot.lua"   if file.exists(f) then dofile(f) end
     end)
 else
-        if file.exists("boot.lua") then dofile("boot.lua") end
+        f= "boot.lua"   if file.exists(f) then dofile(f) end
 end

@@ -1,11 +1,24 @@
 -- Scripts à charger après le boot pour démarrer son appli
 
-print("\n boot.lua zf181118.2329 \n")
+print("\n boot.lua zf181120.0016 \n")
 
-if file.exists("wifi_ap_stop.lua") then dofile("wifi_ap_stop.lua") end
-if file.exists("dsleep.lua") then dofile("dsleep.lua") end
+f= "wifi_ap_stop.lua"   if file.exists(f) then dofile(f) end
+f= "wifi_cli_conf.lua"   if file.exists(f) then dofile(f) end
+f= "wifi_cli_start.lua"   if file.exists(f) then dofile(f) end
+f= "telnet_srv.lua"   if file.exists(f) then dofile(f) end
+f= "web_ide2.lua"   if file.exists(f) then dofile(f) end
+f= "dsleep.lua"   if file.exists(f) then dofile(f) end
 
+x_dsleep=7   y_dsleep=30 dsleep()
+
+i=1
 jobtimer1=tmr.create()
 tmr.alarm(jobtimer1, 1*1000,  tmr.ALARM_AUTO, function()
-    print("coucou...")
+    print(i)   i=i+1
+    if wifi.sta.getip() ~= nil then
+        tmr.stop(jobtimer1)
+        tmr.stop(ztmr_SLEEP)
+        x_dsleep=300   y_dsleep=30 dsleep()
+        print("c'est connecté...")
+    end
 end)
