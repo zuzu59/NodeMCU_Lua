@@ -2,19 +2,36 @@
 -- tout sur la couleur: https://www.w3schools.com/colors/default.asp
 -- roue des couleurs: https://iro.js.org/?ref=oldsite
 
-print("\n a_tst_train.lua zf181125.1258 \n")
+print("\n az_init_led.lua zf181125.1333 \n")
+
+znbled=300
+
+function RGB_clear()
+    ws2812.init()
+    buffer = ws2812.newBuffer(znbled, 3)
+    buffer:fill(0, 0, 0)
+    ws2812.write(buffer)
+end
 
 print("Initializing LED strip...")
-ws2812.init()
-buffer = ws2812.newBuffer(30, 3)
-buffer:fill(0, 0, 0)
-ws2812.write(buffer)
+RGB_clear()
 print("done.")
-print()
 
 
 
 --[[
+znbled_tst=60
+zlumino=1                      --luminosité 0 <> 1
+zR=255*zlumino
+zG=255*zlumino
+zB=255*zlumino
+buffer = ws2812.newBuffer(znbled_tst, 3)
+buffer:fill(zG, zR, zB)           -- Green, Red , Blue
+ws2812.write(buffer)
+
+
+
+
 
 print("toto")
 
