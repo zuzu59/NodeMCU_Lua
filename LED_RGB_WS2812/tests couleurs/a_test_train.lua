@@ -2,7 +2,7 @@
 -- tout sur la couleur: https://www.w3schools.com/colors/default.asp
 -- roue des couleurs: https://iro.js.org/?ref=oldsite
 
-print("\n a_tst_train.lua zf181125.1640 \n")
+print("\n a_tst_train.lua zf181201.1146 \n")
 
 znbled=36
 
@@ -16,7 +16,7 @@ end
 RGB_clear()
 
 j=1
-local i, buffer = 0, ws2812.newBuffer(znbled, 3); buffer:fill(0, 0, 0, 0); tmr.create():alarm(20, 1, function()
+local i, buffer = 0, ws2812.newBuffer(znbled, 3); buffer:fill(0, 0, 0); tmr.create():alarm(20, 1, function()
   i = i + j
   buffer:fade(2)
   buffer:set(i % buffer:size() + 1, 255, 255, 255)
