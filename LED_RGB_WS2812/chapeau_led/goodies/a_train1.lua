@@ -1,8 +1,8 @@
--- Scripts juste pour tester des effets à la mano
+-- Scripts juste pour tester l'effet train
 -- tout sur la couleur: https://www.w3schools.com/colors/default.asp
 -- roue des couleurs: https://iro.js.org/?ref=oldsite
 
-print("\n a_tst_train.lua zf181201.1146 \n")
+print("\n a_train1.lua zf181204.2004 \n")
 
 znbled=36
 
