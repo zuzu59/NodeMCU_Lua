@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<!-- code HTML pour piloter les effets des LED RGB -->
+
+<html>
+<head>
+<title>LED RGB zf181205.2048</title>
+<style>
+
+body {
+  font-family: Bitstream Vera Sans, Verdana, Helvetica, Arial, sans-serif;
+  font-size: 12px; 
+  background-color: #dddddd;
+}
+
+h1 {
+  font-size: 32px;
+}
+
+h2 {
+  font-size: 24px;
+}
+
+/* this matches 'retina' displays */
+@media screen and (-webkit-min-device-pixel-ratio: 2) {
+  body {
+    font-size: 24px;
+  }
+  h1 {
+    font-size: 64px;
+  }
+  h2 {
+    font-size: 48px;
+  }
+}
+
+</style>
+</head>
+<body>
+<meta charset='utf-8'>
+<h1>Contrôle des effets des LED's RGB du chapeau</h1>
+
+<a href="/">Home</a>
+
+<h2>Start & Stop:</h2>
+<ul>
+<li><a href="/?fonction=start">Start</a></li>
+<li><a href="/?fonction=stop">Stop</a></li>
+</ul>
+
+<h2>Vitesse de l'effet:</h2>
+<ul>
+<li><a href="/?set=speed&speed=inc">Plus vite</a></li>
+<li><a href="/?set=speed&speed=dec">Plus lent</a></li>
+</ul>
+
+<h2>Couleurs des trains:</h2>
+<ul>
+<li><a href="/?set=color&R1=255&G1=255&B1=255&R2=255&G2=255&B2=255">Blanc</a></li>
+<li><a href="/?set=color&R1=255&G1=0&B1=0&R2=255&G2=0&B2=0">Rouge</a></li>
+<li><a href="/?set=color&R1=255&G1=0&B1=0&R2=0&G2=0&B2=255">Brexit</a></li>
+<li><a href="/?set=color&R1=0&G1=255&B1=0&R2=0&G2=255&B2=0">Ecolo</a></li>
+</ul>
+
+<a href="/?restart=1">Restart</a>
+
+</body>
+</html>
+

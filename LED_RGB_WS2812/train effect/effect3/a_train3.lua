@@ -2,68 +2,67 @@
 -- tout sur la couleur: https://www.w3schools.com/colors/default.asp
 -- roue des couleurs: https://iro.js.org/?ref=oldsite
 
-print("\n a_chapeau_z.lua zf181204.2057 \n")
+print("\n a_train3.lua zf181205.1903 \n")
 
-znbled=36
+nbleds=36
+fade1=0.05  ;  fade2=0.2  ;  fade3=0.4  ;  fade4=1
+R1=255  ;  G1=0  ;  B1=0
+R2=255  ;  G2=0  ;  B2=0
+train_speed=50
+ws2812.init()
+myLedStrip = ws2812.newBuffer(nbleds, 3)
+myLedStrip1 = ws2812.newBuffer(nbleds, 3) 
+myLedStrip2 = ws2812.newBuffer(nbleds, 3) 
 
 function RGB_clear()
-    ws2812.init()
-    buffer = ws2812.newBuffer(znbled, 3)
-    buffer:fill(0, 0, 0)
-    ws2812.write(buffer)
+    myLedStrip:fill(0, 0, 0)  ;  ws2812.write(myLedStrip)
+end
+
+function train1_fill()
+    myLedStrip1:fill(0,0,0)
+    myLedStrip1:set(1, G1*fade1, R1*fade1, B1*fade1)
+    myLedStrip1:set(2, G1*fade2, R1*fade2, B1*fade2)
+    myLedStrip1:set(3, G1*fade3, R1*fade3, B1*fade3)
+    myLedStrip1:set(4, G1*fade4, R1*fade4, B1*fade4)
+end
+
+function train2_fill()
+    myLedStrip2:fill(0,0,0)
+    myLedStrip2:set(nbleds, G2*fade1, R2*fade1, B2*fade1)
+    myLedStrip2:set(nbleds-1, G2*fade2, R2*fade2, B2*fade2)
+    myLedStrip2:set(nbleds-2, G2*fade3, R2*fade3, B2*fade3)
+    myLedStrip2:set(nbleds-3, G2*fade4, R2*fade4, B2*fade4)
+end
+
+function train_mix()
+    myLedStrip:mix(255, myLedStrip1, 255, myLedStrip2)
+end
+
+function train_shift()
+    myLedStrip1:shift(1, ws2812.SHIFT_CIRCULAR)
+    myLedStrip2:shift(-1, ws2812.SHIFT_CIRCULAR)
+end
+
+function train_write()
+    ws2812.write(myLedStrip)
+end
+
+function train_start()
+    train3timer1=tmr.create()
+    tmr.alarm(train3timer1, train_speed,  tmr.ALARM_AUTO, function()
+        train_shift()
+        train_mix()
+        train_write()
+    end)
+end
+
+function train_stop()
+    tmr.unregister(train3timer1)
+    RGB_clear()
 end
 
 RGB_clear()
+train1_fill()
+train2_fill()
+train_start()
 
-
-fadeLevel=3
-
-train1_R=255
-train1_G=0
-train1_B=0
-
-train2_R=255
-train2_G=0
-train2_B=0
-
--- Buffer Train 1
-myLedStrip1 = ws2812.newBuffer(znbled, 3) 
-myLedStrip1:fill(0,0,0)
-myLedStrip1:set(1, train1_G, train1_R, train1_B)
-myLedStrip1:fade(fadeLevel)
-myLedStrip1:set(2, train1_G, train1_R, train1_B)
-myLedStrip1:fade(fadeLevel)
-myLedStrip1:set(3, train1_G, train1_R, train1_B)
-myLedStrip1:fade(fadeLevel)
-myLedStrip1:set(4, train1_G, train1_R, train1_B)
-ws2812.write(myLedStrip1)
-
--- Buffer Train 2
-myLedStrip2 = ws2812.newBuffer(znbled, 3) 
-myLedStrip2:fill(0,0,0)
-myLedStrip2:set(znbled, train2_G, train2_R, train2_B)
-myLedStrip2:fade(fadeLevel)
-myLedStrip2:set(znbled-1, train2_G, train2_R, train2_B)
-myLedStrip2:fade(fadeLevel)
-myLedStrip2:set(znbled-2, train2_G, train2_R, train2_B)
-myLedStrip2:fade(fadeLevel)
-myLedStrip2:set(znbled-3, train2_G, train2_R, train2_B)
-ws2812.write(myLedStrip2)
-
--- Buffer Train Total
-myLedStrip = ws2812.newBuffer(znbled, 3)
-myLedStrip:mix(255, myLedStrip1, 255, myLedStrip2)
-ws2812.write(myLedStrip)
-
--- Train move
-zspeed=25
-train2timer1=tmr.create()
-tmr.alarm(train2timer1, zspeed,  tmr.ALARM_AUTO, function()
-
-  myLedStrip1:shift(1, ws2812.SHIFT_CIRCULAR)    -- direction →
-  myLedStrip2:shift(-1, ws2812.SHIFT_CIRCULAR)   -- direction ←
-
-  myLedStrip:mix(255, myLedStrip1, 255, myLedStrip2)  -- mix both train
-  ws2812.write(myLedStrip)
-
-end)
