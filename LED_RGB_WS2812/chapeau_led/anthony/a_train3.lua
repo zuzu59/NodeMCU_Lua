@@ -1,0 +1,66 @@
+nbleds=36
+train_speed=200
+ws2812.init()
+myLedStrip1 = ws2812.newBuffer(nbleds, 3)
+
+zpower=128
+
+function train1_fill()
+    myLedStrip1:fill(0,0,0)
+    myLedStrip1:set(1, math.random(zpower), math.random(zpower), math.random(zpower))
+    myLedStrip1:set(2, math.random(zpower), math.random(zpower), math.random(zpower))
+    myLedStrip1:set(3, math.random(zpower), math.random(zpower), math.random(zpower))
+    myLedStrip1:set(4, math.random(zpower), math.random(zpower), math.random(zpower))
+    myLedStrip1:set(5, math.random(zpower), math.random(zpower), math.random(zpower))
+    myLedStrip1:set(6, math.random(zpower), math.random(zpower), math.random(zpower))
+    myLedStrip1:set(7, math.random(zpower), math.random(zpower), math.random(zpower))
+    myLedStrip1:set(8, math.random(zpower), math.random(zpower), math.random(zpower))
+    myLedStrip1:set(9, math.random(zpower), math.random(zpower), math.random(zpower))
+    myLedStrip1:set(10, math.random(zpower), math.random(zpower), math.random(zpower))
+    myLedStrip1:set(11, math.random(zpower), math.random(zpower), math.random(zpower))
+    myLedStrip1:set(12, math.random(zpower), math.random(zpower), math.random(zpower))
+    myLedStrip1:set(13, math.random(zpower), math.random(zpower), math.random(zpower))
+    myLedStrip1:set(14, math.random(zpower), math.random(zpower), math.random(zpower))
+    myLedStrip1:set(15, math.random(zpower), math.random(zpower), math.random(zpower))
+    myLedStrip1:set(16, math.random(zpower), math.random(zpower), math.random(zpower))
+    myLedStrip1:set(17, math.random(zpower), math.random(zpower), math.random(zpower))
+    myLedStrip1:set(18, math.random(zpower), math.random(zpower), math.random(zpower))
+    myLedStrip1:set(19, math.random(zpower), math.random(zpower), math.random(zpower))
+    myLedStrip1:set(20, math.random(zpower), math.random(zpower), math.random(zpower))
+    myLedStrip1:set(21, math.random(zpower), math.random(zpower), math.random(zpower))
+    myLedStrip1:set(22, math.random(zpower), math.random(zpower), math.random(zpower))
+    myLedStrip1:set(23, math.random(zpower), math.random(zpower), math.random(zpower))
+    myLedStrip1:set(24, math.random(zpower), math.random(zpower), math.random(zpower))
+    myLedStrip1:set(25, math.random(zpower), math.random(zpower), math.random(zpower))
+    myLedStrip1:set(26, math.random(zpower), math.random(zpower), math.random(zpower))
+    myLedStrip1:set(27, math.random(zpower), math.random(zpower), math.random(zpower))
+    myLedStrip1:set(28, math.random(zpower), math.random(zpower), math.random(zpower))
+    myLedStrip1:set(29, math.random(zpower), math.random(zpower), math.random(zpower))
+    myLedStrip1:set(30, math.random(zpower), math.random(zpower), math.random(zpower))
+    myLedStrip1:set(31, math.random(zpower), math.random(zpower), math.random(zpower))
+    myLedStrip1:set(32, math.random(zpower), math.random(zpower), math.random(zpower))
+    myLedStrip1:set(33, math.random(zpower), math.random(zpower), math.random(zpower))
+    myLedStrip1:set(34, math.random(zpower), math.random(zpower), math.random(zpower))
+    myLedStrip1:set(35, math.random(zpower), math.random(zpower), math.random(zpower))
+    myLedStrip1:set(36, math.random(zpower), math.random(zpower), math.random(zpower))
+end
+function train_write()
+    ws2812.write(myLedStrip1)
+end
+
+function train_start()
+    train3timer1=tmr.create()
+    tmr.alarm(train3timer1, train_speed,  tmr.ALARM_AUTO, function()
+        train1_fill()
+        train_write()
+    end)
+end
+function train_stop()
+    tmr.unregister(train3timer1)
+    RGB_clear()
+end
+
+
+RGB_clear()
+train1_fill()
+train_start()
