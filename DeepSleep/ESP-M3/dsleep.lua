@@ -3,16 +3,16 @@
 
 -- ATTENTION: il faut connecter la pin 0 à la pin RESET avec une résistance de 1k !
 
-print("\n dsleep.lua   zf181208.1858   \n")
+print("\n dsleep.lua   zf181209.1457   \n")
 
 f= "flash_led_xfois.lua"   if file.exists(f) then dofile(f) end
 
 function dsleep_on()
     print("timer dsleep on...")
     ztmr_SLEEP = tmr.create()
-    tmr.alarm(ztmr_SLEEP, 10*1000, tmr.ALARM_SINGLE, function ()
+    tmr.alarm(ztmr_SLEEP, 5*1000, tmr.ALARM_SINGLE, function ()
         print("Je dors...")
-        node.dsleep(10*1000*1000)
+        node.dsleep(30*1000*1000)
     end)
 end
 

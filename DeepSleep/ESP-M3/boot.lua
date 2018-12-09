@@ -16,7 +16,7 @@ f= "wifi_cli_conf.lua"   if file.exists(f) then dofile(f) end
 f= "wifi_cli_start.lua"   if file.exists(f) then dofile(f) end
 --f= "telnet_srv.lua"   if file.exists(f) then dofile(f) end
 f= "web_ide2.lua"   if file.exists(f) then dofile(f) end
-f= "dsleep.lua"   if file.exists(f) then dofile(f) end
+--f= "dsleep.lua"   if file.exists(f) then dofile(f) end
 
 --heartbeat()
 
