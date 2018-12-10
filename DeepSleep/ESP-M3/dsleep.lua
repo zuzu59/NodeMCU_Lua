@@ -3,16 +3,18 @@
 
 -- ATTENTION: il faut connecter la pin 0 à la pin RESET avec une résistance de 1k !
 
-print("\n dsleep.lua   zf181209.1457   \n")
+print("\n dsleep.lua   zf181211.0018   \n")
 
 f= "flash_led_xfois.lua"   if file.exists(f) then dofile(f) end
 
 function dsleep_on()
     print("timer dsleep on...")
     ztmr_SLEEP = tmr.create()
-    tmr.alarm(ztmr_SLEEP, 5*1000, tmr.ALARM_SINGLE, function ()
+    tmr.alarm(ztmr_SLEEP, 10*1000, tmr.ALARM_SINGLE, function ()
         print("Je dors...")
-        node.dsleep(30*1000*1000)
+        tmr.delay(100*1000)
+--        node.dsleep(4*1000*1000)
+        rtctime.dsleep(30*1000*1000)
     end)
 end
 
@@ -54,11 +56,9 @@ function watch_wifi_off()
     end)
 end
 
-_, reset_reason = node.bootreason()
-print("reset_reason: ",reset_reason)
-if reset_reason == 4 then print("Coucou, soft reset...") end
-if reset_reason == 5 then print("Coucou, je suis réveillé...") end
-if reset_reason == 6 then print("Coucou, hard reset...") end
+print("Coucou, je suis réveillé...")
+print("Et il est: ")
+ztime()
 
 watch_wifi_on()
 

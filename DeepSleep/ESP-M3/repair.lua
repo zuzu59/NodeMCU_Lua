@@ -1,11 +1,11 @@
 -- Scripts de seconde chance pour réparer une boucle dans le restart
 
-print("\n repair.lua zf181119.2356 \n")
+print("\n repair.lua zf181210.1456 \n")
 
 --f= "wifi_ap_start.lua"   if file.exists(f) then dofile(f) end
 --f= "telnet_srv.lua"   if file.exists(f) then dofile(f) end
 
-f= "az_init_led.lua"   if file.exists(f) then dofile(f) end
+--f= "az_init_led.lua"   if file.exists(f) then dofile(f) end
 
 
 --[[
