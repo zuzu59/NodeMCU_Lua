@@ -1,7 +1,7 @@
 -- Serveur telnet pour connexion en remote WIFI, NOUVELLE VERSION !
 -- source: https://github.com/nodemcu/nodemcu-firmware/blob/master/lua_examples/telnet/telnet.lua
 
-print("\n telnet_srv2.lua   zf181210.1625   \n")
+print("\n telnet_srv2.lua   zf181211.0803   \n")
 
 local node, table, tmr, wifi, uwrite,     tostring = 
       node, table, tmr, wifi, uart.write, tostring
@@ -84,5 +84,5 @@ local function telnet_listener(socket)
 end
 
 net.createServer(net.TCP, 180):listen(23, telnet_listener)
-print("Telnet server running...\nUsage: telnet -r ip\n")
+print("Telnet server running...\nUsage: telnet -rN ip\n")
 
