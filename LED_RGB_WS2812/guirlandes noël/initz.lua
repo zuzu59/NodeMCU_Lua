@@ -3,7 +3,7 @@
 -- le script repair.lua pendant xx secondes avant de continuer
 --Source: https://nodemcu.readthedocs.io/en/master/en/modules/node/#nodebootreason
 
-print("\n init.lua zf181125.1428 \n")
+print("\n init.lua zf181210.2358 \n")
 
 function second_chance()
     print("seconde chance...")
@@ -22,10 +22,14 @@ if reset_reason == 0 then
 elseif reset_reason == 4 then
     print("node.restart")
     f= "boot.lua"   if file.exists(f) then dofile(f) end
+elseif reset_reason == 5 then
+    print("dsleep wake up")
+    f= "boot.lua"   if file.exists(f) then dofile(f) end
 elseif reset_reason == 6 then
-    print("reset")
-    second_chance()
+    print("external reset")
+    f= "boot.lua"   if file.exists(f) then dofile(f) end
 else
     print("autre raison")
+    second_chance()
 end
 
