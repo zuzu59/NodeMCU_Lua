@@ -3,13 +3,13 @@
 
 print("\n telnet_srv2.lua   zf181215.1326   \n")
 
-local node, table, tmr, wifi, uwrite,     tostring = 
+local node, table, tmr, wifi, uwrite,     tostring =
       node, table, tmr, wifi, uart.write, tostring
 
-local function telnet_listener(socket) 
-  local insert,       remove,       concat,       heap,      gc   = 
+local function telnet_listener(socket)
+  local insert,       remove,       concat,       heap,      gc   =
         table.insert, table.remove, table.concat, node.heap, collectgarbage
-  local fifo1, fifo1l, fifo2, fifo2l = {}, 0, {}, 0                  
+  local fifo1, fifo1l, fifo2, fifo2l = {}, 0, {}, 0
   local s -- s is a copy of the TCP socket if and only if sending is in progress
   local wdclr, cnt = tmr.wdclr, 0
   local function debug(fmt, ...)
@@ -27,7 +27,7 @@ local function telnet_listener(socket)
      if not s then return end
 
       if fifo2l + fifo1l == 0 then -- both FIFOs empty, so clear down s
-        s = nil     
+        s = nil
         return
     end
     flushGarbage()
@@ -41,18 +41,18 @@ local function telnet_listener(socket)
     flushGarbage()
     s:send(rec)
   end
-  
+
   local F1_SIZE = 256
 
   local function queueLine(str)
     while #str > 0 do  -- this is because str might be longer than the packet size!
       local k, l = F1_SIZE - fifo1l, #str
       local chunk
-      if #fifo1 >= 32 or (k < l and k < 16) then 
+      if #fifo1 >= 32 or (k < l and k < 16) then
         insert(fifo2, concat(fifo1))
         fifo2l, fifo1, fifo1l, k = fifo2l + fifo1l, {}, 0, F1_SIZE
       end
-      if l > k+16 then -- also tolerate a size overrun of 16 bytes to avoid a split 
+      if l > k+16 then -- also tolerate a size overrun of 16 bytes to avoid a split
         chunk, str = str:sub(1,k), str:sub(k+1)
       else
         chunk, str = str, ''
@@ -62,7 +62,7 @@ local function telnet_listener(socket)
     end
     if not s and socket then
       s = socket
-      sendLine()      
+      sendLine()
     else
       flushGarbage()
     end
@@ -85,4 +85,3 @@ end
 
 net.createServer(net.TCP, 180):listen(23, telnet_listener)
 print("Telnet server running...\nUsage: telnet -rN ip\n")
-
