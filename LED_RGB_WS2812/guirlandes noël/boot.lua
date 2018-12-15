@@ -1,33 +1,27 @@
 -- Scripts à charger après le boot pour démarrer son appli
 
-print("\n boot.lua zf181125.1635 \n")
+print("\n boot.lua zf181216.0028 \n")
 
---f= "wifi_ap_stop.lua"   if file.exists(f) then dofile(f) end
---f= "wifi_cli_conf.lua"   if file.exists(f) then dofile(f) end
---f= "wifi_cli_start.lua"   if file.exists(f) then dofile(f) end
---f= "telnet_srv.lua"   if file.exists(f) then dofile(f) end
---f= "web_ide2.lua"   if file.exists(f) then dofile(f) end
---f= "dsleep.lua"   if file.exists(f) then dofile(f) end
+function heartbeat()
+    f= "flash_led_xfois.lua"   if file.exists(f) then dofile(f) end
+    boottimer1=tmr.create()
+    tmr.alarm(boottimer1, 1*1000,  tmr.ALARM_AUTO, function()
+        xfois =2
+        blink_LED ()
+    end)
+end
 
-f= "a_test_train.lua"   if file.exists(f) then dofile(f) end
---f= "a_test_fill.lua"   if file.exists(f) then dofile(f) end
+f= "wifi_ap_stop.lua"   if file.exists(f) then dofile(f) end
+f= "wifi_cli_conf.lua"   if file.exists(f) then dofile(f) end
+f= "wifi_cli_start.lua"   if file.exists(f) then dofile(f) end
+f= "telnet_srv2.lua"   if file.exists(f) then dofile(f) end
+f= "web_ide2.lua"   if file.exists(f) then dofile(f) end
+--f= "az_init_led.lua"   if file.exists(f) then dofile(f) end
+--f= "webleds.lua"   if file.exists(f) then dofile(f) end
+f= "a_guirlande.lua"   if file.exists(f) then dofile(f) end
+
+heartbeat()
 
 
 
-
---[[
-x_dsleep=7   y_dsleep=30 dsleep()
-
-i=1
-jobtimer1=tmr.create()
-tmr.alarm(jobtimer1, 1*1000,  tmr.ALARM_AUTO, function()
-    print(i)   i=i+1
-    if wifi.sta.getip() ~= nil then
-        tmr.stop(jobtimer1)
-        tmr.stop(ztmr_SLEEP)
-        x_dsleep=300   y_dsleep=30 dsleep()
-        print("c'est connecté...")
-    end
-end)
-]]
 
