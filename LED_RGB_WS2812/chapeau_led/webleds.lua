@@ -1,7 +1,7 @@
 -- Petit script de serveur WEB pour piloter les effets des LED RGB
 -- source: https://github.com/nodemcu/nodemcu-firmware/blob/master/lua_examples/webap_toggle_pin.lua
 
-print("\n webleds.lua   zf181205.2101   \n")
+print("\n webleds.lua   zf181215.1447   \n")
 
 
 -- send a file from memory to the client; max. line length = 1024 bytes!
@@ -47,9 +47,13 @@ srv:listen(80, function(conn)
             train_stop()
             if (_GET.speed == "inc") then
                 train_speed=train_speed*0.8
-            else
+            elseif (_GET.speed == "dec") then
                 train_speed=train_speed*1.2
-            end
+            elseif (_GET.speed == "tresvite") then
+                train_speed=7
+            elseif (_GET.speed == "treslent") then
+                train_speed=77
+            end          
             train_start()
         end    
      

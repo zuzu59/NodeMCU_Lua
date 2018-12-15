@@ -2,7 +2,7 @@
 -- tout sur la couleur: https://www.w3schools.com/colors/default.asp
 -- roue des couleurs: https://iro.js.org/?ref=oldsite
 
-print("\n a_train3.lua zf181205.1919 \n")
+print("\n a_train3.lua zf181215.1434 \n")
 
 nbleds=36
 fade1=0.05   fade2=0.2   fade3=0.4   fade4=1
@@ -18,20 +18,27 @@ function RGB_clear()
     myLedStrip:fill(0, 0, 0)   ws2812.write(myLedStrip)
 end
 
+function RGB_reform()
+    rR1=B1   rG1=R1   rB1=G1
+    rR2=B2   rG2=R2   rB2=G2
+end
+
 function train1_fill()
+    RGB_reform()
     myLedStrip1:fill(0,0,0)
-    myLedStrip1:set(1, G1*fade1, R1*fade1, B1*fade1)
-    myLedStrip1:set(2, G1*fade2, R1*fade2, B1*fade2)
-    myLedStrip1:set(3, G1*fade3, R1*fade3, B1*fade3)
-    myLedStrip1:set(4, G1*fade4, R1*fade4, B1*fade4)
+    myLedStrip1:set(1, rR1*fade1, rG1*fade1, rB1*fade1)
+    myLedStrip1:set(2, rR1*fade2, rG1*fade2, rB1*fade2)
+    myLedStrip1:set(3, rR1*fade3, rG1*fade3, rB1*fade3)
+    myLedStrip1:set(4, rR1*fade4, rG1*fade4, rB1*fade4)
 end
 
 function train2_fill()
+    RGB_reform()
     myLedStrip2:fill(0,0,0)
-    myLedStrip2:set(nbleds, G2*fade1, R2*fade1, B2*fade1)
-    myLedStrip2:set(nbleds-1, G2*fade2, R2*fade2, B2*fade2)
-    myLedStrip2:set(nbleds-2, G2*fade3, R2*fade3, B2*fade3)
-    myLedStrip2:set(nbleds-3, G2*fade4, R2*fade4, B2*fade4)
+    myLedStrip2:set(nbleds,   rR2*fade1, rG2*fade1, rB2*fade1)
+    myLedStrip2:set(nbleds-1, rR2*fade2, rG2*fade2, rB2*fade2)
+    myLedStrip2:set(nbleds-2, rR2*fade3, rG2*fade3, rB2*fade3)
+    myLedStrip2:set(nbleds-3, rR2*fade4, rG2*fade4, rB2*fade4)
 end
 
 function train_mix()
