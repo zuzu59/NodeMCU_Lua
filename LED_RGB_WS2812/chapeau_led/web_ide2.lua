@@ -1,7 +1,7 @@
 -- Petit WEB IDE tout simple autonome
 -- ATTENTION: tourne sur le port 88 !
 
-print("\n _web_ide2.lua zf181205.2112 \n")
+print("\n _web_ide2.lua zf181210.1516 \n")
 
 --[[
 XChip's NodeMCU IDE
@@ -113,8 +113,9 @@ srv:listen(88,function(conn)
     if vars=="edit" then
         conn:send("<script>function tag(c){document.getElementsByTagName('w')[0].innerHTML=c};\n")
         conn:send("var x=new XMLHttpRequest()\nx.onreadystatechange=function(){if(x.readyState==4) document.getElementsByName('t')[0].value = x.responseText; };\nx.open('GET',location.pathname,true)\nx.send()</script>")
-        conn:send("<a href='/'>Back to file list</a><br><br><textarea name=t cols=79 rows=17></textarea></br>")   
-        conn:send("<button onclick=\"tag('Saving');x.open('POST',location.pathname,true);\nx.onreadystatechange=function(){if(x.readyState==4) tag(x.responseText);};\nx.send(new Blob([document.getElementsByName('t')[0].value],{type:'text/plain'}));\">Save</button><a href='?run'>run</a><w></w>")
+        conn:send("<h2><a href='/'>Back to file list</a>\n")
+        conn:send("<br><br><button onclick=\"tag('Saving');x.open('POST',location.pathname,true);\nx.onreadystatechange=function(){if(x.readyState==4) tag(x.responseText);};\nx.send(new Blob([document.getElementsByName('t')[0].value],{type:'text/plain'}));\">Save</button><a href='?run'>run</a><w></w>")
+        conn:send("</h2><br><textarea name=t cols=110 rows=50></textarea></br>")   
     end    
 
     if vars=="run" then        
