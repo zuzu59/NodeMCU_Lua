@@ -1,21 +1,13 @@
 -- Scripts pour tester le sniffer de smartphone qui essaient de se connecter sur des AP WIFI
 -- source: https://nodemcu.readthedocs.io/en/dev/modules/wifi/#wifieventmonregister
 
-print("\n b.lua zf190119.1710 \n")
-
---f= "wifi_ap_stop.lua"   if file.exists(f) then dofile(f) end
---f= "wifi_cli_conf.lua"   if file.exists(f) then dofile(f) end
---f= "wifi_cli_start.lua"   if file.exists(f) then dofile(f) end
---f= "telnet_srv.lua"   if file.exists(f) then dofile(f) end
---f= "web_ide2.lua"   if file.exists(f) then dofile(f) end
---f= "dsleep.lua"   if file.exists(f) then dofile(f) end
+print("\n b.lua zf190119.1804 \n")
 
 -- apzuzu6 38:2c:4a:4e:d3:d8
--- S7 b8:d7:af:a6:bd:86
--- maczf 11 5c:f9:38:a1:f7:f0
 
 zmac_adrs={}
-zmac_adrs["b8:d7:af:a6:bd:86"]={["zname"]="S7"}
+zmac_adrs["b8:d7:af:a6:bd:86"]={["zname"]="S7 zf"}
+zmac_adrs["cc:c0:79:7d:f5:d5"]={["zname"]="S7 Mélanie"}
 zmac_adrs["5c:f9:38:a1:f7:f0"]={["zname"]="maczf"}
 
 function zdisp_table()
