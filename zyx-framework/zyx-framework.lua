@@ -2,7 +2,7 @@
 -- pouvoir faire des pages WEB actives très simplement en LUA
 -- source: y'en a pas
  
-print("\n zyx-framework.lua   zf1901123.1845   \n")
+print("\n zyx-framework.lua   zf1901123.2000   \n")
 
 
 -- fonction que l'on veut exécuter
@@ -15,7 +15,7 @@ end
 -- variable texte qui contient le nom de la fonction à éxécuter
 t2="t3()"
 
--- éxécution de la variable texte
+-- exécution de la variable texte
 t1=loadstring(t2)
 t1()
 

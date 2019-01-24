@@ -1,9 +1,9 @@
 -- Tests d'exécution de scripts Lua stocké dans une variable string
--- cela permet par exemple d'éxécuter une fonction que l'on aurait lue dans un fichier texte
+-- cela permet par exemple d'exécuter une fonction que l'on aurait lue dans un fichier texte
 -- le truc consiste à utiliser la commande loadstring !
 -- source:
  
-print("\n a_test_exec_string.lua   zf1901123.1838   \n")
+print("\n a_test_exec_string.lua   zf1901123.2000   \n")
 
 
 -- fonction que l'on veut exécuter
@@ -13,10 +13,10 @@ function t3()
 end
 
 
--- variable texte qui contient le nom de la fonction à éxécuter
+-- variable texte qui contient le nom de la fonction à exécuter
 t2="t3()"
 
--- éxécution de la variable texte
+-- exécution de la variable texte
 t1=loadstring(t2)
 t1()
 
