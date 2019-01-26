@@ -1,19 +1,23 @@
--- petit script de serveur WEB avec Active Server Page Zyx
+-- petit script de serveur WEB avec Active Server Page ZYX
 
-print("\n web_srv2.lua   zf190126.1658   \n")
+print("\n web_srv2.lua   zf190126.1837   \n")
 
 -- send a file from memory to the client; max. line length = 1024 bytes!
-function send_file(client, filename)
-  if file.open(filename, "r") then
-    repeat
-      local line=file.read('\n')
-      if line then
-        client:send(line)
-      end
-    until not line    
-    file.close()
-  end
+function send_file(zclient, zfilename)
+    if zfilename == "" then zfilename = "index.html" end  
+    if file.open(zfilename, "r") then
+        repeat
+            local line=file.read('\n')
+            if line then
+                zclient:send(line)
+            end
+            until not line    
+        file.close()
+    else
+        zclient:send("<html><h1>"..zfilename.." not found - 404 error.</h1><a href='index.html'>Home</a><br></html>")
+    end
 end
+
 
 srv = net.createServer(net.TCP)
 srv:listen(80, function(conn)
@@ -40,7 +44,6 @@ srv:listen(80, function(conn)
         end
         file_html=string.gsub(path, "/", "")
         print("file_html: ",file_html)
-
         send_file(conn, file_html)
         
 --        conn:send("<h1> ESP8266<BR>Server is working!</h1>\n\n")
