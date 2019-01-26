@@ -1,7 +1,7 @@
 -- Scripts pour tester l'occupation méroire des différents modules
 -- source: 
 
-print("\n a_test_ram.lua zf190126.1117 \n")
+print("\n a_test_ram.lua zf190126.1845 \n")
 
 test_ram_alarm1=tmr.create()
 test_ram_alarm2=tmr.create()
@@ -32,15 +32,15 @@ tmr.alarm(test_ram_alarm2, 5*1000,  tmr.ALARM_SINGLE, function()
     zram1=node.heap()
 --    dofile("telnet_srv2.lua")
 --    dofile("web_ide2.lua")
---    dofile("web_srv.lua")
+    dofile("web_srv_test2.lua")
 --    dofile("set_time.lua")
-    dofile("web_html.lua")
+--    dofile("web_html.lua")
 
     
 --      dofile("telnet_srv2.lc")
 --    dofile("web_ide2.lc")
 --    dofile("web_srv.lc")
-    dofile("set_time.lc")
+--    dofile("set_time.lc")
 
     zram2=node.heap()
 end)
