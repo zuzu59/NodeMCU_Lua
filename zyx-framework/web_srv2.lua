@@ -1,9 +1,19 @@
--- petit script de serveur WEB Wifi
+-- petit script de serveur WEB avec Active Server Page Zyx
 
-print("\n web_srv.lua   zf181018.1610   \n")
+print("\n web_srv2.lua   zf190126.1658   \n")
 
---dofile("web_get.lua")
---dofile("web_html.lua")
+-- send a file from memory to the client; max. line length = 1024 bytes!
+function send_file(client, filename)
+  if file.open(filename, "r") then
+    repeat
+      local line=file.read('\n')
+      if line then
+        client:send(line)
+      end
+    until not line    
+    file.close()
+  end
+end
 
 srv = net.createServer(net.TCP)
 srv:listen(80, function(conn)
@@ -30,8 +40,10 @@ srv:listen(80, function(conn)
         end
         file_html=string.gsub(path, "/", "")
         print("file_html: ",file_html)
+
+        send_file(conn, file_html)
         
-        conn:send("<h1> ESP8266<BR>Server is working!</h1>\n\n")
+--        conn:send("<h1> ESP8266<BR>Server is working!</h1>\n\n")
         
     end
   end)
