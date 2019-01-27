@@ -1,6 +1,6 @@
 -- petit script de serveur WEB avec Active Server Page ZYX
 
-print("\n web_srv2.lua   zf190126.1844   \n")
+print("\n web_srv2.lua   zf190127.0145   \n")
 
 -- send a file from memory to the client; max. line length = 1024 bytes!
 function send_file(zclient, zfilename)
@@ -56,14 +56,7 @@ srv:listen(80, function(conn)
 ]]  
 
 
-        conn:send("<h1> ESP8266<BR>Server is working!</h1>\n\n")
-        file_html = nil
-        k = nil
-        v = nil
-        _GET = nil
-        method = nil
-        path = nil
-        vars = nil
+        client:send("<h1> ESP8266<BR>Server is working!</h1>"..tmr.now().."\n\n")
         
         
 --    end

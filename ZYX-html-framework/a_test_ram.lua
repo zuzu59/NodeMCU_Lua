@@ -28,11 +28,11 @@ file.remove("web_srv.lua")
 file.remove("set_time.lua")
 ]]
 
-tmr.alarm(test_ram_alarm2, 5*1000,  tmr.ALARM_SINGLE, function()
+tmr.alarm(test_ram_alarm2, 2.5*1000,  tmr.ALARM_SINGLE, function()
     zram1=node.heap()
 --    dofile("telnet_srv2.lua")
 --    dofile("web_ide2.lua")
-    dofile("web_srv_test2.lua")
+    dofile("web_srv2.lua")
 --    dofile("set_time.lua")
 --    dofile("web_html.lua")
 
