@@ -1,9 +1,16 @@
 -- petit script de serveur WEB avec Active Server Page ZYX
 
-print("\n web_srv2.lua   zf190127.1127   \n")
+print("\n web_srv2.lua   zf190127.1340   \n")
+
+ztemp=12
 
 -- send a file from memory to the client; max. line length = 1024 bytes!
 function send_file(zclient, zfilename)
+    zzclient=zclient
+    function zout(zstring)
+        zzclient:send(zstring)
+    end
+    
     if zfilename == "" then zfilename = "index.html" end  
     if file.open(zfilename, "r") then
         repeat
@@ -11,14 +18,18 @@ function send_file(zclient, zfilename)
             if line then
                 if string.find(line, "<%%") then
                     print("start lua...")
-                    lua_code = true
+                    flag_lua_code = true
+                    lua_code = ""
                 elseif string.find(line, "%%>") then
                     print("stop lua...")
-                    lua_code = false
-                elseif lua_code then
-                    print(line)
+                    flag_lua_code = false
+                    print("Et voici le code lua inline:\n"..lua_code)
+                    loadstring(lua_code)()    --on exécute ici le code lua inline !
+                elseif flag_lua_code then
+--                    print(line)
+                    lua_code =lua_code..line
                 else
-                    zclient:send(line)
+                    zout(line)
                 end
             end
             until not line    
