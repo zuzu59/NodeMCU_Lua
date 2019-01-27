@@ -1,7 +1,7 @@
 -- Scripts pour tester l'occupation méroire des différents modules
 -- source: 
 
-print("\n a_test_ram.lua zf190126.1845 \n")
+print("\n a_test_ram.lua zf190127.1014 \n")
 
 test_ram_alarm1=tmr.create()
 test_ram_alarm2=tmr.create()
