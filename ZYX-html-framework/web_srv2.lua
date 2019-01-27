@@ -1,15 +1,25 @@
 -- petit script de serveur WEB avec Active Server Page ZYX
 
-print("\n web_srv2.lua   zf190127.1045   \n")
+print("\n web_srv2.lua   zf190127.1127   \n")
 
 -- send a file from memory to the client; max. line length = 1024 bytes!
 function send_file(zclient, zfilename)
     if zfilename == "" then zfilename = "index.html" end  
     if file.open(zfilename, "r") then
         repeat
-            local line=file.read('\n')
+            local line = file.read('\n')
             if line then
-                zclient:send(line)
+                if string.find(line, "<%%") then
+                    print("start lua...")
+                    lua_code = true
+                elseif string.find(line, "%%>") then
+                    print("stop lua...")
+                    lua_code = false
+                elseif lua_code then
+                    print(line)
+                else
+                    zclient:send(line)
+                end
             end
             until not line    
         file.close()
@@ -24,11 +34,8 @@ srv:listen(80, function(conn)
     conn:on("receive", function(client, request)
         _, _, method, path, vars = string.find(request, "([A-Z]+) (.+)?(.+) HTTP")
         
---    print("\n\nweb_srv debug")
 --    print("request: \n---\n"..request.."---")
---    print("method: ", method)
---    print("path: ", path)
---    print("vars: ", vars)
+--    print("method: ", method)   print("path: ", path)   print("vars: ", vars)
         
         if not string.find(request, "/favicon.ico") then
             print("coucou")
