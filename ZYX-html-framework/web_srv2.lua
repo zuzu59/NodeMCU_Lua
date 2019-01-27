@@ -1,35 +1,37 @@
 -- petit script de serveur WEB avec Active Server Page ZYX
+-- pour l'instant la partie ASP n'est que mono tâche !
 
-print("\n web_srv2.lua   zf190127.1340   \n")
+print("\n web_srv2.lua   zf190127.1458   \n")
 
 ztemp=12
 
--- send a file from memory to the client; max. line length = 1024 bytes!
+-- envoie sur le port ouvert mais depuis l'environnement global !
+function zout(zstring)
+    zzclient:send(zstring)                      -- envoie le résultat du code lua inline
+end
+
+-- envoie un fichier HTML sur le port. ATTENTION: longueur de la ligne maximale de 1'024 bytes !
 function send_file(zclient, zfilename)
-    zzclient=zclient
-    function zout(zstring)
-        zzclient:send(zstring)
-    end
-    
+    zzclient = zclient        -- export le port sur l'environnement global !
     if zfilename == "" then zfilename = "index.html" end  
     if file.open(zfilename, "r") then
         repeat
             local line = file.read('\n')
             if line then
                 if string.find(line, "<%%") then
-                    print("start lua...")
-                    flag_lua_code = true
+--                    print("start lua...")
+                    flag_lua_code = true        -- bascule sur le code lua inline
                     lua_code = ""
                 elseif string.find(line, "%%>") then
-                    print("stop lua...")
-                    flag_lua_code = false
-                    print("Et voici le code lua inline:\n"..lua_code)
-                    loadstring(lua_code)()    --on exécute ici le code lua inline !
+--                    print("stop lua...")
+                    flag_lua_code = false       -- revient sur le code HTML
+--                    print("Et voici le code lua inline:\n"..lua_code)
+                    loadstring(lua_code)()      --on exécute ici le code lua inline !
                 elseif flag_lua_code then
 --                    print(line)
-                    lua_code =lua_code..line
+                    lua_code = lua_code..line   -- récupère le code lua inline
                 else
-                    zout(line)
+                    zclient:send(line)          -- envoie le code HTML
                 end
             end
             until not line    
