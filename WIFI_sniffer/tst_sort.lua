@@ -1,7 +1,28 @@
--- Scripts pour tester le sniffer de smartphone qui essaient de se connecter sur des AP WIFI
--- source: https://nodemcu.readthedocs.io/en/dev/modules/wifi/#wifieventmonregister
+-- Scripts pour tester le tri (sort) d'un tableau d'adresse MAC en fonction du signal de réception
+-- pour les tests on charge un fichier CSV de d'adresse MAC sniffées précédemment
+-- source: https://wxlua.developpez.com/tutoriels/lua/general/cours-complet/#L6-f
+-- source: https://wxlua.developpez.com/tutoriels/lua/general/cours-complet/#L13-g
 
-print("\n b.lua zf190202.1534 \n")
+print("\n tst_sort.lua zf190202.1400 \n")
+
+
+
+-- send a file from memory to the client; max. line length = 1024 bytes!
+function send_file(client, filename)
+  if file.open(filename, "r") then
+    repeat
+      local line=file.read('\n')
+      if line then
+        client:send(line)
+      end
+    until not line    
+    file.close()
+  end
+end
+
+
+
+
 
 --f= "set_time.lua"   if file.exists(f) then dofile(f) end
 

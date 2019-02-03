@@ -1,6 +1,6 @@
 -- Scripts pour jouer un fichier son sur un HP
 
-print("\n play_file.lua zf190130.2335 \n")
+print("\n play_file.lua zf190131.1023 \n")
 
 
 -- ****************************************************************************
@@ -28,7 +28,7 @@ function cb_paused(d)
   print("playback paused")
 end
 
-file.open("toto.wav", "r")
+file.open("ccc_16k.wav", "r")
 
 drv = pcm.new(pcm.SD, 5)
 
