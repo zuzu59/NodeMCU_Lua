@@ -3,42 +3,45 @@
 -- source: https://wxlua.developpez.com/tutoriels/lua/general/cours-complet/#L6-f
 -- source: https://wxlua.developpez.com/tutoriels/lua/general/cours-complet/#L13-g
 
-print("\n a_tst_sort.lua zf190202.1559 \n")
+print("\n a_tst_sort.lua zf190202.1904 \n")
 
+zmac_adrs={}
 
-
--- send a file from memory to the client; max. line length = 1024 bytes!
 function zload_tableau()
-    zmac_adrs={}
     filename="tst_sniffer_wifi1.csv"
     if file.open(filename, "r") then
-    repeat
-      local line=file.read('\n')
-      if line then
-        print("line: "..line)
-    
-        local zfield = {}
-        for part in line:gmatch("[^,]+") do
-            zfield[#zfield+1] = part
-    --            print(part)
-        end
-
-        zmac_adrs[zfield[2]]={["zname"]=zfield[3],["zrssi"]=zfield[4], ["ztime"]=zfield[5]}
-
-
-      end
-    until not line    
-    file.close()
-  end
+        repeat
+            local line=file.read('\n')
+            if line then
+                print("line: "..line)
+                local zfield = {}   local zpart=""
+                for zpart in line:gmatch("[^,]+") do
+                    zfield[#zfield+1] = zpart
+                end
+                zmac_adrs[zfield[2]]={["zname"]=zfield[3],["zrssi"]=zfield[4], ["ztime"]=zfield[5]}
+            end
+        until not line    
+        file.close()
+    end
 end
 
 
 zload_tableau()
 
 
+function zsort_tableau()
+
+    table.sort(zmac_adrs, function([zrssi], [zrssi]) 
+                 return ([zrssi] > [zrssi])
+               end)
+
+end
+
+
 --[[
 zload_tableau()
 zshow()
+zsort_tableau()
 ]]
 
 
