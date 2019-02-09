@@ -3,17 +3,15 @@
 -- source: https://wxlua.developpez.com/tutoriels/lua/general/cours-complet/#L6-f
 -- source: https://wxlua.developpez.com/tutoriels/lua/general/cours-complet/#L13-g
 
-print("\n a_tst_sort.lua zf190209.1512 \n")
+print("\n a_tst_sort.lua zf190208.1734 \n")
 
 zmac_adrs={}
-zmac_adrs_index={}
-
 
 
 function zshow()
     i=1
-    for k, v in ipairs(zmac_adrs) do
-        print(i..", "..k, zmac_adrs[k]["adrs"]..", ".. zmac_adrs[k]["zname"], zmac_adrs[k]["zrssi"], zmac_adrs[k]["ztime"]) 
+    for k, v in pairs(zmac_adrs) do
+        print(i..", ", k..", ", zmac_adrs[k]["zname"], zmac_adrs[k]["zrssi"], zmac_adrs[k]["ztime"]) 
         i=i+1
     end
 end
@@ -31,8 +29,6 @@ function zload_tableau()
                 end
                 -- :sub(1, -2) , ça enlève le \n à la fin de la ligne lors de la lecture du fichier !
                 zmac_adrs[zfield[2]]={["zname"]=zfield[3],["zrssi"]=zfield[4], ["ztime"]=zfield[5]:sub(1, -2)}
---                zmac_adrs[#zmac_adrs+1]={["adrs"]=zfield[2], ["zname"]=zfield[3], ["zrssi"]=zfield[4], ["ztime"]=zfield[5]:sub(1, -2)}
---                zmac_adrs_index[zfield[2]]=#zmac_adrs
             end
         until not line    
         file.close()
@@ -41,43 +37,82 @@ end
 
 
 zload_tableau()
+--zshow()
 
 print("tableau chargé")     --important, c'est pour attendre que le tableau soit complètement chargé !
 zshow()
+
+--[[
+test_sort1=tmr.create()
+tmr.alarm(test_sort1, 2.5*1000,  tmr.ALARM_SINGLE, function()
+    zshow()
+end)
+]]
+
 
 
 function zsort_tableau()
     print("tri du tableau")
     table.sort(zmac_adrs, function(a,b) return a.zrssi < b.zrssi end)
+
+
 end
+
+function zshow2()
+    i=1
+    
+    --for i,v in ipairs(zmac_adrs) do print(v.zrssi) end
+    for j,v in pairs(zmac_adrs) do 
+        print(i,j)
+        i=i+1
+    end
+
+--    i=1
+--    for k, v in pairs(zmac_adrs) do
+--       print(i..", ", k..", ", zmac_adrs[k]["zname"], zmac_adrs[k]["zrssi"], zmac_adrs[k]["ztime"]) 
+--       i=i+1
+--    end
+end
+
+
+function toto()
+    local animals = {
+         {name = "bunny", size = 4},
+         {name = "mouse", size = 1},
+         {name = "cow", size = 30}
+    }
+    -- sort animals by size descending
+    table.sort(animals, function(a,b) return a.size > b.size end)
+    
+    for i,v in ipairs(animals) do print(v.name) end
+end
+
+
 
 
 --[[
 zload_tableau()
 zsort_tableau()
 zshow()
-
-print(zmac_adrs_index["02:ec:f1:a1:c8:29"])
-print(zmac_adrs[70].adrs)
-
-zmac_adrs=nil
-zmac_adrs_index=nil
-
-
-zmac_adrs_index={}
-zmac_adrs_index["toto"]=3
-print(zmac_adrs_index["toto"])
-
+zshow2()
 
 ]]
 
 
 
+--[[
+zshow()
+]]
 
 function zround(num, dec)
     local mult = 10^(dec or 0)
     return math.floor(num * mult + 0.5) / mult
 end
 
+
+--[[
+zload_tableau()
+zshow()
+]]
 
 
