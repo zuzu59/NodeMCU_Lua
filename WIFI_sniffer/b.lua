@@ -28,6 +28,7 @@ zmac_adrs[#zmac_adrs+1]="da:a1:19:89:2c:80, ,-59,0,0"
 zmac_adrs[#zmac_adrs+1]="da:a1:19:01:85:98, ,-47,0,0"
 
 
+
 function zshow()
     for i=1, #zmac_adrs do
 --        print(i,zmac_adrs[i])
@@ -81,6 +82,10 @@ zsplit(zmac_adrs[5])
 zrssi=-45   ztime0="10:19"   ztime1="10:19"
 zmac_adrs[5]=zmerge()
 print(find_adrs("88:e9:fe:6b:ec:1e"))
+
+zmac_adrs=nil
+zmac_adrs={}
+
 ]]
 
 function zround(num, dec)
