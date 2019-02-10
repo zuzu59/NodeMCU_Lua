@@ -1,7 +1,7 @@
 -- Scripts pour tester le sniffer de smartphone qui essaient de se connecter sur des AP WIFI
 -- source: https://nodemcu.readthedocs.io/en/dev/modules/wifi/#wifieventmonregister
 
-print("\n b.lua zf190209.2017 \n")
+print("\n b.lua zf190210.1804 \n")
 
 --f= "set_time.lua"   if file.exists(f) then dofile(f) end
 
@@ -15,7 +15,7 @@ zmac_adrs[#zmac_adrs+1]="d8:30:62:5a:d6:3a,IMAC Maman,0,0,0"
 zmac_adrs[#zmac_adrs+1]="88:e9:fe:6b:ec:1e,MAC Luc,0,0,0"
 zmac_adrs[#zmac_adrs+1]="0c:2c:54:b3:c5:1a,HU Nicolas,0,0,0"
 zmac_adrs[#zmac_adrs+1]="c0:a6:00:bf:4e:43,IPHONE Maeva,0,0,0"
-
+--[[
 zmac_adrs[#zmac_adrs+1]="80:58:f8:44:09:ce, ,-30,0,0"
 zmac_adrs[#zmac_adrs+1]="02:07:49:35:67:10, ,-58,0,0"
 zmac_adrs[#zmac_adrs+1]="c0:ee:fb:4a:ff:28, ,-55,0,0"
@@ -26,42 +26,41 @@ zmac_adrs[#zmac_adrs+1]="46:79:22:70:f5:b8, ,-59,0,0"
 zmac_adrs[#zmac_adrs+1]="86:27:18:64:f8:c0, ,-57,0,0"
 zmac_adrs[#zmac_adrs+1]="da:a1:19:89:2c:80, ,-59,0,0"
 zmac_adrs[#zmac_adrs+1]="da:a1:19:01:85:98, ,-47,0,0"
-
+]]
 
 
 function zshow()
     for i=1, #zmac_adrs do
 --        print(i,zmac_adrs[i])
         zadrs, zname, zrssi, ztime0, ztime1 = zmac_adrs[i]:match("([^,]+),([^,]+),([^,]+),([^,]+),([^,]+)")
-        print(i.."-"..zadrs..", "..zname..", "..zrssi..", "..ztime0..", "..ztime1.."-")
+        print(i.."-"..zadrs..", "..zname..", "..zrssi..", "..ztime0..", "..ztime1.."-"..zround(zcalc_distance(zrssi),1).."m")
     end
 end
 
 function zsplit(zline)
     zadrs, zname, zrssi, ztime0, ztime1 = zline:match("([^,]+),([^,]+),([^,]+),([^,]+),([^,]+)")
-    print("-", zadrs, zname, zrssi, ztime0, ztime1,"-")
+--    print("-", zadrs, zname, zrssi, ztime0, ztime1,"-")
 end
 
 function zmerge()
     zline=zadrs..","..zname..","..zrssi..","..ztime0..","..ztime1
-    print(zline)
     return zline
 end
 
 function find_adrs(zadrs)
     for i=1, #zmac_adrs do
         if zadrs == zmac_adrs[i]:match("([^,]+),[^,]+,[^,]+,[^,]+,[^,]+") then
-            print(zmac_adrs[i])
+--            print("find: "..zmac_adrs[i])
             return i
         end
     end
-    return 0
+    return 1-1
 end
 
 function zsort_rssi()
     print("tri du tableau")
     table.sort(zmac_adrs, function(a,b) 
-        return a:match("[^,]+,[^,]+,([^,]+),[^,]+,[^,]+") < b:match("[^,]+,[^,]+,([^,]+),[^,]+,[^,]+") 
+        return a:match("[^,]+,[^,]+,([^,]+),[^,]+,[^,]+") > b:match("[^,]+,[^,]+,([^,]+),[^,]+,[^,]+") 
     end)
 end
 
@@ -93,31 +92,70 @@ function zround(num, dec)
     return math.floor(num * mult + 0.5) / mult
 end
 
+--zadrs, zname, zrssi, ztime0, ztime1
+
 function zsniff(T)
-    if T.RSSI > -160 then
+    if T.RSSI > -60 then
 --        print("\n\tMAC: ".. T.MAC.."\n\tRSSI: "..T.RSSI)
 --    ztime()
-        if zmac_adrs[T.MAC] == nil then
+        z_adrs_mac_index=find_adrs(T.MAC)
+--        print("toto: -"..z_adrs_mac_index.."-")
+        if z_adrs_mac_index == 0 then
             print("Oh une inconnue !")
-            zmac_adrs[T.MAC]={}
+            zmac_adrs[#zmac_adrs+1]=" , ,0,0,0"
+            z_adrs_mac_index=#zmac_adrs
+--            print("tutu: -"..zmac_adrs[z_adrs_mac_index].."-")
+            zsplit(zmac_adrs[z_adrs_mac_index])
+            zadrs=T.MAC
+        else
+--            print("titi: -")
+            zsplit(zmac_adrs[z_adrs_mac_index])
         end
     --    zmac_adrs[T.MAC]["ztime"]=string.format("%04d/%02d/%02d %02d:%02d:%02d", tm["year"], tm["mon"], tm["day"], tm["hour"], tm["min"], tm["sec"])
-        if zmac_adrs[T.MAC]["zrssi"] == nil then
-            zmac_adrs[T.MAC]["zrssi"]=T.RSSI
+
+        zrssi=T.RSSI
+--[[        
+        if zrssi == 0 then
+            zrssi=T.RSSI
         else
-            zmac_adrs[T.MAC]["zrssi"]=zround((4*zmac_adrs[T.MAC]["zrssi"]+T.RSSI)/5, 0)
+            zrssi=zround((4*zrssi+T.RSSI)/5, 0)
         end
-        if zmac_adrs[T.MAC]["zname"] ~= nil then
-            print("Bonjour "..zmac_adrs[T.MAC]["zname"].." !")
+]]
+        if zname ~= " " then
+            print("Bonjour "..zname.." !")
         end
+        zmac_adrs[z_adrs_mac_index]=zmerge()
     end
 end
 
---wifi.eventmon.register(wifi.eventmon.AP_PROBEREQRECVED, zsniff)
+function zcalc_distance(zrssi2)
+    zrssi_1m=-40    zn=2
+    zdist=10^((zrssi_1m - zrssi2) / (10 * zn))
+    return zdist
+end
+
+--[[
+print("distance: "..zcalc_distance(-60).."m")
+
+La formule pour calculer la distance est assez simple.
+
+d = 10 ^ ((TxPower - RSSI) / (10 * n))
+
+- TxPower est le RSSI mesuré à 1 m d'un point d'accès connu. Par exemple: -84 dB.
+- n est la constante de propagation ou l'exposant d'affaiblissement de trajet. Par exemple: 2,7 à 4,3 (l'espace libre a n = 2 pour référence).
+- RSSI est le RSSI mesuré
+- d est la distance en mètre
+]]
+
+
+
+wifi.eventmon.register(wifi.eventmon.AP_PROBEREQRECVED, zsniff)
 
 --[[
 wifi.eventmon.unregister(wifi.eventmon.AP_PROBEREQRECVED)
 zshow()
+zsort_rssi()
+
 ]]
 
 
