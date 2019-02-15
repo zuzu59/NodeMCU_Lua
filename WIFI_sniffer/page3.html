@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+
+    <head>
+      <meta charset='utf-8' name='viewport' content='width=device-width, initial-scale=1.0'>
+      <title>ESP8266 page 2</title>
+    </head>
+    
+    <body>
+        <h1>ESP8266 page 2 190215.1819</h1>
+        <br>
+        Coucou c'est la page 3 !<br>
+        <a href="/">Retour à la home page...</a><br><br><br>
+        
+        Voici le résultat du WIFI sniffer, dans un tableau dynamique écrit en Lua inline.<br><br>
+        
+        Le code Lua pour créer ce tableau se trouve dans le code HTML de cette page et est exécuté sur le NodeMCU.<br>
+        Les données du tableau viennent du NodeMCU !<br><br>
+        
+        <%
+        -- création du tableau sur le NodeMCUjuste juste pour la démo ici !
+        zmac_adrs={}
+        zmac_adrs["b8:d7:af:a6:bd:86"]={["zname"]="S7 zf", ["zrssi"]=45, ["ztime"]="12:03:36"}
+        zmac_adrs["cc:c0:79:7d:f5:d5"]={["zname"]="S7 Mélanie", ["zrssi"]=50, ["ztime"]="14:23:46"}
+        zmac_adrs["5c:f9:38:a1:f7:f0"]={["zname"]="MAC zf", ["zrssi"]=40, ["ztime"]="11:53:16"}
+        zmac_adrs["d8:30:62:5a:d6:3a"]={["zname"]="IMAC Maman", ["zrssi"]=55, ["ztime"]="17:07:23"}
+        %>
+       
+        <table border='1'>
+        <tr>
+            <th>MAC</th><th>Name</th><th>RSSI</th><th>Time</th>
+        </tr>
+        <%
+        for k, v in pairs(zmac_adrs) do
+            zout("<tr>\n")
+            zout("\t<td>" .. k .. "</td>\n")
+            zout("\t<td>" .. tostring(zmac_adrs[k]["zname"]) .. "</td>\n")
+            zout("\t<td>" .. tostring(zmac_adrs[k]["zrssi"]) .. "</td>\n")
+            zout("\t<td>" .. tostring(zmac_adrs[k]["ztime"]) .. "</td>\n")
+            zout("</tr>\n")
+        end
+        %>
+        </table>
+
+        <%
+        -- libère la mémoire du tableau sur le NodeMCU qui avait été créé pour la démo ici !
+        zmac_adrs=nil
+        %>
+ 
+    </body>
+</html>
