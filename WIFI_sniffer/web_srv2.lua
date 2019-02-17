@@ -1,7 +1,7 @@
 -- petit script de serveur WEB avec Active Server Page ZYX
 -- pour l'instant la partie ASP n'est que mono tâche !
 
-print("\n web_srv2.lua   zf190127.1458   \n")
+print("\n web_srv2.lua   zf190217.1259   \n")
 
 ztemp=12
 
@@ -13,7 +13,7 @@ end
 -- envoie un fichier HTML sur le port. ATTENTION: longueur de la ligne maximale de 1'024 bytes !
 function send_file(zclient, zfilename)
     zzclient = zclient        -- export le port sur l'environnement global !
-    if zfilename == "" then zfilename = "index.html" end  
+    if zfilename == "" then zfilename = "z_index.html" end  
     if file.open(zfilename, "r") then
         repeat
             local line = file.read('\n')

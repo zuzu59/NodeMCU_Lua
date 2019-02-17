@@ -1,9 +1,10 @@
 -- Petit script pour configurer le client WIFI du NodeMCU
 
-print("\n wifi_cli_conf.lua   zf181205.1931   \n")
+print("\n wifi_cli_conf.lua   zf190217.1245   \n")
 
 --credentials par défaut
-cli_ssid="3g-s7"
+--cli_ssid="3g-s7"
+cli_ssid="3G-zf"
 cli_pwd="12234567"
 
 --ses propre credentials
