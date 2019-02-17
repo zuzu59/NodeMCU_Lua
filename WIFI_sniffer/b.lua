@@ -1,7 +1,7 @@
 -- Scripts pour tester le sniffer de smartphone qui essaient de se connecter sur des AP WIFI
 -- source: https://nodemcu.readthedocs.io/en/dev/modules/wifi/#wifieventmonregister
 
-print("\n b.lua zf190210.1804 \n")
+print("\n b.lua zf190215.1856 \n")
 
 --f= "set_time.lua"   if file.exists(f) then dofile(f) end
 
@@ -60,7 +60,7 @@ end
 function zsort_rssi()
     print("tri du tableau")
     table.sort(zmac_adrs, function(a,b) 
-        return a:match("[^,]+,[^,]+,([^,]+),[^,]+,[^,]+") > b:match("[^,]+,[^,]+,([^,]+),[^,]+,[^,]+") 
+        return a:match("[^,]+,[^,]+,([^,]+),[^,]+,[^,]+") < b:match("[^,]+,[^,]+,([^,]+),[^,]+,[^,]+") 
     end)
 end
 
@@ -149,9 +149,9 @@ d = 10 ^ ((TxPower - RSSI) / (10 * n))
 
 
 
-wifi.eventmon.register(wifi.eventmon.AP_PROBEREQRECVED, zsniff)
 
 --[[
+wifi.eventmon.register(wifi.eventmon.AP_PROBEREQRECVED, zsniff)
 wifi.eventmon.unregister(wifi.eventmon.AP_PROBEREQRECVED)
 zshow()
 zsort_rssi()
