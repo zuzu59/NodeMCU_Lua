@@ -1,7 +1,7 @@
 -- Scripts pour tester le sniffer de smartphone qui essaient de se connecter sur des AP WIFI
 -- source: https://nodemcu.readthedocs.io/en/dev/modules/wifi/#wifieventmonregister
 
-print("\n b.lua zf190217.1253 \n")
+print("\n b.lua zf190217.1423 \n")
 
 --f= "set_time.lua"   if file.exists(f) then dofile(f) end
 
@@ -28,12 +28,16 @@ zmac_adrs[#zmac_adrs+1]="da:a1:19:89:2c:80, ,-59,0,0"
 zmac_adrs[#zmac_adrs+1]="da:a1:19:01:85:98, ,-47,0,0"
 ]]
 
-
 function zshow()
     for i=1, #zmac_adrs do
 --        print(i,zmac_adrs[i])
         zadrs, zname, zrssi, ztime0, ztime1 = zmac_adrs[i]:match("([^,]+),([^,]+),([^,]+),([^,]+),([^,]+)")
-        print(i.."-"..zadrs..", "..zname..", "..zrssi..", "..ztime0..", "..ztime1.."-"..zround(zcalc_distance(zrssi),1).."m")
+        if tonumber(zrssi) < 0 then
+            ztx = i.."-"..zadrs..", "..zname..", "..zrssi..", "..zround(zcalc_distance(zrssi),1).."m, "
+            ztx = ztx..ztime_format(ztime_uncompress(ztime0))..", "..ztime_format(ztime_uncompress(ztime1))        
+            print(ztx)
+            ztx = nil
+        end
     end
 end
 
@@ -92,6 +96,8 @@ function zround(num, dec)
     return math.floor(num * mult + 0.5) / mult
 end
 
+
+
 --zadrs, zname, zrssi, ztime0, ztime1
 
 function zsniff(T)
@@ -113,6 +119,16 @@ function zsniff(T)
         end
     --    zmac_adrs[T.MAC]["ztime"]=string.format("%04d/%02d/%02d %02d:%02d:%02d", tm["year"], tm["mon"], tm["day"], tm["hour"], tm["min"], tm["sec"])
 
+        if tonumber(ztime0) == 0 then
+            ztime0 = ztime_compress(rtctime.get())
+        else
+            if ztime_uncompress(ztime0) < ztime2019 then
+                ztime0 = ztime_compress(rtctime.get())
+            end
+        end
+        ztime1 = ztime_compress(rtctime.get())
+
+        
         zrssi=T.RSSI
 --[[        
         if zrssi == 0 then
@@ -122,7 +138,7 @@ function zsniff(T)
         end
 ]]
         if zname ~= " " then
-            print("Bonjour "..zname.." !")
+            print("Bonjour "..zname.." !   "..zrssi)
         end
         zmac_adrs[z_adrs_mac_index]=zmerge()
     end
