@@ -11,38 +11,76 @@ function set_json()
 end
 
 function zget_json_key()
-    print("len1: "..string.len(zjson))
-    zjson_key='"'..zh..'H00":{'
-    print("zjson_key: "..zjson_key)
-    p1=string.find(zjson, zjson_key)
-    print("p1: "..p1)    
-    zjson=string.sub(zjson,p1)
-    print("zjson: ",zjson)
-    p1,p2=string.find(zjson, '"CONDITION_KEY":"')
-    print(p1,p2)
-    p3=string.find(zjson, '","',p2)
-    print(p3)
-    ztoto=string.sub(zjson,p2,p3)
-    print(ztoto)
-    print("len2: "..string.len(zjson))
+    print("coucou2",zjson_stat)
+    if zjson_stat==1 then
+        p1=0
+        p1=string.find(zjson, [["hourly_data":{]])
+        print("JSON header: "..p1)
+        if p1>0 then
+            zjson=string.sub(zjson,p1)
+            print(string.sub(zjson,1,100))
+            print("\n\nc'est parti...\n\n")
+            zjson_stat=2
+        else
+            zjson=string.sub(zjson,string.len(zjson)-20)
+        end
+    end
+    if zjson_stat==2 then
+        print("len1: "..string.len(zjson))
+        zjson_key='"'..zh..'H00":{'
+        print("zjson_key: "..zjson_key)
+        p1=string.find(zjson, zjson_key)
+        print("p1: "..p1)    
+        zjson=string.sub(zjson,p1)
+        print("zjson: ",string.sub(zjson,1,100))
+        p1,p2=string.find(zjson, '"CONDITION_KEY":"')
+        print(p1,p2)
+        p3=string.find(zjson, '","',p2)
+        print(p3)
+        ztoto=string.sub(zjson,p2,p3)
+        print(ztoto)
+        print("len2: "..string.len(zjson))
+    end
 end
 
-set_json()
 
-p1=string.find(zjson, [["hourly_data":{]])
-print(p1)
-zjson=string.sub(zjson,p1)
-print(zjson)
-print("\n\nc'est parti...\n\n")
+zh=0
+zjson_stat=1
+zjson=""
+
+function ztoto(c)
+    print("coucou")
+    if zjson=="" then
+        zjson=c
+    else
+        zjson=zjson..c
+    end
+    print("zh: ",zh,"len(zjson",string.len(zjson))
+    while zh<=5 and string.len(zjson)>500 do
+        zget_json_key()
+        zh=zh+1
+    end
+    if zh>5 then
+        zjson=""
+    end
+end
+
+
+--set_json()
+--zjson_stat=1
+--zget_json_all_keys()
+
 
 --[[
 set_json()
+zjson_stat=1
 zh=1
 zget_json_key()
 zh=2
 zget_json_key()
 
 set_json()
+zjson_stat=1
 zh=0
 for i=0, 5 do
     zget_json_key()
