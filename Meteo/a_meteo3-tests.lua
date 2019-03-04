@@ -13,34 +13,35 @@ end
 function zget_json_key()
     print("coucou2",zjson_stat)
     if zjson_stat==1 then
-        p1=0
         p1=string.find(zjson, [["hourly_data":{]])
-        print("JSON header: "..p1)
-        if p1>0 then
+        if p1~=nil then
+            print("JSON header: ",p1)
             zjson=string.sub(zjson,p1)
             print(string.sub(zjson,1,100))
-            print("\n\nc'est parti...\n\n")
+            print("\n\ngo go go...\n\n")
             zjson_stat=2
-        else
-            zjson=string.sub(zjson,string.len(zjson)-20)
         end
     end
     if zjson_stat==2 then
         print("len1: "..string.len(zjson))
         zjson_key='"'..zh..'H00":{'
         print("zjson_key: "..zjson_key)
-        p1=0    p1=string.find(zjson, zjson_key)
+        p1=string.find(zjson, zjson_key)
         print("p1: ",p1)
         if p1~=nil then
             zjson=string.sub(zjson,p1)
             print("zjson: ",string.sub(zjson,1,100))
             p1,p2=string.find(zjson, '"CONDITION_KEY":"')
             print(p1,p2)
-            p3=string.find(zjson, '","',p2)
-            print(p3)
-            ztutu=string.sub(zjson,p2,p3)
-            print(ztutu)
-            print("len2: "..string.len(zjson))
+            if p1~=nil then
+                p3=string.find(zjson, '","',p2)
+                print(p3)
+                if p3~=nil then
+                    ztutu=string.sub(zjson,p2,p3)
+                    print(ztutu)
+                    print("len2: "..string.len(zjson))
+                end
+            end
         end
     end
 end
@@ -59,10 +60,16 @@ function ztoto(c1)
     else
         zjson=zjson..c1
     end
-    print("zh: ",zh,"len(zjson)",string.len(zjson))
+    print("zh: ",zh,"len(zjson): ",string.len(zjson))
     while zh<=zhmax and string.len(zjson)>500 do
         zget_json_key()
-        zh=zh+1
+        if p1~=nil then
+            zh=zh+1            
+        else
+            print("ouille ouille ouille, pas trouvé...")
+            zjson=string.sub(zjson,string.len(zjson)-20)
+            break
+        end
     end
     if zh>zhmax then
         zjson=""

@@ -28,10 +28,10 @@ end)
 
 zcmpt=1
 s:on("receive", function(sck, c)
-    print("zcmpt: ",zcmpt,string.len(c),string.sub(c,1,100))
-    print(node.heap())
-    print("len3: "..string.len(zjson))
-    print("zjson3: ",string.sub(zjson,1,100))
+    print("...zcmpt: ",zcmpt,string.len(c),string.sub(c,1,100))
+--    print(node.heap())
+--    print("len3: "..string.len(zjson))
+--    print("zjson3: ",string.sub(zjson,1,100))
     ztoto(c)
     zcmpt=zcmpt+1
 end)
