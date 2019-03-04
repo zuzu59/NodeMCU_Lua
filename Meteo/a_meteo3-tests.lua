@@ -2,7 +2,7 @@
 
 -- Source: https://github.com/nodemcu/nodemcu-firmware/blob/master/lua_examples/sjson-streaming.lua
 
-print("\n a_meteo3-tests.lua zf190304.1431 \n")
+print("\n a_meteo3-tests.lua zf190304.1832 \n")
 
 function set_json()
     zjson=[[
@@ -29,40 +29,45 @@ function zget_json_key()
         print("len1: "..string.len(zjson))
         zjson_key='"'..zh..'H00":{'
         print("zjson_key: "..zjson_key)
-        p1=string.find(zjson, zjson_key)
-        print("p1: "..p1)    
-        zjson=string.sub(zjson,p1)
-        print("zjson: ",string.sub(zjson,1,100))
-        p1,p2=string.find(zjson, '"CONDITION_KEY":"')
-        print(p1,p2)
-        p3=string.find(zjson, '","',p2)
-        print(p3)
-        ztoto=string.sub(zjson,p2,p3)
-        print(ztoto)
-        print("len2: "..string.len(zjson))
+        p1=0    p1=string.find(zjson, zjson_key)
+        print("p1: ",p1)
+        if p1~=nil then
+            zjson=string.sub(zjson,p1)
+            print("zjson: ",string.sub(zjson,1,100))
+            p1,p2=string.find(zjson, '"CONDITION_KEY":"')
+            print(p1,p2)
+            p3=string.find(zjson, '","',p2)
+            print(p3)
+            ztutu=string.sub(zjson,p2,p3)
+            print(ztutu)
+            print("len2: "..string.len(zjson))
+        end
     end
 end
 
 
-zh=0
+zhmin=7
+zhmax=19
+zh=zhmin
 zjson_stat=1
 zjson=""
 
-function ztoto(c)
+function ztoto(c1)
     print("coucou")
     if zjson=="" then
-        zjson=c
+        zjson=c1
     else
-        zjson=zjson..c
+        zjson=zjson..c1
     end
-    print("zh: ",zh,"len(zjson",string.len(zjson))
-    while zh<=5 and string.len(zjson)>500 do
+    print("zh: ",zh,"len(zjson)",string.len(zjson))
+    while zh<=zhmax and string.len(zjson)>500 do
         zget_json_key()
         zh=zh+1
     end
-    if zh>5 then
+    if zh>zhmax then
         zjson=""
     end
+    print("coucou3")
 end
 
 

@@ -5,7 +5,7 @@
 -- les conditions pour toutes les heures la journée
 -- Source: https://github.com/nodemcu/nodemcu-firmware/blob/master/lua_examples/sjson-streaming.lua
 
-print("\n a_meteo2-tests.lua zf190304.1703 \n")
+print("\n a_meteo2-tests.lua zf190304.1832 \n")
 
 dofile("a_meteo3-tests.lua")
 
@@ -13,7 +13,7 @@ dofile("a_meteo3-tests.lua")
 --zport=80
 --zpath="/services/json/lausanne"
 
-zhost="192.168.0.154"
+zhost="192.168.0.152"
 zport=8080
 zpath="/meteo.lausanne.190302.1231.json"
 
@@ -29,6 +29,9 @@ end)
 zcmpt=1
 s:on("receive", function(sck, c)
     print("zcmpt: ",zcmpt,string.len(c),string.sub(c,1,100))
+    print(node.heap())
+    print("len3: "..string.len(zjson))
+    print("zjson3: ",string.sub(zjson,1,100))
     ztoto(c)
     zcmpt=zcmpt+1
 end)
