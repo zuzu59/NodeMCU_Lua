@@ -5,7 +5,7 @@
 -- les conditions pour toutes les heures la journée
 -- Source: https://github.com/nodemcu/nodemcu-firmware/blob/master/lua_examples/sjson-streaming.lua
 
-print("\n a_meteo2-tests.lua zf190304.1832 \n")
+print("\n a_meteo2-tests.lua zf190306.1505 \n")
 
 dofile("a_meteo3-tests.lua")
 
@@ -13,7 +13,7 @@ dofile("a_meteo3-tests.lua")
 --zport=80
 --zpath="/services/json/lausanne"
 
-zhost="192.168.0.152"
+zhost="192.168.0.153"
 zport=8080
 zpath="/meteo.lausanne.190302.1231.json"
 
@@ -27,8 +27,11 @@ s:on("connection", function(sck, c)
 end)
 
 zcmpt=1
+zsum=0
 s:on("receive", function(sck, c)
-    print("...zcmpt: ",zcmpt,string.len(c),string.sub(c,1,100))
+    zlen=string.len(c)
+    zsum=zsum+zlen
+    print("...zcmpt, zsum, zlen: ",zcmpt,zsum,zlen,string.sub(c,1,100))
 --    print(node.heap())
 --    print("len3: "..string.len(zjson))
 --    print("zjson3: ",string.sub(zjson,1,100))
@@ -36,11 +39,15 @@ s:on("receive", function(sck, c)
     zcmpt=zcmpt+1
 end)
 
-local function getresult()
-    print(node.heap())
+local function zdisconnection()
+    print("disconnect",node.heap())
 end
 
-s:on("disconnection", getresult)
-s:on("reconnection", getresult)
+local function zreconnection()
+    print("reconnect",node.heap())
+end
+
+s:on("disconnection", zdisconnection)
+s:on("reconnection", zreconnection)
 s:connect(zport, zhost)
 

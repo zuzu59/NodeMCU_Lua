@@ -2,7 +2,7 @@
 
 -- Source: https://github.com/nodemcu/nodemcu-firmware/blob/master/lua_examples/sjson-streaming.lua
 
-print("\n a_meteo3-tests.lua zf190304.1832 \n")
+print("\n a_meteo3-tests.lua zf190306.1427 \n")
 
 function set_json()
     zjson=[[
@@ -11,14 +11,14 @@ function set_json()
 end
 
 function zget_json_key()
-    print("coucou2",zjson_stat)
+    print("zget_json_key entrée...",zjson_stat)
     if zjson_stat==1 then
         p1=string.find(zjson, [["hourly_data":{]])
         if p1~=nil then
-            print("JSON header: ",p1)
+            print("trouvé le header: ",p1)
             zjson=string.sub(zjson,p1)
             print(string.sub(zjson,1,100))
-            print("\n\ngo go go...\n\n")
+            print("go go go...")
             zjson_stat=2
         end
     end
@@ -44,6 +44,7 @@ function zget_json_key()
             end
         end
     end
+    print("zget_json_key sortie...",zjson_stat)
 end
 
 
@@ -54,27 +55,29 @@ zjson_stat=1
 zjson=""
 
 function ztoto(c1)
-    print("coucou")
+    print("ztoto entrée...")
     if zjson=="" then
         zjson=c1
     else
         zjson=zjson..c1
     end
     print("zh: ",zh,"len(zjson): ",string.len(zjson))
-    while zh<=zhmax and string.len(zjson)>500 do
+    while zh<=zhmax do
         zget_json_key()
         if p1~=nil then
             zh=zh+1            
         else
             print("ouille ouille ouille, pas trouvé...")
-            zjson=string.sub(zjson,string.len(zjson)-20)
+            if string.len(zjson)>510 then
+                zjson=string.sub(zjson,string.len(zjson)-500)
+            end
             break
         end
     end
     if zh>zhmax then
         zjson=""
     end
-    print("coucou3")
+    print("ztoto sortie...")
 end
 
 
@@ -99,6 +102,11 @@ for i=0, 5 do
     zh=zh+1
 end
 
+set_json()
+print("len1: "..string.len(zjson))
+zjson=string.sub(zjson,string.len(zjson)-500)
+print("len2: "..string.len(zjson))
+print("zjson1: ",string.sub(zjson,1,100))
 ]]
 
 
