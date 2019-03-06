@@ -31,7 +31,7 @@ zsum=0
 s:on("receive", function(sck, c)
     zlen=string.len(c)
     zsum=zsum+zlen
-    print("...zcmpt, zsum, zlen: ",zcmpt,zsum,zlen,string.sub(c,1,100))
+--    print("...zcmpt, zsum, zlen: ",zcmpt,zsum,zlen,string.sub(c,1,100))
 --    print(node.heap())
 --    print("len3: "..string.len(zjson))
 --    print("zjson3: ",string.sub(zjson,1,100))

@@ -11,7 +11,7 @@ function set_json()
 end
 
 function zget_json_key()
-    print("zget_json_key entrée...",zjson_stat)
+--    print("zget_json_key entrée...",zjson_stat)
     if zjson_stat==1 then
         p1=string.find(zjson, [["hourly_data":{]])
         if p1~=nil then
@@ -23,7 +23,7 @@ function zget_json_key()
         end
     end
     if zjson_stat==2 then
-        print("len1: "..string.len(zjson))
+--        print("len1: "..string.len(zjson))
         zjson_key='"'..zh..'H00":{'
         print("zjson_key: "..zjson_key)
         p1=string.find(zjson, zjson_key)
@@ -31,37 +31,41 @@ function zget_json_key()
         if p1~=nil then
             zjson=string.sub(zjson,p1)
             print("zjson: ",string.sub(zjson,1,100))
-            p1,p2=string.find(zjson, '"CONDITION_KEY":"')
+--            p1,p2=string.find(zjson, '"CONDITION_KEY":"')
+            p1,p2=string.find(zjson, '"APCPsfc":')
+
+            
             print(p1,p2)
             if p1~=nil then
-                p3=string.find(zjson, '","',p2)
+--                p3=string.find(zjson, '","',p2)
+                p3=string.find(zjson, ',',p2)
                 print(p3)
                 if p3~=nil then
-                    ztutu=string.sub(zjson,p2,p3)
-                    print(ztutu)
-                    print("len2: "..string.len(zjson))
+                    ztutu=string.sub(zjson,p2+1,p3-1)
+                    print("ztutu: ",ztutu)
+--                    print("len2: "..string.len(zjson))
                 end
             end
         end
     end
-    print("zget_json_key sortie...",zjson_stat)
+--    print("zget_json_key sortie...",zjson_stat)
 end
 
 
-zhmin=7
-zhmax=19
+zhmin=10
+zhmax=23
 zh=zhmin
 zjson_stat=1
 zjson=""
 
 function ztoto(c1)
-    print("ztoto entrée...")
+--    print("ztoto entrée...")
     if zjson=="" then
         zjson=c1
     else
         zjson=zjson..c1
     end
-    print("zh: ",zh,"len(zjson): ",string.len(zjson))
+--    print("zh: ",zh,"len(zjson): ",string.len(zjson))
     while zh<=zhmax do
         zget_json_key()
         if p1~=nil then
@@ -77,7 +81,7 @@ function ztoto(c1)
     if zh>zhmax then
         zjson=""
     end
-    print("ztoto sortie...")
+--    print("ztoto sortie...")
 end
 
 
