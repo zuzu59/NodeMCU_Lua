@@ -2,7 +2,7 @@
 
 -- Source: https://github.com/nodemcu/nodemcu-firmware/blob/master/lua_examples/sjson-streaming.lua
 
-print("\n a_meteo3-tests.lua zf190306.1427 \n")
+print("\n a_meteo3-tests.lua zf190306.1757 \n")
 
 function set_json()
     zjson=[[
@@ -41,9 +41,16 @@ function zget_json_key()
                 p3=string.find(zjson, ',',p2)
                 print(p3)
                 if p3~=nil then
-                    ztutu=string.sub(zjson,p2+1,p3-1)
-                    print("ztutu: ",ztutu)
+                    zpluie=tonumber(string.sub(zjson,p2+1,p3-1))
+                    print("zpluie: ",zpluie)
 --                    print("len2: "..string.len(zjson))
+                if zh >=7 and zh<=13 then
+                    zpluie_am=zpluie_am+zpluie
+                end
+                if zh >=13 and zh<=19 then
+                    zpluie_pm=zpluie_pm+zpluie
+                end
+                
                 end
             end
         end
@@ -52,9 +59,11 @@ function zget_json_key()
 end
 
 
-zhmin=10
-zhmax=23
+zhmin=7
+zhmax=19
 zh=zhmin
+zpluie_am=0
+zpluie_pm=0
 zjson_stat=1
 zjson=""
 
