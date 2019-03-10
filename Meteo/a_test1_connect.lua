@@ -9,12 +9,13 @@ function zgetstats()
 
     srv:on("receive", function(sck, payload)
         print("[stats] received data, " .. string.len(payload))
+        print(payload)
         counter = counter + 1
     end)
 
     srv:on("connection", function(sck, c)
         print("on est connecté...")
-        sck:send("GET /meteo.lausanne.190302.1231.json HTTP/1.1\r\nHost: 192.168.0.153\r\nConnection: close\r\nAccept: */*\r\n\r\n")
+        sck:send("GET /json/meteo/meteo.lausanne.190302.1231.json HTTP/1.1\r\nHost: 192.168.0.34\r\nConnection: close\r\nAccept: */*\r\n\r\n")
     end)
 
 
@@ -36,7 +37,7 @@ function zgetstats()
 
     print("on connecte...")
 --    srv:connect(8080, "192.168.0.153")
-    srv:connect(80, "z.zufferey.com")
+    srv:connect(80, "192.168.0.34")
 end
 
 
