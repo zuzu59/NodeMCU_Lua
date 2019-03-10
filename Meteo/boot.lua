@@ -12,7 +12,7 @@ function heartbeat()
     end)
 end
 
-f= "led_rgb.lua"   if file.exists(f) then dofile(f) end
+--f= "led_rgb.lua"   if file.exists(f) then dofile(f) end
 f= "wifi_ap_start.lua"   if file.exists(f) then dofile(f) end
 f= "wifi_cli_conf.lua"   if file.exists(f) then dofile(f) end
 f= "wifi_cli_start.lua"   if file.exists(f) then dofile(f) end

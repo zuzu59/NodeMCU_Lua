@@ -1,22 +1,8 @@
 -- Script pour chercher les prévision de la pluie pour une ville de 7h à 19h
 -- sur https://www.prevision-meteo.ch/services/json/lausanne
 
-print("\n a_meteo1.lua zf190308.1703 \n")
+print("\n a_meteo1.lua zf190310.1635 \n")
 
--- site pour les données réelles
---zhost="www.prevision-meteo.ch"
---zport=80
---zpath="/services/json/lausanne"
-
---site simulation pour les tests (petit webserver sur mon MAC)
-zhost="192.168.0.153"
-zport=8080
-zpath="/meteo.lausanne.190302.1231.json"
---zpath="/meteo.lausanne.190304.0930.json"
---zpath="/meteo.st-luc.190304.0930.json"
-
-zhmin=7
-zhmax=19
 
 function zget_json_key()
 --    print("zget_json_key entrée...",zjson_stat)
@@ -96,88 +82,76 @@ end
 
 
 function zget_meteo()
-    zh=zhmin
-    zpluie_am=0
-    zpluie_pm=0
-    zjson_header=1
-    zjson=""
+    -- site pour les données réelles
+--    zport=80   zhost = "www.prevision-meteo.ch"   zurl = "/services/json/crissier"
+    
+    --site simulation pour les tests
+    zport=80   zhost = "192.168.0.34"   zurl = "/json/meteo/meteo.lausanne.190302.1231.json"
+    
+    zhmin=7   zhmax=19   zh=zhmin
+    zpluie_am=0   zpluie_pm=0
+    zcmpt=1   zsum=0   zjson_header=1   zjson=""
 
     local s = net.createConnection()
     
     s:on("connection", function(sck, c)
-        print("connected...")
-    --  sck:send("GET /services/json/lausanne HTTP/1.0\r\nHost: www.prevision-meteo.ch\r\n\r\n")
-        zstring="GET "..zpath.." HTTP/1.0\r\nHost: "..zhost.."\r\n\r\n"
-        print("ztring: ",zstring)
-        sck:send(zstring)
+        print("on est connecté...")
+        sck:send("GET "..zurl.." HTTP/1.1\r\nHost: "..zhost.."\r\nConnection: close\r\nAccept: */*\r\n\r\n")
+    end)
+
+    s:on("disconnection", function(a,b)
+        print("on est déconnecté...",a,b)
+        print("pluie_am: ",zpluie_am,"pluie_pm: ",zpluie_pm)
     end)
     
-    zcmpt=1
-    zsum=0
+    s:on("reconnection", function(a,b)
+        print("on est reconnecté...",a,b)
+    end)
+   
     s:on("receive", function(sck, c)
-        zlen=string.len(c)
-        zsum=zsum+zlen
---        print("...zcmpt, zsum, zlen: ",zcmpt,zsum,zlen,string.sub(c,1,100))
-        print(node.heap())
+        zlen=string.len(c)   zsum=zsum+zlen
+        print("...zcmpt, zsum, zlen: ",zcmpt,zsum,zlen,string.sub(c,1,100))
     --    print("len3: "..string.len(zjson))
     --    print("zjson3: ",string.sub(zjson,1,100))
 --        zget_json(c)
         zcmpt=zcmpt+1
     end)
     
-    local function zdisconnection()
-        print("disconnect",node.heap())
-        print("pluie_am: ",zpluie_am,"pluie_pm: ",zpluie_pm)
-    end
-    
-    local function zreconnection()
-        print("reconnect",node.heap())
-    end
-    
-    s:on("disconnection", zdisconnection)
-    s:on("reconnection", zreconnection)
-    print("zport: ",zport,"zhost: ",zhost)
+    print("on se connecte...",node.heap())
     s:connect(zport, zhost)
-
-end
-
-
-function getstats()
-  buffer = nil
-  counter = 0
-  local srv = tls.createConnection()
-  srv:on("receive", function(sck, payload)
-    print("[stats] received data, " .. string.len(payload))
---[[    if buffer == nil then
-      buffer = payload
-    else
-      buffer = buffer .. payload
-    end
-]]
-    counter = counter + 1
-
-    -- not getting HTTP content-length header back -> poor man's checking for complete response
---[[
-if counter == 2 then
-      print("[stats] done, processing payload")
-      local beginJsonString = buffer:find("{")
-      local jsonString = buffer:sub(beginJsonString)
-      local hashrate = sjson.decode(jsonString)["stats"]["hashrate"]
-      print("[stats] hashrate from aeon-pool.com: " .. hashrate)
-    end
-]]
-    end)
-  srv:on("connection", function(sck, c)
-    print("on est connecté...")
-    sck:send("GET /meteo.lausanne.190302.1231.json HTTP/1.1\r\nHost: 192.168.0.153\r\nConnection: close\r\nAccept: */*\r\n\r\n")
-  end)
-
-  print("on connecte...")
-  srv:connect(8080, "192.168.0.153")
 end
 
 
 --[[
-getstats()
+-- On affiche combien on a de RAM
+print(node.heap())
+
+-- On charge le module et regarde combien cela a pris de RAM
+zh0=node.heap()   print("zh0: ",zh0)
+f= "a_meteo1.lua"   if file.exists(f) then dofile(f) end
+zh1=node.heap()   print("zh0-zh1: ",zh0-zh1)
+
+-- On exécute le module
+--zh0=node.heap()   print("zh0: ",zh0)
 zget_meteo()
+
+-- On regarde combien cela a pris de RAM pour exécuter le module
+zh1=node.heap()   print("zh0-zh1: ",zh0-zh1)
+
+-- On libère le module et on regarde combien on a libéré de RAM
+--zh0=node.heap()   print("zh0: ",zh0)
+zget_meteo=nil
+zget_json_key=nil
+zget_json=nil
+zh1=node.heap()   print("zh0-zh1: ",zh0-zh1)
+
+zport=nil   zhost=nill   zurl=nil
+zhmin=nil   zhmax=nil   zh=nil
+zpluie_am=nil   zpluie_pm=nil
+zcmpt=nil   zsum=nil   zjson_header=nil   zjson=nil
+zh1=node.heap()   print("zh0-zh1: ",zh0-zh1)
+
+-- On affiche combien on a de RAM
+print(node.heap())
+
 ]]
