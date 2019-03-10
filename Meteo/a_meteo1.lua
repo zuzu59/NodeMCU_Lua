@@ -1,7 +1,7 @@
--- Script pour chercher les prévision du jour de la pluie pour une ville
+-- Script pour chercher les prévisions horaires du jour pour la précipitation de pluie pour une ville
 -- sur https://www.prevision-meteo.ch/services/json/lausanne
 
-print("\n a_meteo1.lua zf190310.1946 \n")
+print("\n a_meteo1.lua zf190310.1954 \n")
 
 
 function zget_json_key()
