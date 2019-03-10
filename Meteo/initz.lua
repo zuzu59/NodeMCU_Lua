@@ -3,7 +3,7 @@
 -- le script repair.lua pendant xx secondes avant de continuer
 --Source: https://nodemcu.readthedocs.io/en/master/en/modules/node/#nodebootreason
 
-print("\n init.lua zf190217.1231 \n")
+print("\n init.lua zf190310.1549 \n")
 
 zswitch=3     --switch flash
 gpio.mode(zswitch, gpio.INT, gpio.PULLUP)
@@ -32,6 +32,11 @@ if reset_reason == 0 then
     second_chance()
 elseif reset_reason == 4 then
     print("node.restart")
+    gpio.trig(zswitch)
+    hvbouton=nil
+    second_chance=nil
+    zswitch=nil
+    reset_reason=nil
     f= "boot.lua"   if file.exists(f) then dofile(f) end
 elseif reset_reason == 5 then
     print("dsleep wake up")
