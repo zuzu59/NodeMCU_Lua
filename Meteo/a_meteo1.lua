@@ -1,7 +1,7 @@
--- Script pour chercher les prévision de la pluie pour une ville de 7h à 19h
+-- Script pour chercher les prévision du jour de la pluie pour une ville
 -- sur https://www.prevision-meteo.ch/services/json/lausanne
 
-print("\n a_meteo1.lua zf190310.1635 \n")
+print("\n a_meteo1.lua zf190310.1946 \n")
 
 
 function zget_json_key()
@@ -9,42 +9,35 @@ function zget_json_key()
     if zjson_header==1 then
         p1=string.find(zjson, [["hourly_data":{]])
         if p1~=nil then
-            print("trouvé le header: ",p1)
+--            print("trouvé le header: ",p1)
             zjson=string.sub(zjson,p1)
-            print(string.sub(zjson,1,100))
-            print("go go go...")
+--            print(string.sub(zjson,1,100))
+--            print("go go go...")
             zjson_header=2
         end
     end
     if zjson_header==2 then
 --        print("len1: "..string.len(zjson))
         zjson_key='"'..zh..'H00":{'
-        print("zjson_key: "..zjson_key)
+--        print("zjson_key: ",zjson_key)
         p1=string.find(zjson, zjson_key)
-        print("p1: ",p1)
+--        print("p1: ",p1)
         if p1~=nil then
             zjson=string.sub(zjson,p1)
-            print("zjson: ",string.sub(zjson,1,100))
+--            print("zjson: ",string.sub(zjson,1,100))
 --            p1,p2=string.find(zjson, '"CONDITION_KEY":"')
             p1,p2=string.find(zjson, '"APCPsfc":')
-
-            
-            print(p1,p2)
+--            print("p1: ",p1,"p2: ",p2)
             if p1~=nil then
 --                p3=string.find(zjson, '","',p2)
                 p3=string.find(zjson, ',',p2)
-                print(p3)
+--                print("p3: ",p3)
                 if p3~=nil then
                     zpluie=tonumber(string.sub(zjson,p2+1,p3-1))
-                    print("zpluie: ",zpluie)
+                    print("heure: ",zjson_key,"zpluie: ",zpluie)
 --                    print("len2: "..string.len(zjson))
-                if zh >=7 and zh<=13 then
-                    zpluie_am=zpluie_am+zpluie
-                end
-                if zh >=13 and zh<=19 then
-                    zpluie_pm=zpluie_pm+zpluie
-                end
-                
+                if zmeteo~="" then zmeteo=zmeteo.."," end
+                zmeteo=zmeteo..zh..","..zpluie
                 end
             end
         end
@@ -67,7 +60,7 @@ function zget_json(c1)
         if p1~=nil then
             zh=zh+1            
         else
-            print("ouille ouille ouille, pas trouvé...")
+--            print("ouille ouille ouille, pas trouvé...")
             if string.len(zjson)>510 then
                 zjson=string.sub(zjson,string.len(zjson)-500)
             end
@@ -88,20 +81,19 @@ function zget_meteo()
     --site simulation pour les tests
     zport=80   zhost = "192.168.0.34"   zurl = "/json/meteo/meteo.lausanne.190302.1231.json"
     
-    zhmin=7   zhmax=19   zh=zhmin
-    zpluie_am=0   zpluie_pm=0
+    zhmin=0   zhmax=23   zh=zhmin   zmeteo=""
     zcmpt=1   zsum=0   zjson_header=1   zjson=""
 
     local s = net.createConnection()
     
     s:on("connection", function(sck, c)
-        print("on est connecté...")
+--        print("on est connecté...")
         sck:send("GET "..zurl.." HTTP/1.1\r\nHost: "..zhost.."\r\nConnection: close\r\nAccept: */*\r\n\r\n")
     end)
 
     s:on("disconnection", function(a,b)
-        print("on est déconnecté...",a,b)
-        print("pluie_am: ",zpluie_am,"pluie_pm: ",zpluie_pm)
+--        print("on est déconnecté...",a,b)
+        print("la meteo est: "..zmeteo)
     end)
     
     s:on("reconnection", function(a,b)
@@ -110,19 +102,21 @@ function zget_meteo()
    
     s:on("receive", function(sck, c)
         zlen=string.len(c)   zsum=zsum+zlen
-        print("...zcmpt, zsum, zlen: ",zcmpt,zsum,zlen,string.sub(c,1,100))
-    --    print("len3: "..string.len(zjson))
-    --    print("zjson3: ",string.sub(zjson,1,100))
---        zget_json(c)
+--        print("...zcmpt, zsum, zlen: ",zcmpt,zsum,zlen,string.sub(c,1,100))
+--        print("len3: "..string.len(zjson))
+--        print("zjson3: ",string.sub(zjson,1,100))
+        zget_json(c)
         zcmpt=zcmpt+1
     end)
     
-    print("on se connecte...",node.heap())
+--    print("on se connecte...",node.heap())
     s:connect(zport, zhost)
 end
 
 
 --[[
+f= "a_meteo1.lua"   if file.exists(f) then dofile(f) end   zget_meteo()
+
 -- On affiche combien on a de RAM
 print(node.heap())
 
@@ -147,8 +141,7 @@ zh1=node.heap()   print("zh0-zh1: ",zh0-zh1)
 
 zport=nil   zhost=nill   zurl=nil
 zhmin=nil   zhmax=nil   zh=nil
-zpluie_am=nil   zpluie_pm=nil
-zcmpt=nil   zsum=nil   zjson_header=nil   zjson=nil
+zcmpt=nil   zsum=nil   zjson_header=nil   zjson=nil   zlen=nil
 zh1=node.heap()   print("zh0-zh1: ",zh0-zh1)
 
 -- On affiche combien on a de RAM
