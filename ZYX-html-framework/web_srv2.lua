@@ -1,7 +1,7 @@
 -- petit script de serveur WEB avec Active Server Page ZYX
 -- pour l'instant la partie ASP n'est que mono tâche !
 
-print("\n web_srv2.lua   zf190127.1458   \n")
+print("\n web_srv2.lua   zf190314.1507   \n")
 
 ztemp=12
 
@@ -12,8 +12,11 @@ end
 
 -- envoie un fichier HTML sur le port. ATTENTION: longueur de la ligne maximale de 1'024 bytes !
 function send_file(zclient, zfilename)
+    print("start send html...")
+    zclient:send("HTTP/1.1 200 OK\n")
+    zclient:send("Content-Type: text/html\n\n")
     zzclient = zclient        -- export le port sur l'environnement global !
-    if zfilename == "" then zfilename = "index.html" end  
+    if zfilename == "" then zfilename = "z_index.html" end  
     if file.open(zfilename, "r") then
         repeat
             local line = file.read('\n')
@@ -47,7 +50,7 @@ srv:listen(80, function(conn)
     conn:on("receive", function(client, request)
         _, _, method, path, vars = string.find(request, "([A-Z]+) (.+)?(.+) HTTP")
         
---    print("request: \n---\n"..request.."---")
+    print("request: \n---\n"..request.."---")
 --    print("method: ", method)   print("path: ", path)   print("vars: ", vars)
         
         if not string.find(request, "/favicon.ico") then
@@ -55,6 +58,7 @@ srv:listen(80, function(conn)
             if (method == nil) then
                 _, _, method, path = string.find(request, "([A-Z]+) (.+) HTTP")
             end
+            print("method: ", method)   print("path: ", path)   print("vars: ", vars)
             _GET = {}
             if (vars ~= nil) then
                 for k, v in string.gmatch(vars, "(%w+)=(%w+)&*") do
