@@ -1,5 +1,5 @@
 -- Petit script pour envoyer quelque chose sur un serveur WEB
-print("\n web_cli.lua   zf190227.1838   \n")
+print("\n web_cli.lua   zf190408.1823   \n")
 
 
 function disp_send()
@@ -15,8 +15,11 @@ function disp_send()
             jp= 150   h3=string.sub (data,jp,jp+7)
             jp= 200   h4=string.sub (data,jp,jp+7)
             print(h1,h2,h3,h4)
-            tm = rtctime.epoch2cal(rtctime.get() + 3600)
+--            tm = rtctime.epoch2cal(rtctime.get() + 3600)      -- heure d'été
+            tm = rtctime.epoch2cal(rtctime.get() + 7200)           -- heure d'hiver
+            
             h0 = string.format("%02d:%02d:%02d", tm["hour"], tm["min"], tm["sec"])
+            print("Il est "..h0)
             d1=zround((diff_time(h2, h0)/180),0)
             d2=zround((diff_time(h3, h0)/180),0)
             print(d1,d2)

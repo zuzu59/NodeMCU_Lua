@@ -2,7 +2,7 @@
 -- tout sur la couleur: https://www.w3schools.com/colors/default.asp
 -- roue des couleurs: https://iro.js.org/?ref=oldsite
 
-print("\n jflash_2rgb.lua jv190227.1628 \n")
+print("\n jflash_2rgb.lua jv190408.1815 \n")
 
 dofile("jled_rgb.lua")
 
@@ -19,7 +19,7 @@ ztmr_Flash_LED1 = tmr.create()   ztmr_Flash_LED2 = tmr.create()
 
 function flash_LED1 ()
     if nbfois1 >= xfois1 then
-        print(nbfois1)
+        print("nbfois1: "..nbfois1)
         nbfois1 = 0
         jled_rgb(zLED1,R1,G1,B1,0)
         tmr.alarm(ztmr_Flash_LED1, zTm_Pause, tmr.ALARM_SINGLE, flash_LED1)
@@ -39,7 +39,7 @@ end
 
 function flash_LED2 ()
     if nbfois2 >= xfois2 then
-        print(nbfois2)
+        print("nbfois2: "..nbfois2)
         nbfois2 = 0
         jled_rgb(zLED2,R2,G2,B2,0)
         tmr.alarm(ztmr_Flash_LED2, zTm_Pause, tmr.ALARM_SINGLE, flash_LED2)
@@ -57,9 +57,9 @@ function flash_LED2 ()
     end
 end
 
-xfois1 =5
+xfois1 = 5
 flash_LED1 ()
-xfois2 =2
+xfois2 = 2
 flash_LED2 ()
 
 

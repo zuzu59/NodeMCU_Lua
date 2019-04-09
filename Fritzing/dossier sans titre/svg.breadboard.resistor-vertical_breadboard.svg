@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Creator: CorelDRAW X6 -->
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="0.161874in" height="0.093748in" version="1.1" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" image-rendering="optimizeQuality" fill-rule="evenodd" clip-rule="evenodd"
+viewBox="0 0 22540 13054"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+ <g id="breadboard">
+  <metadata id="CorelCorpID_0Corel-Layer"/>
+  <rect id="connector1pin" fill="none" x="19059" y="5135" width="2785" height="2785"/>
+  <rect id="connector0pin" fill="none" x="5069" y="5161" width="2785" height="2785"/>
+  <circle fill="#D9B477" cx="6527" cy="6527" r="6527"/>
+  <path fill="#C79D5A" d="M2458 11567c1117,895 2537,1434 4081,1434 3605,0 6527,-2922 6527,-6527 0,-1528 -514,-2932 -1442,-4000 -143,-164 -310,-256 -217,-33 646,1532 807,2582 541,4093 -517,2933 -2386,4958 -5409,5257 -1682,167 -1982,-62 -2870,-299 -929,-247 -2918,-1296 -1211,74z"/>
+  <circle fill="#DEBD88" cx="6527" cy="6527" r="5318"/>
+  <path fill="black" fill-opacity="0.301961" d="M12548 9124c-1856,-871 -3155,-2300 -4284,-3898 -1089,928 -2178,1855 -3267,2782 1523,1861 3040,3786 4727,4171 1261,-664 2220,-1758 2824,-3055z"/>
+  <circle fill="#8C8C8C" cx="6527" cy="6527" r="2089"/>
+  <line fill="none" stroke="#8C8C8C" stroke-width="4177.32" stroke-linecap="round" x1="20451" y1="6527" x2="6527" y2= "6527" />
+  <path id="ReflexLeft" fill="white" fill-opacity="0.560784" d="M1471 4438c-765,1757 -888,64 -408,-916 407,-833 764,-1340 1590,-1912 883,-612 2851,-822 1005,291 -1015,611 -1738,1506 -2187,2537z"/>
+  <path id="ReflexLeft_0" fill="white" fill-opacity="0.349020" d="M9242 5893c-935,0 -1692,-217 -1692,-484 0,-267 757,-484 1692,-484 935,0 1692,217 1692,484 0,267 -757,484 -1692,484z"/>
+  <path fill="#CCCCCC" fill-opacity="0.301961" d="M17177 6119c-1236,-70 -2441,-107 -3693,-95 -1298,13 -2543,58 -3905,166 -297,24 -3119,64 -3119,363 0,300 2789,437 3081,452 1318,69 2401,68 3943,48 1214,-15 2428,-39 3642,-58 291,-4 3583,-143 3583,-442 0,-299 -3191,-416 -3533,-435z"/>
+ </g>
+</svg>
