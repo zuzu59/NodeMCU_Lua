@@ -7,42 +7,45 @@
     </head>
     
     <body>
-        <h1>ESP8266 page 3    190215.1854</h1>
+        <h1>ESP8266 page 3    190422.1137</h1>
         <br>
         Coucou c'est la page 3 !<br>
         <a href="/">Retour à la home page...</a><br><br><br>
         
-        Voici le résultat du WIFI sniffer, dans un tableau dynamique écrit en Lua inline.<br><br>
+        Voici le résultat du capteur non linéaire corrigé avec une table 
+        d'interpolation dans un fichier .csv sur la flash.<br><br>
         
-        Le code Lua pour créer ce tableau se trouve dans le code HTML de cette page et est exécuté sur le NodeMCU.<br>
-        Les données du tableau viennent du NodeMCU !<br><br>
+        Le code Lua pour afficher ce résultat se trouve dans le code HTML de cette page et est exécuté sur le NodeMCU.<br>
+        Les données viennent du NodeMCU !<br><br>
         
         <%
-        zout(node.heap().."<br><br>\n")
+        zout("Il reste: "..node.heap().." de RAM !<br><br>\n")
         %>
-       
-        <table border='1'>
-        <tr>
-            <th>Index</th><th>MAC</th><th>Name</th><th>RSSI</th><th>Time0</th><th>Time1</th><th>Distance</th>
-        </tr>
+
         <%
-        zsort_rssi()
-        for i=1, #zmac_adrs do
-    --        print(i,zmac_adrs[i])
-            zadrs, zname, zrssi, ztime0, ztime1 = zmac_adrs[i]:match("([^,]+),([^,]+),([^,]+),([^,]+),([^,]+)")
-            zout("<tr>\n")
-            if tonumber(zrssi,10) < 0 then
-                zout("\t<td>" .. tostring(i) .. "</td>\n")
-                zout("\t<td>" .. zadrs .. "</td>\n")
-                zout("\t<td>" .. tostring(zname) .. "</td>\n")
-                zout("\t<td>" .. tostring(zrssi) .. "</td>\n")
-                zout("\t<td>" .. tostring(ztime0) .. "</td>\n")
-                zout("\t<td>" .. tostring(ztime1) .. "</td>\n")
-                zout("\t<td>" .. tostring(zround(zcalc_distance(zrssi),1)) .. "m" .. "</td>\n")            
-                zout("</tr>\n")
-            end
-        end
+        zx0=83
+        get_correction(zx0)
+        zout("la valeur corrigée de "..zx0.." est: "..zy0.."<br>")
         %>
+        
+        <%
+        zx0=91
+        get_correction(zx0)
+        zout("la valeur corrigée de "..zx0.." est: "..zy0.."<br>")
+        %>
+        
+        <%
+        zx0=100
+        get_correction(zx0)
+        zout("la valeur corrigée de "..zx0.." est: "..zy0.."<br>")
+        %>
+                 
+        <br>Yeah... cela fonctionne vachement bien !<br>
+        
+        <%
+        zout("Il reste: "..node.heap().." de RAM !<br><br>\n")
+        %>
+
         </table> 
     </body>
 </html>

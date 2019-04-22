@@ -1,7 +1,6 @@
 -- petit script de serveur WEB avec Active Server Page ZYX
--- pour l'instant la partie ASP n'est que mono tâche !
 
-print("\n web_srv2.lua   zf190314.1507   \n")
+print("\n web_srv2.lua   zf190422.1135   \n")
 
 ztemp=12
 
@@ -17,9 +16,10 @@ function send_file(zclient, zfilename)
     zclient:send("Content-Type: text/html\n\n")
     zzclient = zclient        -- export le port sur l'environnement global !
     if zfilename == "" then zfilename = "z_index.html" end  
-    if file.open(zfilename, "r") then
+    file_web = file.open(zfilename, "r")
+    if file_web then
         repeat
-            local line = file.read('\n')
+            local line = file_web:read('\n')
             if line then
                 if string.find(line, "<%%") then
 --                    print("start lua...")
@@ -37,8 +37,8 @@ function send_file(zclient, zfilename)
                     zclient:send(line)          -- envoie le code HTML
                 end
             end
-            until not line    
-        file.close()
+        until not line    
+        file_web:close()   file_web = nil
     else
         zclient:send("<html><h1>"..zfilename.." not found - 404 error</h1><a href='/'>Home</a><br></html>")
     end
