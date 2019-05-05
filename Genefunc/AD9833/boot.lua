@@ -1,6 +1,6 @@
 -- Scripts à charger après le boot pour démarrer son appli
 
-print("\n boot.lua zf19422.1102 \n")
+print("\n boot.lua zf190505.1132 \n")
 
 function heartbeat()
     f= "flash_led_xfois.lua"   if file.exists(f) then dofile(f) end
@@ -21,11 +21,11 @@ f= "web_ide2.lua"   if file.exists(f) then dofile(f) end
 f= "web_srv2.lua"   if file.exists(f) then dofile(f) end
 --f= "set_time.lua"   if file.exists(f) then dofile(f) end
 --f= "dsleep.lua"   if file.exists(f) then dofile(f) end
-f= "a_no_linear.lua"   if file.exists(f) then dofile(f) end
+f= "a_ad9833.lua"   if file.exists(f) then dofile(f) end
 
 f=nil
-heartbeat=nil
---heartbeat()
+--heartbeat=nil
+heartbeat()
 
 
 
