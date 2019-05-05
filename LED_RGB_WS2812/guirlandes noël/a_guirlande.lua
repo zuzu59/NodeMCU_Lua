@@ -2,11 +2,11 @@
 -- tout sur la couleur: https://www.w3schools.com/colors/default.asp
 -- roue des couleurs: https://iro.js.org/?ref=oldsite
 
-print("\n a_guirlande.lua zf181216.0131 \n")
+print("\n a_guirlande.lua zf190428.1824 \n")
 
 znbleds_max=300
 znbleds=300
-zstep=5
+zstep=3
 zpower=1
 
 zleds={}
