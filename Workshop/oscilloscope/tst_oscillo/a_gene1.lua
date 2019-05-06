@@ -1,6 +1,6 @@
 -- Générerateur de fonction signal carré de fréquence variable et de rqtio variable
 
-print("\n a_gene1.lua zf190504.1912 \n")
+print("\n a_gene1.lua zf190506.1417 \n")
 
 pin_gene = 5
 gpio.mode(pin_gene,gpio.OUTPUT)
@@ -19,7 +19,7 @@ function genesquare()
     print("titi")
 end
 
-zfreq=5000*(10/9.43)
+zfreq=1000*(7.575/10)            -- 1kHz
 genesquare()
 
 --[[
