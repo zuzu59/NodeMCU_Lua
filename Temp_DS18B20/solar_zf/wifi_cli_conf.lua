@@ -1,7 +1,7 @@
 -- Petit script pour configurer le client WIFI du NodeMCU
 
 function wifi_cli_conf()
-    print("\n wifi_cli_conf.lua   zf190310.1527   \n")
+    print("\n wifi_cli_conf.lua   zf190601.1328   \n")
     
     --credentials par défaut
     --cli_ssid="3g-s7"
@@ -9,7 +9,7 @@ function wifi_cli_conf()
     cli_pwd="12234567"
     
     --ses propre credentials
-    f= "credentials.lua"    if file.exists(f) then dofile(f) end
+    f= "credentials_solar.lua"    if file.exists(f) then dofile(f) end
     
     wifi.sta.config{ssid=cli_ssid, pwd=cli_pwd, save=true}
 end
