@@ -3,13 +3,13 @@
 
 #ATTENTION: c'est pour ma structure, il faudra donc l'adapter
 
-#zf190122.2203
+#zf190601.1256
 
 
 #test si l'argument est vide
 if [ -z "$1" ]
   then
-    echo -e "\nSyntax: ./zflash.sh ../../Firmware/nodemcu-master-19-modules-2018-12-10-22-19-49-float.bin"
+    echo -e "\nSyntax: ./zflash.sh ../../Firmware/nodemcu-master-18-modules-2019-05-30-21-03-41-float.bin"
     exit
 fi
 
