@@ -1,7 +1,7 @@
 -- programme pour faire clignoter x fois une LED avec un rapport on/off
 
 function flash_led_xfois()
-    print("\n flash_led_xfois.lua zf190310.1533 \n")
+    print("\n flash_led_xfois.lua zf190601.1618 \n")
     
     --zLED=0            --NodeMCU
     zLED=4             --EPS-M3
@@ -19,11 +19,13 @@ function flash_led_xfois()
         else 
             if gpio.read(zLED)==gpio.HIGH then
                 gpio.write(zLED, gpio.LOW)
-                tmr.alarm(ztmr_Flash_LED, zTm_Off_LED, tmr.ALARM_SINGLE, blink_LED)
+--                tmr.alarm(ztmr_Flash_LED, zTm_Off_LED, tmr.ALARM_SINGLE, blink_LED)
+                ztmr_Flash_LED:alarm(zTm_Off_LED, tmr.ALARM_SINGLE, blink_LED)
             else 
                 gpio.write(zLED, gpio.HIGH)
                 nbfois = nbfois+1
-                tmr.alarm(ztmr_Flash_LED, zTm_On_LED, tmr.ALARM_SINGLE, blink_LED)
+--                tmr.alarm(ztmr_Flash_LED, zTm_On_LED, tmr.ALARM_SINGLE, blink_LED)
+                ztmr_Flash_LED:alarm(zTm_On_LED, tmr.ALARM_SINGLE, blink_LED)
             end
         end
     end

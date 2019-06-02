@@ -4,9 +4,11 @@
 
 Pour l'instant ce n'est qu'un test, mais je vais utiliser des capteurs de température One Wire DS18B20 ;-)
 
+telnet -rN 192.168.0.173
+
+dofile("a1.lua")
 
 
 
 
-
-zf190601.1317
+zf190602.1313

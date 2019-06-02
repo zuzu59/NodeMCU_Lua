@@ -1,12 +1,13 @@
 -- Scripts à charger après le boot pour démarrer son appli
 
-print("\n boot.lua zf190601.1535 \n")
+print("\n boot.lua zf190601.1615 \n")
 
 function heartbeat()
     f= "flash_led_xfois.lua"   if file.exists(f) then dofile(f) end
     flash_led_xfois()
     boottimer1=tmr.create()
-    tmr.alarm(boottimer1, 1*1000,  tmr.ALARM_AUTO, function()
+--    tmr.alarm(boottimer1, 1*1000,  tmr.ALARM_AUTO, function()
+    boottimer1:alarm(1*1000,  tmr.ALARM_AUTO, function()
         xfois =2
         blink_LED ()
     end)
@@ -25,8 +26,8 @@ f= "web_srv2.lua"   if file.exists(f) then dofile(f) end
 --f= "a_no_linear.lua"   if file.exists(f) then dofile(f) end
 
 f=nil
-heartbeat=nil
---heartbeat()
+--heartbeat=nil
+heartbeat()
 
 
 

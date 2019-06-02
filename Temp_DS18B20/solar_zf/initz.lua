@@ -3,7 +3,7 @@
 -- le script repair.lua pendant xx secondes avant de continuer
 --Source: https://nodemcu.readthedocs.io/en/master/en/modules/node/#nodebootreason
 
-print("\n init.lua zf190310.1549 \n")
+print("\n init.lua zf190601.1620 \n")
 
 zswitch=3     --switch flash
 gpio.mode(zswitch, gpio.INT, gpio.PULLUP)
@@ -20,7 +20,8 @@ function second_chance()
     print("seconde chance...")
     f= "repair.lua"   if file.exists(f) then dofile(f) end
     initalarme=tmr.create()
-    tmr.alarm(initalarme, 4*1000,  tmr.ALARM_SINGLE, function()
+--    tmr.alarm(initalarme, 4*1000,  tmr.ALARM_SINGLE, function()
+    initalarme:alarm(4*1000,  tmr.ALARM_SINGLE, function()
         f= "boot.lua"   if file.exists(f) then dofile(f) end
     end)
 end

@@ -3,12 +3,12 @@
 -- source: https://nodemcu.readthedocs.io/en/master/modules/ds18b20/
 
 function a1()
-    print("\n a1.lua zf190601.1538 \n")
+    print("\n a1.lua zf190601.1627 \n")
 end
 
 a1()
 
-local ow_pin = 4
+local ow_pin = 3
 ds18b20.setup(ow_pin)
 
 print("toto182538")
