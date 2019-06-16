@@ -3,7 +3,7 @@
 -- source: https://nodemcu.readthedocs.io/en/master/modules/ds18b20/
 
 function a1()
-    print("\n a1.lua zf190616.1453 \n")
+    print("\n a1.lua zf190616.1519 \n")
 end
 
 a1()
@@ -27,7 +27,7 @@ ds18b20.read(
         elseif ind == 3 then
             ztemp3 = temp
             --C'est la fin de lecture, on envoie les mesures à ThingSpeak
-        print(ztemp1,ztemp2,ztemp3)
+            print(ztemp1,ztemp2,ztemp3)
             disp_send()
         end
     end,{})

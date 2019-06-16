@@ -1,10 +1,9 @@
 -- Petit script pour envoyer quelque chose sur un serveur WEB
-print("\n web_cli.lua   zf190616.1513   \n")
-
+print("\n web_cli.lua   zf190616.1519   \n")
 
 function disp_send()
     print("web_cli: ")
-    ztemp1=11    ztemp2=12    ztemp3=13
+--    ztemp1=11    ztemp2=12    ztemp3=13
     
     zurl=thingspeak_url_update.."field1="..tostring(ztemp1).."&field2="..tostring(ztemp2).."&field3="..tostring(ztemp3)
     print(zurl)
