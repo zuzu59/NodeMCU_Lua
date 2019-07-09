@@ -1,6 +1,6 @@
 -- petit script de serveur WEB avec Active Server Page ZYX
 
-print("\n web_srv2.lua   zf190422.1135   \n")
+print("\n web_srv2.lua   zf190709.2209   \n")
 
 ztemp=12
 
