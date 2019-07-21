@@ -37,5 +37,11 @@ Il faut convertir le MP3 en WAV raw 8 bits mono 1k ou 16k SpS
 * vérifier les informations avec le finder
 
 
+## Petite démonstration ;-)
 
-zf190721.1233
+https://youtu.be/M0wqmWyAx5o
+
+
+
+
+zf190721.1640
