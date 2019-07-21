@@ -1,6 +1,6 @@
 -- Scripts pour jouer un fichier son sur un HP
 
-print("\n play_file.lua zf190721.1238 \n")
+print("\n play_file.lua zf190721.1600 \n")
 
 
 -- ****************************************************************************
@@ -17,6 +17,8 @@ function cb_drained(d)
   file.seek("set", 0)
   -- uncomment the following line for continuous playback
   --d:play(pcm.RATE_8K)
+  d:play(pcm.RATE_16K)
+  
 end
 
 function cb_stopped(d)
@@ -28,7 +30,7 @@ function cb_paused(d)
   print("playback paused")
 end
 
-file.open("cigale_10s_16k.wav", "r")
+file.open("cigale_1mn_16k.wav", "r")
 
 drv = pcm.new(pcm.SD, 5)
 

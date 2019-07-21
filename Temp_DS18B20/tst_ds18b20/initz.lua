@@ -3,14 +3,14 @@
 -- le script repair.lua pendant xx secondes avant de continuer
 --Source: https://nodemcu.readthedocs.io/en/master/en/modules/node/#nodebootreason
 
-print("\n init.lua zf190601.1620 \n")
+print("\n init.lua zf190601.1612 \n")
 
 zswitch=3     --switch flash
 gpio.mode(zswitch, gpio.INT, gpio.PULLUP)
 
 function hvbouton()
 --    gpio.trig(zswitch, "none")
-    tmr.unregister(initalarme)
+    initalarme:unregister()
     f= "boot.lua"   if file.exists(f) then dofile(f) end
 end
 
