@@ -36,4 +36,4 @@ node ow pcm rtctime sntp spi tmr uart wifi ws2812
 https://thingspeak.com/channels/817940
 
 
-zf190709.2135
+zf190726.1917

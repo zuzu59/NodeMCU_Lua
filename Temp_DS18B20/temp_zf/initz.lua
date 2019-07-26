@@ -3,7 +3,7 @@
 -- le script repair.lua pendant xx secondes avant de continuer
 --Source: https://nodemcu.readthedocs.io/en/master/en/modules/node/#nodebootreason
 
-print("\n init.lua zf190601.1612 \n")
+print("\n init.lua zf190621.1612 \n")
 
 zswitch=3     --switch flash
 gpio.mode(zswitch, gpio.INT, gpio.PULLUP)

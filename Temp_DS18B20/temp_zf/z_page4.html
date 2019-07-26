@@ -7,7 +7,7 @@
     </head>
 
     <body>
-        <h1>ESP8266 page 4    190709.2221</h1>
+        <h1>ESP8266 page 4    190726.1955</h1>
         <br>
         Web service concentrateur de mesures de température !<br>
         <a href="/">Retour à la home page...</a><br><br><br>
@@ -24,17 +24,26 @@
         Les arguments du web service (GET) sont:<br><br>
         <%
             if (vars ~= nil) then
+                zout("<br>vars: "..vars.."<br>")
                 for k, v in string.gmatch(vars, "(%w+)=(%w+)&*") do
                     _GET[k] = v
                     zout(k..": "..v.."<br>")
+                    if k == "field1" then 
+                        ztemp1_conc = v
+                    elseif k == "field2" then
+                        ztemp2_conc = v
+                    elseif k == "field3" then
+                        ztemp3_conc = v
+                    end
                 end
             end
+            zout("<br>Les températures récupérées sont: "..ztemp1_conc..", "..ztemp2_conc..", "..ztemp3_conc)
         %>
 
 
 
 
-        <br>Yeah... cela fonctionne vachement bien !<br><br>
+        <br><br>Yeah... cela fonctionne vachement bien !<br><br>
 
         <%
         zout("Il reste: "..node.heap().." de RAM !<br><br>\n")
