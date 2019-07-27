@@ -66,36 +66,44 @@ Et c'est le **2** qui fait office de *hub*, qui concentre les mesures de tempér
 
 On peut lire la température directement sur le NodeMCU au moyen de cet url (il faut modifier l'adresse IP du NodeMCU en question):
 
-nodemcu 29, http://192.168.0.180/disp_temp.html
+nodemcu xx int, http://192.168.0.171/disp_temp.html
 
-nodemcu 30, http://192.168.0.105/disp_temp.html
+nodemcu 29 sud, http://192.168.0.180/disp_temp.html
+
+nodemcu 30 nord, http://192.168.0.105/disp_temp.html
 
 
 ### Affichage du petit serveur web du NodeMCU_Lua
 
 Chaque NodeMCU a son propre serveur WEB, on peut l'accéder simplement depuis son adresse IP:
 
-nodemcu 29, http://192.168.0.180
+nodemcu xx int, http://192.168.0.171
 
-nodemcu 30, http://192.168.0.105
+nodemcu 29 sud, http://192.168.0.180
+
+nodemcu 30 nord, http://192.168.0.105
 
 
 ### Modification du code source du NodeMCU en remote
 
 Très pratique pour le debug, on peut directement modifier le code source Lua du NodeMCU en remote avec cet url:
 
-nodemcu 29, http://192.168.0.180:88
+nodemcu xx int, http://192.168.0.171:88
 
-nodemcu 30, http://192.168.0.105:88
+nodemcu 29 sud, http://192.168.0.180:88
+
+nodemcu 30 sord, http://192.168.0.105:88
 
 
 ### Utilisation de la console du NodeMCU en remote
 
 Très pratique pour le debug, on peut accéder à la console du NodeMCU en remote avec telnet:
 
-nodemcu 29, **telnet -rN 192.168.0.180**
+nodemcu xx int, **telnet -rN 192.168.0.171**
 
-nodemcu 30, **telnet -rN 192.168.0.105**
+nodemcu 29 sud, **telnet -rN 192.168.0.180**
+
+nodemcu 30 nord, **telnet -rN 192.168.0.105**
 
 
 ## Visualisation sur ThingSpeak
@@ -103,4 +111,4 @@ nodemcu 30, **telnet -rN 192.168.0.105**
 https://thingspeak.com/channels/817940
 
 
-zf190727.1432
+zf190727.1447
