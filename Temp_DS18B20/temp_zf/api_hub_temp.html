@@ -7,23 +7,23 @@
     </head>
 
     <body>
-        <h1>API HUB Temp    190727.0935</h1>
+        <h1>API HUB Temp    190727.0948</h1>
         <br>
 
         <%
-            ztemp1 = 0  ztemp2 = 0 ztemp3 = 0
+            --ztemp1 = 0  ztemp2 = 0 ztemp3 = 0
             
             if (_GET.field1 ~= nil) then
                 ztemp1 = _GET.field1
-                zout("<br>temp1: "..ztemp1)
+                zout("<br>temp1: "..ztemp1.."°C")
             end
             if (_GET.field2 ~= nil) then
                 ztemp2 = _GET.field2
-                zout("<br>temp2: "..ztemp2)
+                zout("<br>temp2: "..ztemp2.."°C")
             end
             if (_GET.field3 ~= nil) then
                 ztemp3 = _GET.field3
-                zout("<br>temp3: "..ztemp3)
+                zout("<br>temp3: "..ztemp3.."°C")
             end
         %>
 
