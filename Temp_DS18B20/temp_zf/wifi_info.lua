@@ -1,5 +1,5 @@
 -- Petit script pour afficher les infos actuel du WIFI
-print("\n wifi_info.lua   zf181119.0014   \n")
+print("\n wifi_info.lua   zf190727.1220   \n")
 
 local zmodewifi=wifi.getmode()
 
@@ -10,10 +10,11 @@ if zmodewifi == wifi.NULLMODE then
 elseif zmodewifi == wifi.STATION then
     print("WIFI mode CLI")
     print("Connected IP:\n",wifi.sta.getip())
-    do
-        local sta_config=wifi.sta.getconfig(true)
-        print(string.format("Current client config:\n\tssid:\"%s\"\tpassword:\"%s\"\n\tbssid:\"%s\"\tbssid_set:%s", sta_config.ssid, sta_config.pwd, sta_config.bssid, (sta_config.bssid_set and "true" or "false")))
-    end
+    local sta_config=wifi.sta.getconfig(true)
+    print("Current client config:")
+    print("\tssid:", sta_config.ssid)
+    print("\tpassword:", sta_config.pwd)
+    print("\tbssid:", sta_config.bssid)
 elseif zmodewifi == wifi.SOFTAP then
     print("WIFI mode AP")
     print("AP MAC:\n",wifi.ap.getmac())
@@ -22,10 +23,11 @@ elseif zmodewifi == wifi.SOFTAP then
 elseif zmodewifi == wifi.STATIONAP then
     print("WIFI mode CLI+AP")
     print("Connected IP:\n",wifi.sta.getip())
-    do
-        local sta_config=wifi.sta.getconfig(true)
-        print(string.format("Current client config:\n\tssid:\"%s\"\tpassword:\"%s\"\n\tbssid:\"%s\"\tbssid_set:%s", sta_config.ssid, sta_config.pwd, sta_config.bssid, (sta_config.bssid_set and "true" or "false")))
-    end
-    print("AP MAC: "..wifi.ap.getmac())
-    print("AP IP: "..wifi.ap.getip())
+    local sta_config=wifi.sta.getconfig(true)
+    print("Current client config:")
+    print("\tssid:", sta_config.ssid)
+    print("\tpassword:", sta_config.pwd)
+    print("\tbssid:", sta_config.bssid)
+    print("AP MAC: ", wifi.ap.getmac())
+    print("AP IP: ", wifi.ap.getip())
 end

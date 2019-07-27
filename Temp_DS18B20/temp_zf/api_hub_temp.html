@@ -7,12 +7,18 @@
     </head>
 
     <body>
-        <h1>API HUB Temp    190727.0948</h1>
+        <h1>API HUB Temp    190727.1321</h1>
         <br>
 
         <%
-            --ztemp1 = 0  ztemp2 = 0 ztemp3 = 0
-            
+            if (vars ~= nil) then
+                zout("<br>vars: "..vars.."<br>")
+                for k, v in string.gmatch(vars, "(%w+)=(%w+%p+%w+)&*") do
+                    _GET[k] = v
+                    zout(k..": "..v.."<br>")
+                end
+            end
+
             if (_GET.field1 ~= nil) then
                 ztemp1 = _GET.field1
                 zout("<br>temp1: "..ztemp1.."°C")
