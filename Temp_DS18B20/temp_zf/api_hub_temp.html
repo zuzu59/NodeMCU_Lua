@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+
+    <head>
+      <meta charset='utf-8' name='viewport' content='width=device-width, initial-scale=1.0'>
+      <title>API HUB Temp</title>
+    </head>
+
+    <body>
+        <h1>API HUB Temp    190727.0935</h1>
+        <br>
+
+        <%
+            ztemp1 = 0  ztemp2 = 0 ztemp3 = 0
+            
+            if (_GET.field1 ~= nil) then
+                ztemp1 = _GET.field1
+                zout("<br>temp1: "..ztemp1)
+            end
+            if (_GET.field2 ~= nil) then
+                ztemp2 = _GET.field2
+                zout("<br>temp2: "..ztemp2)
+            end
+            if (_GET.field3 ~= nil) then
+                ztemp3 = _GET.field3
+                zout("<br>temp3: "..ztemp3)
+            end
+        %>
+
+    </body>
+</html>

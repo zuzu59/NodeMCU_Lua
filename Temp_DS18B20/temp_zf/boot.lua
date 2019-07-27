@@ -1,19 +1,18 @@
 -- Scripts à charger après le boot pour démarrer son appli
 
-print("\n boot.lua zf190726.1913 \n")
+print("\n boot.lua zf190727.0902 \n")
 
 function heartbeat()
     f= "flash_led_xfois.lua"   if file.exists(f) then dofile(f) end
     flash_led_xfois()
     boottimer1=tmr.create()
---    tmr.alarm(boottimer1, 1*1000,  tmr.ALARM_AUTO, function()
     boottimer1:alarm(1*1000,  tmr.ALARM_AUTO, function()
         xfois =2
         blink_LED ()
     end)
 end
 
---ses propres secrets
+-- charge ses propres secrets
 f= "secrets_temp_zf_int_1er.lua"    if file.exists(f) then dofile(f) end
 f= "secrets_temp_zf_out_nord.lua"    if file.exists(f) then dofile(f) end
 f= "secrets_temp_zf_out_sud.lua"    if file.exists(f) then dofile(f) end
