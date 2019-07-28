@@ -1,6 +1,6 @@
 -- Scripts à charger après le boot pour démarrer son appli
 
-print("\n boot.lua zf190727.1341 \n")
+print("\n boot.lua zf190728.1009 \n")
 
 function heartbeat()
     f= "flash_led_xfois.lua"   if file.exists(f) then dofile(f) end
@@ -13,9 +13,9 @@ function heartbeat()
 end
 
 -- charge ses propres secrets
-f= "secrets_temp_zf_int_1er.lua"    if file.exists(f) then dofile(f) end
-f= "secrets_temp_zf_out_nord.lua"    if file.exists(f) then dofile(f) end
-f= "secrets_temp_zf_out_sud.lua"    if file.exists(f) then dofile(f) end
+f= "secrets_temp_int_1er.lua"    if file.exists(f) then dofile(f) end
+f= "secrets_temp_out_nord.lua"    if file.exists(f) then dofile(f) end
+f= "secrets_temp_out_sud.lua"    if file.exists(f) then dofile(f) end
 
 --f= "led_rgb.lua"   if file.exists(f) then dofile(f) end
 --f= "wifi_ap_start.lua"   if file.exists(f) then dofile(f) end

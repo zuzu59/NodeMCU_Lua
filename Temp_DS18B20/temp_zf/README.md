@@ -5,11 +5,12 @@ Petit projet pour mesurer la température intérieure et extérieure chez moi, a
 On peut voir, avec ce projet assez complet, toutes les possibilités offertes de la programmation des NodeMCU en LUA, en mode événementiel. <br>
 Choses qui ne seraient pas possible si on l'avait fait en C++ (mode Arduino), comme par exemple:
 
-* serveur WEB service pour le HUB (API)
-* serveur WEB pour l'affichage des températures (Active Server Pages ZYX)
+* serveur WEB Active Server Pages ZYX, permet de faire des pages HTML avec du code LUA in line
+* serveur WEB service pour le HUB (API GET)
+* serveur WEB pour l'affichage des températures
+* serveur WEB pour l'IDE, modification du code source en remote directement depuis une page WEB, pas besoin d'IDE
 * crontab pour les mesures de température
-* serveur WEB pour l'IDE, modification du code source en remote
-* serveur TELNET, utilisation de la console en remote
+* serveur TELNET, utilisation de la console en remote pour le debug
 
 Toutes les fonctions sont bien séparées dans des scripts, ce qui facilite la portabilité entre les projets mais aussi sa mise au point.
 
@@ -48,9 +49,9 @@ node ow pcm rtctime sntp spi tmr uart wifi ws2812
 Comme les mesures de températures sont faites avec 3x NodeMCU différents, il y a donc 3x fichiers de *secrets*. C'est dans ces fichiers de *secrets* qu'il y a l'information de l'adresse IP du NodeMCU qui fait office de *hub* !<br>
 
 ```
-secrets_temp_zf_int.lua
-secrets_temp_zf_out_sud.lua
-secrets_temp_zf_out_nord.lua
+secrets_temp_int_1er.lua
+secrets_temp_out_sud.lua
+secrets_temp_out_nord.lua
 ```
 
 C'est aussi là qu'il y a le *numéro du field* (zfield), c'est à dire le rôle joué par le NodeMCU_Lua:
@@ -66,7 +67,7 @@ Et c'est le **2** qui fait office de *hub*, qui concentre les mesures de tempér
 
 On peut lire la température directement sur le NodeMCU au moyen de cet url (il faut modifier l'adresse IP du NodeMCU en question):
 
-nodemcu xx int, http://192.168.0.171/disp_temp.html
+nodemcu 28 int, http://192.168.0.171/disp_temp.html
 
 nodemcu 29 sud, http://192.168.0.180/disp_temp.html
 
@@ -77,7 +78,7 @@ nodemcu 30 nord, http://192.168.0.105/disp_temp.html
 
 Chaque NodeMCU a son propre serveur WEB, on peut l'accéder simplement depuis son adresse IP:
 
-nodemcu xx int, http://192.168.0.171
+nodemcu 28 int, http://192.168.0.171
 
 nodemcu 29 sud, http://192.168.0.180
 
@@ -88,7 +89,7 @@ nodemcu 30 nord, http://192.168.0.105
 
 Très pratique pour le debug, on peut directement modifier le code source Lua du NodeMCU en remote avec cet url:
 
-nodemcu xx int, http://192.168.0.171:88
+nodemcu 28 int, http://192.168.0.171:88
 
 nodemcu 29 sud, http://192.168.0.180:88
 
@@ -99,7 +100,7 @@ nodemcu 30 sord, http://192.168.0.105:88
 
 Très pratique pour le debug, on peut accéder à la console du NodeMCU en remote avec telnet:
 
-nodemcu xx int, **telnet -rN 192.168.0.171**
+nodemcu 28 int, **telnet -rN 192.168.0.171**
 
 nodemcu 29 sud, **telnet -rN 192.168.0.180**
 
@@ -107,8 +108,11 @@ nodemcu 30 nord, **telnet -rN 192.168.0.105**
 
 
 ## Visualisation sur ThingSpeak
-
+La totale en détail
 https://thingspeak.com/channels/817940
 
+Seulement la corrélation entre les trois température
+https://thingspeak.com/apps/plugins/300559
 
-zf190727.1447
+
+zf190728.1219

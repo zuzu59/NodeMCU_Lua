@@ -1,6 +1,6 @@
 -- petit script de serveur WEB avec Active Server Page ZYX
 
-print("\n web_srv2.lua   zf190709.2209   \n")
+print("\n web_srv2.lua   zf190728.1021   \n")
 
 ztemp=12
 
@@ -50,7 +50,8 @@ srv:listen(80, function(conn)
     conn:on("receive", function(client, request)
         _, _, method, path, vars = string.find(request, "([A-Z]+) (.+)?(.+) HTTP")
         
-    print("request: \n---\n"..request.."---")
+    print("zrequest: \n---\n"..request.."---")
+    
 --    print("method: ", method)   print("path: ", path)   print("vars: ", vars)
         
         if not string.find(request, "/favicon.ico") then
