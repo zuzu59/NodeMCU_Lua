@@ -1,34 +1,30 @@
--- Lit le capteur de température solaire en fonction de son field qui se trouve dans les secrets !
-print("\n 0_get_temp.lua zf190728.1014 \n")
+-- Lit le capteur LDR pour mesurer la consommation électrique du compteur de la maison
+print("\n 0_get_energy.lua zf190803.2138 \n")
 
 -- lecture: https://thingspeak.com/channels/802784/private_show
--- source: https://nodemcu.readthedocs.io/en/master/modules/ds18b20/
 
-local ow_pin = 3
-ds18b20.setup(ow_pin)
+local ldr_pin = 2           -- pin de la LDR
+local zledbleue=0           --led bleue 
 
-function get_temp()
-    ds18b20.read(
-        function(ind,rom,res,temp,tdec,par)
-            print(ind, temp, zfield)
-            if zfield == 1 then
-                ztemp1 = temp
-                zurl=hub_url.."field1="..tostring(ztemp1)
-                send_temp()
-            elseif zfield == 2 then
-                ztemp2 = temp
-            elseif zfield == 3 then
-                ztemp3 = temp
-                zurl=hub_url.."field3="..tostring(ztemp3)
-                send_temp()
-            end
-            print(ztemp1, ztemp2, ztemp3)
-        end,{})
+gpio.mode(ldr_pin, gpio.INT, gpio.FLOAT)
+
+function get_energy()
+    if gpio.read(ldr_pin)==0  then
+        zled_state="OFF"
+        gpio.write(zledbleue, gpio.HIGH)
+    else 
+        zled_state="ON"
+        gpio.write(zledbleue, gpio.LOW)
+    end
+    print("btn_led: "..zled_state)
+--    disp_send()
 end
+
+gpio.trig(ldr_pin, "both", get_energy)
 
 --[[
 
-get_temp()
+get_energy()
 
 ]]
 
