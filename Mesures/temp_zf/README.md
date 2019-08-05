@@ -2,9 +2,9 @@
 
 Petit projet pour mesurer la température intérieure et extérieure chez moi, avec des capteurs de température 1-Wire DS18B20, et  l'afficher sur ThingSpeak.
 
-![Image of Yaktocat](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Temp_DS18B20/temp_zf/img/20190728_122840.jpg)
+![Image of Yaktocat](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/temp_zf/img/20190728_122840.jpg)
 
-![Image of Yaktocat](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Temp_DS18B20/temp_zf/img/Capture%20d%E2%80%99%C3%A9cran%202019-07-28%20%C3%A0%2012.31.14.png)
+![Image of Yaktocat](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/temp_zf/img/Capture%20d%E2%80%99%C3%A9cran%202019-07-28%20%C3%A0%2012.31.14.png)
 
 On peut voir, avec ce projet assez complet, toutes les possibilités offertes de la programmation des NodeMCU en LUA, en mode événementiel. <br>
 Choses qui ne seraient pas possible si on l'avait fait en C++ (mode Arduino), comme par exemple:
@@ -120,4 +120,4 @@ Seulement la corrélation entre les trois température
 https://thingspeak.com/apps/plugins/300559
 
 
-zf190728.1242
+zf190805.1338
