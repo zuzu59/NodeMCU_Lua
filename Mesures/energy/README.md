@@ -1,10 +1,18 @@
 # temp_zf
 
-Petit projet pour mesurer la consommation électrique en temps réel chez moi avec un NodeMCU en LUA, et  l'afficher sur ThingSpeak.
+Petit projet pour mesurer la consommation électrique en temps réel chez moi avec un NodeMCU en LUA, et  l'afficher sur Grafana avec une DB InfluxDB.
 
-![Image of Yaktocat](.jpg)
+![Image of Yaktocat](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/energy/img/20190805_134510.jpg)
+Vue globale de mon installation prototype :-)
 
-![Image of Yaktocat](.png)
+![Image of Yaktocat](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/energy/img/20190805_134459.jpg)
+La photo résistance LDR est juste collée avec du scotch sur la LED du compteur électrique !
+
+![Image of Yaktocat](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/energy/img/20190805_134504.jpg)
+C'est mon NodeMCU de banc tests, il y a beaucoup trop de choses dessus, normalement il n'y a qu'une résistance de pull down à ajouter à la LDR et c'est tout !
+
+![Image of Yaktocat](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/energy/img/Screenshot_20190807-221648_Chrome.jpg)
+On voit ici la régulation thermique de mon four lors de la cuisson d'une excellente tarte aux groseilles :-)
 
 On peut voir, avec ce projet assez complet, toutes les possibilités offertes de la programmation des NodeMCU en LUA, en mode événementiel. <br>
 Choses qui ne seraient pas possible si on l'avait fait en C++ (mode Arduino), comme par exemple:
@@ -22,11 +30,8 @@ Toutes les fonctions sont bien séparées dans des scripts, ce qui facilite la p
 
 ## Astuces de mesures
 
-Dans ce projet il y a 1x NodeMCU qui mesure la consommation électrique en détectant simplement le petite LED du compteur électrique
-:
+Dans ce projet il y a 1x NodeMCU qui mesure la consommation électrique en détectant simplement le petite LED du compteur électrique avec une photo résistance LDR. A chaque éclairage de la LED du compteur électrique, il y a 100Wh qui ont été consommée. Il suffit alors d'un simple petit calcul (3600 divisé par la durée entre deux impulsions et multiplié par 100W) pour retrouver la puissance instantanée mesurée.
 
-Il envoie la puissance sur le NodeMCU de la mesure **extérieure sud** fait office de hub des deux autres mesures de températures et, envoie en même temps les 4x mesures à Thingspeak. Ceci afin de les avoir tous dans le même channel (on économise les channels).<br>
-Cela permet de mesurer des valeurs physiques éloignées dans la maison en utilisant le WIFI comme câble de liaison entre les sondes !
 
 
 ## Installation
@@ -48,7 +53,7 @@ node ow pcm rtctime sntp spi tmr uart wifi ws2812
 
 ### Distribution des rôles de NodeMCU
 
-Comme la mesure de consommation est faite avec 1x NodeMCU, il y a donc 1x fichiers de *secrets*. C'est dans ce fichier de *secrets* qu'il y a l'information de l'adresse IP du NodeMCU qui fait office de *hub* !<br>
+Comme la mesure de consommation est faite avec 1x NodeMCU, il y a donc 1x fichiers de *secrets*. C'est dans ce fichier de *secrets* qu'il y a l'information de l'adresse IP de la base de donnée InfluxDB !<br>
 
 ```
 secrets_energy.lua
@@ -58,10 +63,17 @@ C'est aussi là qu'il y a le *numéro du field* (zfield), c'est à dire le rôle
 
 * **4**, consommation électrique
 
-Et c'est le NodeMCu de mesure de température *sud* qui fait office de *hub*, qui concentre les mesures et les envoie en une fois à Thingspeek !
 
 
-**faut encore modifier le readme depuis ici ! zf190803.1917**
+
+**ATTENTION, readme pas encore terminé, il faut encore modifier le readme depuis ici ! zf190807.2100**
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
 ### Affichage des températures en local sur le NodeMCU
 
@@ -115,7 +127,7 @@ Seulement la corrélation entre les trois température
 https://thingspeak.com/apps/plugins/300559
 
 
-zf190803.1917
+zf190807.2100
 
 
 pense bête:
