@@ -1,7 +1,7 @@
 -- Programme qui allume la led bleue quand on appuie le bouton flash
 -- zf181011.1749
 
-print("\n btn_led.lua zf181011.2342 \n")
+print("\n btn_led.lua zf190808.1540 \n")
 
 
 zledbleue=0         --led bleue 
@@ -18,7 +18,7 @@ function zbtn()
         gpio.write(zledbleue, gpio.HIGH)
     end
     print("btn_led: "..zled_state)
-    disp_send()
+--    disp_send()
 end
 
 gpio.trig(zswitch, "both", zbtn)
