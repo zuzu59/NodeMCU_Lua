@@ -1,5 +1,5 @@
 -- Lit le capteur LDR pour mesurer la consommation électrique du compteur de la maison
-print("\n 0_get_energy.lua zf190805.1038 \n")
+print("\n 0_get_energy.lua zf190807.0923 \n")
 
 -- lecture: https://thingspeak.com/channels/802784/private_show
 
@@ -21,12 +21,14 @@ function get_energy()
         gpio.write(zledbleue, gpio.LOW)
         zt2_energy = tmr.now()
         zt_energy = (zt2_energy-zt1_energy)/1000000
-        print("Durée ".. zt_energy)
-        zpuissance = math.floor(3600/zt_energy)/1000
-        print("Puissance ".. zpuissance.."kW")
+        if zt_energy >= 0.3 and zt_energy <= 100 then
+            print("Durée ".. zt_energy)
+            zpuissance = math.floor(3600/zt_energy)/1000
+            print("Puissance ".. zpuissance.."kW")
+            send_temp()
+        end
     end
     print("btn_led: "..zled_state)
---    disp_send()
 end
 
 gpio.trig(ldr_pin, "both", get_energy)
@@ -36,5 +38,4 @@ gpio.trig(ldr_pin, "both", get_energy)
 get_energy()
 
 ]]
-
 

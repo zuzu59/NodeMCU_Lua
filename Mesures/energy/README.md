@@ -116,3 +116,13 @@ https://thingspeak.com/apps/plugins/300559
 
 
 zf190803.1917
+
+
+pense bête:
+
+```
+file.open("hello.lua","w+")
+file.writeline([[print("hello nodemcu")]])
+file.writeline([[print(node.heap())]])
+file.close()
+```

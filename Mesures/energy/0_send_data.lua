@@ -1,11 +1,18 @@
--- Petit script pour envoyer les valeurs de température sur un serveur WEB via un HTTP GET
-print("\n 0_send_temp.lua   zf190727.1331   \n")
+-- Petit script pour envoyer les valeurs de température sur un serveur WEB via un http GET
+print("\n 0_send_temp.lua   zf190806.1541   \n")
 
 function send_temp()
     print("send_web_temp: ")
-    print(zurl)
 
-    http.get(zurl, nil, function(code, data)
+    zurl="http://www.xxx.ml:8086/write?db=xxx&u=admin&p=xxx"
+    print("zurl: "..zurl)
+
+    zarg="energy,compteur=1 puissance="..zpuissance
+    print("zarg: "..zarg)
+
+ 
+
+    http.post(zurl, 'Content-Type: application/x-www-form-urlencoded\r\n', zarg, function(code, data)
 --            print("toto")
             if (code < 0) then
                 print("HTTP request failed")
@@ -14,7 +21,7 @@ function send_temp()
                 print(code, data)
             end
 --            print("tutu")
-        end)
+    end)
 --        print("titi")
 end
 
