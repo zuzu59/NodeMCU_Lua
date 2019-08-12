@@ -45,6 +45,8 @@ srv:listen(80, function(conn)
     elseif (_GET.pin == "OFF") then
       _off = " selected=\"true\""
       gpio.write(zLED, gpio.HIGH)
+    elseif (_GET.pin == "zuzu") then
+      print("hello zuzu")
     end
     buf = buf .. "<option" .. _off .. ">OFF</option><option" .. _on .. ">ON</option></select></form></body></html>"
     client:send(buf)
