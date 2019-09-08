@@ -1,11 +1,11 @@
 -- Lit le convertisseur ADC pour mesurer le courant électrique de l'installation PV
-print("\n 0_get_energy.lua zf190909.0007 \n")
+print("\n 0_get_energy.lua zf190909.0021 \n")
 
 -- Astuce de mesure, on lit l'adc toutes les 21ms, soit 47.6x par seconde
 -- comme l'alternance fait 20ms, on balaye (déphasage) statistiquement l'aleternance
 -- ce qui nous permet d'estimer une valeur moyenne du courant
 -- quelque soit sa forme !
--- toutes les secondes on remet à zéro les minima et maxima
+-- toutes les 2 secondes on remet à zéro les minima et maxima
 
 zadc_min=1024   zadc_max=0
 
@@ -22,7 +22,7 @@ tmr_clr_rms:alarm(2*1000,  tmr.ALARM_AUTO, function()
 end)
 
 tmr_mes_adc=tmr.create()
-tmr_mes_adc:alarm(0.017*1000,  tmr.ALARM_AUTO, function()
+tmr_mes_adc:alarm(21,  tmr.ALARM_AUTO, function()
     get_adc()
 end)
 
@@ -34,9 +34,9 @@ function get_adc()
     if zadc>=zadc_max then zadc_max=zadc end
 end
 
-zrms_offset=10
+zrms_offset=12
 zpow_cal=411
-zadc_cal=337
+zadc_cal=336
 
 function clr_rms()
     zadc_rms0=zadc_max-zadc_min
@@ -48,9 +48,4 @@ function clr_rms()
 end
 
 
---[[
-
-get_adc()
-
-]]
 
