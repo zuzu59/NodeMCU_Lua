@@ -1,18 +1,25 @@
-# energy
+# solar_pv_energy
 
-Petit projet pour mesurer la consommation électrique en temps réel chez moi avec un NodeMCU en LUA, et  l'afficher sur Grafana avec une DB InfluxDB.
+Petit projet pour mesurer la production électrique d'une installation solaire photovoltaïque monophasé avec un NodeMCU en LUA, et  l'afficher sur Grafana avec une DB InfluxDB.
 
-![Image of Yaktocat](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/energy/img/20190805_134510.jpg)
-Vue globale de mon installation prototype :-)
+![Image of Yaktocat](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/solar_pv_energy/img/20190907_170403.jpg)
+Vue globale de mon installation solaire prototype (2x panneaux de 280W)  :-)
 
-![Image of Yaktocat](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/energy/img/20190805_134459.jpg)
-La photo résistance LDR est juste collée avec du scotch sur la LED du compteur électrique !
+![Image of Yaktocat](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/solar_pv_energy/img/20190907_170414.jpg)
+Vue des deux onduleurs (un par panneau) qui injectent le courant produit dans le réseau électrique 220V de la maison.
 
-![Image of Yaktocat](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/energy/img/20190805_134504.jpg)
-C'est mon NodeMCU de banc tests, il y a beaucoup trop de choses dessus, normalement il n'y a qu'une résistance de pull down à ajouter à la LDR et c'est tout !
+![Image of Yaktocat](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/solar_pv_energy/img/20190908_134444.jpg)
+Petit transformateur de mesure du courant avec un rapport de 1/800 !
 
-![Image of Yaktocat](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/energy/img/Screenshot_20190807-221648_Chrome.jpg)
-On voit ici la régulation thermique de mon four lors de la cuisson d'une excellente tarte aux groseilles :-)
+![Image of Yaktocat](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/solar_pv_energy/img/20190908_221514.jpg)
+C'est mon NodeMCU de banc tests, il y a un pont diviseur pour faire une masse fictive à +0.5V qui permet de mesurer les alternances négatives du courant et la résistance *convertisseur* de courant de la mesure en tension (U=R*I).
+
+![Image of Yaktocat](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/solar_pv_energy/img/20190908_213927.jpg)
+n voit ici l'image du courant d'un foehn  (450W) en petite vitesse. On voit bien que la partie négative de l'alternance est effacée, c'est à cause de la mise ne série d'une diode avec le corps de chauffe, c'est un moyen très simple de diminuer le puissance dans un foehn
+
+![Image of Yaktocat](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/solar_pv_energy/img/20190908_213900.jpg)
+On voit ici l'image du courant d'un foehn (450W) en grande vitesse. L'alternance est bien complète ici. On voit aussi qu'elle se trouve dans la plage des 1V du convertisseur ADC du NodeMCU.
+
 
 On peut voir, avec ce projet assez complet, toutes les possibilités offertes de la programmation des NodeMCU en LUA, en mode événementiel. <br>
 Choses qui ne seraient pas possible si on l'avait fait en C++ (mode Arduino), comme par exemple:
@@ -30,7 +37,8 @@ Toutes les fonctions sont bien séparées dans des scripts, ce qui facilite la p
 
 ## Astuces de mesures
 
-Dans ce projet il y a 1x NodeMCU qui mesure la consommation électrique en détectant simplement le petite LED du compteur électrique avec une photo résistance LDR. A chaque éclairage de la LED du compteur électrique, il y a 100Wh qui ont été consommée. Il suffit alors d'un simple petit calcul (3600 divisé par la durée entre deux impulsions et multiplié par 100W) pour retrouver la puissance instantanée mesurée.
+Dans ce projet il y a 1x NodeMCU qui mesure la production électrique de mon installation solaire PV. En en mesurant le courant (avec le petit transformateur de courant 1/800 connecté sur un fil) injecté dans le réseau électrique de ma maison des deux minis onduleurs qui convertissent la basse tension (36V) des panneaux PV en 220V du réseau électrique.
+Le calcul de conversion tension/courant mesurée est très simpliste, un simple P=U*I*cos(phy). On ne tient pas du tout compte ici du cosinus phy qui pourrait varier en fonction des charges inductives dans la maison !
 
 
 
@@ -61,12 +69,12 @@ secrets_energy.lua
 
 C'est aussi là qu'il y a le *numéro du field* (zfield), c'est à dire le rôle joué par le NodeMCU_Lua:
 
-* **4**, consommation électrique
+* **1**, production électrique des PV
 
 
 
 
-**ATTENTION, readme pas encore terminé, il faut encore modifier le readme depuis ici ! zf190807.2100**
+**ATTENTION, readme pas encore terminé, il faut encore modifier le readme depuis ici ! zf190908.2222**
 
 <br>
 <br>
@@ -127,7 +135,7 @@ Seulement la corrélation entre les trois température
 https://thingspeak.com/apps/plugins/300559
 
 
-zf190908.2147
+zf190908.2223
 
 
 pense bête:
