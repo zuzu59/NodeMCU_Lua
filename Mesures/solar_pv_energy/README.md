@@ -37,8 +37,11 @@ Toutes les fonctions sont bien séparées dans des scripts, ce qui facilite la p
 
 ## Astuces de mesures
 
-Dans ce projet il y a 1x NodeMCU qui mesure la production électrique de mon installation solaire PV. En en mesurant le courant (avec le petit transformateur de courant 1/800 connecté sur un fil) injecté dans le réseau électrique de ma maison. Grâce aux deux minis onduleurs qui convertissent la basse tension (36V) des panneaux PV en 220V du réseau électrique.
-Le calcul de conversion tension/courant mesurée est très simpliste, un simple ```P=U*I*cos(phy)```. On ne tient pas du tout compte ici du ```cos(phy)`` qui pourrait varier en fonction des charges inductives dans la maison !
+Dans ce projet il y a 1x NodeMCU qui mesure la production électrique de mon installation solaire PV. On mesure le courant injecté dans le réseau électrique de la maison avec un petit transformateur de courant 1/800 *clipsé* sur la phase de l'onduleur.
+Comme le convertisseur ADC du NodeMCU ne peut mesurer que des valeurs positives comprises entre 0V et 1V, on ajoute une masse fictive au signal du transformateur de courant de 0.5V afin de *remonter* l'alternance négative.
+De plus, on lit l'ADC toutes les 11ms, soit 91x par seconde. Comme l'alternance fait 20ms, on balaye (déphasage) statistiquement l'alternance. On redresse l'alternance négative par rapport à la masse fictive, ce qui nous permet de mesurer une valeur RMS du courant quelque soit sa forme !
+On le fait toutes les 2.1 secondes avec une moyenne glissante sur 3 valeurs.
+Le calcul de la puissance mesurée est très simpliste, un simple ```P=U*I```. On ne tient pas compte ici du ```cos(phy)`` qui pourrait varier en fonction des charges inductives dans la maison !
 
 
 
@@ -130,7 +133,7 @@ Seulement la corrélation entre les trois température
 https://thingspeak.com/apps/plugins/300559
 
 
-zf190908.2245
+zf190909.0119
 
 
 pense bête:
