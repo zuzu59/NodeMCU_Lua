@@ -1,16 +1,12 @@
--- Petit script pour envoyer les valeurs de température sur un serveur WEB via un http GET
-print("\n 0_send_temp.lua   zf190806.1541   \n")
+-- Petit script pour envoyer les valeurs sur un serveur WEB (InfluxDB)
+-- via un http GET
+print("\n 0_send_data.lua   zf190916.1504   \n")
 
-function send_temp()
-    print("send_web_temp: ")
+function send_data()
+    print("send_data: ")
 
-    zurl="http://www.xxx.ml:8086/write?db=xxx&u=admin&p=xxx"
-    print("zurl: "..zurl)
-
-    zarg="energy,compteur=1 puissance="..zpuissance
+    zarg="energy,compteur=2 puissance="..zpuissance
     print("zarg: "..zarg)
-
- 
 
     http.post(zurl, 'Content-Type: application/x-www-form-urlencoded\r\n', zarg, function(code, data)
 --            print("toto")
@@ -22,11 +18,9 @@ function send_temp()
             end
 --            print("tutu")
     end)
---        print("titi")
+--    print("titi")
 end
 
 --[[
-
-send_temp()
-
+function send_data()()
 ]]
