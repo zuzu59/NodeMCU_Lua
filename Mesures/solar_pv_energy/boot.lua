@@ -1,6 +1,6 @@
 -- Scripts à charger après le boot pour démarrer son appli
 
-print("\n boot.lua zf190908.2249 \n")
+print("\n boot.lua zf190910.1342 \n")
 
 function heartbeat()
     f= "flash_led_xfois.lua"   if file.exists(f) then dofile(f) end
