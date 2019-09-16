@@ -32,32 +32,45 @@ tmr_calc_rms:alarm(2.1*1000, tmr.ALARM_AUTO, function()
 end)
 
 
-zadc1=0   zadc2=0   zadc3=0
+--zadc_min1=500   zadc_min2=500   zadc_min3=500
+--zadc_max1=500   zadc_max2=500   zadc_max3=500
+
+zadc_min_sum=0   zadc_max_sum=0
 
 function read_adc()
     zadc=adc.read(0)
 
-    zadc1=zadc2   zadc2=zadc3   zadc3=zadc
-    zadc=math.floor((zadc1+zadc2+zadc3)/3)
-
-    
-    
     if zadc<=zadc_min then zadc_min=zadc end
     if zadc>=zadc_max then zadc_max=zadc end
+
+--    zadc_min1=zadc_min2   zadc_min2=zadc_min3   zadc_min3=zadc_min
+--    zadc_min=math.floor((zadc_min1+zadc_min2+zadc_min3)/3)
+ 
+--    zadc_max1=zadc_max2   zadc_max2=zadc_max3   zadc_max3=zadc_max
+--    zadc_max=math.floor((zadc_max1+zadc_max2+zadc_max3)/3)
+
+    zadc_min_sum=zadc_min_sum+zadc_min
+    zadc_max_sum=zadc_max_sum+zadc_max
+    
+
+
     zadc=zadc-zadc_offset
     if zadc<=0 then zadc=zadc*-1 end
     zadc_sum=zadc_sum+zadc   znb_mes=znb_mes+1
 end
 
-zadc_offset=548
+zadc_offset=550
 zpow_cal=409
 zadc_cal=192
-zadc_err=-4
+zadc_err=-2
 
 zadc_rms1=0   zadc_rms2=0   zadc_rms3=0
 
 function calc_rms()
     zadc_rms=math.floor(zadc_sum/znb_mes)+zadc_err
+
+    zadc_min=math.floor(zadc_min_sum/znb_mes)
+    zadc_max=math.floor(zadc_max_sum/znb_mes)
 
 --    zadc_rms1=zadc_rms2   zadc_rms2=zadc_rms3   zadc_rms3=zadc_rms
 --    zadc_rms=math.floor((zadc_rms1+zadc_rms2+zadc_rms3)/3)
@@ -65,6 +78,8 @@ function calc_rms()
 --    if zadc_rms<=0 then zadc_rms=0 end
     zadc_offset=math.floor((zadc_min+zadc_max)/2)
     zpower=math.floor(zadc_rms*zpow_cal/zadc_cal)    
-    print(zadc_min,zadc_max,zadc_offset,zadc_rms,zpower.."W")
+    print(zadc_min,zadc_max,zadc_max-zadc_min,zadc_offset,zadc_rms,zpower.."W")
     zadc_min=1024   zadc_max=0   zadc_sum=0   znb_mes=0
+    zadc_min_sum=0   zadc_max_sum=0
+
 end
