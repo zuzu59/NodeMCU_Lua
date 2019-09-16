@@ -1,6 +1,6 @@
 -- Petit script pour envoyer les valeurs sur un serveur WEB (InfluxDB)
 -- via un http GET
-print("\n 0_send_data.lua   zf190916.2254   \n")
+print("\n 0_send_data.lua   zf190917.0030   \n")
 
 function send_data()
     print("send_data: ")
