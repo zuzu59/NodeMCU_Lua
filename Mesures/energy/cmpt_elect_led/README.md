@@ -2,16 +2,16 @@
 
 Petit projet pour mesurer la consommation électrique en temps réel chez moi avec un NodeMCU en LUA, et  l'afficher sur Grafana avec une DB InfluxDB.
 
-![Image of Yaktocat](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/energy/img/20190805_134510.jpg)
+![Image of Yaktocat](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/energy/cmpt_elect_led/img/20190805_134510.jpg)
 Vue globale de mon installation prototype :-)
 
-![Image of Yaktocat](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/energy/img/20190805_134459.jpg)
+![Image of Yaktocat](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/energy/cmpt_elect_led/img/20190805_134459.jpg)
 La photo résistance LDR est juste collée avec du scotch sur la LED du compteur électrique !
 
-![Image of Yaktocat](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/energy/img/20190805_134504.jpg)
+![Image of Yaktocat](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/energy/cmpt_elect_led/img/20190805_134504.jpg)
 C'est mon NodeMCU de banc tests, il y a beaucoup trop de choses dessus, normalement il n'y a qu'une résistance de pull down à ajouter à la LDR et c'est tout !
 
-![Image of Yaktocat](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/energy/img/Screenshot_20190807-221648_Chrome.jpg)
+![Image of Yaktocat](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/energy/cmpt_elect_led/img/Screenshot_20190807-221648_Chrome.jpg)
 On voit ici la régulation thermique de mon four lors de la cuisson d'une excellente tarte aux groseilles :-)
 
 On peut voir, avec ce projet assez complet, toutes les possibilités offertes de la programmation des NodeMCU en LUA, en mode événementiel. <br>
@@ -127,7 +127,7 @@ Seulement la corrélation entre les trois température
 https://thingspeak.com/apps/plugins/300559
 
 
-zf190908.2147
+zf190922.1730
 
 
 pense bête:
