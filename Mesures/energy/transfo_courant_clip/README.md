@@ -1,12 +1,8 @@
-# solar_pv_energy
+# transfo_courant_clip
 
-Petit projet pour mesurer la production électrique d'une installation solaire photovoltaïque monophasée avec un NodeMCU en LUA, et  l'afficher sur Grafana avec une DB InfluxDB.
+Petit projet pour mesurer la puissance d'un appareil électrique à partir du  courant avec un petit transformateur de courant qui se clips sur un conducteur avec un NodeMCU en LUA, et l'afficher sur Grafana avec une DB InfluxDB. Comme par exemple la production électrique d'une installation solaire photovoltaïque monophasée.
 
-![Image of Yaktocat](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/solar_pv_energy/img/20190907_170403.jpg)
-Vue globale de mon installation solaire prototype de 2x panneaux de 280W  :-)
-
-![Image of Yaktocat](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/solar_pv_energy/img/20190907_170414.jpg)
-Vue des deux onduleurs (un par panneau) qui injectent le courant produit dans le réseau électrique 220V de la maison.
+ATTENTION, dans ce projet, on ne tient pas compte du déphasage entre la tension et le courant (cos phy) !
 
 ![Image of Yaktocat](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/solar_pv_energy/img/20190908_134444.jpg)
 Petit transformateur de mesure du courant avec un rapport de 1/800 avec la boucle de courant !
@@ -19,6 +15,13 @@ On voit ici l'image du courant d'un foehn  (450W) en petite vitesse. On voit bie
 
 ![Image of Yaktocat](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/solar_pv_energy/img/20190908_213900.jpg)
 On voit ici l'image du courant d'un foehn (450W) en grande vitesse. L'alternance est bien complète ici. On voit aussi qu'elle se trouve dans la plage des 1V du convertisseur ADC du NodeMCU grâce à l'astuce de la *masse fictive* de 0.5V.
+
+![Image of Yaktocat](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/solar_pv_energy/img/20190907_170403.jpg)
+Vue globale de mon installation solaire prototype de 2x panneaux de 280W  :-)
+
+![Image of Yaktocat](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/solar_pv_energy/img/20190907_170414.jpg)
+Vue des deux onduleurs (un par panneau) qui injectent le courant produit dans le réseau électrique 220V de la maison.
+
 
 <br><bR>
 On peut voir, avec ce projet assez complet, toutes les possibilités offertes de la programmation des NodeMCU en LUA, en mode événementiel. <br>
