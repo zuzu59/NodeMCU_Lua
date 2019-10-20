@@ -1,0 +1,44 @@
+{
+  "context-menu": {
+    "atom-text-editor": [
+      {
+        "label": "Upload to NodeMCU",
+        "command": "nodemcu-thingy:upload"
+      }
+    ],
+    ".mcu-download": [
+      {
+        "label": "Download to Disk",
+        "command": "nodemcu-thingy:download"
+      },
+      {
+        "label": "Delete on NodeMCU",
+        "command": "nodemcu-thingy:delete"
+      },
+      {
+        "label": "Run on NodeMCU",
+        "command": "nodemcu-thingy:dofile"
+      }
+    ]
+  },
+  "menu": [
+    {
+      "label": "Packages",
+      "submenu": [
+        {
+          "label": "nodemcu-thingy",
+          "submenu": [
+            {
+              "label": "Toggle",
+              "command": "nodemcu-thingy:toggle"
+            },
+            {
+              "label": "List MCU files",
+              "command": "nodemcu-thingy:list"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "name": "nodemcu-thingy",
+  "main": "./lib/nodemcu-thingy",
+  "version": "0.0.3",
+  "description": "Provides \"over the air\" access to your NodeMCU device (work in progress)",
+  "keywords": [],
+  "activationCommands": {
+    "atom-workspace": "nodemcu-thingy:toggle"
+  },
+  "repository": "https://github.com/holtermp/nodemcu-thingy",
+  "license": "MIT",
+  "engines": {
+    "atom": ">=1.0.0 <2.0.0"
+  },
+  "dependencies": {}
+}
