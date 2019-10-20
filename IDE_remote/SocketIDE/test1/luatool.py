@@ -1,7 +1,12 @@
 #!/usr/bin/env python2
-version = "0.6.5 zf191020.1744"
+# -*- coding: utf-8 -*-
+version = "0.6.5 zf191020.1804"
 
-print("luatool.py ver " + version + "\n")
+print("luatool.py ver " + version)
+
+#Améliorations
+# Pour voir les améliorations il faut 'chercher' les zzz
+
 
 #
 # ESP8266 luatool
@@ -113,15 +118,12 @@ class SerialTransport(AbstractTransport):
         self.serial.timeout = 3
         self.serial.interCharTimeout = 3
 
-#        print("toto1727")
+        # zzz191020 Il faut faire une pause juste après l'ouverture du port série
         sleep(0.5)
-#        print("toto1728")
 
 
     def writeln(self, data, check=1):
-#        print("toto1656")
-#        sleep(0.5)
-#        print("toto1657")
+        # zzz191020 une petite pause après l'envoi de chaque ligne
         sleep(self.delay)
         if self.serial.inWaiting() > 0:
             self.serial.flushInput()
@@ -129,15 +131,12 @@ class SerialTransport(AbstractTransport):
             sys.stdout.write("\r\n->")
             sys.stdout.write(data.split("\r")[0])
         self.serial.write(data)
-#        print("\n\ntoto1511, le delay est: " + str(self.delay) + "\n\n")
-#        sleep(self.delay)
         if check > 0:
             self.performcheck(data)
         elif not args.bar:
             sys.stdout.write(" -> send without check")
 
     def read(self, length):
-        #print("\n\ntoto1513, ici peut-etre " + "\n\n")
         return self.serial.read(length)
 
     def close(self):
@@ -225,11 +224,8 @@ if __name__ == '__main__':
 
 
     if args.list:
-        #print("toto1456")
-        #sleep(0.5)
-        #print("toto1458")
-
-        transport.writeln("local l = file.list();for k,v in pairs(l) do print('name:'..k..', size:'..v)end\r", 0)
+        #zzz191020 Amélioré la sortie du listing des fichiers
+        transport.writeln("print('\\n-----');local l = file.list();for k,v in pairs(l) do print(k..', size:'..v)end;print('-----\\n')\r", 0)
         while True:
             char = transport.read(1)
             if char == '' or char == chr(62):
@@ -274,10 +270,6 @@ if __name__ == '__main__':
         sys.exit(0)
 
     if args.dest is None:
-        #print("toto1720")
-        #sleep(0.5)
-        #print("toto1721")
-
         args.dest = basename(args.src)
 
     # open source file for reading
