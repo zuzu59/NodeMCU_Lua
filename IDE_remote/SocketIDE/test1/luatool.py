@@ -1,6 +1,7 @@
 #!/usr/bin/env python2
-version = "0.6.5 zf191020.1709"
+version = "0.6.5 zf191020.1744"
 
+print("luatool.py ver " + version + "\n")
 
 #
 # ESP8266 luatool
@@ -112,6 +113,11 @@ class SerialTransport(AbstractTransport):
         self.serial.timeout = 3
         self.serial.interCharTimeout = 3
 
+#        print("toto1727")
+        sleep(0.5)
+#        print("toto1728")
+
+
     def writeln(self, data, check=1):
 #        print("toto1656")
 #        sleep(0.5)
@@ -123,7 +129,7 @@ class SerialTransport(AbstractTransport):
             sys.stdout.write("\r\n->")
             sys.stdout.write(data.split("\r")[0])
         self.serial.write(data)
-        print("\n\ntoto1511, le delay est: " + str(self.delay) + "\n\n")
+#        print("\n\ntoto1511, le delay est: " + str(self.delay) + "\n\n")
 #        sleep(self.delay)
         if check > 0:
             self.performcheck(data)
@@ -205,7 +211,7 @@ if __name__ == '__main__':
     parser.add_argument('-i', '--id',      action='store_true',    help='Query the modules chip id.')
     parser.add_argument('-e', '--echo',    action='store_true',    help='Echo output of MCU until script is terminated.')
     parser.add_argument('--bar',           action='store_true',    help='Show a progress bar for uploads instead of printing each line')
-    parser.add_argument('--delay',         default=0.6,            help='Delay in seconds between each write, default 0.6 sec.', type=float)
+    parser.add_argument('--delay',         default=0.03,           help='Delay in seconds between each write, default 0.03 sec.', type=float)
     parser.add_argument('--delete',        default=None,           help='Delete a lua/lc file from device.')
     parser.add_argument('--ip',            default=None,           help='Connect to a telnet server on the device (--ip IP[:port])')
     args = parser.parse_args()
@@ -219,9 +225,9 @@ if __name__ == '__main__':
 
 
     if args.list:
-        print("toto1456")
+        #print("toto1456")
         #sleep(0.5)
-        print("toto1458")
+        #print("toto1458")
 
         transport.writeln("local l = file.list();for k,v in pairs(l) do print('name:'..k..', size:'..v)end\r", 0)
         while True:
@@ -268,9 +274,9 @@ if __name__ == '__main__':
         sys.exit(0)
 
     if args.dest is None:
-        print("toto1720")
-        sleep(0.5)
-        print("toto1721")
+        #print("toto1720")
+        #sleep(0.5)
+        #print("toto1721")
 
         args.dest = basename(args.src)
 
