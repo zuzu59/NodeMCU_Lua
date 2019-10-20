@@ -1,6 +1,6 @@
 -- Scripts à charger après le boot pour démarrer le core system
 
-print("\n boot.lua zf191020.1150 \n")
+print("\n boot.lua zf191020.1318 \n")
 
 -- charge ses propres secrets
 f= "secrets_energy.lua"    if file.exists(f) then dofile(f) end
