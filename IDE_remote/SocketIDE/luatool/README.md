@@ -44,6 +44,49 @@ On peut le tester avec le petit script:
 * Si cela fonctionne, la LED devrait arrêter de clignoter ;-)
 
 
+## Goodies
+### Quelques commandes en WIFI ;-)
+**ATTENTION:** ces exemples de commandes sont pour MON adresse IP actuelle de mon NodeMCU ;-)
+
+Help du luatool.py
+```
+./luatool.py -h
+```
+
+Liste les fichiers qui se trouvent sur le NodeMCU
+```
+./luatool.py --ip 192.168.0.157 -l
+```
+
+Télécharge le fichier *toto.lua* sur le NodeMCU
+```
+./luatool.py --ip 192.168.0.157 -f toto.lua
+```
+
+Télécharge le fichier *toto.lua* sur le NodeMCU, mais le renomme en *tutu.lua* et affiche une *progression bar* de l'évolution du téléchargement
+```
+./luatool.py --ip 192.168.0.157 -f toto.lua -t tutu.lua
+```
+
+Vérifie que tout est bon sur le NodeMCU
+```
+./luatool.py --ip 192.168.0.157 -l
+```
+
+Efface le fichier *toto.lua* sur le NodeMCU
+```
+./luatool.py --ip 192.168.0.157 --delete toto.lua
+```
+
+Efface le fichier *tutu.lua* sur le NodeMCU
+```
+./luatool.py --ip 192.168.0.157 --delete tutu.lua
+```
+
+Vérifie que tout est bon sur le NodeMCU
+```
+./luatool.py --ip 192.168.0.157 -l
+```
 
 
-zf191020.2055
+zf191020.2127
