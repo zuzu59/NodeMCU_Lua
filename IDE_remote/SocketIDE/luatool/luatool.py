@@ -1,6 +1,6 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
-version = "0.6.5 zf191020.1804"
+version = "0.6.5 zf191020.1932"
 
 print("luatool.py ver " + version)
 
@@ -354,6 +354,7 @@ if __name__ == '__main__':
     # restart or dofile
     if args.restart:
         transport.writeln("node.restart()\r")
+
     if args.dofile:   # never exec if restart=1
         transport.writeln("dofile(\"" + args.dest + "\")\r", 0)
 
