@@ -1,5 +1,6 @@
 #!/usr/bin/env python2
-#zf191020.1453
+version = "0.6.5 zf191020.1709"
+
 
 #
 # ESP8266 luatool
@@ -36,7 +37,6 @@ except ImportError, e:
     else:
         raise
 
-version = "0.6.4"
 
 
 class TransportError(Exception):
@@ -113,20 +113,25 @@ class SerialTransport(AbstractTransport):
         self.serial.interCharTimeout = 3
 
     def writeln(self, data, check=1):
+#        print("toto1656")
+#        sleep(0.5)
+#        print("toto1657")
+        sleep(self.delay)
         if self.serial.inWaiting() > 0:
             self.serial.flushInput()
         if len(data) > 0 and not args.bar:
             sys.stdout.write("\r\n->")
             sys.stdout.write(data.split("\r")[0])
         self.serial.write(data)
-        print("le delay est: "+str(self.delay))
-        sleep(self.delay)
+        print("\n\ntoto1511, le delay est: " + str(self.delay) + "\n\n")
+#        sleep(self.delay)
         if check > 0:
             self.performcheck(data)
         elif not args.bar:
             sys.stdout.write(" -> send without check")
 
     def read(self, length):
+        #print("\n\ntoto1513, ici peut-etre " + "\n\n")
         return self.serial.read(length)
 
     def close(self):
@@ -186,7 +191,8 @@ if __name__ == '__main__':
     # parse arguments or use defaults
     parser = argparse.ArgumentParser(description='ESP8266 Lua script uploader.')
     parser.add_argument('-p', '--port',    default='/dev/ttyUSB0', help='Device name, default /dev/ttyUSB0')
-    parser.add_argument('-b', '--baud',    default=9600,           help='Baudrate, default 9600')
+#    parser.add_argument('-b', '--baud',    default=9600,           help='Baudrate, default 9600')
+    parser.add_argument('-b', '--baud',    default=115200,         help='Baudrate, default 115200')
     parser.add_argument('-f', '--src',     default='main.lua',     help='Source file on computer, default main.lua')
     parser.add_argument('-t', '--dest',    default=None,           help='Destination file on MCU, default to source file name')
     parser.add_argument('-c', '--compile', action='store_true',    help='Compile lua to lc after upload')
@@ -199,7 +205,7 @@ if __name__ == '__main__':
     parser.add_argument('-i', '--id',      action='store_true',    help='Query the modules chip id.')
     parser.add_argument('-e', '--echo',    action='store_true',    help='Echo output of MCU until script is terminated.')
     parser.add_argument('--bar',           action='store_true',    help='Show a progress bar for uploads instead of printing each line')
-    parser.add_argument('--delay',         default=0.3,            help='Delay in seconds between each write.', type=float)
+    parser.add_argument('--delay',         default=0.6,            help='Delay in seconds between each write, default 0.6 sec.', type=float)
     parser.add_argument('--delete',        default=None,           help='Delete a lua/lc file from device.')
     parser.add_argument('--ip',            default=None,           help='Connect to a telnet server on the device (--ip IP[:port])')
     args = parser.parse_args()
@@ -262,6 +268,10 @@ if __name__ == '__main__':
         sys.exit(0)
 
     if args.dest is None:
+        print("toto1720")
+        sleep(0.5)
+        print("toto1721")
+
         args.dest = basename(args.src)
 
     # open source file for reading
