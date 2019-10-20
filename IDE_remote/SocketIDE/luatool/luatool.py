@@ -1,6 +1,6 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
-version = "0.6.5 zf191020.1932"
+version = "0.6.5 zf191020.2041"
 
 print("luatool.py ver " + version)
 
@@ -195,24 +195,24 @@ def decidetransport(cliargs):
 if __name__ == '__main__':
     # parse arguments or use defaults
     parser = argparse.ArgumentParser(description='ESP8266 Lua script uploader.')
-    parser.add_argument('-p', '--port',    default='/dev/ttyUSB0', help='Device name, default /dev/ttyUSB0')
-#    parser.add_argument('-b', '--baud',    default=9600,           help='Baudrate, default 9600')
-    parser.add_argument('-b', '--baud',    default=115200,         help='Baudrate, default 115200')
-    parser.add_argument('-f', '--src',     default='main.lua',     help='Source file on computer, default main.lua')
-    parser.add_argument('-t', '--dest',    default=None,           help='Destination file on MCU, default to source file name')
-    parser.add_argument('-c', '--compile', action='store_true',    help='Compile lua to lc after upload')
-    parser.add_argument('-r', '--restart', action='store_true',    help='Restart MCU after upload')
-    parser.add_argument('-d', '--dofile',  action='store_true',    help='Run the Lua script after upload')
-    parser.add_argument('-v', '--verbose', action='store_true',    help="Show progress messages.")
-    parser.add_argument('-a', '--append',  action='store_true',    help='Append source file to destination file.')
-    parser.add_argument('-l', '--list',    action='store_true',    help='List files on device')
-    parser.add_argument('-w', '--wipe',    action='store_true',    help='Delete all lua/lc files on device.')
-    parser.add_argument('-i', '--id',      action='store_true',    help='Query the modules chip id.')
-    parser.add_argument('-e', '--echo',    action='store_true',    help='Echo output of MCU until script is terminated.')
     parser.add_argument('--bar',           action='store_true',    help='Show a progress bar for uploads instead of printing each line')
     parser.add_argument('--delay',         default=0.03,           help='Delay in seconds between each write, default 0.03 sec.', type=float)
     parser.add_argument('--delete',        default=None,           help='Delete a lua/lc file from device.')
-    parser.add_argument('--ip',            default=None,           help='Connect to a telnet server on the device (--ip IP[:port])')
+    parser.add_argument('--ip',            default=None,           help='Connect via telnet server (--ip IP[:port])')
+    parser.add_argument('--zrestart',      action='store_true',    help='Restart the NodeMCU.')
+    parser.add_argument('-a', '--append',  action='store_true',    help='Append source file to destination file.')
+    parser.add_argument('-b', '--baud',    default=115200,         help='Baudrate, default 115200')
+    parser.add_argument('-c', '--compile', action='store_true',    help='Compile lua to lc after upload')
+    parser.add_argument('-d', '--dofile',  action='store_true',    help='Run the Lua script after upload')
+    parser.add_argument('-e', '--echo',    action='store_true',    help='Echo output of MCU until script is terminated.')
+    parser.add_argument('-f', '--src',     default='main.lua',     help='Source file on computer, default main.lua')
+    parser.add_argument('-i', '--id',      action='store_true',    help='Query the modules chip id.')
+    parser.add_argument('-l', '--list',    action='store_true',    help='List files on device')
+    parser.add_argument('-p', '--port',    default='/dev/ttyUSB0', help='Device name, default /dev/ttyUSB0')
+    parser.add_argument('-r', '--restart', action='store_true',    help='Restart MCU after upload')
+    parser.add_argument('-t', '--dest',    default=None,           help='Destination file on MCU, default to source file name')
+    parser.add_argument('-v', '--verbose', action='store_true',    help="Show progress messages.")
+    parser.add_argument('-w', '--wipe',    action='store_true',    help='Delete all lua/lc files on device.')
     args = parser.parse_args()
 
     transport = decidetransport(args)
@@ -224,7 +224,7 @@ if __name__ == '__main__':
 
 
     if args.list:
-        #zzz191020 Amélioré la sortie du listing des fichiers
+        # zzz191020 Amélioré la sortie du listing des fichiers
         transport.writeln("print('\\n-----');local l = file.list();for k,v in pairs(l) do print(k..', size:'..v)end;print('-----\\n')\r", 0)
         while True:
             char = transport.read(1)
@@ -243,6 +243,11 @@ if __name__ == '__main__':
             if char.isdigit():
                 id += char
         print("\n"+id)
+        sys.exit(0)
+
+    # zzz191020 Ajouté la fonction restart seule
+    if args.zrestart:
+        transport.writeln("node.restart()\r")
         sys.exit(0)
 
     if args.wipe:
@@ -271,6 +276,8 @@ if __name__ == '__main__':
 
     if args.dest is None:
         args.dest = basename(args.src)
+        ### zzz191020 Affiche le fichier à envoyer
+        print("File: " + args.src)
 
     # open source file for reading
     try:
