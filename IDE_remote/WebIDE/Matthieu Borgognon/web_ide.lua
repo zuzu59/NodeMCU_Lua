@@ -1,3 +1,9 @@
+-- Petit WEB_IDE assez génial
+-- Source: https://github.com/matbgn/NodeMCU/tree/master/lib/web-ide
+
+print("\n web_ide.lua zf191020.1211 \n")
+
+
 local mPort = 88
 
 local function editor(aceEnabled) -- feel free to disable the shiny Ajax.org Cloud Editor
@@ -121,10 +127,12 @@ local function editor(aceEnabled) -- feel free to disable the shiny Ajax.org Clo
          node.output(s_output, 0) -- re-direct output to function s_output.
  
          local st, result = pcall(dofile, url)
- 
+
          -- delay the output capture by 1000 milliseconds to give some time to the user routine in pcall()
-         tmr.alarm(0, 1000, tmr.ALARM_SINGLE, function() 
-             node.output(nil)
+--         tmr.alarm(0, 1000, tmr.ALARM_SINGLE, function() 
+             local ztmr_web_ide1 = tmr.create()
+             ztmr_web_ide1:alarm(1000, tmr.ALARM_SINGLE, function()             
+             ztmr_web_ide1=nil   node.output(nil)
              if result then
                  local outp = tostring(result):sub(1,1300) -- to fit in one send() packet
                  result = nil
@@ -217,14 +225,12 @@ local function editor(aceEnabled) -- feel free to disable the shiny Ajax.org Clo
   end)
 end
  
-local t = tmr.create()
-t:alarm(500, tmr.ALARM_AUTO, function()
-    if (wifi.sta.status() == wifi.STA_GOTIP) then
-        t:unregister()
-        t=nil
-        print("\n--- Web server started ---")
-        print("NodeMCU Web IDE running at http://"..wifi.sta.getip()..":"..mPort.."/")
-        editor()
-
-    end
+local ztmr_web_ide2 = tmr.create()
+ztmr_web_ide2:alarm(500, tmr.ALARM_AUTO, function()
+if (wifi.sta.status() == wifi.STA_GOTIP) then
+    ztmr_web_ide2:unregister()   ztmr_web_ide2=nil
+    print("\n--- Web server started ---")
+    print("NodeMCU Web IDE running at http://"..wifi.sta.getip()..":"..mPort.."/")
+    editor()
+end
 end)
