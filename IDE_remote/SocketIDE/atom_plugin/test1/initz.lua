@@ -50,8 +50,8 @@ else
     end
   end)
 end
-dofile("websocket.lc")
-dofile("main.lc")
+dofile("websocket.lua")
+dofile("main.lua")
 if file.exists("userinit.lua") then
   --[[
   0, power-on
