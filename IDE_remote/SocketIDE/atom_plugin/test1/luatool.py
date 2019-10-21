@@ -1,6 +1,6 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
-version = "0.6.5 zf191020.2041"
+version = "0.6.5 zf191021.1004"
 
 print("luatool.py ver " + version)
 
@@ -81,6 +81,10 @@ class AbstractTransport:
             if char == chr(13) or char == chr(10):  # LF or CR
                 if line != '':
                     line = line.strip()
+                    # zzz191021 Affiche ce que l'on a reçu du NodeMCU
+                    if args.verbose:
+                        print("\n\nzread0957: {" + line + "\n}\n")
+
                     if line+'\r' == expected and not args.bar:
                         sys.stdout.write(" -> ok")
                     elif line+'\r' != expected:
@@ -119,7 +123,7 @@ class SerialTransport(AbstractTransport):
         self.serial.interCharTimeout = 3
 
         # zzz191020 Il faut faire une pause juste après l'ouverture du port série
-        sleep(0.5)
+        sleep(0.7)
 
 
     def writeln(self, data, check=1):
@@ -131,6 +135,9 @@ class SerialTransport(AbstractTransport):
             sys.stdout.write("\r\n->")
             sys.stdout.write(data.split("\r")[0])
         self.serial.write(data)
+        # zzz191021 Affiche ce que l'on a envoyé au NodeMCU
+        if args.verbose:
+            print("\n\nzwrite0952: {" + data + "\n}\n")
         if check > 0:
             self.performcheck(data)
         elif not args.bar:
@@ -276,7 +283,7 @@ if __name__ == '__main__':
 
     if args.dest is None:
         args.dest = basename(args.src)
-        ### zzz191020 Affiche le fichier à envoyer
+        # zzz191020 Affiche le fichier à envoyer
         print("File: " + args.src)
 
     # open source file for reading
