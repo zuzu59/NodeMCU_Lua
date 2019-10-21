@@ -1,6 +1,6 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
-version = "0.6.5 zf191020.2041"
+version = "0.6.5 zf191021.1558"
 
 print("luatool.py ver " + version)
 
@@ -81,6 +81,10 @@ class AbstractTransport:
             if char == chr(13) or char == chr(10):  # LF or CR
                 if line != '':
                     line = line.strip()
+                    # zzz191021 Affiche ce que l'on a reçu du NodeMCU
+                    if args.verbose:
+                        print("\n\nzread0957: {" + line + "\n}\n")
+
                     if line+'\r' == expected and not args.bar:
                         sys.stdout.write(" -> ok")
                     elif line+'\r' != expected:
@@ -118,12 +122,22 @@ class SerialTransport(AbstractTransport):
         self.serial.timeout = 3
         self.serial.interCharTimeout = 3
 
-        # zzz191020 Il faut faire une pause juste après l'ouverture du port série
-        sleep(0.5)
+        # zzz191021 juste après l'ouverture du port série, on attend le caractère '>'
+        line = ''
+        char = ''
+        i = -1
+        while char != chr(62):  # '>'
+            char = self.read(1)
+            if char == '':
+                raise Exception('No proper answer from MCU')
+            line += char
+            i += 1
+        if args.verbose:
+            print("line: ." + line + ".")
 
 
     def writeln(self, data, check=1):
-        # zzz191020 une petite pause après l'envoi de chaque ligne
+        # zzz191020 on fait une petite pause avant l'envoi de chaque ligne
         sleep(self.delay)
         if self.serial.inWaiting() > 0:
             self.serial.flushInput()
@@ -131,6 +145,9 @@ class SerialTransport(AbstractTransport):
             sys.stdout.write("\r\n->")
             sys.stdout.write(data.split("\r")[0])
         self.serial.write(data)
+        # zzz191021 Affiche ce que l'on a envoyé au NodeMCU
+        if args.verbose:
+            print("\n\nzwrite0952: {" + data + "\n}\n")
         if check > 0:
             self.performcheck(data)
         elif not args.bar:
@@ -228,7 +245,7 @@ if __name__ == '__main__':
         transport.writeln("print('\\n-----');local l = file.list();for k,v in pairs(l) do print(k..', size:'..v)end;print('-----\\n')\r", 0)
         while True:
             char = transport.read(1)
-            if char == '' or char == chr(62):
+            if char == '' or char == chr(62):    # '' or '>'
                 break
             sys.stdout.write(char)
         sys.exit(0)
@@ -276,7 +293,7 @@ if __name__ == '__main__':
 
     if args.dest is None:
         args.dest = basename(args.src)
-        ### zzz191020 Affiche le fichier à envoyer
+        # zzz191020 Affiche le fichier à envoyer
         print("File: " + args.src)
 
     # open source file for reading
