@@ -1,6 +1,6 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
-version = "0.6.5 zf191021.1004"
+version = "0.6.5 zf191021.1027"
 
 print("luatool.py ver " + version)
 
@@ -123,7 +123,9 @@ class SerialTransport(AbstractTransport):
         self.serial.interCharTimeout = 3
 
         # zzz191020 Il faut faire une pause juste après l'ouverture du port série
+        print("\ntoto1023\n")
         sleep(0.7)
+        print("\ntoto10231\n")
 
 
     def writeln(self, data, check=1):
@@ -232,10 +234,15 @@ if __name__ == '__main__':
 
     if args.list:
         # zzz191020 Amélioré la sortie du listing des fichiers
+        #sleep(1)
+        print("\ntoto1024\n")
+
         transport.writeln("print('\\n-----');local l = file.list();for k,v in pairs(l) do print(k..', size:'..v)end;print('-----\\n')\r", 0)
         while True:
             char = transport.read(1)
-            if char == '' or char == chr(62):
+            if char == '' or char == chr(62):    # '' or '>'
+            #if char == chr(62):    # '>'
+                print("\ntoto1017: ." + char + ".")
                 break
             sys.stdout.write(char)
         sys.exit(0)
