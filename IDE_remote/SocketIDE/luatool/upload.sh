@@ -1,6 +1,6 @@
 #!/bin/bash
 # Petit script pour télécharger facilement tout le binz
-#zf191020.2053
+#zf191021.0844
 
 # S'il y a des erreurs lors d'un téléchargement, il faut simplement augmenter un peu le délai !
 # Il est préférable de télécharger en premier les *gros* fichiers .lua !
@@ -15,6 +15,7 @@ chmod +x luatool.py
 sleep 0.5
 ./luatool.py --port /dev/cu.wchusbserial1410 -w
 ./luatool.py --port /dev/cu.wchusbserial1410 -l
+
 ./luatool.py --port /dev/cu.wchusbserial1410 --bar --delay 0.06 --src telnet_srv2.lua
 ./luatool.py --port /dev/cu.wchusbserial1410 --bar --delay 0.001 --src boot.lua
 ./luatool.py --port /dev/cu.wchusbserial1410 --bar --delay 0.001 --src boot2.lua

@@ -1,3 +1,7 @@
+--Script de bootstrap, test au moment du boot qui a été la cause de boot.
+
+print("\n init.lua zf191021.0914 \n")
+
 local bootreasons={
   [0]="power-on",
   [1]="hardware watchdog reset",
@@ -13,6 +17,15 @@ if ip then
   print("already got:"..ip)
 else
   print("Connecting...")
+  -- charge ses propres secrets
+  f= "secrets_energy.lua"    if file.exists(f) then dofile(f) end
+
+  -- configure le WIFI
+  f= "wifi_ap_stop.lua"   if file.exists(f) then dofile(f) end
+  f= "wifi_cli_conf.lua"   if file.exists(f) then dofile(f) end
+  f= "wifi_cli_start.lua"   if file.exists(f) then dofile(f) end
+
+  --[[
   wifi.setmode(wifi.STATION)
   ip_cfg={}
   ip_cfg.ip = "192.168.6.90"
@@ -26,11 +39,13 @@ else
   wifi.sta.config(station_cfg)
   wifi.sta.connect()
   wifi.sta.autoconnect(1)
+  ]]
 
-  tmr.alarm(0, 1000, 1, function ()
+  plugtimer1=tmr.create()
+  plugtimer1:alarm(1*1000,  tmr.ALARM_AUTO, function()
     local ip = wifi.sta.getip()
     if ip then
-      tmr.stop(0)
+      plugtimer1:unregister()
       print(ip)
     end
   end)
