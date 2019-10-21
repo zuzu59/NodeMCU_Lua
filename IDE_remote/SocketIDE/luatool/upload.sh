@@ -1,6 +1,6 @@
 #!/bin/bash
 # Petit script pour télécharger facilement tout le binz
-#zf191021.1606
+#zf191021.1613
 
 # S'il y a des erreurs lors d'un téléchargement, il faut simplement augmenter un peu le délai !
 # Il est préférable de télécharger en premier les *gros* fichiers .lua !
@@ -9,6 +9,7 @@
 
 luatool_tty="/dev/cu.wchusbserial1410"
 
+echo ""
 read -p "ATTENTION, cela va effacer tout le NodeMCU !"
 read -p "Etes-vous vraiment certain ?"
 

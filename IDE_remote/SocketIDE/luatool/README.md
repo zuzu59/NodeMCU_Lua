@@ -15,7 +15,7 @@ La version actuelle datant de juillet 2017 ne fonctionne plus avec les nouveaux 
 
 
 ## Travail effectué
-* J'ai donc repris le code python et mis un petit délai de 0.5 secondes juste après l'initialisation du port série.
+* J'ai donc repris le code python et juste après l'initialisation du port série je cherche le caractère '>', ainsi je suis certain que le NodeMCU a bien redémarré.
 
 * J'ai aussi diminué le délai d'attente entre chaque ligne, passé de 0.3 sec à 0.03 sec. Les téléchargements sont donc 10x plus rapides
 
@@ -30,6 +30,7 @@ Maintenant c'est très facile de télécharger tout un projet sur un NodeMCU. Il
 ```
 ./upload.sh
 ```
+* A chaque utilisation de luatool.py, le NodeMCU, s'il est branché sur le port série, redémarre !
 * S'il y a des erreurs lors d'un téléchargement, il faut simplement augmenter un peu le délai !<br>
 * Il est préférable de télécharger en premier les *gros* fichiers .lua !
 
@@ -89,4 +90,4 @@ Vérifie que tout est bon sur le NodeMCU
 ```
 
 
-zf191020.2127
+zf191021.1619
