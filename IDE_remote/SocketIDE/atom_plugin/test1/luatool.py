@@ -1,6 +1,6 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
-version = "0.6.5 zf191021.1027"
+version = "0.6.5 zf191021.1534"
 
 print("luatool.py ver " + version)
 
@@ -71,12 +71,14 @@ class AbstractTransport:
         self.writeln("file.writeline([==[" + data + "]==])\r")
 
     def performcheck(self, expected):
+        print("toto1434")
         line = ''
         char = ''
         i = -1
         while char != chr(62):  # '>'
             char = self.read(1)
-            if char == '':
+            #print("toto14491 char: ." + char + ".")
+            if char == '£':
                 raise Exception('No proper answer from MCU')
             if char == chr(13) or char == chr(10):  # LF or CR
                 if line != '':
@@ -122,15 +124,31 @@ class SerialTransport(AbstractTransport):
         self.serial.timeout = 3
         self.serial.interCharTimeout = 3
 
-        # zzz191020 Il faut faire une pause juste après l'ouverture du port série
-        print("\ntoto1023\n")
-        sleep(0.7)
-        print("\ntoto10231\n")
+        # zzz191021 juste après l'ouverture du port série, on attend le caractère '>'
+        line = ''
+        char = ''
+        i = -1
+        while char != chr(62):  # '>'
+            char = self.read(1)
+            if char == '':
+                raise Exception('No proper answer from MCU')
+            line += char
+            i += 1
+        if args.verbose:
+            print("toto1518 line: ." + line + ".")
 
 
     def writeln(self, data, check=1):
+        print("toto1439 check: " + str(check))
+
         # zzz191020 une petite pause après l'envoi de chaque ligne
         sleep(self.delay)
+
+
+
+
+
+
         if self.serial.inWaiting() > 0:
             self.serial.flushInput()
         if len(data) > 0 and not args.bar:
@@ -140,6 +158,7 @@ class SerialTransport(AbstractTransport):
         # zzz191021 Affiche ce que l'on a envoyé au NodeMCU
         if args.verbose:
             print("\n\nzwrite0952: {" + data + "\n}\n")
+            print("toto1435 check: " + str(check))
         if check > 0:
             self.performcheck(data)
         elif not args.bar:
@@ -238,8 +257,11 @@ if __name__ == '__main__':
         print("\ntoto1024\n")
 
         transport.writeln("print('\\n-----');local l = file.list();for k,v in pairs(l) do print(k..', size:'..v)end;print('-----\\n')\r", 0)
+        #transport.writeln("print('toto et tutu')\r", 1)
+        print("\ntoto10241\n")
         while True:
             char = transport.read(1)
+            #print("toto1400: ." + char + ".")
             if char == '' or char == chr(62):    # '' or '>'
             #if char == chr(62):    # '>'
                 print("\ntoto1017: ." + char + ".")

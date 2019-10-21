@@ -16,14 +16,14 @@ local ip = wifi.sta.getip()
 if ip then
   print("already got:"..ip)
 else
---  print("Connecting...")
+  print("Connecting...")
   -- charge ses propres secrets
---  f= "secrets_energy.lua"    if file.exists(f) then dofile(f) end
+  f= "secrets_energy.lua"    if file.exists(f) then dofile(f) end
 
   -- configure le WIFI
---  f= "wifi_ap_stop.lua"   if file.exists(f) then dofile(f) end
---  f= "wifi_cli_conf.lua"   if file.exists(f) then dofile(f) end
---  f= "wifi_cli_start.lua"   if file.exists(f) then dofile(f) end
+  f= "wifi_ap_stop.lua"   if file.exists(f) then dofile(f) end
+  f= "wifi_cli_conf.lua"   if file.exists(f) then dofile(f) end
+  f= "wifi_cli_start.lua"   if file.exists(f) then dofile(f) end
 
   --[[
   wifi.setmode(wifi.STATION)
@@ -41,29 +41,19 @@ else
   wifi.sta.autoconnect(1)
   ]]
 
---[[
   plugtimer1=tmr.create()
   plugtimer1:alarm(1*1000,  tmr.ALARM_AUTO, function()
     local ip = wifi.sta.getip()
     if ip then
       plugtimer1:unregister()
       print(ip)
-      print("> ")
     end
   end)
-]]
-  
 end
-
---[[
 dofile("websocket.lua")
 dofile("main.lua")
-]]
-
---[[
-
 if file.exists("userinit.lua") then
-  --[z[
+  --[[
   0, power-on
   1, hardware watchdog reset
 2, exception reset
@@ -71,7 +61,7 @@ if file.exists("userinit.lua") then
 4, software restart
 5, wake from deep sleep
 6, external reset
-  ]z]
+  ]]
   _ , reason = node.bootreason()
   if (reason<1 or reason > 3)  then
     dofile("userinit.lua")
@@ -81,5 +71,3 @@ if file.exists("userinit.lua") then
 else
   print("userinit.lua not found")
 end
-
-]]
