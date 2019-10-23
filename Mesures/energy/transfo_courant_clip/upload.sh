@@ -1,11 +1,15 @@
 #!/bin/bash
 # Petit script pour télécharger facilement tout le binz
-#zf191021.1613
+#zf191023.0959
 
 # S'il y a des erreurs lors d'un téléchargement, il faut simplement augmenter un peu le délai !
 # Il est préférable de télécharger en premier les *gros* fichiers .lua !
 
 # ATTENTION: cela efface tout le NodeMCU !
+
+echo "attention il n'est PAS à jour, zf191023.0959 !"
+exit
+
 
 luatool_tty="/dev/cu.wchusbserial1410"
 
