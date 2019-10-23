@@ -1,0 +1,9 @@
+# Quelques commandes remote à envoyer avec le plugin Atom-IDE-terminal de l'éditeur Atom
+# zf191023.0954
+
+# raccourcis clavier
+# CTRL+ALT+ENTER envoie au terminal la ligne de l'éditeur
+# ALT+CMD+F togle entre le terminal et l'éditeur
+
+
+echo "yeah cela marche"

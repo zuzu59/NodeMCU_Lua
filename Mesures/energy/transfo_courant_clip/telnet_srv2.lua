@@ -1,7 +1,7 @@
 -- Serveur telnet pour connexion en remote WIFI, NOUVELLE VERSION !
 -- source: https://github.com/nodemcu/nodemcu-firmware/blob/master/lua_examples/telnet/telnet.lua
 
-print("\n telnet_srv2.lua   zf181215.1326   \n")
+print("\n telnet_srv2.lua   zf191020.1932   \n")
 
 local node, table, tmr, wifi, uwrite,     tostring =
       node, table, tmr, wifi, uart.write, tostring
@@ -77,6 +77,12 @@ local function telnet_listener(socket)
     node.output(nil)
   end
 
+  --zzz
+  local function zconnection(s)
+    print("Welcome to NodeMCU world.")
+  end
+
+  socket:on("connection",    zconnection)
   socket:on("receive",       receiveLine)
   socket:on("disconnection", disconnect)
   socket:on("sent",          sendLine)
