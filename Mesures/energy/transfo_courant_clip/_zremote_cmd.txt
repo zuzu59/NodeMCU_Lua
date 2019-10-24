@@ -1,5 +1,5 @@
 # Quelques commandes remote (luatool) à envoyer avec le plugin Atom-IDE-terminal de l'éditeur Atom
-# zf191023.0958
+# zf191024.1023
 
 # raccourcis clavier
 # CTRL+ALT+ENTER envoie au terminal la ligne de l'éditeur
@@ -9,13 +9,33 @@
 export luatool_tty="/dev/cu.wchusbserial1410"
 export zIP="192.168.0.135"
 
-# ouvrir et fermer une session telnet sur le NodeMCU (zIP)
+
+# ouvrir et fermer une session telnet sur le NodeMCU avec l'adresse zIP)
 telnet -rN $zIP
 ~.
+node.restart()
+
+
+# commandes lua pour ce projet
+verbose=true
+verbose=false
+
+if verbose then print("toto") end
+
+
+
+
+#commandes luatool pour ce projet
+./luatool.py --ip $zIP -f 0_get_data.lua
+./luatool.py --ip $zIP -f 0_send_data.lua
+
+./luatool.py --ip $zIP --zrestart
+
 
 # faire un cat d'un fichier sur le NodeMCU
 dofile("cat.lua")
 cat("telnet_srv2.lua")
+
 
 # commandes luatool
 ./luatool.py -h

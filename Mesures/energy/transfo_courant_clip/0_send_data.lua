@@ -1,12 +1,12 @@
 -- Petit script pour envoyer les valeurs sur un serveur WEB (InfluxDB)
 -- via un http GET
-print("\n 0_send_data.lua   zf190917.0030   \n")
+print("\n 0_send_data.lua   zf190924.1043   \n")
 
 function send_data()
-    print("send_data: ")
+    if verbose then print("send_data: ") end
 
     zarg="energy,compteur=2 puissance="..zpower/1000
-    print("zarg: "..zarg)
+    if verbose then print("zarg: "..zarg) end
 
     http.post(influxdb_url, 'Content-Type: application/x-www-form-urlencoded\r\n', zarg, function(code, data)
 --            print("toto")
@@ -14,7 +14,7 @@ function send_data()
                 print("HTTP request failed")
                 print("zuzu", code, data)
             else
-                print(code, data)
+                if verbose then print(code, data) end
             end
 --            print("tutu")
     end)

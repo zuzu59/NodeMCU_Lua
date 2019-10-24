@@ -1,19 +1,19 @@
 -- Lit le convertisseur ADC connecté sur le transformateur de courant
 -- pour mesurer le courant électrique de l'installation PV
-print("\n 0_get_data.lua zf190916.1945 \n")
+print("\n 0_get_data.lua zf191024.1037 \n")
 
 -- Astuce de mesure:
--- On converti le courant en tension avec la résistance de charge du 
+-- On converti le courant en tension avec la résistance de charge du
 -- transformateur de courant 1/800 et le mesure avec l'ADC
--- Au lieu de découper la sinusoïde en 100 parties, c'est à dire toutes 
--- les 0.2ms (5'000x /s), pour en faire l'intégrale. On lit l'adc toutes 
+-- Au lieu de découper la sinusoïde en 100 parties, c'est à dire toutes
+-- les 0.2ms (5'000x /s), pour en faire l'intégrale. On lit l'adc toutes
 -- les 11ms (91x /s) donc beaucoup plus lentement.
 -- Comme la sinusoïde fait 20ms et est répétitive, on balaye (par décalage)
 -- statistiquement la sinusoïde.
 -- On redresse l'alternance par rapport à la masse fictive (env 0.5),
 -- ce qui nous permet d'estimer une valeur RMS du courant
 -- quelque soit sa forme et on le somme sur 2.1 secondes
--- Les mesures min et max ne sont là juste pour vérifier que nous sommes 
+-- Les mesures min et max ne sont là juste pour vérifier que nous sommes
 -- bien dans la plage de mesure avec le choix de la résistance de conversion
 -- la conversion courant/tension/puissance est faite avec une simple régle de 3
 
@@ -55,7 +55,7 @@ function calc_rms()
     if zadc_rms<=8 then zadc_rms=0 end
     zadc_offset=math.floor(zadc_offset_sum/znb_mes)
     zpower=math.floor(zadc_rms*zpow_cal/zadc_cal)
-    print(zadc_min,zadc_max,zadc_max-zadc_min,zadc_offset,zadc_rms,zpower.."W")
+    if verbose then print(zadc_min,zadc_max,zadc_max-zadc_min,zadc_offset,zadc_rms,zpower.."W") end
     zadc_min=zadc_offset   zadc_max=zadc_offset
     zadc_sum=0   zadc_offset_sum=0   znb_mes=0
     zadc_min=zadc_offset   zadc_max=zadc_offset
