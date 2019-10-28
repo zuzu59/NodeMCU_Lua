@@ -1,5 +1,5 @@
 # Quelques commandes remote (luatool) à envoyer avec le plugin Atom-IDE-terminal de l'éditeur Atom
-# zf191026.0913
+# zf191028.1918
 
 # si luatool ne marche pas sur le MAC, il faut lire ceci:
 # https://docs.google.com/document/d/1q64uK3IMOgEDdKaIAttbYuFt4GuLQ06k3FLeyfCsWLg/edit#heading=h.bmefcu67uwj0
@@ -53,3 +53,13 @@ cat("boot2.lua")
 ./luatool.py --ip $zIP -l
 ./luatool.py --ip $zIP -f toto.lua -d
 ./luatool.py --ip $zIP --delete toto.lua
+
+
+# création des tunnels ssh
+ssh -L 20221:localhost:20221 ubuntu@www.zuzutest.ml
+sudo ssh -L 23:192.168.1.111:23 ubuntu@localhost -p 20221
+export zIP="127.0.0.1"
+telnet -rN $zIP
+~.
+node.restart()
+=node.heap()

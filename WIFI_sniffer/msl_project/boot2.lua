@@ -1,6 +1,6 @@
 -- Scripts à charger après le boot pour démarrer son appli
 
-print("\n boot2.lua zf191020.1840 \n")
+print("\n boot2.lua zf191028.1900 \n")
 
 second_chance=nil
 function heartbeat()
@@ -18,5 +18,5 @@ end
 --f= "0_cron.lua"   if file.exists(f) then dofile(f) end
 
 f=nil
---heartbeat=nil
-heartbeat()
+heartbeat=nil
+--heartbeat()
