@@ -1,7 +1,7 @@
--- fonction cat() pour afficher le contenu d'un fichier dans la flash
-print("\n cat.lua   zf192026.0858   \n")
+-- fonction cat() pour afficher les 10 premières lignes d'un fichier dans la flash
+print("\n head.lua   zf192026.0942   \n")
 
-function cat(zfile)
+function zhead(zfile)
     print("\n"..zfile.."\n-------------------------------")
 
     zfilei = file.open(zfile, "r")
@@ -11,7 +11,8 @@ function cat(zfile)
 --      print(i..": "..string.sub(zline,1,string.len(zline)-1))
       print(string.sub(zline,1,string.len(zline)-1))
       i=i+1   zline=file.readline()
-    until zline== nil
+      if i>10 then break end
+    until zline==nil
     file.close(zfilei)
 
     print("-------------------------------")

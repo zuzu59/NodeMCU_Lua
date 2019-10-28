@@ -11,7 +11,7 @@
 
 # définitions à faire AVANT !
 export luatool_tty="/dev/cu.wchusbserial1410"
-export zIP="192.168.0.135"
+export zIP="192.168.43.230"
 
 
 # ouvrir et fermer (ALT+n+.) une session telnet sur le NodeMCU avec l'adresse zIP)
