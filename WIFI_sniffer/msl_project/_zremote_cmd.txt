@@ -56,10 +56,18 @@ cat("boot2.lua")
 
 
 # création des tunnels ssh
-ssh -L 20221:localhost:20221 ubuntu@www.zuzutest.ml
-sudo ssh -L 23:192.168.1.111:23 ubuntu@localhost -p 20221
-export zIP="127.0.0.1"
-telnet -rN $zIP
+ATTENTION: dans un premier terminal !
+ssh -t -L 2323:localhost:2323 ubuntu@www.zuzutest.ml ssh -N -L 2323:192.168.1.111:23 ubuntu@localhost -p 20221
+
+ATTENTION: dans un deuxième terminal !
+export zIP="localhost"
+export zport="2323"
+telnet -rN $zIP $zport
 ~.
 node.restart()
 =node.heap()
+
+
+
+
+.
