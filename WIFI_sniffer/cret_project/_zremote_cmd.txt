@@ -1,0 +1,102 @@
+# Quelques commandes remote (luatool) à envoyer avec le plugin Atom-IDE-terminal de l'éditeur Atom
+# zf191029.1645
+
+# si luatool ne marche pas sur le MAC, il faut lire ceci:
+# https://docs.google.com/document/d/1q64uK3IMOgEDdKaIAttbYuFt4GuLQ06k3FLeyfCsWLg/edit#heading=h.bmefcu67uwj0
+
+# raccourcis clavier
+# CTRL+ALT+ENTER envoie au terminal la ligne de l'éditeur
+# SHIT+CTRL+` ouvre le terminal (attention, ne pas oublier de copier le *path* dans le *tree* et le changer)
+# ALT+CMD+F bascule entre le terminal et l'éditeur
+
+# définitions à faire AVANT !
+export luatool_tty="/dev/cu.wchusbserial1410"
+export zIP="localhost"
+export zport="2323"
+ATTENTION: voir les tunnels tout à la fin !
+
+
+# ouvrir et fermer (ALT+N+.) une session telnet sur le NodeMCU avec l'adresse zIP)
+telnet -rN $zIP $zport
+~.
+node.restart()
+=node.heap()
+
+
+# commandes lua pour ce projet
+verbose=true
+verbose=false
+
+
+#commandes luatool pour ce projet
+./luatool.py --ip $zIP:$zport -l
+
+./luatool.py --ip $zIP:$zport -f b.lua
+./luatool.py --ip $zIP:$zport -f web_srv2.lua
+./luatool.py --ip $zIP:$zport -f z_index.html
+./luatool.py --ip $zIP:$zport -f z_page1.html
+./luatool.py --ip $zIP:$zport -f z_page2.html
+./luatool.py --ip $zIP:$zport -f z_page3.html
+./luatool.py --ip $zIP:$zport -f z_page4.html
+./luatool.py --ip $zIP:$zport -f wifi_ap_start.lua
+./luatool.py --ip $zIP:$zport -f boot2.lua
+
+dofile("wifi_ap_start.lua")
+dofile("wifi_info.lua")
+node.restart()
+for k,v in pairs(_G) do print(k,v) end
+
+
+
+~.
+./luatool.py --ip $zIP:$zport -f b.lua
+telnet -rN $zIP $zport
+dofile("b.lua")
+zshow()
+
+
+
+
+~.
+./luatool.py --ip $zIP:$zport -f head.lua
+telnet -rN $zIP $zport
+dofile("head.lua")
+zhead("telnet_srv2.lua")
+
+
+./luatool.py --ip $zIP --zrestart
+
+
+# faire un cat d'un fichier sur le NodeMCU
+dofile("cat.lua")
+cat("boot2.lua")
+
+
+# commandes luatool
+./luatool.py -h
+./luatool.py --ip $zIP:$zport -i
+./luatool.py --ip $zIP:$zport -l
+./luatool.py --ip $zIP:$zport -f toto.lua -d
+./luatool.py --ip $zIP:$zport --delete toto.lua
+
+
+# création des tunnels ssh
+ATTENTION: dans un premier terminal !
+Pour le MsL
+ssh -t -L 2323:localhost:2323 ubuntu@www.zuzutest.ml ssh -N -L 2323:192.168.1.111:23 ubuntu@localhost -p 20221
+
+Pour le Crêt
+ssh -N -L 2323:192.168.0.137:23 admin@z.zufferey.com -p 1822
+
+ATTENTION: dans un deuxième terminal !
+export zIP="localhost"
+export zport="2323"
+telnet -rN $zIP $zport
+~.
+node.restart()
+=node.heap()
+
+
+
+
+.
