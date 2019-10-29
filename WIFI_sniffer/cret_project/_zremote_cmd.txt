@@ -1,5 +1,5 @@
 # Quelques commandes remote (luatool) à envoyer avec le plugin Atom-IDE-terminal de l'éditeur Atom
-# zf191029.1645
+# zf191029.2324
 
 # si luatool ne marche pas sur le MAC, il faut lire ceci:
 # https://docs.google.com/document/d/1q64uK3IMOgEDdKaIAttbYuFt4GuLQ06k3FLeyfCsWLg/edit#heading=h.bmefcu67uwj0
@@ -10,7 +10,11 @@
 # ALT+CMD+F bascule entre le terminal et l'éditeur
 
 # définitions à faire AVANT !
+cd /Users/zuzu/Desktop/NodeMCU/NodeMCU_Lua/WIFI_sniffer/cret_project
 export luatool_tty="/dev/cu.wchusbserial1410"
+export zIP="192.168.0.137"
+export zport="23"
+
 export zIP="localhost"
 export zport="2323"
 ATTENTION: voir les tunnels tout à la fin !
@@ -20,12 +24,14 @@ ATTENTION: voir les tunnels tout à la fin !
 telnet -rN $zIP $zport
 ~.
 node.restart()
+collectgarbage()
 =node.heap()
 
 
 # commandes lua pour ce projet
 verbose=true
 verbose=false
+zsort_rssi()   zshow()
 
 
 #commandes luatool pour ce projet
