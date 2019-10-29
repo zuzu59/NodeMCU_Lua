@@ -1,6 +1,6 @@
 -- Scripts à charger après le boot pour démarrer son projet
 
-print("\n boot2.lua zf191029.2154 \n")
+print("\n boot2.lua zf191029.2259 \n")
 
 second_chance=nil
 
@@ -15,16 +15,15 @@ function heartbeat()
     end)
 end
 
--- charge ses propres secrets
 f= "secrets_project.lua"    if file.exists(f) then dofile(f) end
-
 f= "set_time.lua"   if file.exists(f) then dofile(f) end
 
-
+collectgarbage()
+f= "b.lua"   if file.exists(f) then dofile(f) end
 
 f=nil
 
-tmr.create():alarm(4*1000,  tmr.ALARM_SINGLE, function()
+tmr.create():alarm(3*1000,  tmr.ALARM_SINGLE, function()
     flash_led_xfois=nil   blink_LED=nil   ztmr_Flash_LED=nil
     zTm_Off_LED=nil  zTm_On_LED=nil  nbfois=nil  xfois=nil  zLED=nil
 end)
@@ -32,9 +31,8 @@ end)
 heartbeat=nil
 --heartbeat()
 
+
 --[[
 for k,v in pairs(_G) do print(k,v) end
-
-
 ]]
 
