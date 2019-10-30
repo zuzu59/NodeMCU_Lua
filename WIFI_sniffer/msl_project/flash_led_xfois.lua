@@ -1,7 +1,7 @@
 -- programme pour faire clignoter x fois une LED avec un rapport on/off
 
 function flash_led_xfois()
-    print("\n flash_led_xfois.lua zf190601.1618 \n")
+    print("\n flash_led_xfois.lua zf191029.2111 \n")
     
     --zLED=0            --NodeMCU
     zLED=4             --EPS-M3
@@ -30,10 +30,11 @@ function flash_led_xfois()
         end
     end
     
---    xfois =2
---    blink_LED ()
 end
 
+flash_led_xfois()
 
-
-
+--[[
+xfois =2
+blink_LED ()
+]]

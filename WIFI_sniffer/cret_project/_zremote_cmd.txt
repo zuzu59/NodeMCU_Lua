@@ -112,6 +112,7 @@ ssh -t -L 2323:localhost:2323 ubuntu@www.zuzutest.ml ssh -N -L 2323:192.168.1.11
 
 Pour le Crêt
 ssh -N -L 2323:192.168.0.137:23 admin@z.zufferey.com -p 1822
+ssh -N -L 2323:192.168.0.122:23 admin@z.zufferey.com -p 1822
 
 ATTENTION: dans un deuxième terminal !
 export zIP="localhost"
