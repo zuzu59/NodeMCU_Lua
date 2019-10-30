@@ -1,5 +1,5 @@
 # Quelques commandes remote (luatool) à envoyer avec le plugin Atom-IDE-terminal de l'éditeur Atom
-# zf191029.2324
+# zf191030.0851
 
 # si luatool ne marche pas sur le MAC, il faut lire ceci:
 # https://docs.google.com/document/d/1q64uK3IMOgEDdKaIAttbYuFt4GuLQ06k3FLeyfCsWLg/edit#heading=h.bmefcu67uwj0
@@ -15,6 +15,7 @@ export luatool_tty="/dev/cu.wchusbserial1410"
 export zIP="192.168.0.137"
 export zport="23"
 
+cd '/Users/zuzu/Google Drive/FamilleZ Share/FamilleZ/Papa/LUA/NodeMCU ESP8266/NodeMCU_Lua/WIFI_sniffer/cret_project'
 export zIP="localhost"
 export zport="2323"
 ATTENTION: voir les tunnels tout à la fin !
@@ -51,17 +52,33 @@ dofile("wifi_ap_start.lua")
 dofile("wifi_info.lua")
 node.restart()
 for k,v in pairs(_G) do print(k,v) end
+t=12
+t=nil
+print(pcall(function () print("2"..t) end))
 
 
 
+# ici c'est maintenant ;-)
 ~.
 ./luatool.py --ip $zIP:$zport -f b.lua
-telnet -rN $zIP $zport
-node.restart()
-~.
+./luatool.py --ip $zIP:$zport --zrestart
 telnet -rN $zIP $zport
 zsort_rssi()   zshow()
+print(ztrig_rssi)
+ztrig_rssi=-1000
+ztrig_rssi=-90
 
+
+
+# test de la gestion des erreurs
+~.
+./luatool.py --ip $zIP:$zport -f c.lua
+#./luatool.py --ip $zIP:$zport --zrestart
+telnet -rN $zIP $zport
+status, err = pcall(function () dofile("c.lua") end)   if status==false then print("Error: ",err) end
+zerr=nil
+zerr=1
+ztmr_tst_err:unregister()
 
 
 
