@@ -1,9 +1,9 @@
 -- Scripts pour tester le sniffer de smartphone qui essaient de se connecter sur des AP WIFI
 -- source: https://nodemcu.readthedocs.io/en/dev/modules/wifi/#wifieventmonregister
 
-print("\n b.lua zf191030.1407 \n")
+print("\n b.lua zf191030.2052 \n")
 
-ztrig_rssi=-90
+ztrig_rssi=-70
 
 --f= "set_time.lua"   if file.exists(f) then dofile(f) end
 

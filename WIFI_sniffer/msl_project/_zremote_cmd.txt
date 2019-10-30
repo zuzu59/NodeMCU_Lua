@@ -12,7 +12,7 @@
 # définitions à faire AVANT !
 cd '/Users/zuzu/Desktop/NodeMCU/NodeMCU_Lua/WIFI_sniffer/msl_project'
 export luatool_tty="/dev/cu.wchusbserial1410"
-export zIP="192.168.0.137"
+export zIP="192.168.1.111"
 export zport="23"
 
 cd '/Users/zuzu/Google Drive/FamilleZ Share/FamilleZ/Papa/LUA/NodeMCU ESP8266/NodeMCU_Lua/WIFI_sniffer/cret_project'
@@ -61,12 +61,12 @@ print(pcall(function () print("2"..t) end))
 # ici c'est maintenant ;-)
 ~.
 ./luatool.py --ip $zIP:$zport -f b.lua
-./luatool.py --ip $zIP:$zport --zrestart
+#./luatool.py --ip $zIP:$zport --zrestart
 telnet -rN $zIP $zport
 zsort_rssi()   zshow()
 print(ztrig_rssi)
 ztrig_rssi=-1000
-ztrig_rssi=-90
+ztrig_rssi=-75
 
 
 
