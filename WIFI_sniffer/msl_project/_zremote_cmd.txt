@@ -10,7 +10,7 @@
 # ALT+CMD+F bascule entre le terminal et l'éditeur
 
 # définitions à faire AVANT !
-cd /Users/zuzu/Desktop/NodeMCU/NodeMCU_Lua/WIFI_sniffer/cret_project
+cd '/Users/zuzu/Desktop/NodeMCU/NodeMCU_Lua/WIFI_sniffer/msl_project'
 export luatool_tty="/dev/cu.wchusbserial1410"
 export zIP="192.168.0.137"
 export zport="23"

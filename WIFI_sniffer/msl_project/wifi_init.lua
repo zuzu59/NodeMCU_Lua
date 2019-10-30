@@ -1,7 +1,7 @@
--- Petit script pour initaliser une fois la couche WIFI
+-- Petit script pour initaliser la couche WIFI
 
 function wifi_init()
-    print("\n wifi_init.lua   zf191030.1914   \n")
+    print("\n wifi_init.lua   zf191030.2040   \n")
     -- charge les secrets pour le wifi
     f= "secrets_wifi.lua"    if file.exists(f) then dofile(f) end
     
@@ -16,10 +16,3 @@ end
 
 wifi_init()
 
---[[
-wifi.setmode(wifi.STATIONAP,save)
-print(wifi.getdefaultmode())
-print(wifi.getmode())
-
-
-]]
