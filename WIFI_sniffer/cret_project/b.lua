@@ -1,7 +1,7 @@
 -- Scripts pour tester le sniffer de smartphone qui essaient de se connecter sur des AP WIFI
 -- source: https://nodemcu.readthedocs.io/en/dev/modules/wifi/#wifieventmonregister
 
-print("\n b.lua zf191029.2303 \n")
+print("\n b.lua zf191030.0801 \n")
 
 --f= "set_time.lua"   if file.exists(f) then dofile(f) end
 
@@ -101,8 +101,8 @@ end
 --zadrs, zname, zrssi, ztime0, ztime1
 
 function zsniff(T)
---    print("toto1950: "..T.RSSI)
-    if T.RSSI > -60 then
+    print("toto1950: "..T.RSSI)
+    if T.RSSI > -80 then
         print("\n\tMAC: ".. T.MAC.."\n\tRSSI: "..T.RSSI)
 --    ztime()
         z_adrs_mac_index=find_adrs(T.MAC)
