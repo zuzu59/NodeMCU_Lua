@@ -1,25 +1,18 @@
--- Petit script pour initaliser une fois la couche WIFI
+-- Petit script pour initaliser la couche WIFI
 
 function wifi_init()
-    print("\n wifi_init.lua   zf191030.1358   \n")
-    -- charge les secrets pour lw wifi
+    print("\n wifi_init.lua   zf191030.2040   \n")
+    -- charge les secrets pour le wifi
     f= "secrets_wifi.lua"    if file.exists(f) then dofile(f) end
     
-    f= "wifi_ap_start.lua"   if file.exists(f) then dofile(f) end
-    --f= "wifi_ap_stop.lua"   if file.exists(f) then dofile(f) end
-    f= "wifi_cli_start.lua"   if file.exists(f) then dofile(f) end
-    f= "wifi_cli_conf.lua"   if file.exists(f) then dofile(f) end
-    --f= "wifi_cli_stop.lua"   if file.exists(f) then dofile(f) end
+    wifi.setmode(wifi.STATIONAP,true)
     
+    wifi.ap.config({ ssid = ap_ssid.." "..wifi.ap.getmac(), pwd = ap_pwd, save=true })
+
+    wifi.sta.config{ssid=cli_ssid, pwd=cli_pwd, auto=true, save=true}
+    wifi.sta.autoconnect(1)
+    wifi.sta.connect()
 end
 
 wifi_init()
---wifi_init=nil   cli_ssid=nil   cli_pwd=nil
 
---[[
-wifi.setmode(wifi.STATIONAP,save)
-print(wifi.getdefaultmode())
-print(wifi.getmode())
-
-
-]]

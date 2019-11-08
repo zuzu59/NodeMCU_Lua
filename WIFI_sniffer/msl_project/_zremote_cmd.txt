@@ -23,16 +23,18 @@ ATTENTION: voir les tunnels tout à la fin !
 
 # ouvrir et fermer (ALT+N+.) une session telnet sur le NodeMCU avec l'adresse zIP)
 telnet -rN $zIP $zport
-~.
-node.restart()
+~.``
+--node.restart()
 collectgarbage()
 =node.heap()
+for k,v in pairs(_G) do print(k,v) end
 
 
 # commandes lua pour ce projet
 verbose=true
 verbose=false
 zsort_rssi()   zshow()
+=node.heap()
 
 
 #commandes luatool pour ce projet
@@ -50,7 +52,7 @@ zsort_rssi()   zshow()
 
 dofile("wifi_ap_start.lua")
 dofile("wifi_info.lua")
-node.restart()
+--node.restart()
 for k,v in pairs(_G) do print(k,v) end
 t=12
 t=nil
@@ -118,7 +120,7 @@ export zIP="localhost"
 export zport="2323"
 telnet -rN $zIP $zport
 ~.
-node.restart()
+--node.restart()
 =node.heap()
 
 
