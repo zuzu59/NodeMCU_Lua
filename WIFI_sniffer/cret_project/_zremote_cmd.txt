@@ -36,7 +36,8 @@ verbose=false
 zsort_rssi()   zshow()
 
 
-#commandes luatool pour ce projet
+#commandes luatool pour ce projet le .137 est à jour avec la nouvelle version du wifi !
+~.
 ./luatool.py --ip $zIP:$zport -l
 
 ./luatool.py --ip $zIP:$zport -f secrets_wifi.lua
@@ -94,8 +95,10 @@ ztmr_tst_err:unregister()
 ./luatool.py --ip $zIP:$zport -f head.lua
 telnet -rN $zIP $zport
 dofile("head.lua")
-zhead("telnet_srv2.lua")
+zhead("c.lua")
 
+ztmr_tst_err:unregister()
+for k,v in pairs(_G) do print(k,v) end
 
 ./luatool.py --ip $zIP --zrestart
 
