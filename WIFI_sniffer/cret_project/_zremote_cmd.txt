@@ -134,6 +134,7 @@ telnet -rN $zIP $zport
 =node.heap()
 
 
-
+status, err = pcall(function () fonction_a_tester() end)  if status==false then print("Error: ",err) end
+status, err = pcall(function () toto() end)  if status==false then print("Error: ",err) end
 
 .
