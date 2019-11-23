@@ -1,6 +1,6 @@
 #!/bin/bash
 # Petit script pour télécharger facilement tout le binz via le port série
-#zf191030.1832
+#zf191123.1438
 
 # S'il y a des erreurs lors d'un téléchargement, il faut simplement augmenter un peu le délai !
 # Il est préférable de télécharger en premier les *gros* fichiers .lua !
@@ -29,11 +29,18 @@ read -p "Est-ce bien vide ?"
 ./luatool.py --port $luatool_tty --bar --delay 0.001 -f set_time.lua
 ./luatool.py --port $luatool_tty --bar --delay 0.001 -f secrets_wifi.lua
 ./luatool.py --port $luatool_tty --bar --delay 0.001 -f secrets_project.lua
-./luatool.py --port $luatool_tty --bar --delay 0.001 -f dir.lua
+./luatool.py --port $luatool_tty --bar --delay 0.001 -f dir2.lua
 ./luatool.py --port $luatool_tty --bar --delay 0.001 -f cat.lua
 ./luatool.py --port $luatool_tty --bar --delay 0.001 -f c.lua
 ./luatool.py --port $luatool_tty --bar --delay 0.001 -f boot2.lua
 ./luatool.py --port $luatool_tty --bar --delay 0.001 -f boot.lua
+
+./luatool.py --port $luatool_tty --bar --delay 0.03 -f z_index.html
+
+./luatool.py --port $luatool_tty --bar --delay 0.03 -f z_page1.html
+./luatool.py --port $luatool_tty --bar --delay 0.03 -f z_page2.html
+./luatool.py --port $luatool_tty --bar --delay 0.03 -f z_page3.html
+./luatool.py --port $luatool_tty --bar --delay 0.03 -f z_page4.html
 
 ./luatool.py --port $luatool_tty -l
 read -p "Pas eu d'erreur, on part à fond avec le init.lua ?"

@@ -3,7 +3,7 @@
 -- du dossier en cours, donc PAS sur le NodeMCU !
 -- source: https://stackoverflow.com/questions/5303174/how-to-get-list-of-directories-in-lua (30%)
 
-print("\n zz_host_dir2.lua   zf191123.1406   \n")
+print("\n zz_host_dir2.lua   zf191123.1436   \n")
 
 function calc_chksum_file(name_file)
     size_file = 1   chksum_file = 0
@@ -45,6 +45,7 @@ function dir()
 end
 
 dir()
+print("\n\nRappel, sur Atom, sélectionner les deux fichiers à gauche puis CTRL+CMD+C\n")
 
 --[[
 dir()
