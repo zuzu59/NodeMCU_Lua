@@ -24,3 +24,25 @@ zrepeat()
 
 t2=tmr.now()
 print("durée: "..t2-t1)
+
+
+--[[
+
+t1={}
+for k,v in pairs(pfile) do
+    t1[#t1+1]=k
+end
+
+print(t1[3])
+
+
+t1 = file.list()
+print(file.list()["a.lua"])
+
+
+print(file.list[1])
+print(#file.list)
+
+
+
+]]
