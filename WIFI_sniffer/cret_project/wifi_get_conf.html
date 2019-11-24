@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+
+<head>
+  <meta charset='utf-8' name='viewport' content='width=device-width, initial-scale=1.0'>
+  <title>WIFI get config</title>
+</head>
+
+<body>
+  <h1>WIFI get config 191124.2333</h1>
+  <br>
+  Coucou c'est WIFI get config !<br>
+  <a href="/">Retour à la home page...</a><br><br><br>
+
+  <form action="wifi_set_conf.html" method="get">
+      <table>
+        <tr>
+          <td>AP:</td>
+          <td><input type="text" name="zssid"></td>
+        </tr>
+        <tr>
+          <td>PASSWD:</td>
+          <td><input type="text" name="zpasswd"></td>
+        </tr>
+        <tr>
+          <td>Entrer YES:</td>
+          <td><input type="text" name="zverif"></td>
+        </tr>
+      </table>
+      <input type="submit" value="Ok">
+  </form>
+  <br>
+
+
+<%
+ztemp=ztemp+1
+zout(ztemp.."°C")
+%>
+
+<br>Mais il fait encore trop froid !<br>
+
+</body>
+
+</html>

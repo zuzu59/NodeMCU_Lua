@@ -1,5 +1,5 @@
 # Quelques commandes remote (luatool) à envoyer avec le plugin Atom-IDE-terminal de l'éditeur Atom
-# zf191124.1644
+# zf191124.2340
 
 # si luatool ne marche pas sur le MAC, il faut lire ceci:
 # https://docs.google.com/document/d/1q64uK3IMOgEDdKaIAttbYuFt4GuLQ06k3FLeyfCsWLg/edit#heading=h.bmefcu67uwj0
@@ -67,6 +67,12 @@ zsort_rssi()   zshow()
 ./luatool.py --ip $zIP:$zport -f b.lua
 ./luatool.py --ip $zIP:$zport -f web_srv2.lua
 ./luatool.py --ip $zIP:$zport -f z_index.html
+
+
+./luatool.py --ip $zIP:$zport -f wifi_get_conf.html
+./luatool.py --ip $zIP:$zport -f wifi_set_conf.html
+
+
 ./luatool.py --ip $zIP:$zport -f z_page1.html
 ./luatool.py --ip $zIP:$zport -f z_page2.html
 ./luatool.py --ip $zIP:$zport -f z_page3.html
@@ -77,6 +83,7 @@ zsort_rssi()   zshow()
 ./luatool.py --ip $zIP:$zport --delete wifi_cli_start.lua
 ./luatool.py --ip $zIP:$zport --delete dir.lua
 ./luatool.py --ip $zIP:$zport --delete initz.lua
+./luatool.py --ip $zIP:$zport --delete wifi_conf.lua
 
 
 
