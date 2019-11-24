@@ -15,7 +15,7 @@ function send_file(zclient, zfilename)
     zclient:send("HTTP/1.1 200 OK\n")
     zclient:send("Content-Type: text/html\n\n")
     zzclient = zclient        -- export le port sur l'environnement global !
-    if zfilename == "" then zfilename = "z_index.html" end  
+    if zfilename == "" then zfilename = "z_index.html" end
     file_web = file.open(zfilename, "r")
     if file_web then
         repeat
@@ -34,10 +34,11 @@ function send_file(zclient, zfilename)
 --                    print(line)
                     lua_code = lua_code..line   -- récupère le code lua inline
                 else
+                    print(line)
                     zclient:send(line)          -- envoie le code HTML
                 end
             end
-        until not line    
+        until not line
         file_web:close()   file_web = nil
     else
         zclient:send("<html><h1>"..zfilename.." not found - 404 error</h1><a href='/'>Home</a><br></html>")
@@ -49,11 +50,11 @@ srv = net.createServer()
 srv:listen(80, function(conn)
     conn:on("receive", function(client, request)
         _, _, method, path, vars = string.find(request, "([A-Z]+) (.+)?(.+) HTTP")
-        
+
     print("zrequest: \n---\n"..request.."---")
-    
+
 --    print("method: ", method)   print("path: ", path)   print("vars: ", vars)
-        
+
         if not string.find(request, "/favicon.ico") then
             print("coucou")
             if (method == nil) then
@@ -69,10 +70,8 @@ srv:listen(80, function(conn)
             end
             file_html=string.gsub(path, "/", "")
             --        print("file_html: ",file_html)
-            send_file(client, file_html)      
+            send_file(client, file_html)
         end
     end)
     conn:on("sent", function(c) c:close() end)
 end)
-
-
