@@ -3,7 +3,11 @@
 -- du dossier en cours, donc PAS sur le NodeMCU !
 -- source: https://stackoverflow.com/questions/5303174/how-to-get-list-of-directories-in-lua (30%)
 
-print("\n zz_host_dir2.lua   zf191123.1436   \n")
+-- usage:
+-- ./zz_host_dir2.lua
+-- ./zz_host_dir2.lua > thost
+
+print("\n zz_host_dir2.lua   zf191124.1054   \n")
 
 function calc_chksum_file(name_file)
     size_file = 1   chksum_file = 0
@@ -16,7 +20,7 @@ function calc_chksum_file(name_file)
 --        if size_file%100 == 0 then uart.write(0,".") end
     end
     f:close()
-    print(name_file)
+--    print(name_file)
 end
 
 function dirfile(k)

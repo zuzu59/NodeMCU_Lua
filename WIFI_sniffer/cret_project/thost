@@ -1,41 +1,6 @@
 
- zz_host_dir2.lua   zf191123.1436   
+ zz_host_dir2.lua   zf191124.1054   
 
-zz_host_dir2.lua
-z_page4.html
-z_page3.html
-z_page2.html
-z_page1.html
-z_index.html
-wifi_init.lua
-wifi_info.lua
-web_srv2.lua
-upload_t.sh
-upload_s.sh
-tst_dir
-tnode
-thost
-telnet_srv2.lua
-set_time.lua
-secrets_wifi.lua
-secrets_project.lua
-oldies
-luatool.py
-initz.lua
-in production
-head.lua
-goodies
-flash_led_xfois.lua
-dir2.lua
-cat.lua
-c.lua
-boot2.lua
-boot.lua
-b.lua
-_zremote_cmd.txt
-_secrets_energy.lua_
-README.md
-Icon
 README.md                : 2841, 347247457
 _secrets_energy.lua_     : 574, 14047690
 _zremote_cmd.txt         : 3797, 598457578
@@ -45,17 +10,17 @@ boot2.lua                : 1581, 89772835
 c.lua                    : 1023, 45354296
 cat.lua                  : 522, 9721978
 dir2.lua                 : 1569, 96054383
-flash_led_xfois.lua      : 1143, 44689874
+flash_led_xfois.lua      : 1131, 43977377
 head.lua                 : 567, 11507510
 initz.lua                : 2159, 175035891
-luatool.py               : 14426, 7814354905
+luatool.py               : 14772, 8192529118
 secrets_project.lua      : 539, 12833508
 secrets_wifi.lua         : 635, 15410620
 set_time.lua             : 879, 31173858
 telnet_srv2.lua          : 2760, 289194718
-thost                    : 40, 43748
-tnode                    : 876, 22073606
-upload_s.sh              : 2198, 202237353
+thost                    : 40, 43647
+tnode                    : 877, 22149116
+upload_s.sh              : 1913, 159132384
 upload_t.sh              : 1618, 109879609
 web_srv2.lua             : 2960, 297644504
 wifi_info.lua            : 1604, 98582260
@@ -65,7 +30,7 @@ z_page1.html             : 443, 7731060
 z_page2.html             : 1867, 123937742
 z_page3.html             : 1415, 67091731
 z_page4.html             : 1660, 90364904
-zz_host_dir2.lua         : 1756, 122530256
+zz_host_dir2.lua         : 1821, 131648152
 
 
 Rappel, sur Atom, sélectionner les deux fichiers à gauche puis CTRL+CMD+C

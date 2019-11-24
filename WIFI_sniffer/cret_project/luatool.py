@@ -1,6 +1,6 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
-version = "0.6.6 zf191124.1015"
+version = "0.6.6 zf191124.1036"
 
 print("luatool.py ver " + version)
 
@@ -146,7 +146,10 @@ class SerialTransport(AbstractTransport):
         if len(data) > 0 and not args.bar:
             sys.stdout.write("\r\n->")
             sys.stdout.write(data.split("\r")[0])
+        ##zzz191124 attend encore un petit peu avant d'envoyer
+        sleep(self.delay)
         self.serial.write(data)
+        sleep(self.delay)
         # zzz191021 Affiche ce que l'on a envoyé au NodeMCU
         if args.verbose:
             print("\n\nzwrite0952: {" + data + "\n}\n")
@@ -215,7 +218,7 @@ if __name__ == '__main__':
     # parse arguments or use defaults
     parser = argparse.ArgumentParser(description='ESP8266 Lua script uploader.')
     parser.add_argument('--bar',           action='store_true',    help='Show a progress bar for uploads instead of printing each line')
-    parser.add_argument('--delay',         default=0.03,           help='Delay in seconds between each write, default 0.03 sec.', type=float)
+    parser.add_argument('--delay',         default=0.02,           help='Delay in seconds between each write, default 0.03 sec.', type=float)
     parser.add_argument('--delete',        default=None,           help='Delete a lua/lc file from device.')
     parser.add_argument('--ip',            default=None,           help='Connect via telnet server (--ip IP[:port])')
     parser.add_argument('--zrestart',      action='store_true',    help='Restart the NodeMCU.')
