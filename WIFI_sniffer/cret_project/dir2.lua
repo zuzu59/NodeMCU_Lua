@@ -1,7 +1,7 @@
 -- fonction dir() pour calculer le checksum de tous les fichiers sur le NodeMCU !
 -- fonction dirfile(fichier) pour calculer le checksum d'un seul fichiers sur le NodeMCU !
 
-print("\n dir2.lua   zf191124.1522   \n")
+print("\n dir2.lua   zf191124.1543   \n")
 
 function dir2()
 
@@ -28,7 +28,7 @@ function dir2()
             node.task.post(calc_chksum_file)
         else
             table.sort(zdir)   for i=1, #zdir do   print(zdir[i])   end
-            i=nil
+            zdir=nil   list_files=nil   zcmpt1=nil
         end
     end
 
@@ -45,13 +45,18 @@ function dir2()
         zrepeat()
     end
 
-
-
-
-    function filec(k)
-        calc_chksum_file(k)
-        print(k..string.rep(" ",24-string.len(k)).." : "..size_file..", "..chksum_file)
-        size_file=nil   chksum_file=nil  k=nil
+    function filec(name_file)
+        print(name_file)
+        local size_file = 1   local chksum_file = 0
+        local f = file.open(name_file, "r")
+        while true do
+            local t = f:read(1)   if t == nil then break end
+            chksum_file = chksum_file + size_file * string.byte(t)
+            size_file = size_file + 1
+            if size_file%100 == 0 then uart.write(0,".") end
+        end
+        f:close()   print("")
+        print(name_file..string.rep(" ",24-string.len(name_file)).." : "..size_file..", "..chksum_file)
     end
 
     function dir()
@@ -64,6 +69,10 @@ function dir2()
         size_file=nil   chksum_file=nil  k=nil
     end
 
+    function clear_dir()
+        dir=nil   dir2=nil   dirc=nil filec=nil   zrepeat=nil   calc_chksum_file=nil
+    end
+    
     dir()
     print("\nusage:")
     print("   dir()")
@@ -77,6 +86,10 @@ dir2()
 dir()
 dirc()
 filec("dir2.lua")
+
+=node.heap()
+clear_dir()
+=node.heap()
 
 for k,v in pairs(_G) do print(k,v) end
 
