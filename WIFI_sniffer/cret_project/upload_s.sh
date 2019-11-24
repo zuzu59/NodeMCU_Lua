@@ -29,7 +29,21 @@ read -p "Est-ce bien vide ?"
 ./luatool.py --port $luatool_tty --bar --delay 0.001 -f set_time.lua
 ./luatool.py --port $luatool_tty --bar --delay 0.001 -f secrets_wifi.lua
 ./luatool.py --port $luatool_tty --bar --delay 0.001 -f secrets_project.lua
+
 ./luatool.py --port $luatool_tty --bar --delay 0.001 -f dir2.lua
+
+
+./luatool.py --port $luatool_tty -f dir2.lua
+
+
+
+
+./luatool.py --port $luatool_tty -f t1.lua
+
+
+
+
+
 ./luatool.py --port $luatool_tty --bar --delay 0.001 -f cat.lua
 ./luatool.py --port $luatool_tty --bar --delay 0.001 -f c.lua
 ./luatool.py --port $luatool_tty --bar --delay 0.001 -f boot2.lua

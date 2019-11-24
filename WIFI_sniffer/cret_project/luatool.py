@@ -1,6 +1,6 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
-version = "0.6.5 zf191021.1558"
+version = "0.6.6 zf191124.1015"
 
 print("luatool.py ver " + version)
 
@@ -68,6 +68,8 @@ class AbstractTransport:
         raise NotImplementedError('Function not implemented')
 
     def writer(self, data):
+        ##zzz191124 enlève la fin de ligne afin de ne pas perturber la vérification finale
+        data = data.rstrip('\r\n')
         self.writeln("file.writeline([==[" + data + "]==])\r")
 
     def performcheck(self, expected):
@@ -80,7 +82,7 @@ class AbstractTransport:
                 raise Exception('No proper answer from MCU')
             if char == chr(13) or char == chr(10):  # LF or CR
                 if line != '':
-                    line = line.strip()
+                    #zzz191124 line = line.strip()
                     # zzz191021 Affiche ce que l'on a reçu du NodeMCU
                     if args.verbose:
                         print("\n\nzread0957: {" + line + "\n}\n")
@@ -354,11 +356,13 @@ if __name__ == '__main__':
         sys.stderr.write("\r\nStage 3. Start writing data to flash memory...")
     if args.bar:
         for i in tqdm(range(0, num_lines)):
-            transport.writer(line.strip())
+            #zzz191124 transport.writer(line.strip())
+            transport.writer(line)
             line = f.readline()
     else:
         while line != '':
-            transport.writer(line.strip())
+            #zzz191124 transport.writer(line.strip())
+            transport.writer(line)
             line = f.readline()
 
     # close both files
