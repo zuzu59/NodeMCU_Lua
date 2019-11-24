@@ -1,13 +1,13 @@
-.................initz.lua
 b.lua                    : 4289, 696634446
 boot.lua                 : 451, 8092291
+
 boot2.lua                : 1581, 89772835
 c.lua                    : 1023, 45354296
 cat.lua                  : 522, 9721978
-dir2.lua                 : 1569, 96054383
+dir2.lua                 : 2504, 246241567
 flash_led_xfois.lua      : 1131, 43977377
 head.lua                 : 567, 11507510
-initz.lua                : 2159, 175035891
+init.lua                 : 2159, 175035891
 secrets_project.lua      : 539, 12833508
 secrets_wifi.lua         : 635, 15410620
 set_time.lua             : 879, 31173858
@@ -20,4 +20,3 @@ z_page1.html             : 443, 7731060
 z_page2.html             : 1867, 123937742
 z_page3.html             : 1415, 67091731
 z_page4.html             : 1660, 90364904
-> 

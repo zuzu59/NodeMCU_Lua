@@ -5,14 +5,15 @@
 
 -- usage dans la console:
 -- ./zz_host_dir2.lua
--- ./zz_host_dir2.lua > thost
-
+--[[
+./zz_host_dir2.lua > thost
+]]
 -- usage dans Atom editor
 -- il faut installer ceci: https://atom.io/packages/compare-files
 -- puis sélectionner les deux fichiers dans l'explorateur à gauche puis CTRL+CMD+C
 
 
-print("\n zz_host_dir2.lua   zf191124.1109   \n")
+print("\n zz_host_dir2.lua   zf191124.1634   \n")
 
 function calc_chksum_file(name_file)
     size_file = 1   chksum_file = 0
