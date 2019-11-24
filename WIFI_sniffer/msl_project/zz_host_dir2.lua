@@ -3,16 +3,11 @@
 -- du dossier en cours, donc PAS sur le NodeMCU !
 -- source: https://stackoverflow.com/questions/5303174/how-to-get-list-of-directories-in-lua (30%)
 
--- usage dans la console:
+-- usage:
 -- ./zz_host_dir2.lua
 -- ./zz_host_dir2.lua > thost
 
--- usage dans Atom editor
--- il faut installer ceci: https://atom.io/packages/compare-files
--- puis sélectionner les deux fichiers dans l'explorateur à gauche puis CTRL+CMD+C
-
-
-print("\n zz_host_dir2.lua   zf191124.1109   \n")
+print("\n zz_host_dir2.lua   zf191124.1054   \n")
 
 function calc_chksum_file(name_file)
     size_file = 1   chksum_file = 0

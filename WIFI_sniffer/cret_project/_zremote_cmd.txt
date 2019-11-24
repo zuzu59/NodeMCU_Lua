@@ -12,7 +12,7 @@
 # définitions à faire AVANT !
 cd /Users/zuzu/Desktop/NodeMCU/NodeMCU_Lua/WIFI_sniffer/cret_project
 export luatool_tty="/dev/cu.wchusbserial1410"
-export zIP="192.168.0.137"
+export zIP="192.168.0.122"
 export zport="23"
 
 cd '/Users/zuzu/Google Drive/FamilleZ Share/FamilleZ/Papa/LUA/NodeMCU ESP8266/NodeMCU_Lua/WIFI_sniffer/cret_project'
@@ -31,6 +31,15 @@ for k,v in pairs(_G) do print(k,v) end
 
 
 # commandes lua pour ce projet
+telnet -rN $zIP $zport
+wifi.eventmon.unregister(wifi.eventmon.AP_PROBEREQRECVED)
+dofile("dir2.lua")
+filec('dir2.lua')
+dirc()
+~.
+
+
+
 verbose=true
 verbose=false
 zsort_rssi()   zshow()
