@@ -3,15 +3,13 @@
 
 README.md                : 2841, 347247457
 _secrets_energy.lua_     : 574, 14047690
-_zremote_cmd.txt         : 4225, 742020960
-a.lua                    : 492, 9072034
+_zremote_cmd.txt         : 4416, 811416628
 b.lua                    : 4289, 696634446
 boot.lua                 : 451, 8092291
 boot2.lua                : 1581, 89772835
 c.lua                    : 1023, 45354296
 cat.lua                  : 522, 9721978
 dir2.lua                 : 2504, 246241567
-dir2.lua.zf191124.1436   : 1931, 139164369
 flash_led_xfois.lua      : 1131, 43977377
 head.lua                 : 567, 11507510
 initz.lua                : 2159, 175035891
@@ -21,7 +19,7 @@ secrets_wifi.lua         : 635, 15410620
 set_time.lua             : 879, 31173858
 telnet_srv2.lua          : 2760, 289194718
 thost                    : 40, 43773
-tnode                    : 1083, 34517179
+tnode                    : 881, 22330813
 upload_s.sh              : 1913, 159132384
 upload_t.sh              : 1618, 109879609
 web_srv2.lua             : 2960, 297644504
@@ -32,6 +30,7 @@ z_page1.html             : 443, 7731060
 z_page2.html             : 1867, 123937742
 z_page3.html             : 1415, 67091731
 z_page4.html             : 1660, 90364904
+zz_host_dir.lua          : 2001, 159551326
 zz_host_dir2.lua         : 2020, 162623430
 
 
