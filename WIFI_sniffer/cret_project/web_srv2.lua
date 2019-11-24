@@ -1,8 +1,18 @@
 -- petit script de serveur WEB avec Active Server Page ZYX
 
-print("\n web_srv2.lua   zf190728.1021   \n")
+print("\n web_srv2.lua   zf191124.2225   \n")
 
 ztemp=12
+
+-- dû refaire la commande file.readline car elle bug quand ligne longue
+function zread_line()
+    local zline = ""
+    while true do
+        local t = file_web:read(1)   if t == nil then return end
+        zline = zline..t
+        if t == "\n" then   return zline   end
+    end
+end
 
 -- envoie sur le port ouvert mais depuis l'environnement global !
 function zout(zstring)
@@ -19,7 +29,7 @@ function send_file(zclient, zfilename)
     file_web = file.open(zfilename, "r")
     if file_web then
         repeat
-            local line = file_web:read('\n')
+            local line = zread_line()
             if line then
                 if string.find(line, "<%%") then
 --                    print("start lua...")
@@ -34,7 +44,7 @@ function send_file(zclient, zfilename)
 --                    print(line)
                     lua_code = lua_code..line   -- récupère le code lua inline
                 else
-                    print(line)
+--                    print(line)
                     zclient:send(line)          -- envoie le code HTML
                 end
             end
