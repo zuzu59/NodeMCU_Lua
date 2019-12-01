@@ -1,7 +1,7 @@
 # WIFI repeater, tout petit répéteur WIFI à base de NodeMCU ESP
 
 ## Sources
-https://github.com/martin-ger/esp_wifi_repeater
+
 
 
 ## Description
@@ -53,7 +53,7 @@ screen /dev/cu.wchusbserial1410 115200
 
 ### Via telnet
 ```
-telnet  -rN 192.168.4.1 7777
+telnet -rN 192.168.4.1 7777
 ```
 
 
