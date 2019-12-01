@@ -1,5 +1,5 @@
 # Quelques commandes remote (luatool) à envoyer avec le plugin Atom-IDE-terminal de l'éditeur Atom
-# zf191124.2340
+# zf191201.2334
 
 # si luatool ne marche pas sur le MAC, il faut lire ceci:
 # https://docs.google.com/document/d/1q64uK3IMOgEDdKaIAttbYuFt4GuLQ06k3FLeyfCsWLg/edit#heading=h.bmefcu67uwj0
@@ -12,8 +12,8 @@
 # définitions à faire AVANT !
 cd /Users/zuzu/Desktop/NodeMCU/NodeMCU_Lua/WIFI_sniffer/cret_project
 export luatool_tty="/dev/cu.wchusbserial1410"
-export zIP="192.168.0.122"
-export zIP="192.168.0.137"
+export zIP="192.168.0.200"
+#export zIP="192.168.0.137"
 export zport="23"
 
 cd '/Users/zuzu/Google Drive/FamilleZ Share/FamilleZ/Papa/LUA/NodeMCU ESP8266/NodeMCU_Lua/WIFI_sniffer/cret_project'
@@ -49,7 +49,7 @@ zsort_rssi()   zshow()
 #commandes luatool pour ce projet le .137 est à jour avec la nouvelle version du wifi !
 ~.
 ./luatool.py --ip $zIP:$zport -l
-./luatool.py --ip $zIP:$zport -f dir2.lua
+./luatool.py --ip $zIP:$zport -f wifi_init.lua
 
 
 ./luatool.py --ip $zIP:$zport -f secrets_wifi.lua
@@ -99,7 +99,7 @@ print(pcall(function () print("2"..t) end))
 # ici c'est maintenant ;-)
 ~.
 ./luatool.py --ip $zIP:$zport -f b.lua
---./luatool.py --ip $zIP:$zport --zrestart
+#./luatool.py --ip $zIP:$zport --zrestart
 telnet -rN $zIP $zport
 zsort_rssi()   zshow()
 print(ztrig_rssi)

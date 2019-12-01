@@ -3,7 +3,7 @@
 
 #ATTENTION: c'est pour ma structure, il faudra donc l'adapter
 
-#zf191021.0935
+#zf191201.2321
 
 
 #test si l'argument est vide
@@ -11,7 +11,7 @@ if [ -z "$1" ]
   then
     echo -e "\nSyntax:
 
-./zflash.sh ../../Firmware/nodemcu-master-20-modules-2019-10-21-07-30-13-float.bin
+./zflash.sh ../../Firmware/nodemcu-master-16-modules-2019-12-01-22-17-07-float.bin
 
 "
     exit

@@ -43,8 +43,7 @@ Il faut *flasher* le NodeMCU avec ce firmware:
 Avec ces modules:
 
 ```
-adc ds18b20 file gpio http i2c mdns mqtt net
-node ow pcm rtctime sntp spi tmr uart wifi ws2812
+adc file gpio http i2c mqtt net node ow rtctime si7021 sntp tmr uart wifi
 ```
 
 
@@ -122,7 +121,7 @@ Seulement la corrélation entre les trois température
 https://thingspeak.com/apps/plugins/300559
 
 
-zf191201.2305
+zf191201.2315
 
 
 pense bête:
