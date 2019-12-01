@@ -158,6 +158,17 @@ ATTENTION: dans un deuxième terminal !
 export zIP="localhost"
 export zport="2323"
 telnet -rN $zIP $zport
+
+dofile("dir2.lua")
+dir()
+filec("head.lua")
+
+dofile("head.lua")
+zhead("dir2.lua")
+
+dofile("cat.lua")
+cat("head.lua")
+
 ~.
 --node.restart()
 =node.heap()
