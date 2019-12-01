@@ -39,14 +39,28 @@ Script pour flasher le NodeMCU plus facilement:
 ```
 
 ## utilisation
-Pour la première configuration il faut se connecter sur l'AP myap et charger la page 192.168.4.1 pour la configuration du WIFI repeater.
+Pour la première configuration il faut se connecter sur l'AP *MyAP* et charger la page **192.168.4.1** pour la configuration du WIFI *repeater*.
 
 
 ## Utilisation de la console
-On peut accéder à la console via le port série:
+On peut accéder à la console soit via le port série ou telnet. Après connexion demandez le help avec la commande help !
+
+### Via le port série
 
 ```
 screen /dev/cu.wchusbserial1410 115200
+```
+
+### Via telnet
+```
+telnet  -rN 192.168.4.1 7777
+```
+
+
+## Reset factory
+Il faut se connecter en série sur la console et entrer la commande:
+```
+reset factory
 ```
 
 
@@ -63,4 +77,9 @@ https://fast.com/fr/
 ## Goodies
 
 
-zf191201.1245
+## Documentation complète
+https://github.com/martin-ger/esp_wifi_repeater/blob/master/README.md
+
+
+
+zf191201.1317
