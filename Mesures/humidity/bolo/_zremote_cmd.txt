@@ -1,0 +1,180 @@
+# Quelques commandes remote (luatool) à envoyer avec le plugin Atom-IDE-terminal de l'éditeur Atom
+# zf191124.2340
+
+# si luatool ne marche pas sur le MAC, il faut lire ceci:
+# https://docs.google.com/document/d/1q64uK3IMOgEDdKaIAttbYuFt4GuLQ06k3FLeyfCsWLg/edit#heading=h.bmefcu67uwj0
+
+# raccourcis clavier
+# CTRL+ALT+ENTER envoie au terminal la ligne de l'éditeur
+# SHIT+CTRL+` ouvre le terminal (attention, ne pas oublier de copier le *path* dans le *tree* et le changer)
+# ALT+CMD+F bascule entre le terminal et l'éditeur
+
+# définitions à faire AVANT !
+cd /Users/zuzu/Desktop/NodeMCU/NodeMCU_Lua/WIFI_sniffer/cret_project
+export luatool_tty="/dev/cu.wchusbserial1410"
+export zIP="192.168.0.122"
+export zIP="192.168.0.137"
+export zport="23"
+
+cd '/Users/zuzu/Google Drive/FamilleZ Share/FamilleZ/Papa/LUA/NodeMCU ESP8266/NodeMCU_Lua/WIFI_sniffer/cret_project'
+export zIP="localhost"
+export zport="2323"
+ATTENTION: voir les tunnels tout à la fin !
+
+
+# ouvrir et fermer (ALT+N+.) une session telnet sur le NodeMCU avec l'adresse zIP)
+telnet -rN $zIP $zport
+~.
+--node.restart()
+collectgarbage()
+=node.heap()
+for k,v in pairs(_G) do print(k,v) end
+
+
+# commandes lua pour ce projet
+telnet -rN $zIP $zport
+wifi.eventmon.unregister(wifi.eventmon.AP_PROBEREQRECVED)
+dofile("dir2.lua")
+filec('dir2.lua')
+dirc()
+~.
+
+
+
+verbose=true
+verbose=false
+zsort_rssi()   zshow()
+
+
+#commandes luatool pour ce projet le .137 est à jour avec la nouvelle version du wifi !
+~.
+./luatool.py --ip $zIP:$zport -l
+./luatool.py --ip $zIP:$zport -f dir2.lua
+
+
+./luatool.py --ip $zIP:$zport -f secrets_wifi.lua
+./luatool.py --ip $zIP:$zport -f initz.lua -t init.lua
+./luatool.py --ip $zIP:$zport -f boot.lua
+./luatool.py --ip $zIP:$zport -f boot2.lua
+./luatool.py --ip $zIP:$zport -f wifi_init.lua
+./luatool.py --ip $zIP:$zport -f set_time.lua
+./luatool.py --ip $zIP:$zport -f wifi_info.lua
+./luatool.py --ip $zIP:$zport -f c.lua
+./luatool.py --ip $zIP:$zport -f cat.lua
+./luatool.py --ip $zIP:$zport -f flash_led_xfois.lua
+./luatool.py --ip $zIP:$zport -f head.lua
+
+./luatool.py --ip $zIP:$zport -f b.lua
+./luatool.py --ip $zIP:$zport -f web_srv2.lua
+./luatool.py --ip $zIP:$zport -f z_index.html
+
+
+./luatool.py --ip $zIP:$zport -f wifi_get_conf.html
+./luatool.py --ip $zIP:$zport -f wifi_set_conf.html
+
+
+./luatool.py --ip $zIP:$zport -f z_page1.html
+./luatool.py --ip $zIP:$zport -f z_page2.html
+./luatool.py --ip $zIP:$zport -f z_page3.html
+./luatool.py --ip $zIP:$zport -f z_page4.html
+
+./luatool.py --ip $zIP:$zport --delete wifi_ap_start.lua
+./luatool.py --ip $zIP:$zport --delete wifi_cli_conf.lua
+./luatool.py --ip $zIP:$zport --delete wifi_cli_start.lua
+./luatool.py --ip $zIP:$zport --delete dir.lua
+./luatool.py --ip $zIP:$zport --delete initz.lua
+./luatool.py --ip $zIP:$zport --delete wifi_conf.lua
+
+
+
+dofile("wifi_info.lua")
+--node.restart()
+for k,v in pairs(_G) do print(k,v) end
+t=12
+t=nil
+print(pcall(function () print("2"..t) end))
+
+
+
+# ici c'est maintenant ;-)
+~.
+./luatool.py --ip $zIP:$zport -f b.lua
+--./luatool.py --ip $zIP:$zport --zrestart
+telnet -rN $zIP $zport
+zsort_rssi()   zshow()
+print(ztrig_rssi)
+ztrig_rssi=-1000
+ztrig_rssi=-90
+
+
+
+# test de la gestion des erreurs
+~.
+./luatool.py --ip $zIP:$zport -f c.lua
+#./luatool.py --ip $zIP:$zport --zrestart
+telnet -rN $zIP $zport
+status, err = pcall(function () dofile("c.lua") end)   if status==false then print("Error: ",err) end
+zerr=nil
+zerr=1
+ztmr_tst_err:unregister()
+
+
+
+~.
+./luatool.py --ip $zIP:$zport -f head.lua
+telnet -rN $zIP $zport
+dofile("head.lua")
+zhead("c.lua")
+
+ztmr_tst_err:unregister()
+for k,v in pairs(_G) do print(k,v) end
+
+./luatool.py --ip $zIP --zrestart
+
+
+# faire un cat d'un fichier sur le NodeMCU
+dofile("cat.lua")
+cat("boot2.lua")
+
+
+# commandes luatool
+./luatool.py -h
+./luatool.py --ip $zIP:$zport -i
+./luatool.py --ip $zIP:$zport -l
+./luatool.py --ip $zIP:$zport -f toto.lua -d
+./luatool.py --ip $zIP:$zport --delete toto.lua
+
+
+# création des tunnels ssh
+ATTENTION: dans un premier terminal !
+Pour le MsL
+ssh -t -L 2323:localhost:2323 ubuntu@www.zuzutest.ml ssh -N -L 2323:192.168.1.111:23 ubuntu@localhost -p 20221
+
+Pour le Crêt
+ssh -N -L 2323:192.168.0.137:23 admin@z.zufferey.com -p 1822
+ssh -N -L 2323:192.168.0.122:23 admin@z.zufferey.com -p 1822
+
+ATTENTION: dans un deuxième terminal !
+export zIP="localhost"
+export zport="2323"
+telnet -rN $zIP $zport
+
+dofile("dir2.lua")
+dir()
+filec("head.lua")
+
+dofile("head.lua")
+zhead("dir2.lua")
+
+dofile("cat.lua")
+cat("head.lua")
+
+~.
+--node.restart()
+=node.heap()
+
+
+status, err = pcall(function () fonction_a_tester() end)  if status==false then print("Error: ",err) end
+status, err = pcall(function () toto() end)  if status==false then print("Error: ",err) end
+
+.
