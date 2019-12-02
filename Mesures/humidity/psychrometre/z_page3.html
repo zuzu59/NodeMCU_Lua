@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+
+    <head>
+      <meta charset='utf-8' name='viewport' content='width=device-width, initial-scale=1.0'>
+      <title>ESP8266 page 3</title>
+    </head>
+    
+    <body>
+        <h1>ESP8266 page 3    190505.1156</h1>
+        <br>
+        Coucou c'est la page 3 !<br>
+        <a href="/">Retour à la home page...</a><br><br><br>
+        
+        Voici le résultat du capteur non linéaire corrigé avec une table 
+        d'interpolation dans un fichier .csv sur la flash.<br><br>
+        
+        Le code Lua pour afficher ce résultat se trouve dans le code HTML de cette page et est exécuté sur le NodeMCU.<br>
+        Les données viennent du NodeMCU !<br><br>
+        
+        <%
+        zout("Il reste: "..node.heap().." de RAM !<br><br>\n")
+        %>
+
+        <%
+        zx0=83
+        get_correction(zx0)
+        zout("la valeur corrigée de "..zx0.." est "..zy0.."<br>")
+        %>
+        
+        <%
+        zx0=91
+        get_correction(zx0)
+        zout("la valeur corrigée de "..zx0.." est "..zy0.."<br>")
+        %>
+        
+        <%
+        zx0=100
+        get_correction(zx0)
+        zout("la valeur corrigée de "..zx0.." est "..zy0.."<br>")
+        %>
+                 
+        <br>Yeah... cela fonctionne vachement bien !<br><br>
+        
+        <%
+        zout("Il reste: "..node.heap().." de RAM !<br><br>\n")
+        %>
+
+    </body>
+</html>
