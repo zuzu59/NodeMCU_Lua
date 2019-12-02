@@ -1,25 +1,23 @@
 # Mesure d'humidité de référence par psychométrie
 
-Petit projet pour mesurer l'humidité de référence, par exemple pour l'étalonnage  d'hygromètrepar la méthode de la psychométrie.
+Petit projet pour mesurer l'humidité de référence, par exemple pour l'étalonnage d'un hygromètre, par la méthode de la psychométrie.
 
 https://fr.wikipedia.org/wiki/Psychrom%C3%A9trie
 
 Principe simple, on mesure la température de deux thermomètres, un recouvert d'un manchon humide et l'autre à l'air libre. La différence de températures indique, via une table de conversion, l'humidité relative de l'air.
 
-Dans ce projet on utilise deux capteurs de température de précision DS18B20
+Dans ce projet on utilise deux capteurs de température de précision DS18B20 en mode alimentation parasite (seulement deux fils, alimentation comprise)
+
+![Image of Yaktocat](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/humidity/psychrometre/img/20191202_232755.jpg)
+Mon petit psychromètre à base de NodeMCU & DS18B20
+
+![Image of Yaktocat](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/humidity/psychrometre/img/20191202_232703.jpg)
+Les températures mesurées en fonctionnement
+
+![Image of Yaktocat](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/humidity/psychrometre/img/20191202_232904.jpg)
+Et le résultat à lire dans une table psychrométrique
 
 
-![Image of Yaktocat](https://zraw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/energy/transfo_courant_clip/img/20190908_134444.jpg)
-toto
-
-![Image of Yaktocat](https://zraw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/energy/transfo_courant_clip/img/20190908_134444.jpg)
-tutu
-
-![Image of Yaktocat](https://zraw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/energy/transfo_courant_clip/img/20190908_134444.jpg)
-titi
-
-![Image of Yaktocat](https://zraw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/energy/transfo_courant_clip/img/20190908_134444.jpg)
-tata
 
 
 <br><bR>
