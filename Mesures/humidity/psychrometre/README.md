@@ -1,10 +1,12 @@
 # Mesure d'humidité de référence par psychométrie
 
-zf191203.0013
+zf191203.0022
 
 Petit projet pour mesurer l'humidité de référence, par exemple pour l'étalonnage d'un hygromètre, par la méthode de la psychométrie.
 
 https://fr.wikipedia.org/wiki/Psychrom%C3%A9trie
+http://meteonet.info/html/table_psychrometrique.html
+https://www.abcclim.net/table-psychrometrique.html
 
 Principe simple, on mesure la température de deux thermomètres, un recouvert d'un manchon humide et l'autre à l'air libre. La différence de températures indique, via une table de conversion, l'humidité relative de l'air.
 
