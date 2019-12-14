@@ -1,5 +1,5 @@
 # Quelques commandes remote (luatool) à envoyer avec le plugin Atom-IDE-terminal de l'éditeur Atom
-# zf191201.2334
+# zf191214.1235
 
 # si luatool ne marche pas sur le MAC, il faut lire ceci:
 # https://docs.google.com/document/d/1q64uK3IMOgEDdKaIAttbYuFt4GuLQ06k3FLeyfCsWLg/edit#heading=h.bmefcu67uwj0
@@ -12,11 +12,12 @@
 # définitions à faire AVANT !
 cd /Users/zuzu/Desktop/NodeMCU/NodeMCU_Lua/WIFI_sniffer/cret_project
 export luatool_tty="/dev/cu.wchusbserial1410"
-export zIP="192.168.0.200"
+export zIP="192.168.0.113"
 #export zIP="192.168.0.137"
 export zport="23"
 
-cd '/Users/zuzu/Google Drive/FamilleZ Share/FamilleZ/Papa/LUA/NodeMCU ESP8266/NodeMCU_Lua/WIFI_sniffer/cret_project'
+cd '/Users/zuzu/Google Drive/FamilleZ Share/FamilleZ/Papa/LUA/NodeMCU ESP8266/NodeMCU_Lua/Mesures/humidity/bolo
+'
 export zIP="localhost"
 export zport="2323"
 ATTENTION: voir les tunnels tout à la fin !
@@ -33,7 +34,6 @@ for k,v in pairs(_G) do print(k,v) end
 
 # commandes lua pour ce projet
 telnet -rN $zIP $zport
-wifi.eventmon.unregister(wifi.eventmon.AP_PROBEREQRECVED)
 dofile("dir2.lua")
 filec('dir2.lua')
 dirc()

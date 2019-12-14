@@ -1,6 +1,6 @@
 -- Scripts à charger après le boot pour démarrer son projet
 
-print("\n boot2.lua zf191124.1922 \n")
+print("\n boot2.lua zf191203.2214 \n")
 
 function boot2()
     second_chance=nil   initz=nil   boot=nil
@@ -29,6 +29,7 @@ function boot2()
             collectgarbage()
  ---           f= "b.lua"   if file.exists(f) then dofile(f) end
             f= "web_srv2.lua"   if file.exists(f) then dofile(f) end
+            f= "web_ide2.lua"   if file.exists(f) then dofile(f) end
 
             f=nil
 

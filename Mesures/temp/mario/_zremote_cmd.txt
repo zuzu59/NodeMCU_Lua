@@ -13,6 +13,8 @@
 cd /Users/zuzu/Desktop/NodeMCU/NodeMCU_Lua/WIFI_sniffer/cret_project
 export luatool_tty="/dev/cu.wchusbserial1410"
 export zIP="192.168.0.200"
+export zIP="192.168.1.122"
+
 #export zIP="192.168.0.137"
 export zport="23"
 
@@ -32,14 +34,40 @@ for k,v in pairs(_G) do print(k,v) end
 
 
 # commandes lua pour ce projet
+~.
+export zIP="192.168.1.122"
+./luatool.py --ip $zIP:$zport -f boot2.lua
+export zIP="192.168.1.123"
+./luatool.py --ip $zIP:$zport -f boot2.lua
+export zIP="192.168.1.124"
+./luatool.py --ip $zIP:$zport -f boot2.lua
+
+
+
+
+telnet -rN $zIP $zport
+node.restart()
+
+
 telnet -rN $zIP $zport
 wifi.eventmon.unregister(wifi.eventmon.AP_PROBEREQRECVED)
 dofile("dir2.lua")
-filec('dir2.lua')
+filec('a1.lua')
 dirc()
 ~.
 
 
+zLED=0
+gpio.mode(zLED, gpio.OUTPUT)
+gpio.write(zLED, gpio.HIGH)
+gpio.write(zLED, gpio.LOW)
+
+
+print(3*4)
+a=4
+b=5
+print(a*b)
+print(a+b)
 
 verbose=true
 verbose=false
