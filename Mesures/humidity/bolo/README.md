@@ -30,21 +30,31 @@ Choses qui ne seraient pas possible si on l'avait fait en C++ (mode Arduino), co
 Toutes les fonctions sont bien séparées dans des scripts, cela *complexifie* le projet mais cela facilite la portabilité entre les projets et aussi sa mise au point.
 
 
-
 ## Astuces de mesures
+On utilise un tout petit capteur, le HTU21D, d'humidité et de température I2C. Il est vraiment très bon marché (1.5$), simple à utiliser et super précis.
+
+https://learn.sparkfun.com/tutorials/htu21d-humidity-sensor-hookup-guide/all
+
+Datasheet:
+
+https://cdn.sparkfun.com/assets/6/a/8/e/f/525778d4757b7f50398b4567.pdf
+
+On arrive à le souder directement sur le NodeMCU, ce qui nous permet de faire un point de mesure décentralisé pour moins de 5.-
+
+![Image of Yaktocat](https://zraw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/energy/transfo_courant_clip/img/20190908_134444.jpg)
+soudure du module HTU21D directement sur le NodeMCU_Lua
 
 
 ## Installation
 
 Il faut *flasher* le NodeMCU avec ce firmware:
 
-
+https://github.com/zuzu59/NodeMCU_Lua/blob/master/Firmware/nodemcu-master-11-modules-2019-12-15-16-45-47-float.bin
 
 Avec ces modules:
-
 ```
-adc file gpio http i2c mqtt net node ow rtctime si7021 sntp tmr uart wifi
-```
+bit,file,gpio,http,i2c,net,node,rtctime,tmr,uart,wifi
+ ```
 
 
 ## Utilisation
@@ -52,7 +62,7 @@ adc file gpio http i2c mqtt net node ow rtctime si7021 sntp tmr uart wifi
 
 ### Distribution des rôles de NodeMCU
 
-Comme on peut avoir plusieurs points de mesures à différents endroit dans le local, il n'y a qu'une Seulement fichier de *secrets*. C'est dans ce fichier de *secrets* qu'il y a l'information de l'adresse IP de la base de donnée InfluxDB et c'est l'id des NodeMCU qui sont enregistrés dans la DB InfluxDB !<br>
+Comme on peut avoir plusieurs points de mesures à différents endroit dans le local, il n'y a qu'un seul fichier de *secrets*. C'est dans ce fichier de *secrets* qu'il y a l'information de l'adresse IP de la base de donnée InfluxDB et c'est l'id des NodeMCU qui sont enregistrés dans la DB InfluxDB !<br>
 
 ```
 secrets_projet.lua
@@ -121,7 +131,7 @@ Seulement la corrélation entre les trois température
 https://thingspeak.com/apps/plugins/300559
 
 
-zf191201.2315
+zf191216.2134
 
 
 pense bête:
