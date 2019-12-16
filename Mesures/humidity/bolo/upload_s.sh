@@ -1,6 +1,6 @@
 #!/bin/bash
 # Petit script pour télécharger facilement tout le binz via le port série
-#zf191201.2323
+#zf191216.2139
 
 # S'il y a des erreurs lors d'un téléchargement, il faut simplement augmenter un peu le délai !
 # Il est préférable de télécharger en premier les *gros* fichiers .lua !
@@ -35,10 +35,11 @@ read -p "Est-ce bien vide ?"
 ./luatool.py --port $luatool_tty --bar -f flash_led_xfois.lua
 ./luatool.py --port $luatool_tty --bar -f dir2.lua
 ./luatool.py --port $luatool_tty --bar -f cat.lua
-#./luatool.py --port $luatool_tty --bar -f c.lua
 ./luatool.py --port $luatool_tty --bar -f boot2.lua
 ./luatool.py --port $luatool_tty --bar -f boot.lua
-#./luatool.py --port $luatool_tty --bar -f b.lua
+./luatool.py --port $luatool_tty --bar -f 0_send_data.lua
+./luatool.py --port $luatool_tty --bar -f 0_htu21d.lua
+./luatool.py --port $luatool_tty --bar -f 0_cron.lua
 
 ./luatool.py --port $luatool_tty -l
 read -p "Pas eu d'erreur, on part à fond avec le init.lua ?"
