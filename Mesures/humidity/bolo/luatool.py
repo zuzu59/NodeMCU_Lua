@@ -1,6 +1,6 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
-version = "0.6.6 zf191124.1036"
+version = "0.6.7 zf191217.2239"
 
 print("luatool.py ver " + version)
 
@@ -218,7 +218,7 @@ if __name__ == '__main__':
     # parse arguments or use defaults
     parser = argparse.ArgumentParser(description='ESP8266 Lua script uploader.')
     parser.add_argument('--bar',           action='store_true',    help='Show a progress bar for uploads instead of printing each line')
-    parser.add_argument('--delay',         default=0.02,           help='Delay in seconds between each write, default 0.03 sec.', type=float)
+    parser.add_argument('--delay',         default=0.025,           help='Delay in seconds between each write, default 0.03 sec.', type=float)
     parser.add_argument('--delete',        default=None,           help='Delete a lua/lc file from device.')
     parser.add_argument('--ip',            default=None,           help='Connect via telnet server (--ip IP[:port])')
     parser.add_argument('--zrestart',      action='store_true',    help='Restart the NodeMCU.')
