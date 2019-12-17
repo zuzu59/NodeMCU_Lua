@@ -1,13 +1,9 @@
 -- Petit script pour envoyer les valeurs sur un serveur WEB (InfluxDB)
 -- via un http GET
-print("\n 0_send_data.lua   zf190924.1043   \n")
+print("\n 0_send_data.lua   zf191217.2217   \n")
 
-function send_data()
-    if verbose then print("send_data: ") end
-
-    zarg="energy,compteur=2 puissance="..zpower/1000
+function zpost(zarg)
     if verbose then print("zarg: "..zarg) end
-
     http.post(influxdb_url, 'Content-Type: application/x-www-form-urlencoded\r\n', zarg, function(code, data)
 --            print("toto")
             if (code < 0) then
@@ -18,10 +14,21 @@ function send_data()
             end
 --            print("tutu")
     end)
+end
+
+function send_data()
+    if verbose then print("send_data: ") end
+    ztemp = readTemp()   zhumd = readHumi()
+    if verbose then print("Temperature: "..ztemp.." °C") end
+    if verbose then print("Humidity: "..zhumd.." %") end
+
+    zpost("bolo_ruru,capteur="..th_id.." humidity="..zhumd)
+    zpost("bolo_ruru,capteur="..th_id.." temperature="..ztemp)
+
 --    print("titi")
 end
 
 --[[
-zpower=450
+verbose=true
 send_data()
 ]]

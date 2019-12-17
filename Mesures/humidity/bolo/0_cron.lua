@@ -1,6 +1,6 @@
 -- Petit script pour faire office de crontab pour les 
 --mesures
-print("\n 0_cron.lua   zf190917.0033   \n")
+print("\n 0_cron.lua   zf191217.2222   \n")
 
 f= "flash_led_xfois.lua" if file.exists(f) then dofile(f) end
 flash_led_xfois()
