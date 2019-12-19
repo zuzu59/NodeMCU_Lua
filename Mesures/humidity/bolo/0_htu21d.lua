@@ -1,7 +1,8 @@
 -- Lit le capteur I2C HTU21D de mesure d'humidité et de température
-print("\n 0_htu21d.lua zf191216.2115 \n")
+print("\n 0_htu21d.lua zf191219.1920 \n")
 
 -- module https://learn.sparkfun.com/tutorials/htu21d-humidity-sensor-hookup-guide/all
+-- acahat https://www.aliexpress.com/item/32480177429.html
 -- schéma https://github.com/sparkfun/HTU21D_Breakout/blob/master/hardware/SparkFun_HTU21D_Breakout.pdf
 -- data sheet https://cdn.sparkfun.com/assets/6/a/8/e/f/525778d4757b7f50398b4567.pdf
 -- Comparaison DHT22, AM2302, AM2320, AM2321, SHT71, HTU21D, Si7021, BME280

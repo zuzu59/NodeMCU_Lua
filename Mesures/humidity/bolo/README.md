@@ -1,6 +1,6 @@
 # Mesure d'humidité et de température
 
-Petit projet pour mesurer l'humidité et la température pour l'afficher sur Grafana avec une DB InfluxDB. Comme par exemple pour monitorer l'humidité d'un local au cours du temps.
+Petit projet pour mesurer l'humidité et la température et l'afficher sur Grafana avec une DB InfluxDB. Comme par exemple pour monitorer l'humidité d'un local au cours du temps.
 
 ![Image](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/humidity/bolo/img/Constellation_sondes_mesures.jpg)
 
@@ -12,7 +12,7 @@ Montage du capteur HTU21D directement sur le NodeMCU, chose à ne PAS faire, car
 
 ![Image](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/humidity/bolo/img/exemple_de_mesures_1.png)
 
-Exemple de sortie du Grafana
+Exemple de sortie sur Grafana
 
 
 <br><br>
@@ -35,6 +35,8 @@ On utilise un tout petit capteur, le **HTU21D**, d'humidité et de température 
 ![Image](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/humidity/bolo/img/HTU21D.jpg)
 
 Il est vraiment très bon marché (1.5$), simple à utiliser et super précis.
+
+https://www.aliexpress.com/item/32480177429.html
 
 ![Image](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/humidity/bolo/img/super_definition_capteur_htu21d.jpg)
 
@@ -82,9 +84,9 @@ secrets_projet.lua
 
 Quand on a trouvé la mesure qui nous convient sur Grafana, on peut l'exporter en CSV pour en faire un rapport dans un tableur par exemple.
 
-![Image](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/humidity/bolo/img/exportation_data_csv.jpg)
+![Image](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/humidity/bolo/img/exportation_data_csv.png)
 
-![Image](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/humidity/bolo/img/coisir_series_as_columns.jpg)
+![Image](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/humidity/bolo/img/coisir_series_as_columns.png)
 
 
 ### Affichage des températures/humidité en local sur le NodeMCU
@@ -124,7 +126,7 @@ telnet -rN 192.168.0.xxx
 
 
 
-zf191219.1912
+zf191219.1924
 
 
 pense bête:
