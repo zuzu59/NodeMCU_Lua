@@ -3,17 +3,17 @@
 Petit projet pour mesurer l'humidité et la température pour l'afficher sur Grafana avec une DB InfluxDB. Comme par exemple pour monitorer l'humidité d'un local au cours du temps.
 
 
-![Image of Yaktocat](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/humidity/bolo/img/Constellation_sondes_mesures.jpg)
-toto
+![Image](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/humidity/bolo/img/Constellation_sondes_mesures.jpg)
 
-![Image of Yaktocat](https://zraw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/energy/transfo_courant_clip/img/20190908_134444.jpg)
-tutu
+Constellation de sondes de mesures
 
-![Image of Yaktocat](https://zraw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/energy/transfo_courant_clip/img/20190908_134444.jpg)
-titi
+![Image](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/humidity/bolo/img/htu21d_on_NodeMCU.jpg)
 
-![Image of Yaktocat](https://zraw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/energy/transfo_courant_clip/img/20190908_134444.jpg)
-tata
+Montage du capteur HTU21D directement sur le NodeMCU, chose à ne PAS faire, car la température du NodeMCU fausse complètement les mesures d'humidité !
+
+![Image](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/humidity/bolo/img/exemple_de_mesures_1.png)
+
+Exemple de sortie du Grafana
 
 
 <br><bR>
@@ -31,18 +31,23 @@ Toutes les fonctions sont bien séparées dans des scripts, cela *complexifie* l
 
 
 ## Astuces de mesures
-On utilise un tout petit capteur, le HTU21D, d'humidité et de température I2C. Il est vraiment très bon marché (1.5$), simple à utiliser et super précis.
+On utilise un tout petit capteur, le **HTU21D**, d'humidité et de température I2C.
+
+![Image](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/humidity/bolo/img/HTU21D.jpg)
+
+Il est vraiment très bon marché (1.5$), simple à utiliser et super précis.
+
+![Image](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/humidity/bolo/img/super_definition_capteur_htu21d.jpg)
+
+Incroyable la résolution de la mesure ! On peut observer ici l'arrivée le matin au salon, l'ouverture de la porte de la salle de bain après avoir pris la douche et l'ouverture de la fenêtre. Tout ceci dans la résolution de 1 à 3% de l'humidité relative
+
+Présentation:
 
 https://learn.sparkfun.com/tutorials/htu21d-humidity-sensor-hookup-guide/all
 
 Datasheet:
 
 https://cdn.sparkfun.com/assets/6/a/8/e/f/525778d4757b7f50398b4567.pdf
-
-On arrive à le souder directement sur le NodeMCU, ce qui nous permet de faire un point de mesure décentralisé pour moins de 5.-
-
-![Image of Yaktocat](https://zraw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/energy/transfo_courant_clip/img/20190908_134444.jpg)
-soudure du module HTU21D directement sur le NodeMCU_Lua
 
 
 ## Installation
