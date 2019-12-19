@@ -3,7 +3,7 @@
 Petit projet pour mesurer l'humidité et la température pour l'afficher sur Grafana avec une DB InfluxDB. Comme par exemple pour monitorer l'humidité d'un local au cours du temps.
 
 
-![Image of Yaktocat](https://zraw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/energy/transfo_courant_clip/img/20190908_134444.jpg)
+![Image of Yaktocat](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/humidity/bolo/img/Constellation_sondes_mesures.jpg)
 toto
 
 ![Image of Yaktocat](https://zraw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/energy/transfo_courant_clip/img/20190908_134444.jpg)
@@ -137,7 +137,7 @@ Seulement la corrélation entre les trois température
 https://thingspeak.com/apps/plugins/300559
 
 
-zf191216.2134
+zf191219.1642
 
 
 pense bête:
