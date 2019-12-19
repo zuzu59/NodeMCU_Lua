@@ -60,6 +60,12 @@ bit,file,gpio,http,i2c,net,node,rtctime,tmr,uart,wifi
 ## Utilisation
 
 
+Exemple de sortie dans Grafana
+
+https://snapshot.raintank.io/dashboard/snapshot/LUqdTJYLNuC6WatmJoN21yQSEQ0UJ0oy
+
+
+
 ### Distribution des rôles de NodeMCU
 
 Comme on peut avoir plusieurs points de mesures à différents endroit dans le local, il n'y a qu'un seul fichier de *secrets*. C'est dans ce fichier de *secrets* qu'il y a l'information de l'adresse IP de la base de donnée InfluxDB et c'est l'id des NodeMCU qui sont enregistrés dans la DB InfluxDB !<br>
