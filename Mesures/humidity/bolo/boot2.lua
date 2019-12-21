@@ -1,6 +1,6 @@
 -- Scripts à charger après le boot pour démarrer son projet
 
-print("\n boot2.lua zf191221.1553 \n")
+print("\n boot2.lua zf191221.1554 \n")
 
 function boot2()
     second_chance=nil   initz=nil   boot=nil   zLED=nil
@@ -8,13 +8,13 @@ function boot2()
     cli_ssid=nil  cli_pwd=nil  ap_ssid=nil  ap_pwd=nil
     boot2_tmr1=nil   wifi_init1=nil   wifi_info=nil   boot2_go=nil
 
-    --f= "secrets_project.lua"    if file.exists(f) then dofile(f) end
-    --f= "set_time.lua"   if file.exists(f) then dofile(f) end
+    f= "secrets_project.lua"    if file.exists(f) then dofile(f) end
+    f= "set_time.lua"   if file.exists(f) then dofile(f) end
     collectgarbage()
-    --f= "0_htu21d.lua"   if file.exists(f) then dofile(f) end
-    --f= "0_send_data.lua"   if file.exists(f) then dofile(f) end
-    --f= "0_cron.lua"   if file.exists(f) then dofile(f) end
-    --f= "web_srv2.lua"   if file.exists(f) then dofile(f) end
+    f= "0_htu21d.lua"   if file.exists(f) then dofile(f) end
+    f= "0_send_data.lua"   if file.exists(f) then dofile(f) end
+    f= "0_cron.lua"   if file.exists(f) then dofile(f) end
+    f= "web_srv2.lua"   if file.exists(f) then dofile(f) end
     --f= "web_ide2.lua"   if file.exists(f) then dofile(f) end
     f=nil
 
