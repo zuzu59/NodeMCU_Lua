@@ -1,15 +1,10 @@
--- programme pour faire clignoter x fois une LED avec un rapport on/off
+-- programme pour faire clignoter x fois une LED avec un rapport on/off en mS
 
 function flash_led_xfois()
-    print("\n flash_led_xfois.lua zf1911124.1053 \n")
+    print("\n flash_led_xfois.lua zf191221.1454 \n")
 
-    --zLED=0            --NodeMCU
-    zLED=4             --EPS-M3
-    zTm_On_LED = 50    --> en ms
-    zTm_Off_LED = 100    --> en ms
-    nbfois = 0
-    gpio.write(zLED, gpio.HIGH)
-    gpio.mode(zLED, gpio.OUTPUT)
+    zTm_On_LED = 50   zTm_Off_LED = 100   nbfois = 0
+    zLED=4   gpio.write(zLED, gpio.HIGH)   gpio.mode(zLED, gpio.OUTPUT)
     ztmr_Flash_LED = tmr.create()
 
     function blink_LED ()
