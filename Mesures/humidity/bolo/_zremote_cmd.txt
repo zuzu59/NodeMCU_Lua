@@ -1,5 +1,35 @@
 # Quelques commandes remote (luatool) à envoyer avec le plugin Atom-IDE-terminal de l'éditeur Atom
-# zf191218.0820
+# zf191221.1133
+
+
+zf191220.1447
+BUG1:
+1) quand on démarre rapidement après un power off en cliquant sur le btn on vide mal la mémoire
+car on a pas passé par seconde_chance dans init.lua !
+
+choses pas vidées:
+gpio.trig(zswitch)
+hvbouton=nil
+zswitch=nil
+reset_reason=nil
+
+il reste encore ces variables en trop en mémoire !
+hvbouton        function: 0x3fff0d28
+initalarme      userdata: 0x3fff14a8
+initalarme2     userdata: 0x3fff1530
+reset_reason    6
+zswitch 3
+
+
+
+BUG2
+ dans 0_cron.lua on n'a pas besoin de la ligne:
+ flash_led_xfois()
+
+
+
+
+
 
 # si luatool ne marche pas sur le MAC, il faut lire ceci:
 # https://docs.google.com/document/d/1q64uK3IMOgEDdKaIAttbYuFt4GuLQ06k3FLeyfCsWLg/edit#heading=h.bmefcu67uwj0
@@ -16,9 +46,9 @@ export zIP="192.168.0.113"
 
 #th0
 192.168.0.118
-#th1
+#th1  19512
 192.168.0.143
-#th2
+#th2   19432
 192.168.0.132
 #th3
 192.168.0.145
@@ -32,6 +62,7 @@ export zIP="192.168.0.113"
 
 
 #export zIP="192.168.0.137"
+
 export zport="23"
 
 cd '/Users/zuzu/Google Drive/FamilleZ Share/FamilleZ/Papa/LUA/NodeMCU ESP8266/NodeMCU_Lua/Mesures/humidity/bolo
@@ -171,11 +202,15 @@ ssh -t -L 2323:localhost:2323 ubuntu@www.zuzutest.ml ssh -N -L 2323:192.168.1.11
 Pour le Crêt
 ssh -N -L 2323:192.168.0.137:23 admin@z.zufferey.com -p 1822
 ssh -N -L 2323:192.168.0.122:23 admin@z.zufferey.com -p 1822
+ssh -N -L 2323:192.168.0.118:23 admin@z.zufferey.com -p 1822
 
 ATTENTION: dans un deuxième terminal !
 export zIP="localhost"
 export zport="2323"
 telnet -rN $zIP $zport
+
+verbose=false
+verbose=true
 
 dofile("dir2.lua")
 dir()

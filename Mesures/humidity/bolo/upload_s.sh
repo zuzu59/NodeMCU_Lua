@@ -1,6 +1,6 @@
 #!/bin/bash
 # Petit script pour télécharger facilement tout le binz via le port série
-#zf191216.2139
+#zf191221.1126
 
 # S'il y a des erreurs lors d'un téléchargement, il faut simplement augmenter un peu le délai !
 # Il est préférable de télécharger en premier les *gros* fichiers .lua !
@@ -27,6 +27,7 @@ read -p "Est-ce bien vide ?"
 ./luatool.py --port $luatool_tty --bar -f wifi_init.lua
 ./luatool.py --port $luatool_tty --bar -f wifi_info.lua
 ./luatool.py --port $luatool_tty --bar -f web_srv2.lua
+./luatool.py --port $luatool_tty --bar -f web_ide2.lua
 ./luatool.py --port $luatool_tty --bar -f telnet_srv2.lua
 ./luatool.py --port $luatool_tty --bar -f set_time.lua
 ./luatool.py --port $luatool_tty --bar -f secrets_wifi.lua

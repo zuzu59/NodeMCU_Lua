@@ -59,8 +59,8 @@ https://github.com/zuzu59/NodeMCU_Lua/blob/master/Firmware/nodemcu-master-18-mod
 
 Avec ces modules:
 ```
-adc,ads1115,bit,enduser_setup,file,gpio,http,i2c,net,node,ow,rtctime,si7021,sntp,spi,tmr,uart,wifi
- ```
+file gpio http i2c net node rtctime sntp tmr uart wifi
+```
 
 ## Utilisation
 
@@ -126,7 +126,7 @@ telnet -rN 192.168.0.xxx
 
 
 
-zf191219.1924
+zf191221.0825
 
 
 pense bête:

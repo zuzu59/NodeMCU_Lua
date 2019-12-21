@@ -1,6 +1,6 @@
 -- Scripts à charger après le boot pour démarrer son projet
 
-print("\n boot2.lua zf191217.2224 \n")
+print("\n boot2.lua zf191220.2319 \n")
 
 function boot2()
     second_chance=nil   initz=nil   boot=nil
@@ -31,15 +31,26 @@ function boot2()
             f= "0_send_data.lua"   if file.exists(f) then dofile(f) end
             f= "0_cron.lua"   if file.exists(f) then dofile(f) end
             f= "web_srv2.lua"   if file.exists(f) then dofile(f) end
-
+            --f= "web_ide2.lua"   if file.exists(f) then dofile(f) end
             f=nil
 
             verbose = true
             
             tmr.create():alarm(3*1000,  tmr.ALARM_SINGLE, function()
-            print("BOOOOUM, y'a plus de boot2 !")
+                print("BOOOOUM, y'a plus de boot2 !")
                 wifi_info=nil   boot2=nil
+                print(node.heap())
+                collectgarbage()
+                print(node.heap())
             end)
+            
+            --tmr.create():alarm(7*1000,  tmr.ALARM_SINGLE, function()
+            --    print("MUOOOOB !")
+            --    collectgarbage()
+            --    print(node.heap())
+                --f= "web_ide2.lua"   if file.exists(f) then dofile(f) end
+            --    f=nil
+            --end)
         end
     end)
 end
