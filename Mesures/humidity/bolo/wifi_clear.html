@@ -3,22 +3,32 @@
 
     <head>
       <meta charset='utf-8' name='viewport' content='width=device-width, initial-scale=1.0'>
-      <title>ESP8266 page 3</title>
+      <title>Wifi clear</title>
     </head>
 
     <body>
-        <h1>ESP8266 page 4    190726.1955</h1>
+        <h1>Wifi clear    191222.2348</h1>
         <br>
-        Web service concentrateur de mesures de température !<br>
+        Effacement de la configuration WIFI actuelle !<br>
         <a href="/">Retour à la home page...</a><br><br><br>
 
         Test d'un web service qui fonctionne avec l'Active Server Page ZYX.<br><br>
 
-        Le code Lua pour afficher ce résultat se trouve dans le code HTML de cette page et est exécuté sur le NodeMCU.<br>
+        Le code Lua pour afficher ce résultat se trouve dans le code HTML de cette page et est exécuté sur
+        le NodeMCU.<br>
         Les données viennent du NodeMCU !<br><br>
 
         <%
         zout("Il reste: "..node.heap().." de RAM !<br><br>\n")
+        %>
+
+        <%
+        zout("Booooooooum dans 5 secondes!<br>")
+        tmr.create():alarm(5*1000,  tmr.ALARM_SINGLE, function()
+            file.remove("eus_params.lua")
+            node.restart()
+        end)
+
         %>
 
         Les arguments du web service (GET) sont:<br><br>
@@ -28,7 +38,7 @@
                 for k, v in string.gmatch(vars, "(%w+)=(%w+)&*") do
                     _GET[k] = v
                     zout(k..": "..v.."<br>")
-                    if k == "field1" then 
+                    if k == "field1" then
                         ztemp1_conc = v
                     elseif k == "field2" then
                         ztemp2_conc = v

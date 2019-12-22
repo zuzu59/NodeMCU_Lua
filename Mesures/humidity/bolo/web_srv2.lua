@@ -1,6 +1,6 @@
 -- petit script de serveur WEB avec Active Server Page ZYX
 
-print("\n web_srv2.lua   zf191222.2006   \n")
+print("\n web_srv2.lua   zf191222.2335   \n")
 
 -- dû refaire la commande file.readline car elle bug quand ligne longue
 function zread_line()
@@ -27,7 +27,10 @@ function send_file(zclient, zfilename)
     file_web = file.open(zfilename, "r")
     if file_web then
         repeat
-            local line = zread_line()
+            local line = file_web:readline()
+--            local line = file_web:read('\n')
+--            local line = zread_line()
+--            print("hello toto",string.len(line))
             if line then
                 if string.find(line, "<%%") then
 --                    print("start lua...")
@@ -59,7 +62,7 @@ srv:listen(80, function(conn)
     conn:on("receive", function(client, request)
         _, _, method, path, vars = string.find(request, "([A-Z]+) (.+)?(.+) HTTP")
 
-    print("zrequest: \n---\n"..request.."---")
+--    print("zrequest: \n---\n"..request.."---")
 
 --    print("method: ", method)   print("path: ", path)   print("vars: ", vars)
 
