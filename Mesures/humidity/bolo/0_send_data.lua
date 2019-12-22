@@ -1,6 +1,6 @@
 -- Petit script pour envoyer les valeurs sur un serveur WEB (InfluxDB)
 -- via un http GET
-print("\n 0_send_data.lua   zf191217.2217   \n")
+print("\n 0_send_data.lua   zf191222.1711   \n")
 
 function zpost(zarg)
     if verbose then print("zarg: "..zarg) end
@@ -22,8 +22,8 @@ function send_data()
     if verbose then print("Temperature: "..ztemp.." °C") end
     if verbose then print("Humidity: "..zhumd.." %") end
 
-    zpost("bolo_ruru,capteur="..th_id.." humidity="..zhumd)
-    zpost("bolo_ruru,capteur="..th_id.." temperature="..ztemp)
+    zpost("bolo_ruru,capteur=th"..node_id.." humidity="..zhumd)
+    zpost("bolo_ruru,capteur=th"..node_id.." temperature="..ztemp)
 
 --    print("titi")
 end
