@@ -1,6 +1,6 @@
 -- Scripts à charger après le boot pour démarrer son projet
 
-print("\n boot2.lua zf191222.1827 \n")
+print("\n boot2.lua zf191222.1957 \n")
 
 function boot2()
     second_chance=nil   initz=nil   boot=nil   zLED=nil
@@ -16,6 +16,13 @@ function boot2()
     wifi.ap.config({ ssid = ap_ssid.."_"..node_id, pwd = ap_pwd, save=true })
     ap_ssid=nil  ap_pwd=nil
     f= "web_srv2.lua"   if file.exists(f) then dofile(f) end
+    boot2_tmr3=tmr.create()
+    boot2_tmr3:alarm(300*1000,  tmr.ALARM_SINGLE, function()
+        print("BOOOOUM, y'a plus de AP WIFI !")
+        wifi.setmode(wifi.STATION,true)   boot2_tmr3=nil
+        print(node.heap())   collectgarbage()   print(node.heap())
+    end)
+    
 
     --f= "0_htu21d.lua"   if file.exists(f) then dofile(f) end
     --f= "0_send_data.lua"   if file.exists(f) then dofile(f) end

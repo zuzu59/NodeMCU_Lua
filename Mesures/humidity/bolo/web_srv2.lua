@@ -1,8 +1,6 @@
 -- petit script de serveur WEB avec Active Server Page ZYX
 
-print("\n web_srv2.lua   zf191124.2225   \n")
-
-ztemp=12
+print("\n web_srv2.lua   zf191222.2006   \n")
 
 -- dû refaire la commande file.readline car elle bug quand ligne longue
 function zread_line()
