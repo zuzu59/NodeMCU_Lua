@@ -1,34 +1,5 @@
 # Quelques commandes remote (luatool) à envoyer avec le plugin Atom-IDE-terminal de l'éditeur Atom
-# zf191221.1133
-
-
-zf191220.1447
-BUG1:
-1) quand on démarre rapidement après un power off en cliquant sur le btn on vide mal la mémoire
-car on a pas passé par seconde_chance dans init.lua !
-
-choses pas vidées:
-gpio.trig(zswitch)
-hvbouton=nil
-zswitch=nil
-reset_reason=nil
-
-il reste encore ces variables en trop en mémoire !
-hvbouton        function: 0x3fff0d28
-initalarme      userdata: 0x3fff14a8
-initalarme2     userdata: 0x3fff1530
-reset_reason    6
-zswitch 3
-
-
-
-BUG2
- dans 0_cron.lua on n'a pas besoin de la ligne:
- flash_led_xfois()
-
-
-
-
+# zf191223.2317
 
 
 # si luatool ne marche pas sur le MAC, il faut lire ceci:
@@ -47,13 +18,13 @@ export zIP="192.168.0.113"
 #th0
 192.168.0.118
 #th1
-192.168.0.143
+192.168.0.143   192.168.0.137
 #th2
-192.168.0.132
+192.168.0.132   192.168.0.147
 #th3
-192.168.0.145
+192.168.0.145   192.168.0.112
 #th4
-192.168.0.117
+192.168.0.117   192.168.0.180
 #th5
 192.168.0.178
 #th6
