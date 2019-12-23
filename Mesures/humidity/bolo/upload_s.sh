@@ -1,6 +1,6 @@
 #!/bin/bash
 # Petit script pour télécharger facilement tout le binz via le port série
-#zf191222.2329
+#zf191223.1213
 
 # S'il y a des erreurs lors d'un téléchargement, il faut simplement augmenter un peu le délai !
 # Il est préférable de télécharger en premier les *gros* fichiers .lua !
@@ -19,10 +19,10 @@ chmod +x luatool.py
 ./luatool.py --port $luatool_tty -l
 read -p "Est-ce bien vide ?"
 
-./luatool.py --port $luatool_tty --bar -f wifi_clear.html
 ./luatool.py --port $luatool_tty --bar -f z_index.html
 ./luatool.py --port $luatool_tty --bar -f wifi_init.lua
 ./luatool.py --port $luatool_tty --bar -f wifi_info.lua
+./luatool.py --port $luatool_tty --bar -f wifi_clear.html
 ./luatool.py --port $luatool_tty --bar -f web_srv2.lua
 ./luatool.py --port $luatool_tty --bar -f web_ide2.lua
 ./luatool.py --port $luatool_tty --bar -f telnet_srv2.lua
@@ -30,7 +30,8 @@ read -p "Est-ce bien vide ?"
 ./luatool.py --port $luatool_tty --bar -f secrets_wifi.lua
 ./luatool.py --port $luatool_tty --bar -f secrets_project.lua
 ./luatool.py --port $luatool_tty --bar -f head.lua
-./luatool.py --port $luatool_tty --bar -f flash_led_xfois.lua
+./luatool.py --port $luatool_tty --bar -f eus_params.lua
+./luatool.py --port $luatool_tty --bar -f disp_temp.html
 ./luatool.py --port $luatool_tty --bar -f dir2.lua
 ./luatool.py --port $luatool_tty --bar -f cat.lua
 ./luatool.py --port $luatool_tty --bar -f boot2.lua

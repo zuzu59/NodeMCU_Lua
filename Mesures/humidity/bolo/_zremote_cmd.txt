@@ -46,9 +46,9 @@ export zIP="192.168.0.113"
 
 #th0
 192.168.0.118
-#th1  19512
+#th1
 192.168.0.143
-#th2   19432
+#th2
 192.168.0.132
 #th3
 192.168.0.145
@@ -58,11 +58,14 @@ export zIP="192.168.0.113"
 192.168.0.178
 #th6
 192.168.0.162
+#th7
+192.168.0.199
+#th8
+192.168.0.124
 
 
 
-#export zIP="192.168.0.137"
-
+export zIP="192.168.0.143"
 export zport="23"
 
 cd '/Users/zuzu/Google Drive/FamilleZ Share/FamilleZ/Papa/LUA/NodeMCU ESP8266/NodeMCU_Lua/Mesures/humidity/bolo
@@ -82,11 +85,15 @@ for k,v in pairs(_G) do print(k,v) end
 
 
 # commandes lua pour ce projet
+export zIP="192.168.0.162"
 telnet -rN $zIP $zport
-dofile("dir2.lua")
-filec('dir2.lua')
-dirc()
+verbose=false
+dofile("dir.lua")
+dir()
+#filec('dir2.lua')
+#dirc()
 ~.
+./luatool.py --ip $zIP:$zport -f dir.lua
 
 
 
