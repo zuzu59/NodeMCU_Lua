@@ -174,8 +174,8 @@ cat("boot2.lua")
 
 # création des tunnels ssh
 ATTENTION: dans un premier terminal !
-Pour le MsL
-ssh -t -L 2323:localhost:2323 ubuntu@www.zuzutest.ml ssh -N -L 2323:192.168.1.111:23 ubuntu@localhost -p 20221
+Pour Bolo à Ruchonnet:
+ssh -t -L 2323:localhost:2323 ubuntu@www.zuzutest.ml ssh -N -L 2323:192.168.0.137:23 ubuntu@localhost -p 20223
 
 Pour le Crêt
 ssh -N -L 2323:192.168.0.137:23 admin@z.zufferey.com -p 1822
@@ -207,5 +207,8 @@ cat("head.lua")
 
 status, err = pcall(function () fonction_a_tester() end)  if status==false then print("Error: ",err) end
 status, err = pcall(function () toto() end)  if status==false then print("Error: ",err) end
+
+
+
 
 .
