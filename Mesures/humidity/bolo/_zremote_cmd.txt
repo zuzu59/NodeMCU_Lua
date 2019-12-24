@@ -1,5 +1,5 @@
 # Quelques commandes remote (luatool) à envoyer avec le plugin Atom-IDE-terminal de l'éditeur Atom
-# zf191223.2317
+# zf191224.1428
 
 
 # si luatool ne marche pas sur le MAC, il faut lire ceci:
@@ -18,13 +18,13 @@ export zIP="192.168.0.113"
 #th0
 192.168.0.118
 #th1
-192.168.0.143   192.168.0.137
+192.168.0.143   192.168.8.102
 #th2
-192.168.0.132   192.168.0.147
+192.168.0.132   192.168.8.105
 #th3
-192.168.0.145   192.168.0.112
+192.168.0.145   192.168.8.104
 #th4
-192.168.0.117   192.168.0.180
+192.168.0.117   192.168.8.103
 #th5
 192.168.0.178
 #th6
@@ -175,7 +175,7 @@ cat("boot2.lua")
 # création des tunnels ssh
 ATTENTION: dans un premier terminal !
 Pour Bolo à Ruchonnet:
-ssh -t -L 2323:localhost:2323 ubuntu@www.zuzutest.ml ssh -N -L 2323:192.168.0.137:23 ubuntu@localhost -p 20223
+ssh -t -L 2323:localhost:2323 ubuntu@www.zuzutest.ml ssh -N -L 2323:192.168.8.102:23 ubuntu@localhost -p 20223
 
 Pour le Crêt
 ssh -N -L 2323:192.168.0.137:23 admin@z.zufferey.com -p 1822
@@ -186,6 +186,8 @@ ATTENTION: dans un deuxième terminal !
 export zIP="localhost"
 export zport="2323"
 telnet -rN $zIP $zport
+~.
+=node.heap()
 
 verbose=false
 verbose=true
@@ -208,6 +210,42 @@ cat("head.lua")
 status, err = pcall(function () fonction_a_tester() end)  if status==false then print("Error: ",err) end
 status, err = pcall(function () toto() end)  if status==false then print("Error: ",err) end
 
+
+
+Gestion de la passerelle SSH reverse
+Puis depuis une autre console on peut faire directement pour aller sur l'OpiZ (ici le 20223):
+ssh -t ubuntu@www.zuzutest.ml ssh ubuntu@localhost -p 20223
+
+ou
+
+1ère console
+On établit le tunnel local avec l'OpiZ
+ssh -N -L 20223:localhost:20223 ubuntu@www.zuzutest.ml
+
+
+2ème console, on utilise le tunnel OpiZ en local sur sa machine
+pour aller sur l'OpiZ
+ssh ubuntu@localhost -p 20223
+
+pour copier sa clef SSH depuis un MAC
+./ssh-copy-id -i ~/.ssh/id_rsa.pub 'ubuntu@localhost -p 20223'
+après on devrait pouvoir se connecter sans devoir entrer son password à chaque fois
+ssh ubuntu@localhost -p 20223
+
+ou, on établit un tunnel pour telnet sur un NodeMCU
+ssh -L 2323:192.168.0.137:23 ubuntu@localhost -p 20223
+puis
+telnet -rN localhost 2323
+
+ou, on établit un tunnel pour le rpimonotor sur l'OpiZ
+ssh -N -L 8888:192.168.0.113:8888 ubuntu@localhost -p 20223
+puis
+http://localhost:8888
+
+ou, on établit un tunnel proxy Socket 5 pour le modem 4G HUAWEI sur l'OpiZ
+ssh -N -D 8080 ubuntu@localhost -p 20223
+puis depuis le browser FireFox avec le plugin FoxyProxy Socket 5 sur localhost port 8080
+http://192.168.8.1
 
 
 
