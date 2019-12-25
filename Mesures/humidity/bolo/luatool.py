@@ -1,6 +1,6 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
-version = "0.6.7 zf191217.2239"
+version = "0.6.8 zf191225.1428"
 
 print("luatool.py ver " + version)
 
@@ -247,7 +247,10 @@ if __name__ == '__main__':
 
     if args.list:
         # zzz191020 Amélioré la sortie du listing des fichiers
-        transport.writeln("print('\\n-----');local l = file.list();for k,v in pairs(l) do print(k..', size:'..v)end;print('-----\\n')\r", 0)
+        #transport.writeln("print('\\n-----');local l = file.list();for k,v in pairs(l) do print(k..', size:'..v)end;print('-----\\n')\r", 0)
+        # zzz191225 Amélioré encore la sortie du listing des fichiers (sort file)
+        transport.writeln("zdir={};pfile = file.list();for k,v in pairs(pfile) do zdir[#zdir+1] = k..string.rep(' ',24-string.len(k))..' : '..v end;table.sort(zdir);print('\\n-----');for i=1, #zdir do print(zdir[i]) end;print('-----\\n');zdir=nil;pfile=nil;k=nil;v=nil;i=nil\r", 0)
+
         while True:
             char = transport.read(1)
             if char == '' or char == chr(62):    # '' or '>'
