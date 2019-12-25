@@ -172,6 +172,10 @@ cat("boot2.lua")
 ./luatool.py --ip $zIP:$zport --delete toto.lua
 
 
+
+****************************************************************************
+
+
 # création des tunnels ssh
 ATTENTION: dans un premier terminal !
 Pour Bolo à Ruchonnet:
