@@ -2,18 +2,28 @@
 # Petit script pour créer tous les tunnels SSH sur les NodeMCU en remote
 # zf191225.1352
 
-# Définition des variables
-TREMPLIN_SSH=www.zuzutest.ml
-OPIZ_PORT=20223
+echo -e "
+Usage:
 
-TH1_IP=192.168.8.100
-TH1_PORT=23001
-TH2_IP=192.168.8.101
-TH2_PORT=23002
-TH3_IP=192.168.8.102
-TH3_PORT=23003
-TH4_IP=192.168.8.103
-TH4_PORT=23004
+source ./make_tunnels.sh
+
+"
+read -p "continue ?"
+
+
+
+# Définition des variables
+export TREMPLIN_SSH=www.zuzutest.ml
+export OPIZ_PORT=20223
+
+export TH1_IP=192.168.8.100
+export TH1_PORT=23001
+export TH2_IP=192.168.8.101
+export TH2_PORT=23002
+export TH3_IP=192.168.8.102
+export TH3_PORT=23003
+export TH4_IP=192.168.8.103
+export TH4_PORT=23004
 
 
 # On tue tous les tunnels ssh
@@ -36,7 +46,3 @@ sleep 3
 
 echo "end"
 ps ax |grep ssh
-
-# On liste les fichiers de chaque nodemcu
-#echo -e "th1"
-#/luatool.py --ip localhost:$TH1_PORT --list
