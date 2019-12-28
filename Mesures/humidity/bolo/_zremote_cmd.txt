@@ -1,5 +1,36 @@
 # Quelques commandes remote (luatool) à envoyer avec le plugin Atom-IDE-terminal de l'éditeur Atom
-# zf191224.1428
+# zf191226.1236
+
+Todo à faire pour ce projet !
+
+- mettre un pkill -f '21223' dans zautossh après avoir testé le tunnel
+
+- ajouter 2e opiz dans make_tunnels.sh
+
+- ajouter argument ok dans make_tunnels.sh
+
+- ajouter th00 dans check_all.sh et sauvegarder les resultats dans th00.txt, th0.txt...th4.txt
+
+- ajouter fonction restart dans zindex.html (argument restart)
+
+- ajouter argument ok dans wifi_init.html
+
+- ajouter get_data() dans 0_send_data.lua
+
+- cron 10 seconde get_data avec moyenne et cron 300 sendata et zero moyenne
+
+- if verbose print partout dans 0_send_data.lua
+
+- garder variable node_id pour identification après poweron général, reattribution adrs ip sur modem 4G
+
+- indiquer nodeMCU name du dhcp modem 4G dans table liste adresses ip
+
+
+
+
+
+
+
 
 
 # si luatool ne marche pas sur le MAC, il faut lire ceci:
@@ -15,7 +46,7 @@ cd /Users/zuzu/Desktop/NodeMCU/NodeMCU_Lua/WIFI_sniffer/cret_project
 export luatool_tty="/dev/cu.wchusbserial1410"
 export zIP="192.168.0.113"
 
-#th0
+#th0 dev mobile
 192.168.0.118
 #th1
 192.168.0.143   192.168.8.102
@@ -25,13 +56,13 @@ export zIP="192.168.0.113"
 192.168.0.145   192.168.8.104
 #th4
 192.168.0.117   192.168.8.103
-#th5
+#th5 chambre à coucher
 192.168.0.178
-#th6
+#th6 buanderie
 192.168.0.162
-#th7
+#th7 cave
 192.168.0.199
-#th8
+#th8 salon
 192.168.0.124
 
 

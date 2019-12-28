@@ -1,14 +1,21 @@
 #!/bin/bash
 # Petit script pour créer tous les tunnels SSH sur les NodeMCU en remote
-# zf191225.1352
+# zf191226.1239
 
-echo -e "
+#test si l'argument est vide
+if [ -z "$1" ]
+  then
+      echo -e "
 Usage:
 
-source ./make_tunnels.sh
+source ./make_tunnels.sh go
 
 "
-read -p "continue ?"
+      read -p "continue ?"
+fi
+
+
+
 
 
 

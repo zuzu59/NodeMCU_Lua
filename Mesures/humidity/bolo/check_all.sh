@@ -1,9 +1,9 @@
 #!/bin/bash
 # Petit script pour contrôler en remote les versions d'une grappe de NodeMCU installés
-#zf191225.1403
+#zf191226.1241
 
 # crée les tunnels SSH
-source ./make_tunnels.sh
+source ./make_tunnels.sh go
 
 # On liste les fichiers de chaque nodemcu
 echo -e "th1"
@@ -16,4 +16,4 @@ echo -e "th3"
 ./luatool.py --ip localhost:$TH3_PORT --list
 
 echo -e "th4"
-./luatool.py --ip localhost:$TH3_PORT --list
+./luatool.py --ip localhost:$TH4_PORT --list
