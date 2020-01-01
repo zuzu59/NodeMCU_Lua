@@ -1,27 +1,14 @@
 -- Scripts à charger après le boot pour démarrer son projet
 
-print("\n boot2.lua zf191228.2303 \n")
+print("\n boot2.lua zf200101.1240 \n")
 
 function boot2()
+    print("boot2 starting...")
     second_chance=nil   initz=nil   boot=nil   zLED=nil
     boot2_tmr=nil  secrets_wifi=nil  wifi_init=nil
     cli_ssid=nil  cli_pwd=nil
     boot2_tmr1=nil   wifi_init1=nil   wifi_info=nil   boot2_go=nil
-
-    f= "secrets_project.lua"    if file.exists(f) then dofile(f) end
-    f= "set_time.lua"   if file.exists(f) then dofile(f) end
     collectgarbage()
-
-    wifi.setmode(wifi.STATIONAP,true)
-    wifi.ap.config({ ssid = ap_ssid.."_"..node_id, pwd = ap_pwd, save=true })
-    ap_ssid=nil  ap_pwd=nil
-    f= "web_srv2.lua"   if file.exists(f) then dofile(f) end
-    boot2_tmr3=tmr.create()
-    boot2_tmr3:alarm(60*1000,  tmr.ALARM_SINGLE, function()
-        print("BOOOOUM, y'a plus de AP WIFI !")
-        wifi.setmode(wifi.STATION,true)   boot2_tmr3=nil
-        print(node.heap())   collectgarbage()   print(node.heap())
-    end)
 
     --f= "0_htu21d.lua"   if file.exists(f) then dofile(f) end
     --f= "0_send_data.lua"   if file.exists(f) then dofile(f) end
@@ -32,7 +19,7 @@ function boot2()
     verbose = true
 
     boot2_tmr2=tmr.create()
-    boot2_tmr2:alarm(3*1000,  tmr.ALARM_SINGLE, function()
+    boot2_tmr2:alarm(4*1000,  tmr.ALARM_SINGLE, function()
         print("BOOOOUM, y'a plus de boot2 !")
         boot2=nil    boot2_tmr2=nil
         print(node.heap())   collectgarbage()   print(node.heap())

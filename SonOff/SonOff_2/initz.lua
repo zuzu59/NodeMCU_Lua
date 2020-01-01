@@ -3,10 +3,10 @@
 -- le script repair.lua pendant xx secondes avant de continuer
 --Source: https://nodemcu.readthedocs.io/en/master/en/modules/node/#nodebootreason
 
-print("\n init.lua zf191221.1509 \n")
+print("\n init.lua zf200101.1223 \n")
 
 function initz()
-    zswitch=3     --switch flash
+    zswitch=3     --switch flash ou SonOff
     gpio.mode(zswitch, gpio.INT, gpio.PULLUP)
 
     function hvbouton()
@@ -20,9 +20,11 @@ function initz()
 
     function second_chance()
         print("seconde chance...")
-        zLED=4   gpio.write(zLED, gpio.LOW)   gpio.mode(zLED, gpio.OUTPUT)
+        --zLED=4      -- NodeMCU
+        zLED=7      -- SonOff
+        gpio.write(zLED, gpio.LOW)   gpio.mode(zLED, gpio.OUTPUT)
         initalarme=tmr.create()
-        initalarme:alarm(5*1000,  tmr.ALARM_SINGLE, function()
+        initalarme:alarm(10*1000,  tmr.ALARM_SINGLE, function()
             f= "boot.lua"   if file.exists(f) then dofile(f) end
         end)
         initalarme2=tmr.create()

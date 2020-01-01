@@ -1,16 +1,30 @@
 -- Petit script pour initaliser la couche WIFI
 
 function wifi_init()
-    print("\n wifi_init.lua   zf191222.2356   \n")
+    print("\n wifi_init.lua   zf200101.1236   \n")
     -- charge les secrets pour le wifi
     f= "secrets_wifi.lua"    if file.exists(f) then dofile(f) end
+    f= "secrets_project.lua"    if file.exists(f) then dofile(f) end
+    
+    wifi.setmode(wifi.STATIONAP,true)
 
-    wifi.setmode(wifi.STATION,true)
     wifi.sta.config{ssid=cli_ssid, pwd=cli_pwd, auto=true, save=true}
-    wifi.sta.autoconnect(1)
-    wifi.sta.connect()
+    wifi.sta.autoconnect(1)   wifi.sta.connect()
 
-    zLED=4   gpio.write(zLED, gpio.HIGH)   gpio.mode(zLED, gpio.OUTPUT)
+    if node_id == nil then node_id = "generic" end
+    wifi.ap.config({ ssid = ap_ssid.."_"..node_id, pwd = ap_pwd, save=true })
+    ap_ssid=nil  ap_pwd=nil
+    
+    wifi_init2=tmr.create()
+    wifi_init2:alarm(60*1000,  tmr.ALARM_SINGLE, function()
+        print("BOOOOUM, y'a plus de AP WIFI !")
+        wifi.setmode(wifi.STATION,true)   wifi_init2=nil
+        print(node.heap())   collectgarbage()   print(node.heap())
+    end)
+
+    --zLED=4      -- NodeMCU
+    zLED=7      -- SonOff
+    gpio.write(zLED, gpio.HIGH)   gpio.mode(zLED, gpio.OUTPUT)
     i=1
     wifi_init1=tmr.create()
     wifi_init1:alarm(1*1000, tmr.ALARM_AUTO , function()
@@ -18,7 +32,7 @@ function wifi_init()
         if wifi.sta.getip() == nil then
             print("Connecting to AP...")
             i=i+1
-            if i > 10 then
+            if i > 15 then
                 i=nil   wifi_init1:unregister()
                 print("booum!")
                 enduser_setup.start(function()
@@ -34,3 +48,15 @@ function wifi_init()
 end
 
 wifi_init()
+
+--[[
+zLED=7
+gpio.mode(zLED, gpio.OUTPUT)
+gpio.write(zLED, gpio.HIGH)
+gpio.write(zLED, gpio.LOW)
+
+zSWITCH=3
+gpio.mode(zSWITCH, gpio.INPUT)
+print(gpio.read(zSWITCH))
+
+]]
