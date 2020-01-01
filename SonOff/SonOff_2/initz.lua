@@ -3,7 +3,7 @@
 -- le script repair.lua pendant xx secondes avant de continuer
 --Source: https://nodemcu.readthedocs.io/en/master/en/modules/node/#nodebootreason
 
-print("\n init.lua zf200101.1223 \n")
+print("\n init.lua zf200101.1301 \n")
 
 function initz()
     zswitch=3     --switch flash ou SonOff
@@ -55,3 +55,19 @@ function initz()
     end
 end
 initz()
+
+--[[
+zLED=7
+gpio.mode(zLED, gpio.OUTPUT)
+gpio.write(zLED, gpio.LOW)			-- actif !
+gpio.write(zLED, gpio.HIGH)
+
+zBTN=3
+gpio.mode(zBTN, gpio.INPUT)
+print(gpio.read(zBTN))
+
+zRELAY=6
+gpio.mode(zRELAY, gpio.OUTPUT)
+gpio.write(zRELAY, gpio.HIGH)		-- actif !
+gpio.write(zRELAY, gpio.LOW)
+]]

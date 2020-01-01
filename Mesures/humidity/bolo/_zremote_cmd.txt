@@ -1,29 +1,21 @@
 # Quelques commandes remote (luatool) à envoyer avec le plugin Atom-IDE-terminal de l'éditeur Atom
-# zf191226.1236
+# zf200101.1304
 
 Todo à faire pour ce projet !
 
-- mettre un pkill -f '21223' dans zautossh après avoir testé le tunnel
-
-- ajouter 2e opiz dans make_tunnels.sh
-
-- ajouter argument ok dans make_tunnels.sh
-
-- ajouter th00 dans check_all.sh et sauvegarder les resultats dans th00.txt, th0.txt...th4.txt
-
+-
 - ajouter fonction restart dans zindex.html (argument restart)
-
 - ajouter argument ok dans wifi_init.html
-
 - ajouter get_data() dans 0_send_data.lua
-
 - cron 10 seconde get_data avec moyenne et cron 300 sendata et zero moyenne
-
 - if verbose print partout dans 0_send_data.lua
-
 - garder variable node_id pour identification après poweron général, reattribution adrs ip sur modem 4G
-
 - indiquer nodeMCU name du dhcp modem 4G dans table liste adresses ip
+- passer à 10 secondes la seconde chance
+- passer à 15x les tentatives de connexions au WIFI
+- déplacer le mode AP dans wifi_init
+- ajouter le web_srv2 dans boot au lieu de boot2
+
 
 
 

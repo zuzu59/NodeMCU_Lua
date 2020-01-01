@@ -1,11 +1,11 @@
 -- Petit script pour initaliser la couche WIFI
 
 function wifi_init()
-    print("\n wifi_init.lua   zf200101.1236   \n")
+    print("\n wifi_init.lua   zf200101.1302   \n")
     -- charge les secrets pour le wifi
     f= "secrets_wifi.lua"    if file.exists(f) then dofile(f) end
     f= "secrets_project.lua"    if file.exists(f) then dofile(f) end
-    
+
     wifi.setmode(wifi.STATIONAP,true)
 
     wifi.sta.config{ssid=cli_ssid, pwd=cli_pwd, auto=true, save=true}
@@ -14,7 +14,7 @@ function wifi_init()
     if node_id == nil then node_id = "generic" end
     wifi.ap.config({ ssid = ap_ssid.."_"..node_id, pwd = ap_pwd, save=true })
     ap_ssid=nil  ap_pwd=nil
-    
+
     wifi_init2=tmr.create()
     wifi_init2:alarm(60*1000,  tmr.ALARM_SINGLE, function()
         print("BOOOOUM, y'a plus de AP WIFI !")
@@ -48,15 +48,3 @@ function wifi_init()
 end
 
 wifi_init()
-
---[[
-zLED=7
-gpio.mode(zLED, gpio.OUTPUT)
-gpio.write(zLED, gpio.HIGH)
-gpio.write(zLED, gpio.LOW)
-
-zSWITCH=3
-gpio.mode(zSWITCH, gpio.INPUT)
-print(gpio.read(zSWITCH))
-
-]]

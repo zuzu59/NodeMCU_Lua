@@ -1,16 +1,19 @@
 # Quelques commandes remote (luatool) à envoyer avec le plugin Atom-IDE-terminal de l'éditeur Atom
-# zf191228.2312
+# zf200101.1304
 
 Todo à faire pour ce projet !
 
--
 - ajouter fonction restart dans zindex.html (argument restart)
-- ajouter argument ok dans wifi_init.html
-- ajouter get_data() dans 0_send_data.lua
-- cron 10 seconde get_data avec moyenne et cron 300 sendata et zero moyenne
+- ajouter argument ok dans wifi_init.html (sécurité)
+- faire la page web service pour allumer la LED
+- faire la page web service pour allumer le relay
 - if verbose print partout dans 0_send_data.lua
 - garder variable node_id pour identification après poweron général, reattribution adrs ip sur modem 4G
-- indiquer nodeMCU name du dhcp modem 4G dans table liste adresses ip
+v- passer à 10 secondes la seconde chance
+v- passer à 15x les tentatives de connexions au WIFI
+v- déplacer le mode AP dans wifi_init
+v- ajouter le web_srv2 dans boot au lieu de boot2
+
 
 
 
@@ -54,7 +57,7 @@ export zIP="192.168.0.113"
 
 
 
-export zIP="192.168.0.143"
+export zIP="192.168.0.156"
 export zport="23"
 
 cd '/Users/zuzu/Google Drive/FamilleZ Share/FamilleZ/Papa/LUA/NodeMCU ESP8266/NodeMCU_Lua/Mesures/humidity/bolo
