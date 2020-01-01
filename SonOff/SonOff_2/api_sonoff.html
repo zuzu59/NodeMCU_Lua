@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+
+    <head>
+      <meta charset='utf-8' name='viewport' content='width=device-width, initial-scale=1.0'>
+      <title>API SonOff</title>
+    </head>
+
+    <body>
+        <h1>API SonOff    200101.1843</h1>
+        <br>
+
+        <%
+            if (vars ~= nil) then
+                zout("<br>vars: "..vars.."<br>")
+                for k, v in string.gmatch(vars, "(%w+)=(%w+%p+%w+)&*") do
+                    _GET[k] = v
+                    zout(k..": "..v.."<br>")
+                end
+            end
+            if (_GET.LED == "on") then
+                zLED=7      -- SonOff
+                gpio.write(zLED, gpio.LOW)   gpio.mode(zLED, gpio.OUTPUT)
+            end
+            if (_GET.LED == "off") then
+                zLED=7      -- SonOff
+                gpio.write(zLED, gpio.HIGH)   gpio.mode(zLED, gpio.OUTPUT)
+            end
+            if (_GET.RELAY == "on") then
+                zRELAY=6
+                gpio.mode(zRELAY, gpio.OUTPUT)   gpio.write(zRELAY, gpio.HIGH)
+            end
+            if (_GET.RELAY == "off") then
+                zRELAY=6
+                gpio.mode(zRELAY, gpio.OUTPUT)   gpio.write(zRELAY, gpio.LOW)
+            end
+        %>
+
+    </body>
+</html>

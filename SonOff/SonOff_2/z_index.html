@@ -1,29 +1,26 @@
 <!DOCTYPE html>
 <html lang="fr" dir="ltr">
-
 <head>
   <meta charset='utf-8' name='viewport' content='width=device-width, initial-scale=1.0'>
-  <title>ESP8266 home page</title>
+  <title>SonOff home page</title>
 </head>
-
 <body>
-  <h1>ESP8266 home page 191222.2346</h1>
+  <h1>SonOff home page 200101.1845</h1>
   <h2>Menu:</h2>
   <h3>
-    <a href="wifi_clear.html?field1=11&field2=12&field3=13">Wifi clear, effacement configuration WIFI.</a><br>
-    <a href="disp_temp.html">Affichage des températures, affiche les températures mesurées.</a><br>
+    <a href="api_sonoff.html?LED=on">SonOff API LED On</a><br>
+    <a href="api_sonoff.html?LED=off">SonOff API LED OFF</a><br>
+    <a href="api_sonoff.html?RELAY=on">SonOff API RELAY On</a><br>
+    <a href="api_sonoff.html?RELAY=off">SonOff API RELAY OFF</a><br>
+    <br>
+    <a href="wifi_clear.html?field1=11&field2=12&field3=13">Wifi clear, effacement configuration WIFI</a><br>
+    <a href="disp_temp.html">Affichage des températures, affiche les températures mesurées</a><br>
   </h3>
-
 
   <%
   a,b,c = wifi.sta.getip()
   zout("IP: "..a.."&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MASK: "..b.."&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GATEWAY: "..c.."<br>")
-
   %>
 
-
-
-
 </body>
-
 </html>
