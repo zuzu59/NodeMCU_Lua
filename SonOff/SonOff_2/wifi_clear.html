@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+
+    <head>
+      <meta charset='utf-8' name='viewport' content='width=device-width, initial-scale=1.0'>
+      <title>Wifi clear</title>
+    </head>
+
+    <body>
+        <h1>Wifi clear    191222.2348</h1>
+        <br>
+        Effacement de la configuration WIFI actuelle !<br>
+        <a href="/">Retour à la home page...</a><br><br><br>
+
+        Test d'un web service qui fonctionne avec l'Active Server Page ZYX.<br><br>
+
+        Le code Lua pour afficher ce résultat se trouve dans le code HTML de cette page et est exécuté sur
+        le NodeMCU.<br>
+        Les données viennent du NodeMCU !<br><br>
+
+        <%
+        zout("Il reste: "..node.heap().." de RAM !<br><br>\n")
+        %>
+
+        <%
+        zout("Booooooooum dans 5 secondes!<br>")
+        tmr.create():alarm(5*1000,  tmr.ALARM_SINGLE, function()
+            file.remove("eus_params.lua")
+            node.restart()
+        end)
+
+        %>
+
+        Les arguments du web service (GET) sont:<br><br>
+        <%
+            if (vars ~= nil) then
+                zout("<br>vars: "..vars.."<br>")
+                for k, v in string.gmatch(vars, "(%w+)=(%w+)&*") do
+                    _GET[k] = v
+                    zout(k..": "..v.."<br>")
+                    if k == "field1" then
+                        ztemp1_conc = v
+                    elseif k == "field2" then
+                        ztemp2_conc = v
+                    elseif k == "field3" then
+                        ztemp3_conc = v
+                    end
+                end
+            end
+            zout("<br>Les températures récupérées sont: "..ztemp1_conc..", "..ztemp2_conc..", "..ztemp3_conc)
+        %>
+
+
+
+
+        <br><br>Yeah... cela fonctionne vachement bien !<br><br>
+
+        <%
+        zout("Il reste: "..node.heap().." de RAM !<br><br>\n")
+        %>
+
+    </body>
+</html>

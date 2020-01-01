@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+
+<head>
+  <meta charset='utf-8' name='viewport' content='width=device-width, initial-scale=1.0'>
+  <title>WIFI set config</title>
+</head>
+
+<body>
+  <h1>WIFI set config 191124.2334</h1>
+  <br>
+  Coucou c'est WIFI set config !<br>
+  <a href="/">Retour à la home page...</a><br><br><br>
+
+
+
+<%
+
+    if (vars ~= nil) then
+        zout("<br>vars: "..vars.."<br><br>")
+        for k, v in string.gmatch(vars, "(%w+)=(%w+%p+%w+)&*") do
+            _GET[k] = v
+            zout(k..": "..v.."<br>")
+        end
+    end
+
+    zout("<br>toto<br>")
+
+--[[
+zout("t1: ",_GET.zssid,"<br>")
+zout("t2: ",_GET.zpasswd,"<br>")
+
+if zverif == "YES" then
+    zout("c'est tout bon")
+    zout("Le SSID est: ",zssid)
+    zout("Le PASSWD est: ",zpasswd)
+end
+]]
+
+ztemp=ztemp+1
+zout(ztemp.."°C")
+%>
+
+<br>Mais il fait encore trop froid !<br>
+
+</body>
+
+</html>
