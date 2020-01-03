@@ -1,18 +1,21 @@
 # Quelques commandes remote (luatool) à envoyer avec le plugin Atom-IDE-terminal de l'éditeur Atom
-# zf200101.1823
+# zf200103.1217
 
 Todo à faire pour ce projet !
 
-- ajouter fonction restart dans zindex.html (argument restart)
+- ajouter fonction restart dans z_index.html (ATTENTION avec un argument restart, pas besoin de faire une page restart.html !)
+- ajouter l'affichage du node_id dans z_index.html
 - ajouter argument ok dans wifi_init.html (sécurité)
-- faire la page web service pour allumer la LED
-- faire la page web service pour allumer le relay
+- ajouter le contrôle flip/flop du btn sur RELAY
 - if verbose print partout dans 0_send_data.lua
 - garder variable node_id pour identification après poweron général, reattribution adrs ip sur modem 4G
 v- passer à 10 secondes la seconde chance
 v- passer à 15x les tentatives de connexions au WIFI
 v- déplacer le mode AP dans wifi_init
 v- ajouter le web_srv2 dans boot au lieu de boot2
+v- ajouter un état du RELAY et de la LED dans z_index.html
+v- faire la page web service pour allumer la LED
+v- faire la page web service pour allumer le relay
 
 
 

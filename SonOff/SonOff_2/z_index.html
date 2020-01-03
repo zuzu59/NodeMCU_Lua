@@ -5,9 +5,9 @@
   <title>SonOff home page</title>
 </head>
 <body>
-  <h1>SonOff home page 200101.1845</h1>
-  <h2>Menu:</h2>
-  <h3>
+    <h1>SonOff home page 200103.1212</h1>
+    <h2>Menu:</h2>
+    <h3>
     <a href="api_sonoff.html?LED=on">SonOff API LED On</a><br>
     <a href="api_sonoff.html?LED=off">SonOff API LED OFF</a><br>
     <a href="api_sonoff.html?RELAY=on">SonOff API RELAY On</a><br>
@@ -15,12 +15,25 @@
     <br>
     <a href="wifi_clear.html?field1=11&field2=12&field3=13">Wifi clear, effacement configuration WIFI</a><br>
     <a href="disp_temp.html">Affichage des températures, affiche les températures mesurées</a><br>
-  </h3>
+    </h3>
 
-  <%
-  a,b,c = wifi.sta.getip()
-  zout("IP: "..a.."&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MASK: "..b.."&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GATEWAY: "..c.."<br>")
-  %>
+    <br>Etat de la LED:<nsp>
+<%
+    zLED=7      -- SonOff
+    if gpio.read(zLED) == 1 then zout("OFF") else zout("ON") end
+%>
 
+    <br>Etat du RELAY:<nsp>
+<%
+    zRELAY=6
+    if gpio.read(zRELAY) == 0 then zout("OFF") else zout("ON") end
+%>
+
+    <br><br>
+<%
+    a,b,c = wifi.sta.getip()
+    zout("IP: "..a.."&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MASK: "..b.."&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GATEWAY: "..c.."<br>")
+    collectgarbage()   zout("RAM: "..node.heap())
+%>
 </body>
 </html>
