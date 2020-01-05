@@ -1,5 +1,5 @@
 # Quelques commandes remote (luatool) à envoyer avec le plugin Atom-IDE-terminal de l'éditeur Atom
-# zf200103.1217
+# zf200105.0016
 
 Todo à faire pour ce projet !
 
@@ -7,6 +7,7 @@ Todo à faire pour ce projet !
 - ajouter l'affichage du node_id dans z_index.html
 - ajouter argument ok dans wifi_init.html (sécurité)
 - ajouter le contrôle flip/flop du btn sur RELAY
+- ajouter une page affichage variables globales
 - if verbose print partout dans 0_send_data.lua
 - garder variable node_id pour identification après poweron général, reattribution adrs ip sur modem 4G
 v- passer à 10 secondes la seconde chance
@@ -51,6 +52,7 @@ for k,v in pairs(_G) do print(k,v) end
 
 # commandes lua pour ce projet
 export zIP="192.168.0.156"
+export zIP="192.168.4.1"
 export zport="23"
 ./luatool.py --ip $zIP:$zport -f z_index.html
 ./luatool.py --ip $zIP:$zport -f api_sonoff.html

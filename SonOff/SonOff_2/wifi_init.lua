@@ -1,7 +1,7 @@
 -- Petit script pour initaliser la couche WIFI
 
 function wifi_init()
-    print("\n wifi_init.lua   zf200101.1302   \n")
+    print("\n wifi_init.lua   zf200105.2355   \n")
     -- charge les secrets pour le wifi
     f= "secrets_wifi.lua"    if file.exists(f) then dofile(f) end
     f= "secrets_project.lua"    if file.exists(f) then dofile(f) end
@@ -16,7 +16,7 @@ function wifi_init()
     ap_ssid=nil  ap_pwd=nil
 
     wifi_init2=tmr.create()
-    wifi_init2:alarm(60*1000,  tmr.ALARM_SINGLE, function()
+    wifi_init2:alarm(120*1000,  tmr.ALARM_SINGLE, function()
         print("BOOOOUM, y'a plus de AP WIFI !")
         wifi.setmode(wifi.STATION,true)   wifi_init2=nil
         print(node.heap())   collectgarbage()   print(node.heap())
@@ -32,12 +32,19 @@ function wifi_init()
         if wifi.sta.getip() == nil then
             print("Connecting to AP...")
             i=i+1
-            if i > 15 then
+            if i > 5 then
                 i=nil   wifi_init1:unregister()
-                print("booum!")
-                enduser_setup.start(function()
-                    node.restart()
-                end)
+                print("pas glop :-(")
+
+                wifi_init2:unregister()
+                wifi.setmode(wifi.SOFTAP,true)
+                
+                f= "wifi_info.lua"   if file.exists(f) then dofile(f) end
+                boot2_go = true
+                
+                --enduser_setup.start(function()
+                --    node.restart()
+                --end)
             end
         else
             wifi_init1:unregister()   zLED=nil   i=nil
