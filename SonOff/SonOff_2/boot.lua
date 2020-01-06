@@ -1,6 +1,6 @@
 -- Scripts à charger après le boot pour démarrer le core system
 
-print("\n boot.lua zf200105.2358 \n")
+print("\n boot.lua zf200106.1815 \n")
 
 function boot()
     if zswitch ~= nill then

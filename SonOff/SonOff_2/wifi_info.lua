@@ -1,5 +1,5 @@
 -- Petit script pour afficher les infos actuel du WIFI
-print("\n wifi_info.lua   zf191030.2017   \n")
+print("\n wifi_info.lua   zf200106.1803   \n")
 
 function wifi_info()
     local zmodewifi=wifi.getmode()
@@ -39,6 +39,7 @@ function wifi_info()
         print("\tpassword:", ap_config.pwd)
         print("\tbssid:", wifi.ap.getmac())
     end
+    wifi_info=nil
 end
 wifi_info()
 

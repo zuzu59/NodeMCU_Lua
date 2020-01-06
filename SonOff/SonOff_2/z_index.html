@@ -5,7 +5,7 @@
   <title>SonOff home page</title>
 </head>
 <body>
-    <h1>SonOff home page 200105.2228</h1>
+    <h1>SonOff home page 200106.1842</h1>
     <h2>Menu:</h2>
     <h3>
     <a href="api_sonoff.html?LED=on">SonOff API LED On</a><br>
@@ -13,6 +13,9 @@
     <a href="api_sonoff.html?RELAY=on">SonOff API RELAY On</a><br>
     <a href="api_sonoff.html?RELAY=off">SonOff API RELAY OFF</a><br>
     <br>
+    
+    <a href="z_index.html?SetupWIFI=true">Wifi setup (setup_gadget, 192.168.4.1)</a><br>
+    
     <a href="wifi_clear.html?field1=11&field2=12&field3=13">Wifi clear, effacement configuration WIFI</a><br>
     <a href="disp_temp.html">Affichage des températures, affiche les températures mesurées</a><br>
     </h3>
@@ -28,17 +31,12 @@
                 end
             end
             if (_GET.SetupWIFI == "true") then
-
-                zout("setup wifi...")
                 print("toto")
-                --wifi.setmode(wifi.NULLMODE)
-                --enduser_setup.start(function()
-                --    node.restart()
-                --end)
-
-
-
-            
+                zout("WIFI SETUP MODE")
+                file.putcontents("_setup_wifi_", "")
+                tmr.create():alarm(3*1000,  tmr.ALARM_SINGLE, function()
+                node.restart()
+                end)
             end
             if (_GET.RESTART == "true") then
 
