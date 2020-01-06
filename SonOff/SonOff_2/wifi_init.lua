@@ -1,7 +1,7 @@
 -- Petit script pour initaliser la couche WIFI
 
 function wifi_init()
-    print("\n wifi_init.lua   zf200106.1846   \n")
+    print("\n wifi_init.lua   zf200106.2322   \n")
 
     function wifi_init_end()
         wifi_init1:unregister()   zLED=nil   i=nil
@@ -48,6 +48,11 @@ function wifi_init()
             gpio.write(zLED, gpio.LOW)   tmr.delay(10000)   gpio.write(zLED, gpio.HIGH)
             if wifi.sta.getip() == nil then
                 print("Connecting to AP...")
+
+                
+                print(node.heap())   collectgarbage()   print(node.heap())
+                
+                
                 i=i+1
                 if i > 15 then
                     print("pas de wifi :-(")
@@ -65,5 +70,6 @@ wifi_init()
 
 --[[
 file.putcontents("_setup_wifi_", "")
+boot2_go = true
 ]]
 
