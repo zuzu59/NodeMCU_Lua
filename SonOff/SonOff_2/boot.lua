@@ -1,8 +1,17 @@
 -- Scripts à charger après le boot pour démarrer le core system
 
-print("\n boot.lua zf200106.2313 \n")
+print("\n boot.lua zf200107.1443 \n")
 
 function boot()
+
+
+        initalarme2=tmr.create()
+        initalarme2:alarm(30*1000,  tmr.ALARM_SINGLE, function()
+            f= "boot2.lua"   if file.exists(f) then dofile(f) end
+        end)
+
+
+
     if zswitch ~= nill then
         gpio.trig(zswitch, "none")   hvbouton=nil   zswitch=nil   reset_reason=nil
     end
