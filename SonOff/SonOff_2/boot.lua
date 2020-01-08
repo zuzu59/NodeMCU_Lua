@@ -1,23 +1,19 @@
--- Scripts à charger après le boot pour démarrer le core system
+-- Scripts à charger après le boot pour démarrer son projet
 
-print("\n boot.lua zf200107.1443 \n")
+print("\n boot.lua zf200108.1751 \n")
 
 function boot()
 
+    print("booooooooooot...")
+    print(node.heap()) collectgarbage() print(node.heap())
 
-        initalarme2=tmr.create()
-        initalarme2:alarm(30*1000,  tmr.ALARM_SINGLE, function()
-            f= "boot2.lua"   if file.exists(f) then dofile(f) end
-        end)
+    --f= "0_htu21d.lua"   if file.exists(f) then dofile(f) end
+    --f= "0_send_data.lua"   if file.exists(f) then dofile(f) end
+    --f= "0_cron.lua"   if file.exists(f) then dofile(f) end
+    --f= "web_ide2.lua"   if file.exists(f) then dofile(f) end
+    
+    f=nil boot=nil
+    verbose = true
 
-
-
-    if zswitch ~= nill then
-        gpio.trig(zswitch, "none")   hvbouton=nil   zswitch=nil   reset_reason=nil
-    end
-    f= "wifi_init.lua"   if file.exists(f) then dofile(f) end
-    f= "telnet_srv2.lua"   if file.exists(f) then dofile(f) end
-    f= "web_srv2.lua"   if file.exists(f) then dofile(f) end
-    second_chance=nil   initz=nil   f=nil   boot=nil
 end
 boot()

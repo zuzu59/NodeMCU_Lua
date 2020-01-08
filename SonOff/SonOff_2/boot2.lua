@@ -1,5 +1,9 @@
 -- Scripts à charger après le boot pour démarrer son projet
 
+
+ATTENTION: n'existe plus depuis le 190108.1747 !
+
+
 print("\n boot2.lua zf200106.2331 \n")
 
 function boot2()

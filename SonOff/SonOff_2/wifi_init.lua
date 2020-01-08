@@ -1,18 +1,32 @@
 -- Petit script pour initaliser la couche WIFI
 
 function wifi_init()
-    print("\n wifi_init.lua   zf200107.1530   \n")
+    print("\n wifi_init.lua   zf200108.1756   \n")
 
     function wifi_init_end()
         wifi_init1:unregister()   zLED=nil   i=nil
         f= "wifi_info.lua"   if file.exists(f) then dofile(f) end
         f=nil   secrets_wifi=nil   cli_pwd=nil   cli_ssid=nil
         wifi_init1=nil   wifi_init=nil
-        print(node.heap())   collectgarbage()   print(node.heap())
+        print(node.heap()) collectgarbage() print(node.heap())
+
+
         
-        --boot2_go = true
+        f= "telnet_srv2.lua"   if file.exists(f) then dofile(f) end
+        f= "web_srv2.lua"   if file.exists(f) then dofile(f) end
+        print(node.heap()) collectgarbage() print(node.heap())
+
+        zdelay=1   if reset_reason=="seconde_chance" then zdelay=10 end
+        wifi_init3=tmr.create()
+        wifi_init3:alarm(zdelay*1000, tmr.ALARM_SINGLE, function()
+            f= "boot.lua"   if file.exists(f) then dofile(f) end
+            wifi_init3:unregister() wifi_init3=nil wifi_init_end=nil
+            reset_reason=nil zdelay=nil
+        end)
+
+
         
-        wifi_init_end=nil
+        
     end
 
     if file.exists("_setup_wifi_") then
@@ -36,10 +50,10 @@ function wifi_init()
         ap_ssid=nil  ap_pwd=nil
 
         wifi_init2=tmr.create()
-        wifi_init2:alarm(60*1000,  tmr.ALARM_SINGLE, function()
+        wifi_init2:alarm(60*1000, tmr.ALARM_SINGLE, function()
             print("BOOOOUM, y'a plus de AP WIFI !")
             wifi.setmode(wifi.STATION,true)   wifi_init2=nil
-            print(node.heap())   collectgarbage()   print(node.heap())
+            print(node.heap()) collectgarbage() print(node.heap())
         end)
 
         zLED=4      -- NodeMCU
