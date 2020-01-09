@@ -7,7 +7,7 @@
     </head>
 
     <body>
-        <h1>API SonOff    200101.1843</h1>
+        <h1>API SonOff    200109.1851</h1>
         <br>
 
         <%
@@ -19,11 +19,9 @@
                 end
             end
             if (_GET.LED == "on") then
-                zLED=7      -- SonOff
                 gpio.write(zLED, gpio.LOW)   gpio.mode(zLED, gpio.OUTPUT)
             end
             if (_GET.LED == "off") then
-                zLED=7      -- SonOff
                 gpio.write(zLED, gpio.HIGH)   gpio.mode(zLED, gpio.OUTPUT)
             end
             if (_GET.RELAY == "on") then

@@ -5,7 +5,7 @@
   <title>SonOff home page</title>
 </head>
 <body>
-    <h1>SonOff home page 200109.1347</h1>
+    <h1>SonOff home page 200109.1847</h1>
     <h2>Menu:</h2>
     <h3>
     <a href="api_sonoff.html?LED=on">SonOff API LED On</a><br>
@@ -56,7 +56,6 @@
 
     <br>Etat de la LED:<nsp>
 <%
-    zLED=7      -- SonOff
     if gpio.read(zLED) == 1 then zout("OFF") else zout("ON") end
 %>
 

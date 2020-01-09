@@ -1,21 +1,17 @@
 -- Petit script pour initaliser la couche WIFI
 
 function wifi_init()
-    print("\n wifi_init.lua   zf200109.1340   \n")
+    print("\n wifi_init.lua   zf200109.1848   \n")
 
     function wifi_init_end()
-        wifi_init1:unregister()   zLED=nil   i=nil
+        wifi_init1:unregister()   i=nil
         f= "wifi_info.lua"   if file.exists(f) then dofile(f) end
         f=nil   secrets_wifi=nil   cli_pwd=nil   cli_ssid=nil
         wifi_init1=nil   wifi_init=nil
         print(node.heap()) collectgarbage() print(node.heap())
-
-
-        
         f= "telnet_srv2.lua"   if file.exists(f) then dofile(f) end
         f= "web_srv2.lua"   if file.exists(f) then dofile(f) end
         print(node.heap()) collectgarbage() print(node.heap())
-
         zdelay=1   if reset_reason=="seconde_chance" then zdelay=10 end
         wifi_init3=tmr.create()
         wifi_init3:alarm(zdelay*1000, tmr.ALARM_SINGLE, function()
@@ -23,10 +19,6 @@ function wifi_init()
             wifi_init3:unregister() wifi_init3=nil wifi_init_end=nil
             reset_reason=nil zdelay=nil
         end)
-
-
-        
-        
     end
 
     if file.exists("_setup_wifi_") then
@@ -39,16 +31,12 @@ function wifi_init()
         -- charge les secrets pour le wifi
         f= "secrets_wifi.lua"    if file.exists(f) then dofile(f) end
         f= "secrets_project.lua"    if file.exists(f) then dofile(f) end
-
         wifi.setmode(wifi.STATIONAP,true)
-
         wifi.sta.config{ssid=cli_ssid, pwd=cli_pwd, auto=true, save=true}
         wifi.sta.autoconnect(1)   wifi.sta.connect()
-
         if node_id == nil then node_id = "generic" end
         wifi.ap.config({ ssid = ap_ssid.."_"..node_id, pwd = ap_pwd, save=true })
         ap_ssid=nil  ap_pwd=nil
-
         wifi_init2=tmr.create()
         wifi_init2:alarm(60*1000, tmr.ALARM_SINGLE, function()
             print("BOOOOUM, y'a plus de AP WIFI !")
@@ -65,7 +53,7 @@ function wifi_init()
             if wifi.sta.getip() == nil then
                 print("Connecting to AP...")
                 i=i+1
-                if i > 5 then
+                if i > 15 then
                     print("pas de wifi :-(")
                     wifi_init2:unregister()   wifi_init2=nil
                     wifi.setmode(wifi.SOFTAP,true)
