@@ -5,7 +5,7 @@
   <title>SonOff home page</title>
 </head>
 <body>
-    <h1>SonOff home page 200106.1842</h1>
+    <h1>SonOff home page 200109.1347</h1>
     <h2>Menu:</h2>
     <h3>
     <a href="api_sonoff.html?LED=on">SonOff API LED On</a><br>
@@ -68,8 +68,8 @@
 
     <br><br>
 <%
-    if wifi.sta.getip() ~= nil then
-        a,b,c = wifi.sta.getip()
+    a,b,c = wifi.sta.getip()
+    if a ~= nil then
         zout("IP: "..a.."&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MASK: "..b.."&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GATEWAY: "..c.."<br>")
     end
     collectgarbage()   zout("RAM: "..node.heap())

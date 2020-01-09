@@ -1,7 +1,7 @@
 -- Petit script pour initaliser la couche WIFI
 
 function wifi_init()
-    print("\n wifi_init.lua   zf200108.1756   \n")
+    print("\n wifi_init.lua   zf200109.1340   \n")
 
     function wifi_init_end()
         wifi_init1:unregister()   zLED=nil   i=nil
@@ -68,6 +68,7 @@ function wifi_init()
                 if i > 5 then
                     print("pas de wifi :-(")
                     wifi_init2:unregister()   wifi_init2=nil
+                    wifi.setmode(wifi.SOFTAP,true)
                     wifi_init_end()
                 end
             else
