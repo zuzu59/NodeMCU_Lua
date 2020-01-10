@@ -1,7 +1,7 @@
 -- Petit script pour initaliser la couche WIFI
 
 function wifi_init()
-    print("\n wifi_init.lua   zf200109.1848   \n")
+    print("\n wifi_init.lua   zf200110.1236   \n")
 
     function wifi_init_end()
         wifi_init1:unregister()   i=nil
@@ -12,7 +12,7 @@ function wifi_init()
         f= "telnet_srv2.lua"   if file.exists(f) then dofile(f) end
         f= "web_srv2.lua"   if file.exists(f) then dofile(f) end
         print(node.heap()) collectgarbage() print(node.heap())
-        zdelay=1   if reset_reason=="seconde_chance" then zdelay=10 end
+        zdelay=1   if reset_reason=="seconde_chance" then zdelay=20 end
         wifi_init3=tmr.create()
         wifi_init3:alarm(zdelay*1000, tmr.ALARM_SINGLE, function()
             f= "boot.lua"   if file.exists(f) then dofile(f) end
@@ -44,8 +44,6 @@ function wifi_init()
             print(node.heap()) collectgarbage() print(node.heap())
         end)
 
-        zLED=4      -- NodeMCU
-        --zLED=7      -- SonOff
         gpio.write(zLED, gpio.HIGH)   gpio.mode(zLED, gpio.OUTPUT)   i=1
         wifi_init1=tmr.create()
         wifi_init1:alarm(1*1000, tmr.ALARM_AUTO , function()
