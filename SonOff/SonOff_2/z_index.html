@@ -5,22 +5,22 @@
   <title>SonOff home page</title>
 </head>
 <body>
-    <h1>SonOff home page 200109.1847</h1>
+    <h1>SonOff home page 200109.1940</h1>
     <h2>Menu:</h2>
     <h3>
-    <a href="api_sonoff.html?LED=on">SonOff API LED On</a><br>
-    <a href="api_sonoff.html?LED=off">SonOff API LED OFF</a><br>
-    <a href="api_sonoff.html?RELAY=on">SonOff API RELAY On</a><br>
-    <a href="api_sonoff.html?RELAY=off">SonOff API RELAY OFF</a><br>
+    SonOff API LED
+    <a href="api_sonoff.html?LED=on"> On</a>
+    <a href="api_sonoff.html?LED=off"> Off</a><br>
+
+    SonOff API RELAY
+    <a href="api_sonoff.html?RELAY=on"> On</a>
+    <a href="api_sonoff.html?RELAY=off"> Off</a><br>
     <br>
-    
+
     <a href="z_index.html?SetupWIFI=true">Wifi setup (setup_gadget, 192.168.4.1)</a><br>
-    
-    <a href="wifi_clear.html?field1=11&field2=12&field3=13">Wifi clear, effacement configuration WIFI</a><br>
+
     <a href="disp_temp.html">Affichage des températures, affiche les températures mesurées</a><br>
     </h3>
-
-
 
 <%
             if (vars ~= nil) then
@@ -31,28 +31,19 @@
                 end
             end
             if (_GET.SetupWIFI == "true") then
-                print("toto")
-                zout("WIFI SETUP MODE")
-                file.putcontents("_setup_wifi_", "")
+                --zout("<br><br>Choisir comme WIFI AP: setup_gadget puis aller sur: http://192.168.4.1<br><br>")
+                file.putcontents("_setup_wifi_", "toto")
+                file.putcontents("_toto_", "toto")
                 tmr.create():alarm(3*1000,  tmr.ALARM_SINGLE, function()
-                node.restart()
+                    node.restart()
                 end)
             end
             if (_GET.RESTART == "true") then
 
                 zout("oups restart...")
-            
+
             end
 %>
-
-
-
-
-
-
-
-
-
 
     <br>Etat de la LED:<nsp>
 <%

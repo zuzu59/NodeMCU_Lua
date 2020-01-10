@@ -3,7 +3,7 @@
 -- le script repair.lua pendant xx secondes avant de continuer
 --Source: https://nodemcu.readthedocs.io/en/master/en/modules/node/#nodebootreason
 
-print("\n init.lua zf200110.1232 \n")
+print("\n init.lua zf200110.1948 \n")
 
 function initz()
 
@@ -12,6 +12,7 @@ function initz()
         f= "wifi_init.lua"   if file.exists(f) then dofile(f) end
         f=nil initz=nil second_chance=nil hvbouton=nil initz_end=nil
         print(node.heap())   collectgarbage()   print(node.heap())
+        print("initz_end out...")
     end
 
     function hvbouton()

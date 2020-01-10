@@ -1,7 +1,7 @@
 -- Petit script pour initaliser la couche WIFI
 
 function wifi_init()
-    print("\n wifi_init.lua   zf200110.1236   \n")
+    print("\n wifi_init.lua   zf200110.1956   \n")
 
     function wifi_init_end()
         wifi_init1:unregister()   i=nil
@@ -27,6 +27,7 @@ function wifi_init()
         enduser_setup.start(function()
             node.restart()
         end)
+        print("setup wifi out...")
     else
         -- charge les secrets pour le wifi
         f= "secrets_wifi.lua"    if file.exists(f) then dofile(f) end
@@ -68,6 +69,5 @@ wifi_init()
 
 --[[
 file.putcontents("_setup_wifi_", "")
-boot2_go = true
 ]]
 
