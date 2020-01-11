@@ -5,9 +5,11 @@
   <title>SonOff home page</title>
 </head>
 <body>
-    <h1>SonOff home page 200109.1940</h1>
+    <h1>SonOff home page 2001011.1233</h1>
+    <a href="/">Home...</a><br>
     <h2>Menu:</h2>
     <h3>
+    
     SonOff API LED
     <a href="api_sonoff.html?LED=on"> On</a>
     <a href="api_sonoff.html?LED=off"> Off</a><br>
@@ -31,10 +33,13 @@
                 end
             end
             if (_GET.SetupWIFI == "true") then
-                --zout("<br><br>Choisir comme WIFI AP: setup_gadget puis aller sur: http://192.168.4.1<br><br>")
+                print("On demande le setup wifi depuis le browser !")
+                zout("<br><br>Choisir comme WIFI AP: setup_gadget puis aller sur: http://192.168.4.1<br><br>")
                 file.putcontents("_setup_wifi_", "toto")
-                file.putcontents("_toto_", "toto")
-                tmr.create():alarm(3*1000,  tmr.ALARM_SINGLE, function()
+                tmr.create():alarm(5*1000,  tmr.ALARM_SINGLE, function()
+                    print("on restart pour le setup wifi")
+                    wifi.sta.config{ssid="", pwd="", auto=true, save=true}
+                    wifi.sta.autoconnect(1)   wifi.sta.connect()
                     node.restart()
                 end)
             end

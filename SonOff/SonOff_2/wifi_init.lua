@@ -1,7 +1,7 @@
 -- Petit script pour initaliser la couche WIFI
 
 function wifi_init()
-    print("\n wifi_init.lua   zf200110.1956   \n")
+    print("\n wifi_init.lua   zf200111.1219   \n")
 
     function wifi_init_end()
         wifi_init1:unregister()   i=nil
@@ -25,6 +25,7 @@ function wifi_init()
         file.remove("_setup_wifi_")
         print("setup wifi...")
         enduser_setup.start(function()
+            print("on est sortit du setup wifi et on restart !")
             node.restart()
         end)
         print("setup wifi out...")
