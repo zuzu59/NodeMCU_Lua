@@ -5,7 +5,7 @@
   <title>SonOff home page</title>
 </head>
 <body>
-    <h1>SonOff home page 2001011.1233</h1>
+    <h1>SonOff home page 2001011.1351</h1>
     <a href="/">Home...</a><br>
     <h2>Menu:</h2>
     <h3>
@@ -19,55 +19,78 @@
     <a href="api_sonoff.html?RELAY=off"> Off</a><br>
     <br>
 
-    <a href="z_index.html?SetupWIFI=true">Wifi setup (setup_gadget, 192.168.4.1)</a><br>
-
     <a href="disp_temp.html">Affichage des températures, affiche les températures mesurées</a><br>
+
+    <a href="z_index.html?SetupWIFI=true">Wifi setup</a><br>
     </h3>
 
 <%
-            if (vars ~= nil) then
-                zout("<br>vars: "..vars.."<br>")
-                for k, v in string.gmatch(vars, "(%w+)=(%w+%p+%w+)&*") do
-                    _GET[k] = v
-                    zout(k..": "..v.."<br>")
-                end
-            end
-            if (_GET.SetupWIFI == "true") then
-                print("On demande le setup wifi depuis le browser !")
-                zout("<br><br>Choisir comme WIFI AP: setup_gadget puis aller sur: http://192.168.4.1<br><br>")
-                file.putcontents("_setup_wifi_", "toto")
-                tmr.create():alarm(5*1000,  tmr.ALARM_SINGLE, function()
-                    print("on restart pour le setup wifi")
-                    wifi.sta.config{ssid="", pwd="", auto=true, save=true}
-                    wifi.sta.autoconnect(1)   wifi.sta.connect()
-                    node.restart()
-                end)
-            end
-            if (_GET.RESTART == "true") then
-
-                zout("oups restart...")
-
-            end
+    if vars ~= nil then
+        zout("<br>vars: "..vars.."<br>")
+        for k, v in string.gmatch(vars, "(%w+)=(%w+%p+%w+)&*") do
+            _GET[k] = v
+            zout(k..": "..v.."<br>")
+        end
+    end
 %>
 
-    <br>Etat de la LED:<nsp>
 <%
+    if _GET.SetupWIFI == "true" then
+        print("On demande le setup wifi depuis le browser !")
+        wifi_setup_ok=(math.floor(100*node.random()))
+        zout("<br><br>Etes-vous vraiment certain ?<br>Si oui, faites: ")
+        zout('<a href="/?SetupWIFI='..wifi_setup_ok..'"> Ok</a><br><br>') 
+    end
+%>
+
+<%
+    if (wifi_setup_ok ~= nil) and (_GET.SetupWIFI == tostring(wifi_setup_ok)) then
+        print("On confirme le setup wifi depuis le browser !")
+        zout("<br><br>Choisir comme WIFI AP: setup_gadget puis aller sur: http://192.168.4.1<br><br>")
+        file.putcontents("_setup_wifi_", "toto")
+        tmr.create():alarm(5*1000,  tmr.ALARM_SINGLE, function()
+            print("on restart pour le setup wifi")
+            wifi.sta.config{ssid="", pwd="", auto=true, save=true}
+            wifi.sta.autoconnect(1)   wifi.sta.connect()
+            node.restart()
+        end)
+    end
+%>
+
+<%
+    if _GET.RESTART == "true" then
+        print("oups restart...")
+        zout("<br><br>oups restart...<br><br>")
+        tmr.create():alarm(5*1000,  tmr.ALARM_SINGLE, function()
+            print("on restart...")
+            node.restart()
+        end)
+    end
+%>
+
+<%
+    zout("Etat de la LED:<nsp>")
     if gpio.read(zLED) == 1 then zout("OFF") else zout("ON") end
+    zout("<br>")
 %>
 
-    <br>Etat du RELAY:<nsp>
-<%
-    zRELAY=6
-    if gpio.read(zRELAY) == 0 then zout("OFF") else zout("ON") end
+<%    
+    if zRELAY ~= nil then
+        zout("Etat du RELAY:<nsp>")
+        if gpio.read(zRELAY) == 0 then zout("OFF") else zout("ON") end
+        zout("<br>")
+    end
 %>
 
-    <br><br>
 <%
     a,b,c = wifi.sta.getip()
     if a ~= nil then
-        zout("IP: "..a.."&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MASK: "..b.."&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GATEWAY: "..c.."<br>")
+        zout("<br><br>IP: "..a.."&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MASK: "..b.."&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GATEWAY: "..c.."<br>")
     end
     collectgarbage()   zout("RAM: "..node.heap())
 %>
+
+<br><br><a href="/?RESTART=true"> Restart !</a><br>
+
 </body>
 </html>
