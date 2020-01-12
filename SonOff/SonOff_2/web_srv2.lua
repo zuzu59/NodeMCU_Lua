@@ -1,16 +1,7 @@
 -- petit script de serveur WEB avec Active Server Page ZYX
+-- permet d'exécuter du code LUA inline dans l'HTML !
 
-print("\n web_srv2.lua   zf191222.2335   \n")
-
--- dû refaire la commande file.readline car elle bug quand ligne longue
-function zread_line()
-    local zline = ""
-    while true do
-        local t = file_web:read(1)   if t == nil then return end
-        zline = zline..t
-        if t == "\n" then   return zline   end
-    end
-end
+print("\n web_srv2.lua   zf200112.1530   \n")
 
 -- envoie sur le port ouvert mais depuis l'environnement global !
 function zout(zstring)
@@ -28,24 +19,16 @@ function send_file(zclient, zfilename)
     if file_web then
         repeat
             local line = file_web:readline()
---            local line = file_web:read('\n')
---            local line = zread_line()
---            print("hello toto",string.len(line))
             if line then
                 if string.find(line, "<%%") then
---                    print("start lua...")
                     flag_lua_code = true        -- bascule sur le code lua inline
                     lua_code = ""
                 elseif string.find(line, "%%>") then
---                    print("stop lua...")
                     flag_lua_code = false       -- revient sur le code HTML
---                    print("Et voici le code lua inline:\n"..lua_code)
                     loadstring(lua_code)()      --on exécute ici le code lua inline !
                 elseif flag_lua_code then
---                    print(line)
                     lua_code = lua_code..line   -- récupère le code lua inline
                 else
---                    print(line)
                     zclient:send(line)          -- envoie le code HTML
                 end
             end
@@ -56,16 +39,10 @@ function send_file(zclient, zfilename)
     end
 end
 
-
 srv = net.createServer()
 srv:listen(80, function(conn)
     conn:on("receive", function(client, request)
         _, _, method, path, vars = string.find(request, "([A-Z]+) (.+)?(.+) HTTP")
-
---    print("zrequest: \n---\n"..request.."---")
-
---    print("method: ", method)   print("path: ", path)   print("vars: ", vars)
-
         if not string.find(request, "/favicon.ico") then
             print("coucou")
             if (method == nil) then
@@ -80,7 +57,6 @@ srv:listen(80, function(conn)
                 end
             end
             file_html=string.gsub(path, "/", "")
-            --        print("file_html: ",file_html)
             send_file(client, file_html)
         end
     end)
