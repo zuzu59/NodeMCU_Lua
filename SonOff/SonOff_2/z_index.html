@@ -8,7 +8,7 @@
   <title>SonOff home page</title>
 </head>
 <body>
-    <h1>SonOff home page 2001012.1634</h1>
+    <h1>SonOff home page 2001012.1707</h1>
     <a href="/">Home...</a><br>
     <h2>Menu:</h2>
     <h3>
@@ -26,16 +26,6 @@
 
     <a href="z_index.html?SetupWIFI=true">Wifi setup</a><br>
     </h3>
-
-<%
-    if vars ~= nil then
-        zout("<br>vars: "..vars.."<br>")
-        for k, v in string.gmatch(vars, "(%w+)=(%w+%p+%w+)&*") do
-            _GET[k] = v
-            zout(k..": "..v.."<br>")
-        end
-    end
-%>
 
 <%
     if _GET.SetupWIFI == "true" then

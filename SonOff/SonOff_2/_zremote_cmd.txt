@@ -1,24 +1,27 @@
 # Quelques commandes remote (luatool) à envoyer avec le plugin Atom-IDE-terminal de l'éditeur Atom
-# zf200110.1826
+# zf200112.1710
 
 Todo à faire pour ce projet !
 
-- ajouter fonction restart dans z_index.html (ATTENTION avec un argument restart, pas besoin de faire une page restart.html !)
 - ajouter l'affichage du node_id dans z_index.html
 - ajouter le contrôle flip/flop du btn sur RELAY
-- ajouter une page affichage variables globales
-- améliorer le résultat de api_sonoff.html, il faut sortir l'état des IO lors d'un changement comme confirmation
-- enlever la ligne wifi init dans z_index.html
 - if verbose print partout dans *.lua
+- le wifi setup ne fonctionne toujours pas quand il y a déjà un ap de connecté (problème du reboot quand adrs ip ok)!
+v- ajouter fonction restart dans z_index.html (ATTENTION avec un argument restart, pas besoin de faire une page restart.html !)
 v- ajouter le web_srv2 dans boot au lieu de boot2
 v- ajouter un état du RELAY et de la LED dans z_index.html
+v- ajouter une page affichage variables globales
+v- améliorer api_sonoff.html, il faut ajouter 'home' sur la page
+v- améliorer le résultat de api_sonoff.html, il faut sortir l'état des IO lors d'un changement comme confirmation
 v- copier secrets_project et secrets_wifi dans _secrets_project_  _secrets_wifi_ pour la documentation
 v- déplacer le mode AP dans wifi_init
+v- enlever la ligne wifi init dans z_index.html
 v- faire la page web service pour allumer la LED
 v- faire la page web service pour allumer le relay
 v- garder variable node_id pour identification après poweron général, reattribution adrs ip sur modem 4G
 v- passer à 10 secondes la seconde chance
 v- passer à 15x les tentatives de connexions au WIFI
+v- vérifier le fonctionnement d'allumer la LED, car ne marche plus !
 x- mettre ZLED2 et ZRELAY dans secrets_project
 x-ajouter argument ok dans wifi_init.html (sécurité)
 
