@@ -1,11 +1,13 @@
 -- petit script de serveur WEB avec Active Server Page ZYX
 -- permet d'exécuter du code LUA inline dans l'HTML !
 
-print("\n web_srv2.lua   zf200112.1530   \n")
+print("\n web_srv2.lua   zf200112.1601   \n")
 
 -- envoie sur le port ouvert mais depuis l'environnement global !
 function zout(zstring)
-    zzclient:send(zstring)                      -- envoie le résultat du code lua inline
+    if string.len(zstring) > 0 then
+        zzclient:send(zstring)                      -- envoie le résultat du code lua inline
+    end
 end
 
 -- envoie un fichier HTML sur le port. ATTENTION: longueur de la ligne maximale de 1'024 bytes !

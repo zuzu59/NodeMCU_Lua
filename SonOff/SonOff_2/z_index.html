@@ -8,7 +8,7 @@
   <title>SonOff home page</title>
 </head>
 <body>
-    <h1>SonOff home page 2001012.1526</h1>
+    <h1>SonOff home page 2001012.1540</h1>
     <a href="/">Home...</a><br>
     <h2>Menu:</h2>
     <h3>
@@ -92,8 +92,18 @@
         zout("MASK: "..b.."<br>")
         zout("GATEWAY: "..c.."<br>")
     end
-    collectgarbage()   zout("RAM: "..node.heap())
+    collectgarbage()   zout("RAM: "..node.heap().."<br>")
 %>
+
+<%
+    zout("<br>Etat des globals !<br>")
+    for k,v in pairs(_G) do
+        zout(k..", "..tostring(v).."<br>")
+    end
+%>
+
+
+
 
 <br><br><a href="/?RESTART=true"> Restart !</a><br>
 
