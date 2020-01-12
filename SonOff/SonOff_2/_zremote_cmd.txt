@@ -1,13 +1,13 @@
 # Quelques commandes remote (luatool) à envoyer avec le plugin Atom-IDE-terminal de l'éditeur Atom
-# zf200112.1710
+# zf200112.1933
 
 Todo à faire pour ce projet !
 
-- ajouter l'affichage du node_id dans z_index.html
 - ajouter le contrôle flip/flop du btn sur RELAY
 - if verbose print partout dans *.lua
 - le wifi setup ne fonctionne toujours pas quand il y a déjà un ap de connecté (problème du reboot quand adrs ip ok)!
 v- ajouter fonction restart dans z_index.html (ATTENTION avec un argument restart, pas besoin de faire une page restart.html !)
+v- ajouter l'affichage du node_id dans z_index.html
 v- ajouter le web_srv2 dans boot au lieu de boot2
 v- ajouter un état du RELAY et de la LED dans z_index.html
 v- ajouter une page affichage variables globales

@@ -1,7 +1,7 @@
 -- petit script de serveur WEB avec Active Server Page ZYX
 -- permet d'exécuter du code LUA inline dans l'HTML !
 
-print("\n web_srv2.lua   zf200112.1630   \n")
+print("\n web_srv2.lua   zf200112.1926   \n")
 
 -- envoie sur le port ouvert mais depuis l'environnement global !
 function zout(zstring)
@@ -36,7 +36,7 @@ function send_file(zclient, zfilename)
                 end
             end
         until not line
-        file_web:close()   file_web = nil
+        file_web:close()   file_web = nil   flag_lua_code=nil   zzclient=nil
     else
         zclient:send("<html><h1>"..zfilename.." not found - 404 error</h1><a href='/'>Home</a><br></html>")
     end
@@ -60,7 +60,7 @@ srv:listen(80, function(conn)
                 end
             end
             file_html=string.gsub(path, "/", "")
-            send_file(client, file_html)
+            send_file(client, file_html)   file_html=nil   _GET=nil
         end
     end)
     conn:on("sent", function(c) c:close() end)
