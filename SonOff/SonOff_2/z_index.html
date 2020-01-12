@@ -8,7 +8,7 @@
   <title>SonOff home page</title>
 </head>
 <body>
-    <h1>SonOff home page 2001012.1540</h1>
+    <h1>SonOff home page 2001012.1634</h1>
     <a href="/">Home...</a><br>
     <h2>Menu:</h2>
     <h3>
@@ -88,22 +88,25 @@
 <%
     a,b,c = wifi.sta.getip()
     if a ~= nil then
-        zout("<br>IP: "..a.."<br>")
-        zout("MASK: "..b.."<br>")
-        zout("GATEWAY: "..c.."<br>")
+        zout("<br>IP: "..a.."<br>\n".."MASK: "..b.."<br>\n".."GATEWAY: "..c.."<br>\n")
+        a=nil b=nil c=nil
     end
     collectgarbage()   zout("RAM: "..node.heap().."<br>")
 %>
 
 <%
-    zout("<br>Etat des globals !<br>")
+    zout("<br>Etat des GLOBALS !<br>\n")
+    zout("<table>\n")
     for k,v in pairs(_G) do
-        zout(k..", "..tostring(v).."<br>")
+        if k ~= "lua_code" then
+            v = tostring(v)
+            zout("<tr>")
+                zout("<td>"..k.."</td>") zout("<td>"..v.."</td>")
+            zout("</tr>\n")
+        end
     end
+    zout("</table>")
 %>
-
-
-
 
 <br><br><a href="/?RESTART=true"> Restart !</a><br>
 

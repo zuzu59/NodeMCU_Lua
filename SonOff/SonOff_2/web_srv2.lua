@@ -1,7 +1,7 @@
 -- petit script de serveur WEB avec Active Server Page ZYX
 -- permet d'exécuter du code LUA inline dans l'HTML !
 
-print("\n web_srv2.lua   zf200112.1601   \n")
+print("\n web_srv2.lua   zf200112.1630   \n")
 
 -- envoie sur le port ouvert mais depuis l'environnement global !
 function zout(zstring)
@@ -28,6 +28,7 @@ function send_file(zclient, zfilename)
                 elseif string.find(line, "%%>") then
                     flag_lua_code = false       -- revient sur le code HTML
                     loadstring(lua_code)()      --on exécute ici le code lua inline !
+                    lua_code = nil
                 elseif flag_lua_code then
                     lua_code = lua_code..line   -- récupère le code lua inline
                 else
