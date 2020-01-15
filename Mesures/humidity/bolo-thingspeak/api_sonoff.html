@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+
+<!-- ATTENTION, la longueur des lignes DOIT être <128 ! -->
+
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset='utf-8' name='viewport' content='width=device-width, initial-scale=1.0'>
+  <title>API SonOff</title>
+</head>
+<body>
+    <h1>API SonOff    zf200112.1706</h1>
+    <a href="/">Home...</a><br><br>
+<%
+    if _GET.LED == "on" then
+        gpio.write(zLED, gpio.LOW)   gpio.mode(zLED, gpio.OUTPUT)
+        zout("LED=".._GET.LED.."<br>")
+    end
+    if _GET.LED == "off" then
+        gpio.write(zLED, gpio.HIGH)   gpio.mode(zLED, gpio.OUTPUT)
+        zout("LED=".._GET.LED.."<br>")
+    end
+%>
+<%
+    if _GET.RELAY == "on" then
+        gpio.mode(zRELAY, gpio.OUTPUT)   gpio.write(zRELAY, gpio.HIGH)
+        zout("RELAY=".._GET.RELAY.."<br>")
+    end
+    if _GET.RELAY == "off" then
+        gpio.mode(zRELAY, gpio.OUTPUT)   gpio.write(zRELAY, gpio.LOW)
+        zout("RELAY=".._GET.RELAY.."<br>")
+    end
+%>
+</body>
+</html>
