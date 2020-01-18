@@ -2,18 +2,17 @@
 
 Petit projet pour mesurer la température et l'humidité avec un capteur HTU21D et l'afficher sur ThingSpeak. Comme par exemple pour monitorer la température et l'humidité d'un local au cours du temps.
 
-
-![Image](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/humidity/bolo-thingspeak/img/graph_thingspeak1.png)
+<br><br>![Image](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/humidity/bolo-thingspeak/img/graph_thingspeak1.png)
 
 Exemple de sortie sur ThingSpeak
 
 
-![Image](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/humidity/bolo-thingspeak/img/Constellation_sondes_mesures2.jpg)
+<br><br>![Image](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/humidity/bolo-thingspeak/img/Constellation_sondes_mesures2.jpg)
 
 Constellation de sondes de mesures
 
 
-![Image](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/humidity/bolo-thingspeak/img/htu21d_on_NodeMCU.jpg)
+<br><br>![Image](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/humidity/bolo-thingspeak/img/htu21d_on_NodeMCU.jpg)
 
 Montage du capteur HTU21D directement sur le NodeMCU, chose à ne PAS faire, car la température du NodeMCU fausse complètement les mesures d'humidité !
 
