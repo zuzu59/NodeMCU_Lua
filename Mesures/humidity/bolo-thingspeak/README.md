@@ -17,6 +17,11 @@ Constellation de sondes de mesures
 Montage du capteur HTU21D directement sur le NodeMCU, chose à ne PAS faire, car la température du NodeMCU fausse complètement les mesures d'humidité !
 
 
+<br><br>![Image](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/humidity/bolo-thingspeak/img/HTU21D_deporte.jpg)
+
+Montage correct du capteur HTU21D en *déporté* sur le NodeMCU
+
+
 <br><br>
 ## Avantages de travailler avec langage interprété (Lua) VS compilé (Arduino C++)
 
@@ -24,7 +29,7 @@ On peut voir ici, avec ce projet assez complet, toutes les possibilités offerte
 Choses qui ne seraient pas possible si on l'avait fait en C++ (mode Arduino), comme par exemple:
 
 * configuration du WIFI via une page WEB servie par le NodeMCU (pas besoin de brancher un interface USB/TTL)
-* serveur WEB *Active Server Pages ZYX*, permet de faire des pages HTML dynamiques avec du code LUA in line. Les pages HTML sont sauvées dans le système de fichiers de la FLASH du NodeMCU et interprétées au vol lors de la lecture
+* serveur WEB *Active Server Pages ZYX*, permet de faire des pages HTML *dynamiques* avec du code LUA *in line*. Les pages HTML sont *sauvées* dans le système de fichiers de la FLASH du NodeMCU et *interprétées au vol* lors de la *lecture*
 * serveur WEB pour l'affichage de l'humidité et de la température
 * mini WEB IDE, modification du code source en remote directement depuis une page WEB, pas besoin d'IDE
 * serveur TELNET, utilisation de la console en remote pour le dépannage (mise à jour du code centralisée)
@@ -40,12 +45,12 @@ On utilise un tout petit capteur low cost, le **HTU21D**, mesure de température
 https://www.aliexpress.com/item/32480177429.html
 
 
-![Image](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/humidity/bolo-thingspeak/img/HTU21D.jpg)
+<br><br>![Image](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/humidity/bolo-thingspeak/img/HTU21D.jpg)
 
 Il est vraiment très bon marché (1.5$), simple à utiliser et super précis.
 
 
-![Image](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/humidity/bolo-thingspeak/img/super_definition_capteur_htu21d.jpg)
+<br><br>![Image](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/humidity/bolo-thingspeak/img/super_definition_capteur_htu21d.jpg)
 
 Incroyable la résolution de la mesure ! On peut observer ici l'arrivée le matin au salon, l'ouverture de la porte de la salle de bain après avoir pris la douche et l'ouverture de la fenêtre. Tout ceci dans la résolution de 1 à 3% de l'humidité relative
 
@@ -62,17 +67,17 @@ https://cdn.sparkfun.com/assets/6/a/8/e/f/525778d4757b7f50398b4567.pdf
 
 ### Schéma
 
-![Image](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/humidity/bolo-thingspeak/schema/schema.png)
+<br><br>![Image](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/humidity/bolo-thingspeak/schema/schema.png)
 
 Schéma de connexion à 4x fils très simple
 
 
-![Image](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/humidity/bolo-thingspeak/schema/pcb.png)
+<br><br>![Image](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/humidity/bolo-thingspeak/schema/pcb.png)
 
 Et son bread board
 
 
-![Image](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/humidity/bolo-thingspeak/img/banc_test_HTU21D.jpg)
+<br><br>![Image](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/humidity/bolo-thingspeak/img/banc_test_HTU21D.jpg)
 
 Banc test de Mesures
 
@@ -105,7 +110,7 @@ Le corps du projet se trouve dans ces 4x fichiers !
 
 ### Les secrets du projet
 
-Dans ce fichier se trouvent les secrets du projet qui ne doivent pas se retrouver sur GitHub, mais qui peuvent aussi être différents si on duplique son projet dans différents *lieux* (mesure à Lausanne et Renens par exemple).
+Dans ce fichier se trouvent les *secrets* du projet qui ne doivent pas se retrouver sur GitHub, mais qui peuvent aussi être différents si on *duplique* son projet dans différents *lieux* (mesure à Lausanne et Renens par exemple).
 
 ```
 thingspeak_url="http://api.thingspeak.com/update?api_key=xxx"
@@ -145,7 +150,7 @@ end
 
 ### L'envoi des mesures dans le Cloud ThingSpeak
 
-Les données de mesures sont simplement envoyée sur ThingSpeak au moyen d'une requête HTML de type GET:
+Les données de mesures sont simplement envoyées sur ThingSpeak au moyen d'une *requête* HTML de type *GET*:
 
 On peut le faire directement depuis son browser pour des tests par exemple: envoi des valeurs température de 12˚ et humidité 45%:
 
@@ -163,7 +168,7 @@ send_temp()
 
 ### L'horloge des mesures
 
-Finalement il faut envoyer toutes les x secondes les mesures de températures au Cloud ThingSpeak
+Finalement il faut *envoyer* au moyen d'un *timer* toutes les x secondes les mesures de températures au Cloud ThingSpeak
 
 ```
 cron1=tmr.create()
@@ -191,7 +196,7 @@ Qui contient ces modules:
 adc ads1115 bit enduser_setup file gpio http i2c mqtt net node ow rtctime sjson sntp tmr uart wifi ws2812
 ```
 
-C'est un firmware passe partout, il contient trop de modules pour ce projet !
+C'est un firmware passe partout, il contient trop de modules pour ce projet mais qui est très pratique !
 
 
 
@@ -215,7 +220,7 @@ token !
 
 
 ### Visualisation des données dans ThingSpeak
-![Image](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/humidity/bolo-thingspeak/img/graph_thingspeak1.png)
+<br><br>![Image](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/humidity/bolo-thingspeak/img/graph_thingspeak1.png)
 Exemple de sortie sur ThingSpeak
 
 
@@ -232,9 +237,9 @@ secrets_projet.lua
 
 zzz, on peut l'exporter xxx en CSV pour en faire un rapport dans un tableur par exemple.
 
-![Image](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/humidity/bolo-thingspeak/img/exportation_data_csv.png)
+<br><br>![Image](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/humidity/bolo-thingspeak/img/exportation_data_csv.png)
 
-![Image](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/humidity/bolo-thingspeak/img/coisir_series_as_columns.png)
+<br><br>![Image](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/humidity/bolo-thingspeak/img/coisir_series_as_columns.png)
 
 
 ### Affichage des températures/humidité en local sur le NodeMCU
@@ -274,7 +279,7 @@ telnet -rN 192.168.0.xxx
 
 
 
-zf200118.1223
+zf200118.1237
 
 
 pense bête:
