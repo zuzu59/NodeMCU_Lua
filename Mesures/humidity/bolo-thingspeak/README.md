@@ -63,12 +63,12 @@ https://cdn.sparkfun.com/assets/6/a/8/e/f/525778d4757b7f50398b4567.pdf
 
 ### Schéma
 
-![Image](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/humidity/bolo-thingspeak/schema/schema.jpg)
+![Image](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/humidity/bolo-thingspeak/schema/schema.png)
 
 Schéma de connexion à 4x fils très simple
 
 
-![Image](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/humidity/bolo-thingspeak/schema/schema.jpg)
+![Image](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/humidity/bolo-thingspeak/schema/pcb.png)
 
 Et son bread board
 
@@ -80,47 +80,104 @@ Banc test de Mesures
 
 ## Le cloud ThingSpeak
 
-bla bla bla
+ThingSpeak est un service de plateforme d'analyse IoT qui vous permet d'agréger, de visualiser et d'analyser des flux de données en direct dans le cloud. Vous pouvez envoyer des données à ThingSpeak depuis vos appareils, créer une visualisation instantanée des données en direct et envoyer des alertes.
 
+La version gratuite nous permet de faire:
 
-Les conditions du gratuit
+* envoi de 3'000'000 de message par an, soit environ 8'200 messages par jour
+* intervalle d'envoi entre deux messages est d'au minimum de 15 secondes
+* 4x canaux à disposition
+* 3x connexion simultanées au MQTT
+* 3x partages de canaux privés
 
+Ce qui est amplement suffisant pour débuter avec l'IoT dans le Cloud et savoir ce que l'on veut faire par la suite ;-)
 
-
+La version payante est assez chère, comme toutes les autres du reste :-(
 
 
 ## Parties principales du code
-Tout se passe dans ces 4x fichiers !
+Le corps du projet se trouve dans ces 4x fichiers !
+
+* secrets_project.lua
+* 0_htu21d.lua
+* 0_send_data.lua
+* 0_cron.lua
+
 
 ### Les secrets du projet
 
+Dans ce fichier se trouvent les secrets du projet qui ne doivent pas se retrouver sur GitHub, mais qui peuvent aussi être différents si on duplique son projet dans différents *lieux* (mesure à Lausanne et Renens par exemple).
+
+```
+thingspeak_url="http://api.thingspeak.com/update?api_key=xxx"
+
+node_id = "generic"
+if node.chipid() == 6734851 then node_id = "sonoff_1" zLED=7 end
+if node.chipid() == 16110605 then node_id = "sonoff_2" zLED=7 end
+if node.chipid() == 3049119 then node_id = "adc_1" end
+if node.chipid() == 3048906 then node_id = "bolo_1" end
+print("node_id: "..node_id)
+end
+```
+
+C'est ici que l'on met l'*url* avec son *token* utilisé par *ThingSpeak*
 ThingSpeak
 
-token !
-
-
-chip id
-
-
+On met aussi ici l'*identification* du NodeMCU de la mesure afin de pouvoir reconnaitre les différents *points* de mesure dans le même lieu. Chaque NodeMCU à son propre numéro de *série* !
 
 
 ### La mesure de température et d'humidité
 
+On accède au capteur de mesure de température et d'humidité HTU21D très simplement (pas besoin de lib) au moyen de commandes de base I2C:
 
+i2c.start, i2c.stop, i2c.address, i2c.write, i2c.read
 
+```
+function read_HTU21D(zreg, zdelay)
+    i2c.start(id)   i2c.address(id, addr, i2c.TRANSMITTER)
+    i2c.write(id, zreg)   i2c.stop(id)
+    i2c.start(id)   i2c.address(id, addr, i2c.RECEIVER)
+    tmr.delay(zdelay)
+    r = i2c.read(id,3)   i2c.stop(id)
+    return r
+end
+```
 
 
 ### L'envoi des mesures dans le Cloud ThingSpeak
 
+Les données de mesures sont simplement envoyée sur ThingSpeak au moyen d'une requête HTML de type GET:
 
+On peut le faire directement depuis son browser pour des tests par exemple: envoi des valeurs température de 12˚ et humidité 45%:
 
+```
+https://api.thingspeak.com/update?api_key=kkk&field1=12&field1=45
+```
+
+Construction de l'url d'envoi en Lua:
+
+```
+zurl=thingspeak_url.."field1="..tostring(ztemp1).."&field2="..tostring(zhum1)
+send_temp()
+```
 
 
 ### L'horloge des mesures
 
+Finalement il faut envoyer toutes les x secondes les mesures de températures au Cloud ThingSpeak
 
-
-
+```
+cron1=tmr.create()
+cron1:alarm(20*1000,  tmr.ALARM_AUTO, function()
+    print("cron1........................")
+    ztemp1=readTemp()
+    zhum1=readHumi()
+    print("Temperature: "..ztemp1.." °C")
+    print("Humidity: "..zhum1.." %")
+    zurl=thingspeak_url.."field1="..tostring(ztemp1).."&field2="..tostring(zhum1)
+    send_temp()
+end)
+```
 
 
 
@@ -130,15 +187,23 @@ Il faut *flasher* le NodeMCU avec ce firmware:
 
 https://github.com/zuzu59/NodeMCU_Lua/blob/master/Firmware/nodemcu-master-19-modules-2019-12-31-16-40-12-float.bin
 
-Avec ces modules:
+Qui contient ces modules:
 ```
 adc ads1115 bit enduser_setup file gpio http i2c mqtt net node ow rtctime sjson sntp tmr uart wifi ws2812
 ```
+
+C'est un firmware passe partout, il contient trop de modules pour ce projet !
+
+
 
 ## Utilisation
 
 
 ### Configuration du WIFI du NodeMCU_Lua
+L'accès au NodeMCU se fait via des pages WEB distribuée depuis son petit serveur WEB ASP (Active Server Pages) avec l'interprétation du code Lua inline au vol !
+
+
+c'est pas terminé !
 
 xxx
 
@@ -210,7 +275,7 @@ telnet -rN 192.168.0.xxx
 
 
 
-zf200116.1902
+zf200118.1223
 
 
 pense bête:
