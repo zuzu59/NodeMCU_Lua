@@ -206,40 +206,55 @@ C'est un firmware passe partout, il contient trop de modules pour ce projet mais
 ### Configuration du WIFI du NodeMCU_Lua
 L'accès au NodeMCU se fait via des pages WEB distribuée depuis son petit serveur WEB ASP (Active Server Pages) avec l'interprétation du code Lua inline au vol !
 
+Lors dé démarrage du NodeMCU il va chercher à se connecter sur le WIFI qu'il trouve dans sa configuration, fichier eus_params.lua. S'il n'y parvient pas au bout de 15 secondes, il va démarrer un petit serveur WIFI, AP: NodeMCU_node_id, on peut alors utiliser le NodeMCU sans avoir besoin d'une connexion Internet, mais bien entendu sans envoi de données dans le Cloud.
 
-c'est pas terminé !
+On se connecte alors avec un browser WEB sur l'adresse:
 
-xxx
+```
+http://192.168.4.1
+```
+
+On choisit *Wifi setup* et enfin, au milieu de la page, on confirme l'action en cliquant sur *Ok* (ceci pour éviter que l'on bascule dans le mode setup WIFI par erreur).
+
+Après quelques secondes un nouveau serveur WIFI va démarrer avec une procédure de configuration du WIFI du NodeMCU, AP: Setup Gadget xxx, on se connecte dessus avec son ordinateur pour aller à nouveau *voir* la page:
+
+```
+http://192.168.4.1
+```
+
+Après configuration du WIFI, l'adresse IP allouée au NodeMCU devrait apparaître en haut de la page.
+
+Le NodeMCU redémarre et est prêt à envoyer les mesures sur le Cloud, s'il est configuré correctement pour le bon compte ThingSpeak !
 
 
 
 ### Configuration de ThingSpeak
 
-token !
+Afin de pouvoir utiliser ThingSpeak, il faut *créé* un *channel*, le configurer pour lui indiquer que nous voulons deux champs (température et humidité) et surtout récupérer le token du channel pour le mettre dans le fichier *secrets_projet.lua*
 
 
 
 ### Visualisation des données dans ThingSpeak
+
+On peut voir alors arriver, toutes les 20 secondes, les mesures de température et d'humidité sur ThingSpeak.
+
 <br><br>![Image](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/humidity/bolo-thingspeak/img/graph_thingspeak1.png)
 Exemple de sortie sur ThingSpeak
 
+On peut facilement modifier l'affichage des graphiques au moyen du petit *crayon* en haut à droite de chaque graphique
 
-### Distribution des rôles de NodeMCU
-
-Comme on peut avoir plusieurs points de mesures à différents endroit dans le local, il n'y a qu'un seul fichier de *secrets*. C'est dans ce fichier de *secrets* qu'il y a l'information de l'adresse IP de la base de donnée InfluxDB et c'est l'id des NodeMCU qui sont enregistrés dans la DB InfluxDB !<br>
-
-```
-secrets_projet.lua
-```
 
 
 ### Exportation des données en CSV depuis ThingSpeak
 
-zzz, on peut l'exporter xxx en CSV pour en faire un rapport dans un tableur par exemple.
+On peut très facilement exporter après coup les données du channel de ThingSpeak en CSV pour en faire un rapport dans un tableur par exemple.
 
-<br><br>![Image](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/humidity/bolo-thingspeak/img/exportation_data_csv.png)
 
-<br><br>![Image](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/humidity/bolo-thingspeak/img/coisir_series_as_columns.png)
+
+### Distribution des rôles de NodeMCU
+
+Comme on peut avoir plusieurs points de mesures à différents endroit dans le local, il n'y a qu'un seul fichier de *secrets*. C'est dans ce fichier, *secrets_projet.lua*, qu'il y a l'information de l'url de ThingSpeak ains que le token pour le bon channel !<br>
+
 
 
 ### Affichage des températures/humidité en local sur le NodeMCU
@@ -262,7 +277,7 @@ http://192.168.0.xxx
 
 ### Modification du code source du NodeMCU en remote
 
-Très pratique pour le debug, on peut directement modifier le code source Lua du NodeMCU en remote avec ce petit WEB IDE:
+Très pratique pour le debug, on peut directement modifier le code source Lua du NodeMCU en remote avec ce petit WEB IDE (il faut le *lancer* avant depuis la home page du NodeMCU !):
 
 ```
 http://192.168.0.xxx:88
@@ -277,9 +292,12 @@ Très pratique pour le debug, on peut accéder à la console du NodeMCU en remot
 telnet -rN 192.168.0.xxx
 ```
 
+C'est aussi depuis ce moyen que l'on peut mettre à jour le code Lua du NodeMCU de manière centralisée et automatique (luatool.py)
 
 
-zf200118.1237
+
+
+zf200118.1619
 
 
 pense bête:
