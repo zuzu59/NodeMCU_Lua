@@ -252,6 +252,8 @@ Exemple de sortie sur ThingSpeak
 
 On peut facilement modifier l'affichage des graphiques au moyen du petit *crayon* en haut à droite de chaque graphique
 
+Très vite on va s'apercevoir qu'il faudra augmenter le temps entre chaque mesures, passer à 300 secondes au lieu de 20 secondes par exemple.
+
 
 
 ### Exportation des données en CSV depuis ThingSpeak
@@ -312,4 +314,4 @@ C'est aussi depuis ce moyen que l'on peut mettre, à distance, à jour le code L
 
 
 
-zf200118.1635
+zf200118.1639
