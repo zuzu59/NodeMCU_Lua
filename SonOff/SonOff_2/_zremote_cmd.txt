@@ -1,14 +1,16 @@
 # Quelques commandes remote (luatool) à envoyer avec le plugin Atom-IDE-terminal de l'éditeur Atom
-# zf200113.0734
+# zf200116.1833
 
 Todo à faire pour ce projet !
 
+- trouver un moyen pour configurer la lED dans initz.lua sans le rendre dangereux en cas de problème (éviter le reflashing en cas de reboot loop)
 - lancement ou arrêt du WEBIDE via la home page
 - flip/flop du relais depuis la page api_sonoff
-- arrêter de demander de connecter le WIFI automatiquement en mode station  juste après le boot dans la config wifiinit (automatic connect)
+- arrêter de demander de connecter le WIFI automatiquement en mode station juste après le boot dans la config wifiinit (automatic connect)
 - ajouter le contrôle flip/flop du btn sur RELAY
 - if verbose print partout dans *.lua
 - le wifi setup ne fonctionne toujours pas quand il y a déjà un ap de connecté (problème du reboot quand adrs ip ok)!
+
 v- ajouter fonction restart dans z_index.html (ATTENTION avec un argument restart, pas besoin de faire une page restart.html !)
 v- ajouter l'affichage du node_id dans z_index.html
 v- ajouter le web_srv2 dans boot au lieu de boot2
