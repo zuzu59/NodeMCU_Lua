@@ -1,6 +1,6 @@
-# Mesure de température et d'humidité
+# Mesure de température et d'humidité avec un NodeMCU en Lua
 
-Petit projet pour mesurer la température et l'humidité avec un capteur HTU21D et l'afficher sur ThingSpeak. Comme par exemple pour monitorer la température et l'humidité d'un local au cours du temps.
+Petit projet pour mesurer la température et l'humidité avec un capteur HTU21D et l'afficher sur ThingSpeak. Comme par exemple pour *enregistrer* la température et l'humidité d'un local au cours du temps.
 
 <br><br>![Image](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/humidity/bolo-thingspeak/img/graph_thingspeak1.png)
 
@@ -20,6 +20,13 @@ Montage du capteur HTU21D directement sur le NodeMCU, chose à ne PAS faire, car
 <br><br>![Image](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/humidity/bolo-thingspeak/img/HTU21D_deporte.jpg)
 
 Montage correct du capteur HTU21D en *déporté* sur le NodeMCU
+
+
+
+## Autres utilisations de ce projet
+
+On peut très bien *enregistrer* d'autres *mesures* comme par exemple, une consommation électrique, production solaire ou débit d'eau d'une douche. Il y a très peu de lignes à modifier pour le faire. C'est donc la base de l'enregistrement pour pleins de mesures en domotique ;-)
+
 
 
 <br><br>
@@ -74,7 +81,7 @@ Schéma de connexion à 4x fils très simple
 
 <br><br>![Image](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/humidity/bolo-thingspeak/schema/pcb.png)
 
-Et son bread board
+Et son PCB (bread board)
 
 
 <br><br>![Image](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/humidity/bolo-thingspeak/img/banc_test_HTU21D.jpg)
@@ -113,21 +120,23 @@ Le corps du projet se trouve dans ces 4x fichiers !
 Dans ce fichier se trouvent les *secrets* du projet qui ne doivent pas se retrouver sur GitHub, mais qui peuvent aussi être différents si on *duplique* son projet dans différents *lieux* (mesure à Lausanne et Renens par exemple).
 
 ```
-thingspeak_url="http://api.thingspeak.com/update?api_key=xxx"
-
-node_id = "generic"
 if node.chipid() == 6734851 then node_id = "sonoff_1" zLED=7 end
 if node.chipid() == 16110605 then node_id = "sonoff_2" zLED=7 end
 if node.chipid() == 3049119 then node_id = "adc_1" end
-if node.chipid() == 3048906 then node_id = "bolo_1" end
-print("node_id: "..node_id)
+if node.chipid() == 3048906 then
+    node_id = "bolo_1"
+    thingspeak_url="http://api.thingspeak.com/update?api_key=kkk&"
+end
+if node.chipid() == 3049014 then
+    node_id = "tst_temp_1"
+    thingspeak_url="http://api.thingspeak.com/update?api_key=kkk&"
 end
 ```
 
 C'est ici que l'on met l'*url* avec son *token* utilisé par *ThingSpeak*
 ThingSpeak
 
-On met aussi ici l'*identification* du NodeMCU de la mesure afin de pouvoir reconnaitre les différents *points* de mesure dans le même lieu. Chaque NodeMCU à son propre numéro de *série* !
+On met aussi ici l'*identification* du NodeMCU de la mesure afin de pouvoir reconnaitre les différents *points* de mesure dans un même lieu. Chaque NodeMCU à son *propre* numéro de *série* !
 
 
 ### La mesure de température et d'humidité
@@ -206,7 +215,7 @@ C'est un firmware passe partout, il contient trop de modules pour ce projet mais
 ### Configuration du WIFI du NodeMCU_Lua
 L'accès au NodeMCU se fait via des pages WEB distribuée depuis son petit serveur WEB ASP (Active Server Pages) avec l'interprétation du code Lua inline au vol !
 
-Lors dé démarrage du NodeMCU il va chercher à se connecter sur le WIFI qu'il trouve dans sa configuration, fichier eus_params.lua. S'il n'y parvient pas au bout de 15 secondes, il va démarrer un petit serveur WIFI, AP: NodeMCU_node_id, on peut alors utiliser le NodeMCU sans avoir besoin d'une connexion Internet, mais bien entendu sans envoi de données dans le Cloud.
+Lors du démarrage du NodeMCU il va chercher à se connecter sur le WIFI qu'il trouve dans sa configuration, fichier *eus_params.lua*. S'il n'y parvient pas au bout de 15 secondes, il va démarrer un petit serveur WIFI, **AP: NodeMCU_node_id**, on peut alors utiliser le NodeMCU sans avoir besoin d'une *connexion* Internet, mais bien entendu sans envoi de données dans le Cloud.
 
 On se connecte alors avec un browser WEB sur l'adresse:
 
@@ -216,7 +225,7 @@ http://192.168.4.1
 
 On choisit *Wifi setup* et enfin, au milieu de la page, on confirme l'action en cliquant sur *Ok* (ceci pour éviter que l'on bascule dans le mode setup WIFI par erreur).
 
-Après quelques secondes un nouveau serveur WIFI va démarrer avec une procédure de configuration du WIFI du NodeMCU, AP: Setup Gadget xxx, on se connecte dessus avec son ordinateur pour aller à nouveau *voir* la page:
+Après quelques secondes un nouveau serveur WIFI va démarrer avec une procédure de configuration du WIFI du NodeMCU, **AP: Setup Gadget** xxx, on se connecte dessus avec son ordinateur pour aller à nouveau *voir* la page:
 
 ```
 http://192.168.4.1
@@ -277,7 +286,7 @@ http://192.168.0.xxx
 
 ### Modification du code source du NodeMCU en remote
 
-Très pratique pour le debug, on peut directement modifier le code source Lua du NodeMCU en remote avec ce petit WEB IDE (il faut le *lancer* avant depuis la home page du NodeMCU !):
+On peut directement modifier le code source Lua du NodeMCU en remote avec ce petit WEB IDE (il faut le *lancer* avant depuis la home page du NodeMCU !):
 
 ```
 http://192.168.0.xxx:88
@@ -289,22 +298,18 @@ http://192.168.0.xxx:88
 Très pratique pour le debug, on peut accéder à la console du NodeMCU en remote avec telnet:
 
 ```
+telnet -r 192.168.0.xxx
+```
+
+ou sur MAC
+
+```
 telnet -rN 192.168.0.xxx
 ```
 
-C'est aussi depuis ce moyen que l'on peut mettre à jour le code Lua du NodeMCU de manière centralisée et automatique (luatool.py)
+C'est aussi depuis ce moyen que l'on peut mettre, à distance, à jour le code Lua du NodeMCU de manière centralisée et automatique (luatool.py)
 
 
 
 
-zf200118.1619
-
-
-pense bête:
-
-```
-file.open("hello.lua","w+")
-file.writeline([[print("hello nodemcu")]])
-file.writeline([[print(node.heap())]])
-file.close()
-```
+zf200118.1635
