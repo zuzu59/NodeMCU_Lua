@@ -1,9 +1,9 @@
 -- Lit le capteur I2C HTU21D de mesure d'humidité et de température
-print("\n 0_htu21d.lua   zf200119.1426 \n")
-
 -- https://github.com/zuzu59/NodeMCU_Lua/tree/master/Mesures/humidity/bolo-thingspeak/docu/HTU21D.txt
 
 function readHTU21D()
+    if verbose then print("\n 0_htu21d.lua   zf200119.1517 \n") end
+    
     id = 0   sda = 5   scl = 6   addr = 0x40
     HUMIDITY = 0xE5   TEMPERATURE = 0xE3
     i2c.setup(id, sda, scl, i2c.SLOW)   sda = nil   scl = nil

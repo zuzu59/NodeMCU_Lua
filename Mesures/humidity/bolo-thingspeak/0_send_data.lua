@@ -1,7 +1,8 @@
 -- Petit script pour envoyer les valeurs de température sur un serveur WEB via un HTTP GET
-print("\n 0_send_data.lua   zf200119.1433   \n")
 
 function send_data()
+    if verbose then print("\n 0_send_data.lua   zf200119.1518   \n") end
+
     if verbose then print("send_data_web: ") end
     if verbose then print(zurl) end
 
