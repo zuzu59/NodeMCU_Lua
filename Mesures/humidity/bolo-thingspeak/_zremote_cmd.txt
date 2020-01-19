@@ -1,15 +1,17 @@
 # Quelques commandes remote (luatool) à envoyer avec le plugin Atom-IDE-terminal de l'éditeur Atom
-# zf200116.1833
+# zf200119.0953
 
 Todo à faire pour ce projet !
 
+v- if verbose print partout dans *.lua
+v- clignoter la led à chaque mesure en fonction de verbose
+- utiliser le bouton pour piloter le verbose
 
-- terminer la page .html affichage de la température et de l'humidité
+v- terminer la page .html affichage de la température et de l'humidité
 - trouver un moyen pour configurer la lED dans initz.lua sans le rendre dangereux en cas de problème (éviter le reflashing en cas de reboot loop)
 
 - lancement ou arrêt du WEBIDE via la home page
 - arrêter de demander de connecter le WIFI automatiquement en mode station juste après le boot dans la config wifiinit (automatic connect)
-- if verbose print partout dans *.lua
 - le wifi setup ne fonctionne toujours pas quand il y a déjà un ap de connecté (problème du reboot quand adrs ip ok)!
 
 v- ajouter fonction restart dans z_index.html (ATTENTION avec un argument restart, pas besoin de faire une page restart.html !)
@@ -64,13 +66,12 @@ for k,v in pairs(_G) do print(k,v) end
 
 
 # commandes lua pour ce projet
-export zIP="192.168.0.182"
-export zIP="192.168.4.1"
-export zIP="192.168.4.4"
+export zIP="192.168.0.152"
 export zport="23"
 ./luatool.py --ip $zIP:$zport -f z_index.html
 
-./luatool.py --ip $zIP:$zport -f secrets_project.lua
+./luatool.py --ip $zIP:$zport -f 0_send_data.lua
+./luatool.py --ip $zIP:$zport -f 0_cron.lua
 
 ./luatool.py --ip $zIP:$zport -f api_sonoff.html
 http://192.168.0.182
