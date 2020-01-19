@@ -1,9 +1,10 @@
 # Quelques commandes remote (luatool) à envoyer avec le plugin Atom-IDE-terminal de l'éditeur Atom
-# zf200119.1034
+# zf200119.1043
 
 
 Todo à faire pour ce projet !
 
+- faire que send_data et read_temp soient lancés à la volée afin d'économiser de la RAM quand ce n'est pas utilisé
 - arrêter de demander de connecter le WIFI automatiquement en mode station juste après le boot dans la config wifiinit (automatic connect)
 - lancement ou arrêt du WEBIDE via la home page
 - le wifi setup ne fonctionne toujours pas quand il y a déjà un ap de connecté (problème du reboot quand adrs ip ok)!
@@ -81,11 +82,13 @@ telnet -rN $zIP $zport
 verbose=false
 ~.
 
+=node.heap()
+collectgarbage()
+=node.heap()
+
 
 dofile("dir.lua")
 dir()
-collectgarbage()
-=node.heap()
 for k,v in pairs(_G) do print(k,v) end
 dofile("wifi_info.lua")
 

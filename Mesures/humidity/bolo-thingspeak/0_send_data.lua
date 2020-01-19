@@ -1,5 +1,5 @@
 -- Petit script pour envoyer les valeurs de température sur un serveur WEB via un HTTP GET
-print("\n 0_send_data.lua   zf200119.1009   \n")
+print("\n 0_send_data.lua   zf200119.1433   \n")
 
 function send_data()
     if verbose then print("send_data_web: ") end
@@ -14,8 +14,10 @@ function send_data()
             end
             zurl=nil
         end)
+    zurl=nil send_data=nil
+    if verbose then print(node.heap()) end
+    collectgarbage()
+    if verbose then print(node.heap()) end
 end
 
---[[
 send_data()
-]]

@@ -1,19 +1,18 @@
 -- Scripts à charger après le boot pour démarrer son projet
 
-print("\n boot.lua zf20015.1700 \n")
+print("\n boot.lua zf20019.1438 \n")
 
 function boot()
-
+    verbose = true
     print("booooooooooot...")
     print(node.heap()) collectgarbage() print(node.heap())
 
-    f= "0_htu21d.lua"   if file.exists(f) then dofile(f) end
-    f= "0_send_data.lua"   if file.exists(f) then dofile(f) end
-    f= "0_cron.lua"   if file.exists(f) then dofile(f) end
-    --f= "web_ide2.lua"   if file.exists(f) then dofile(f) end
-    
-    f=nil boot=nil
-    verbose = true
+    f="0_htu21d.lua"   if file.exists(f) then dofile(f) end
+    zurl=thingspeak_url.."field1="..tostring(ztemp1).."&field2="..tostring(zhum1)
+    f="0_send_data.lua"   if file.exists(f) then dofile(f) end
+    f="0_cron.lua"   if file.exists(f) then dofile(f) end
+    --f = "web_ide2.lua"   if file.exists(f) then dofile(f) end
 
+    f=nil boot=nil
 end
 boot()
