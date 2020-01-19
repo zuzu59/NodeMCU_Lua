@@ -1,5 +1,5 @@
 -- Lit le capteur I2C HTU21D de mesure d'humidité et de température
-print("\n 0_htu21d.lua zf191219.1920 \n")
+print("\n 0_htu21d.lua zf200119.0957 \n")
 
 -- module https://learn.sparkfun.com/tutorials/htu21d-humidity-sensor-hookup-guide/all
 -- acahat https://www.aliexpress.com/item/32480177429.html
@@ -37,6 +37,6 @@ function readHumi()
     return tonumber(string.format("%.1f", tostring(r/100)))
 end
 
-r = nil
 print("Temperature: "..readTemp().." °C")
 print("Humidity: "..readHumi().." %")
+r = nil

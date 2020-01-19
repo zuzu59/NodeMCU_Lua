@@ -1,18 +1,14 @@
 # Quelques commandes remote (luatool) à envoyer avec le plugin Atom-IDE-terminal de l'éditeur Atom
-# zf200119.0953
+# zf200119.1034
+
 
 Todo à faire pour ce projet !
 
-v- if verbose print partout dans *.lua
-v- clignoter la led à chaque mesure en fonction de verbose
-- utiliser le bouton pour piloter le verbose
-
-v- terminer la page .html affichage de la température et de l'humidité
-- trouver un moyen pour configurer la lED dans initz.lua sans le rendre dangereux en cas de problème (éviter le reflashing en cas de reboot loop)
-
-- lancement ou arrêt du WEBIDE via la home page
 - arrêter de demander de connecter le WIFI automatiquement en mode station juste après le boot dans la config wifiinit (automatic connect)
+- lancement ou arrêt du WEBIDE via la home page
 - le wifi setup ne fonctionne toujours pas quand il y a déjà un ap de connecté (problème du reboot quand adrs ip ok)!
+- trouver un moyen pour configurer la lED dans initz.lua sans le rendre dangereux en cas de problème (éviter le reflashing en cas de reboot loop)
+- utiliser le bouton pour piloter le verbose
 
 v- ajouter fonction restart dans z_index.html (ATTENTION avec un argument restart, pas besoin de faire une page restart.html !)
 v- ajouter l'affichage du node_id dans z_index.html
@@ -21,14 +17,17 @@ v- ajouter un état du RELAY et de la LED dans z_index.html
 v- ajouter une page affichage variables globales
 v- améliorer api_sonoff.html, il faut ajouter 'home' sur la page
 v- améliorer le résultat de api_sonoff.html, il faut sortir l'état des IO lors d'un changement comme confirmation
+v- clignoter la led à chaque mesure en fonction de verbose
 v- copier secrets_project et secrets_wifi dans _secrets_project_  _secrets_wifi_ pour la documentation
 v- déplacer le mode AP dans wifi_init
 v- enlever la ligne wifi init dans z_index.html
 v- faire la page web service pour allumer la LED
 v- faire la page web service pour allumer le relay
 v- garder variable node_id pour identification après poweron général, reattribution adrs ip sur modem 4G
+v- if verbose print partout dans *.lua
 v- passer à 10 secondes la seconde chance
 v- passer à 15x les tentatives de connexions au WIFI
+v- terminer la page .html affichage de la température et de l'humidité
 v- vérifier le fonctionnement d'allumer la LED, car ne marche plus !
 x- mettre ZLED2 et ZRELAY dans secrets_project
 x-ajouter argument ok dans wifi_init.html (sécurité)
@@ -72,6 +71,7 @@ export zport="23"
 
 ./luatool.py --ip $zIP:$zport -f 0_send_data.lua
 ./luatool.py --ip $zIP:$zport -f 0_cron.lua
+./luatool.py --ip $zIP:$zport -f 0_htu21d.lua
 
 ./luatool.py --ip $zIP:$zport -f api_sonoff.html
 http://192.168.0.182
@@ -79,6 +79,8 @@ http://192.168.0.182
 
 telnet -rN $zIP $zport
 verbose=false
+~.
+
 
 dofile("dir.lua")
 dir()
@@ -88,7 +90,8 @@ for k,v in pairs(_G) do print(k,v) end
 dofile("wifi_info.lua")
 
 node.restart()
-~.
+ping -c 10 $zIP
+
 ./luatool.py --ip $zIP:$zport -f dir.lua
 
 

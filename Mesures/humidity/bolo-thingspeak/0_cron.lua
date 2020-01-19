@@ -1,5 +1,5 @@
 -- Petit script pour faire office de crontab pour les mesures
-print("\n 0_cron.lua   zf200119.0947   \n")
+print("\n 0_cron.lua   zf200119.1009   \n")
 
 cron1=tmr.create()
 cron1:alarm(20*1000,  tmr.ALARM_AUTO, function()
@@ -9,6 +9,6 @@ cron1:alarm(20*1000,  tmr.ALARM_AUTO, function()
     if verbose then print("Temperature: "..ztemp1.." °C") end
     if verbose then print("Humidity: "..zhum1.." %") end
     zurl=thingspeak_url.."field1="..tostring(ztemp1).."&field2="..tostring(zhum1)
-    send_temp()
+    send_data() ztemp1=nil zhum1=nil r=nil
     if verbose then print(node.heap()) collectgarbage() print(node.heap()) end
 end)
