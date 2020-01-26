@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+
+<!-- ATTENTION, la longueur des lignes DOIT être <128 ! -->
+
+<html lang="fr" dir="ltr">
+<head>
+    <meta charset='utf-8' name='viewport' content='width=device-width, initial-scale=1.0'>
+<%
+    zout("<title>"..node_id.."</title>")
+%>
+</head>
+<body>
+<%
+    zout("<h1>"..node_id.."&nbsp;&nbsp;&nbsp; 200118.1804 </h1>")
+%>
+    <a href="/">Home...</a><br>
+    <h2>Menu:</h2>
+    <h3>
+
+    LED
+    <a href="api_sonoff.html?LED=on"> On</a>
+    <a href="api_sonoff.html?LED=off"> Off</a><br>
+
+    <a href="disp_temp.html">Affichage de la température et humidité</a><br>
+    <br>
+    <a href="z_index.html?SetupWIFI=true">Wifi setup</a><br>
+    </h3>
+
+<%
+    if _GET.SetupWIFI == "true" then
+        print("On demande le setup wifi depuis le browser !")
+        wifi_setup_ok=(math.floor(100*node.random()))
+        zout("<br><br>Etes-vous vraiment certain ?<br>Si oui, faites: ")
+        zout('<a href="/?SetupWIFI='..wifi_setup_ok..'"> Ok</a><br><br>')
+    end
+%>
+
+<%
+    if (wifi_setup_ok ~= nil) and (_GET.SetupWIFI == tostring(wifi_setup_ok)) then
+        print("On confirme le setup wifi depuis le browser !")
+        zout("<br><br>Choisir comme WIFI AP: setup_gadget puis aller sur: http://192.168.4.1<br><br>")
+        file.putcontents("_setup_wifi_", "toto")
+        tmr.create():alarm(5*1000,  tmr.ALARM_SINGLE, function()
+            print("on restart pour le setup wifi")
+            wifi.sta.config{ssid="", pwd="", auto=true, save=true}
+            wifi.sta.autoconnect(1)   wifi.sta.connect()
+            node.restart()
+        end)
+    end
+%>
+
+<%
+    if _GET.RESTART == "true" then
+        print("oups restart...")
+        zout("<br><br>oups restart...<br><br>")
+        tmr.create():alarm(5*1000,  tmr.ALARM_SINGLE, function()
+            print("on restart...")
+            node.restart()
+        end)
+    end
+%>
+
+<%
+    zout("Etat de la LED:<nsp>")
+    if gpio.read(zLED) == 1 then zout("OFF") else zout("ON") end
+    zout("<br>")
+%>
+
+<%
+    if zRELAY ~= nil then
+        zout("Etat du RELAY:<nsp>")
+        if gpio.read(zRELAY) == 0 then zout("OFF") else zout("ON") end
+        zout("<br>")
+    end
+%>
+
+<%
+    a,b,c = wifi.sta.getip()
+    if a ~= nil then
+        zout("<br>IP: "..a.."<br>\n".."MASK: "..b.."<br>\n".."GATEWAY: "..c.."<br>\n")
+        a=nil b=nil c=nil
+    end
+    collectgarbage()   zout("RAM: "..node.heap().."<br>")
+%>
+
+<%
+    zout("<br>Etat des GLOBALS !<br>\n")
+    zout("<table>\n")
+    for k,v in pairs(_G) do
+        if k ~= "lua_code" then
+            v = tostring(v)
+            zout("<tr>")
+                zout("<td>"..k.."</td>") zout("<td>"..v.."</td>")
+            zout("</tr>\n")
+        end
+    end
+    zout("</table>")
+%>
+
+<br><br><a href="/?RESTART=true"> Restart !</a><br>
+
+</body>
+</html>
