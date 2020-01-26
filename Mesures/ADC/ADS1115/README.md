@@ -1,17 +1,16 @@
 # Tests et découverte du petit breakout ADS1115, convertisseur analogique digital 16 bits 4x entrées
+zf200126.1149
 
 Petit projet pour tester et découvrir cd petit bijou qu'est le breakout ADS1115, convertisseur analogique digital 16 bits 4x entrées utilisable en I2C.
 
-<br><br>![Image](https://zraw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/humidity/bolo-thingspeak/img/graph_thingspeak1.png)
+<br><br>![Image](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/ADC/ADS1115/img/4_Channel_AD_Module_ADS1115.jpg)
 
 Module ADS1115
-
 
 
 ## Autres utilisations de ce projet
 
 On peut très bien *enregistrer* d'autres *mesures* comme par exemple, une consommation électrique, production solaire ou débit d'eau d'une douche. Il y a très peu de lignes à modifier pour le faire. C'est donc la base de l'enregistrement pour pleins de mesures en domotique ;-)
-
 
 
 <br><br>
@@ -34,11 +33,11 @@ Toutes les fonctions sont bien séparées dans des scripts .lua, cela *complexif
 
 On utilise un tout petit capteur low cost, le **xxx**, mesure de xxx sur bus I2C.
 
-<br><br>![Image](https://zraw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/humidity/bolo-thingspeak/img/graph_thingspeak1.png)
+<br><br>![Image](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/ADC/ADS1115/img/4_Channel_AD_Module_ADS1115.jpg)
 
 Module ADS1115
 
-<br><br>![Image](https://zraw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/humidity/bolo-thingspeak/img/graph_thingspeak1.png)
+<br><br>![Image](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/ADC/ADS1115/img/4_Channel_AD_Module_ADS1115_pinout.jpg)
 
 Broches ADS1115
 
@@ -58,12 +57,12 @@ https://cdn-shop.adafruit.com/datasheets/ads1115.pdf
 
 ### Schéma
 
-<br><br>![Image](https://zraw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/humidity/bolo-thingspeak/schema/schema.png)
+<br><br>![Image](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/ADC/ADS1115/schema/schema.png)
 
 Schéma de connexion à 4x fils très simple
 
 
-<br><br>![Image](https://zraw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/humidity/bolo-thingspeak/schema/pcb.png)
+<br><br>![Image](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/ADC/ADS1115/schema/pcb.png)
 
 Et son PCB (breadboard)
 
@@ -288,8 +287,3 @@ telnet -rN 192.168.0.xxx
 ```
 
 C'est aussi depuis ce moyen que l'on peut mettre, à distance, à jour le code Lua du NodeMCU de manière centralisée et automatique (luatool.py)
-
-
-
-
-zf200126.1127
