@@ -1,5 +1,5 @@
 -- fonction cat() pour afficher le contenu d'un fichier dans la flash
-print("\n cat.lua   zf191124.2204   \n")
+print("\n cat.lua   zf200209.1630   \n")
 
 function zread_line()
     local zline = ""
@@ -15,7 +15,13 @@ function cat(zfile)
     zf = file.open(zfile, "r")
     while true do
         zline = zread_line()   if zline == nil then break end
+
+        tmr.delay(100*1000)
+
         print(zline)
+
+
+        
     end
     zf:close()
     print("-------------------------------")
