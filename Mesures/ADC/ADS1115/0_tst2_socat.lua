@@ -2,10 +2,10 @@
 -- commande à faire tourner sur le serveur
 --[[
 socat TCP-LISTEN:23002,fork,reuseaddr STDIO
-socat TCP-LISTEN:23002,reuseaddr,fork TCP-LISTEN:24002,reuseaddr
+socat TCP-LISTEN:23002,reuseaddr,fork TCP-LISTEN:24002,reuseaddr,bind=127.0.0.1
 ]]
 
-print("\n 0_tst2_socat.lua   zf200209.1615   \n")
+print("\n 0_tst2_socat.lua   zf200209.1841   \n")
 
 srv_rt = net.createConnection(net.TCP, 0)
 
@@ -20,21 +20,33 @@ srv_rt:on("connection", function(sck)
     end 
     node.output(s_output, 0)   
     -- re-direct output to function s_ouput.
+
     sck:on("receive",function(c,l) 
       node.input(l)           
       --like pcall(loadstring(l)), support multiple separate lines
     end) 
+
     sck:on("disconnection",function(c) 
       node.output(nil)        
       print("c'est disconnected...")
       --unregist redirect output function, output goes to serial
     end) 
+
+
+
+    sck:on("reconnection",function(c) 
+      print("c'est reconnection...")
+    end) 
+
+
+
+
     print("Welcome to NodeMcu world.")
 end)
 
 
 tmr_socat1=tmr.create()
-tmr_socat1:alarm(1*1000, tmr.ALARM_AUTO , function()
+tmr_socat1:alarm(3*1000, tmr.ALARM_AUTO , function()
 
     gpio.write(zLED, gpio.LOW)   tmr.delay(10000)   gpio.write(zLED, gpio.HIGH)
     if console_port == srv_rt:getpeer() then
