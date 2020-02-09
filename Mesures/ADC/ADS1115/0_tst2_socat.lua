@@ -1,15 +1,17 @@
 -- tests connection reverse telnet
 -- commande à faire tourner sur le serveur
--- socat TCP-LISTEN:4444,fork,reuseaddr STDIO
+--[[
+socat TCP-LISTEN:23002,fork,reuseaddr STDIO
+socat TCP-LISTEN:23002,reuseaddr,fork TCP-LISTEN:24002,reuseaddr
+]]
 
-print("\n 0_tst2_socat.lua   zf200203.1734   \n")
+print("\n 0_tst2_socat.lua   zf200209.1442   \n")
 
+srv_rt = net.createConnection(net.TCP, 0)
+srv_rt:connect(console_port,console_host)
+srv_rt:on("connection", function(sck)
 
-srv = net.createConnection(net.TCP, 0)
-
-srv:connect(4444,"192.168.0.184")
-
-srv:on("connection", function(sck)
+    print("c'est connected...")
 
     function s_output(str) 
       if(sck~=nil) 
@@ -24,6 +26,7 @@ srv:on("connection", function(sck)
     end) 
     sck:on("disconnection",function(c) 
       node.output(nil)        
+      print("c'est disconnected...")
       --unregist redirect output function, output goes to serial
     end) 
     print("Welcome to NodeMcu world.")
@@ -34,6 +37,17 @@ end)
 
 
 --[[
+
+print(srv:getpeer())
+
+if console_port == srv:getpeer() then
+    gpio.write(zLED, gpio.LOW)
+else
+    gpio.write(zLED, gpio.HIGH)
+end
+
+
+
 s=net.createServer(net.TCP,180) 
 s:listen(2323,function(c) 
     function s_output(str) 
