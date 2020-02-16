@@ -1,11 +1,12 @@
 # Quelques commandes remote (luatool) à envoyer avec le plugin Atom-IDE-terminal de l'éditeur Atom
-# zf200216.1523
+# zf200216.1656
 
 
 Todo à faire pour ce projet !
 
-- mettre le numéro jaune du nodemcu dans les secrets projet et prendre 23000+num_jaune comme numéro de port pour le reverse telnet
-- regarder pour faire tourner en MEME temps le reverse et le forward telnet
+- ajouter l'adresse du zdyndns dans les secrets projets
+- se connecter sur le zdyndns avec le numéro du port du telnet reverse utilisé
+- y regarder pour faire tourner en MEME temps le reverse et le forward telnet
 - z lancement ou arrêt du WEBIDE via la home page
 v- ajouter fonction restart dans z_index.html (ATTENTION avec un argument restart, pas besoin de faire une page restart.html !)
 v- ajouter l'affichage du node_id dans z_index.html
@@ -25,6 +26,7 @@ v- faire que send_data et read_temp soient lancés à la volée afin d'économis
 v- garder variable node_id pour identification après poweron général, reattribution adrs ip sur modem 4G
 v- if verbose print partout dans *.lua
 v- le wifi setup ne fonctionne toujours pas quand il y a déjà un ap de connecté (problème du reboot quand adrs ip ok)!
+v- mettre le numéro jaune du nodemcu dans les secrets projet et prendre 23000+num_jaune comme numéro de port pour le reverse telnet
 v- passer à 10 secondes la seconde chance
 v- passer à 15x les tentatives de connexions au WIFI
 v- terminer la page .html affichage de la température et de l'humidité

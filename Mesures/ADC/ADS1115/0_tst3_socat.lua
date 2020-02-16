@@ -4,13 +4,13 @@ commande à faire tourner sur le serveur
 
 1ere console
 socat TCP-LISTEN:23002,fork,reuseaddr STDIO
-socat TCP-LISTEN:23002,reuseaddr,fork TCP-LISTEN:24002,reuseaddr,bind=127.0.0.1
+socat TCP-LISTEN:23047,reuseaddr,fork TCP-LISTEN:24047,reuseaddr,bind=127.0.0.1
 
 2e console
-telnet -r localhost 24002
+telnet -r localhost 24047
 ]]
 
-print("\n 0_tst3_socat.lua   zf200216.1521   \n")
+print("\n 0_tst3_socat.lua   zf200216.1653   \n")
 
 local node, table, tmr, wifi, uwrite,     tostring =
       node, table, tmr, wifi, uart.write, tostring
