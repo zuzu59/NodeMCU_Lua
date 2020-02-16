@@ -1,10 +1,10 @@
 -- Scripts à charger après le boot pour démarrer son projet
 
-print("\n boot.lua zf200203.1423 \n")
+print("\n boot.lua zf200216.1332 \n")
 
 function boot()
     verbose = true
-    print("booooooooooot...")
+    print("On lance le boot...")
     print(node.heap()) collectgarbage() print(node.heap())
 
     --f="0_htu21d.lua"   if file.exists(f) then dofile(f) end
