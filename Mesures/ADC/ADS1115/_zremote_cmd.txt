@@ -1,16 +1,12 @@
 # Quelques commandes remote (luatool) à envoyer avec le plugin Atom-IDE-terminal de l'éditeur Atom
-# zf200119.1043
+# zf200216.1523
 
 
 Todo à faire pour ce projet !
 
-- faire que send_data et read_temp soient lancés à la volée afin d'économiser de la RAM quand ce n'est pas utilisé
-- arrêter de demander de connecter le WIFI automatiquement en mode station juste après le boot dans la config wifiinit (automatic connect)
-- lancement ou arrêt du WEBIDE via la home page
-- le wifi setup ne fonctionne toujours pas quand il y a déjà un ap de connecté (problème du reboot quand adrs ip ok)!
-- trouver un moyen pour configurer la lED dans initz.lua sans le rendre dangereux en cas de problème (éviter le reflashing en cas de reboot loop)
-- utiliser le bouton pour piloter le verbose
-
+- mettre le numéro jaune du nodemcu dans les secrets projet et prendre 23000+num_jaune comme numéro de port pour le reverse telnet
+- regarder pour faire tourner en MEME temps le reverse et le forward telnet
+- z lancement ou arrêt du WEBIDE via la home page
 v- ajouter fonction restart dans z_index.html (ATTENTION avec un argument restart, pas besoin de faire une page restart.html !)
 v- ajouter l'affichage du node_id dans z_index.html
 v- ajouter le web_srv2 dans boot au lieu de boot2
@@ -18,20 +14,26 @@ v- ajouter un état du RELAY et de la LED dans z_index.html
 v- ajouter une page affichage variables globales
 v- améliorer api_sonoff.html, il faut ajouter 'home' sur la page
 v- améliorer le résultat de api_sonoff.html, il faut sortir l'état des IO lors d'un changement comme confirmation
+v- arrêter de demander de connecter le WIFI automatiquement en mode station juste après le boot dans la config wifiinit (automatic connect)
 v- clignoter la led à chaque mesure en fonction de verbose
 v- copier secrets_project et secrets_wifi dans _secrets_project_  _secrets_wifi_ pour la documentation
 v- déplacer le mode AP dans wifi_init
 v- enlever la ligne wifi init dans z_index.html
 v- faire la page web service pour allumer la LED
 v- faire la page web service pour allumer le relay
+v- faire que send_data et read_temp soient lancés à la volée afin d'économiser de la RAM quand ce n'est pas utilisé
 v- garder variable node_id pour identification après poweron général, reattribution adrs ip sur modem 4G
 v- if verbose print partout dans *.lua
+v- le wifi setup ne fonctionne toujours pas quand il y a déjà un ap de connecté (problème du reboot quand adrs ip ok)!
 v- passer à 10 secondes la seconde chance
 v- passer à 15x les tentatives de connexions au WIFI
 v- terminer la page .html affichage de la température et de l'humidité
+v- terminer le reverse telnet ;-)
+v- trouver un moyen pour configurer la lED dans initz.lua sans le rendre dangereux en cas de problème (éviter le reflashing en cas de reboot loop)
+v- utiliser le bouton pour piloter le verbose
 v- vérifier le fonctionnement d'allumer la LED, car ne marche plus !
+x- ajouter argument ok dans wifi_init.html (sécurité)
 x- mettre ZLED2 et ZRELAY dans secrets_project
-x-ajouter argument ok dans wifi_init.html (sécurité)
 
 
 
