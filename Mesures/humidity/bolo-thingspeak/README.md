@@ -1,4 +1,5 @@
 # Mesure de température et d'humidité avec un NodeMCU en Lua
+zf200216.1231
 
 Petit projet pour mesurer la température et l'humidité avec un capteur HTU21D et l'afficher sur ThingSpeak. Comme par exemple pour *enregistrer* la température et l'humidité d'un local au cours du temps.
 
@@ -310,8 +311,3 @@ telnet -rN 192.168.0.xxx
 ```
 
 C'est aussi depuis ce moyen que l'on peut mettre, à distance, à jour le code Lua du NodeMCU de manière centralisée et automatique (luatool.py)
-
-
-
-
-zf200118.1639

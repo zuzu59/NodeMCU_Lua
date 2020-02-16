@@ -1,8 +1,9 @@
 # Mesure d'humidité et de température
+zf200216.1230
 
 Petit projet pour mesurer l'humidité et la température et l'afficher sur Grafana avec une DB InfluxDB. Comme par exemple pour monitorer l'humidité d'un local au cours du temps.
 
-![Image](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/humidity/bolo/img/Constellation_sondes_mesures.jpg)
+![Image](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/humidity/bolo/img/Constellation_sondes_mesures2.jpg)
 
 Constellation de sondes de mesures
 
@@ -126,7 +127,6 @@ telnet -rN 192.168.0.xxx
 
 
 
-zf191221.0825
 
 
 pense bête:
