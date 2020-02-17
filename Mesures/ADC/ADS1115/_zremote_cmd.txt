@@ -1,9 +1,10 @@
 # Quelques commandes remote (luatool) à envoyer avec le plugin Atom-IDE-terminal de l'éditeur Atom
-# zf200216.1702
+# zf200217.0429
 
 
 Todo à faire pour ce projet !
 
+- ajouter la variable yellow_tag avec le numéro de l'étiquette jaune du NodeMCU
 - regarder pour mettre "Welcome to NodeMCU world." quand connected, en fait quand on arrive dans le telnet_listener après la redirection du port série !
 - ajouter l'adresse du zdyndns dans les secrets projets
 - se connecter sur le zdyndns avec le numéro du port du telnet reverse utilisé
