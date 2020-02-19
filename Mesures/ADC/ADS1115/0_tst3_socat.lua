@@ -10,7 +10,7 @@ socat TCP-LISTEN:23047,reuseaddr,fork TCP-LISTEN:24047,reuseaddr,bind=127.0.0.1
 telnet -r localhost 24047
 ]]
 
-print("\n 0_tst3_socat.lua   zf200219.1412   \n")
+print("\n 0_tst3_socat.lua   zf200219.1417   \n")
 
 local node, table, tmr, wifi, uwrite,     tostring =
       node, table, tmr, wifi, uart.write, tostring
@@ -106,6 +106,7 @@ print("Telnet server running...\nUsage: telnet -rN ip\n")
 
 
 function rt_connect()
+    print("on connecte le bidule...")
     srv_rt = net.createConnection(net.TCP, 0)
     srv_rt:on("connection", function(sck)
         if verbose then print("connected zzz on "..console_host..":"..console_port+yellow_tag) end
