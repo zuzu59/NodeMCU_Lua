@@ -10,7 +10,7 @@ socat TCP-LISTEN:23047,reuseaddr,fork TCP-LISTEN:24047,reuseaddr,bind=127.0.0.1
 telnet -r localhost 24047
 ]]
 
-print("\n 0_tst3_socat.lua   zf200219.1417   \n")
+print("\n 0_tst3_socat.lua   zf200219.1616   \n")
 
 local node, table, tmr, wifi, uwrite,     tostring =
       node, table, tmr, wifi, uart.write, tostring
@@ -113,14 +113,17 @@ function rt_connect()
         telnet_listener(sck)
         print("Welcome to NodeMCU world.")
     end)
-    --srv_rt:connect(console_port+yellow_tag,console_host)
-    srv_rt:connect(23047,console_host)
+    srv_rt:connect(console_port+yellow_tag,console_host)
+    --srv_rt:connect(23047,console_host)
 end
+
+
+
 
 tmr_socat1=tmr.create()
 tmr_socat1:alarm(3*1000, tmr.ALARM_AUTO , function()
     if verbose then gpio.write(zLED, gpio.LOW) tmr.delay(10000) gpio.write(zLED, gpio.HIGH) end
-    if console_port == srv_rt:getpeer() then
+    if console_port+yellow_tag == srv_rt:getpeer() then
         if verbose then gpio.write(zLED, gpio.LOW) end
     else
         if verbose then
@@ -130,6 +133,8 @@ tmr_socat1:alarm(3*1000, tmr.ALARM_AUTO , function()
         rt_connect()
     end
 end)
+
+
 
 rt_connect()
 
