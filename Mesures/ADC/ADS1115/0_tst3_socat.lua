@@ -10,7 +10,7 @@ socat TCP-LISTEN:23047,reuseaddr,fork TCP-LISTEN:24047,reuseaddr,bind=127.0.0.1
 telnet -r localhost 24047
 ]]
 
-print("\n 0_tst3_socat.lua   zf200219.1621   \n")
+print("\n 0_tst3_socat.lua   zf200220.0926   \n")
 
 local node, table, tmr, wifi, uwrite,     tostring =
       node, table, tmr, wifi, uart.write, tostring
@@ -135,6 +135,7 @@ rt_connect()
 
 
 --[[
+tmr_socat1:unregister()
 for k,v in pairs(_G) do print(k,v) end
 
 print(srv_rt:getpeer())
