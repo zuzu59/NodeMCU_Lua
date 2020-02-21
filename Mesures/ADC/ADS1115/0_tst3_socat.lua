@@ -3,14 +3,16 @@ tests connection reverse telnet
 commande à faire tourner sur le serveur
 
 1ere console
-socat TCP-LISTEN:23002,fork,reuseaddr STDIO
-socat TCP-LISTEN:23047,reuseaddr,fork TCP-LISTEN:24047,reuseaddr,bind=127.0.0.1
+pour une liaison directe: 
+socat TCP-LISTEN:23047,fork,reuseaddr STDIO
+pour une console sur un port:
+socat TCP-LISTEN:23047,reuseaddr,fork TCP-LISTEN:23000,reuseaddr,bind=127.0.0.1
 
 2e console
-telnet -r localhost 24047
+telnet -r localhost 23000
 ]]
 
-print("\n 0_tst3_socat.lua   zf200220.0926   \n")
+print("\n 0_tst3_socat.lua   zf200221.1335   \n")
 
 local node, table, tmr, wifi, uwrite,     tostring =
       node, table, tmr, wifi, uart.write, tostring
@@ -84,13 +86,23 @@ local function telnet_listener(socket)
   local function disconnect(s)
     fifo1, fifo1l, fifo2, fifo2l, s = {}, 0, {}, 0, nil
     node.output(nil)
-    ---srv_rt=nil
+--    srv_rt=nil
     print("disconnected...")
+--[[
+    print("rt_retry:",rt_retry)
+    rt_retry=rt_retry-1
+    print("rt_retry:",rt_retry)
+    if rt_retry>=0 then
+        print("on ressaie en vitesse ;-)")
+        rt_connect()
+    end
+]]
+    
   end
 
   --zzz
   local function zconnection(s)
-    print("Welcome to NodeMCU world.")
+    print("Welcome on ne devrait jamais passer pa là to NodeMCU world.")
   end
 
   socket:on("connection",    zconnection)
@@ -104,9 +116,11 @@ end
 print("Telnet server running...\nUsage: telnet -rN ip\n")
 
 function rt_connect()
+    srv_rt = nil
     srv_rt = net.createConnection(net.TCP, 0)
     srv_rt:on("connection", function(sck)
         if verbose then print("connected on "..console_host..":"..console_port+yellow_tag) end
+        if verbose then print(node.heap()) collectgarbage() print(node.heap()) end
         telnet_listener(sck)
         print("Welcome to NodeMCU world.")
     end)
@@ -114,7 +128,8 @@ function rt_connect()
 end
 
 tmr_socat1=tmr.create()
-tmr_socat1:alarm(3*1000, tmr.ALARM_AUTO , function()
+tmr_socat1:alarm(5*1000, tmr.ALARM_AUTO , function()
+    rt_retry=1   
     if verbose then gpio.write(zLED, gpio.LOW) tmr.delay(10000) gpio.write(zLED, gpio.HIGH) end
     if console_port+yellow_tag == srv_rt:getpeer() then
         if verbose then gpio.write(zLED, gpio.LOW) end
@@ -122,11 +137,13 @@ tmr_socat1:alarm(3*1000, tmr.ALARM_AUTO , function()
         if verbose then
             gpio.write(zLED, gpio.HIGH)
             print("trying connect to "..console_host..":"..console_port+yellow_tag)
+            if verbose then print(node.heap()) collectgarbage() print(node.heap()) end
         end
         rt_connect()
     end
 end)
 
+rt_retry=1
 rt_connect()
 
 
