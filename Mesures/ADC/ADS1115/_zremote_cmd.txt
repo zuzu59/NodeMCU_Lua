@@ -1,5 +1,5 @@
 # Quelques commandes remote (luatool) à envoyer avec le plugin Atom-IDE-terminal de l'éditeur Atom
-# zf200229.1600
+# zf200229.2300
 
 
 Todo à faire pour ce projet !
@@ -60,7 +60,7 @@ export zIP="192.168.0.182"
 export zport="23"
 
 export zIP="localhost"
-export zport="2323"
+export zport="23000"
 ATTENTION: voir les tunnels tout à la fin !
 
 
@@ -74,8 +74,18 @@ for k,v in pairs(_G) do print(k,v) end
 
 
 # commandes lua pour ce projet
-export zIP="192.168.0.152"
-export zport="23"
+ssh ubuntu@www.zuzutest.ml killall -9 socat
+killall -9 ssh
+ssh ubuntu@www.zuzutest.ml socat TCP-LISTEN:23047,reuseaddr,fork TCP-LISTEN:23000,reuseaddr,bind=127.0.0.1 &
+watch -n 1 'ssh ubuntu@www.zuzutest.ml netstat -nat |grep 230'
+ssh -N -L 23000:localhost:23000 ubuntu@www.zuzutest.ml &
+
+export zIP="localhost"
+export zport="23000"
+telnet -rN $zIP $zport
+for k,v in pairs(_G) do print(k,v) end
+~.
+
 ./luatool.py --ip $zIP:$zport -f z_index.html
 
 ./luatool.py --ip $zIP:$zport -f 0_send_data.lua
@@ -85,6 +95,7 @@ export zport="23"
 ./luatool.py --ip $zIP:$zport -f api_sonoff.html
 http://192.168.0.182
 
+./luatool.py --ip $zIP:$zport -f dir.lua
 
 telnet -rN $zIP $zport
 verbose=false
@@ -103,7 +114,6 @@ dofile("wifi_info.lua")
 node.restart()
 ping -c 10 $zIP
 
-./luatool.py --ip $zIP:$zport -f dir.lua
 
 
 

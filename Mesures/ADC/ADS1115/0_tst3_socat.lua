@@ -12,7 +12,7 @@ socat TCP-LISTEN:23047,reuseaddr,fork TCP-LISTEN:23000,reuseaddr,bind=127.0.0.1
 telnet -r localhost 23000
 ]]
 
-print("\n 0_tst3_socat.lua   zf200229.1854   \n")
+print("\n 0_tst3_socat.lua   zf200229.2243   \n")
 
 local node, table, tmr, uwrite, tostring =
       node, table, tmr, uart.write, tostring
@@ -137,7 +137,7 @@ function rt_connect()
 end
 
 tmr_socat1=tmr.create()
-tmr_socat1:alarm(2000*1000, tmr.ALARM_AUTO , function()
+tmr_socat1:alarm(5*1000, tmr.ALARM_AUTO , function()
     rt_retry=1   
     if verbose then gpio.write(zLED, gpio.LOW) tmr.delay(10000) gpio.write(zLED, gpio.HIGH) end
     
