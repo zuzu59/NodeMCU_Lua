@@ -1,7 +1,7 @@
 -- Petit script pour initaliser la couche WIFI
 
 function wifi_init()
-    print("\n wifi_init.lua   zf200216.1348   \n")
+    print("\n wifi_init.lua   zf200229.1438   \n")
 
     f= "secrets_wifi.lua"    if file.exists(f) then dofile(f) end
     f= "secrets_project.lua"    if file.exists(f) then dofile(f) end
@@ -34,6 +34,9 @@ function wifi_init()
         tmr_wifi_init4:alarm(0.1*1000, tmr.ALARM_AUTO , function()
             gpio.write(zLED, gpio.LOW)   tmr.delay(10000)   gpio.write(zLED, gpio.HIGH)
         end)
+        tmr.create():alarm(90*1000,  tmr.ALARM_SINGLE, function()
+            node.restart()
+        end)
         enduser_setup.start(function()
             print("on est sortit du setup wifi et on restart !")
             node.restart()
@@ -56,9 +59,9 @@ function wifi_init()
         tmr_wifi_init1:alarm(1*1000, tmr.ALARM_AUTO , function()
             gpio.write(zLED, gpio.LOW)   tmr.delay(10000)   gpio.write(zLED, gpio.HIGH)
             if wifi.sta.getip() == nil then
-                print("Connecting to AP...")
+                print(i,"Connecting to AP...")
                 i=i+1
-                if i > 15 then
+                if i > 20 then
                     print("pas de wifi :-(")
                     file.putcontents("_setup_wifi_", "toto")
                     print("on restart pour le setup wifi")

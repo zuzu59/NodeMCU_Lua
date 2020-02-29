@@ -1,6 +1,6 @@
 #!/bin/bash
 # petit script provisoire pour se connecter sur les NodeMCU en reverse telnet
-# zf200221.1336
+# zf200228.1857
 
 
 #test si l'argument est vide
@@ -10,6 +10,7 @@ if [ -z "$1" ]
 
 ./rtelnet.sh socket
 ./rtelnet.sh 23047
+./rtelnet.sh 23056
 
 "
     exit
@@ -24,17 +25,20 @@ killall -9 ssh
 
 
 # on établit le serveur reverse telnet
+#
 ssh ubuntu@www.zuzutest.ml socat TCP-LISTEN:$1,reuseaddr,fork TCP-LISTEN:23000,reuseaddr,bind=127.0.0.1 &
 
 watch -n 1 'ssh ubuntu@www.zuzutest.ml netstat -nat |grep 230'
-
+sleep 1
 
 # on crée le tunnel sur la console du NodeMCU
 ssh -N -L 23000:localhost:23000 ubuntu@www.zuzutest.ml &
+sleep 1
 
 
 
-ça ne marche pas bien ici :-(
+
+#ça ne marche pas bien ici :-(
 
 
 
@@ -47,5 +51,5 @@ read -p "Voulez-vous tuer la connexion ?"
 # on tue le serveur reverse telnet
 ssh ubuntu@www.zuzutest.ml killall -9 socat
 
-# on tue le tunnel
+# on tue le tunnel sur sa machine (ATTENTION, tue tous les ssh !)
 killall -9 ssh
