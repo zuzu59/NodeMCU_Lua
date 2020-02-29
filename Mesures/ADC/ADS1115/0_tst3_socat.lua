@@ -12,13 +12,13 @@ socat TCP-LISTEN:23047,reuseaddr,fork TCP-LISTEN:23000,reuseaddr,bind=127.0.0.1
 telnet -r localhost 23000
 ]]
 
-print("\n 0_tst3_socat.lua   zf200229.1800   \n")
+print("\n 0_tst3_socat.lua   zf200229.1854   \n")
 
-local node, table, tmr, wifi, uwrite,     tostring =
-      node, table, tmr, wifi, uart.write, tostring
+local node, table, tmr, uwrite, tostring =
+      node, table, tmr, uart.write, tostring
 
 local function telnet_listener(socket)
-  local insert,       remove,       concat,       heap,      gc   =
+  local insert, remove, concat, heap, gc =
         table.insert, table.remove, table.concat, node.heap, collectgarbage
   local fifo1, fifo1l, fifo2, fifo2l = {}, 0, {}, 0
   local s -- s is a copy of the TCP socket if and only if sending is in progress
@@ -84,16 +84,19 @@ local function telnet_listener(socket)
   end
 
   local function disconnect(s)
-    fifo1, fifo1l, fifo2, fifo2l, s = {}, 0, {}, 0, nil
+    --fifo1, fifo1l, fifo2, fifo2l, s = {}, 0, {}, 0, nil
+    fifo1, fifo1l, fifo2, fifo2l, s = nil, nil, nil, nil, nil
+    --insert, remove, concat, heap, gc = nil, nil, nil, nil, nil
+    --wdclr, cnt = nil, nil
     node.output(nil)
     print("disconnected...")
-    print("rt_retry:",rt_retry)
-    rt_retry=rt_retry-1
-    print("rt_retry:",rt_retry)
-    if rt_retry>=0 then
+--    print("rt_retry:",rt_retry)
+--    rt_retry=rt_retry-1
+--    print("rt_retry:",rt_retry)
+--    if rt_retry>=0 then
         print("on ressaie en vitesse une fois ;-)")
         rt_connect()
-    end    
+--    end    
 end
 
   --zzz
@@ -134,7 +137,7 @@ function rt_connect()
 end
 
 tmr_socat1=tmr.create()
-tmr_socat1:alarm(200*1000, tmr.ALARM_AUTO , function()
+tmr_socat1:alarm(2000*1000, tmr.ALARM_AUTO , function()
     rt_retry=1   
     if verbose then gpio.write(zLED, gpio.LOW) tmr.delay(10000) gpio.write(zLED, gpio.HIGH) end
     
