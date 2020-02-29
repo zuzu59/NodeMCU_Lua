@@ -1,8 +1,8 @@
 -- Petit script pour faire office de crontab pour les mesures
-print("\n 0_cron.lua   zf200228.1727   \n")
+print("\n 0_cron.lua   zf200229.1557   \n")
 
 cron1=tmr.create()
-cron1:alarm(20*1000,  tmr.ALARM_AUTO, function()
+cron1:alarm(60*1000,  tmr.ALARM_AUTO, function()
     if verbose then print("cron1........................") end
     if verbose then gpio.write(zLED, gpio.LOW) tmr.delay(10000) gpio.write(zLED, gpio.HIGH) end
 

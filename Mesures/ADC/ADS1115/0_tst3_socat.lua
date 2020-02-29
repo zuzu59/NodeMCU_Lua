@@ -12,7 +12,7 @@ socat TCP-LISTEN:23047,reuseaddr,fork TCP-LISTEN:23000,reuseaddr,bind=127.0.0.1
 telnet -r localhost 23000
 ]]
 
-print("\n 0_tst3_socat.lua   zf200221.1335   \n")
+print("\n 0_tst3_socat.lua   zf200229.1553   \n")
 
 local node, table, tmr, wifi, uwrite,     tostring =
       node, table, tmr, wifi, uart.write, tostring
@@ -119,24 +119,24 @@ function rt_connect()
     srv_rt = nil
     srv_rt = net.createConnection(net.TCP, 0)
     srv_rt:on("connection", function(sck)
-        if verbose then print("connected on "..console_host..":"..console_port+yellow_tag) end
+        if verbose then print("connected on "..console_host..":"..console_port) end
         if verbose then print(node.heap()) collectgarbage() print(node.heap()) end
         telnet_listener(sck)
         print("Welcome to NodeMCU world.")
     end)
-    srv_rt:connect(console_port+yellow_tag,console_host)
+    srv_rt:connect(console_port,console_host)
 end
 
 tmr_socat1=tmr.create()
 tmr_socat1:alarm(5*1000, tmr.ALARM_AUTO , function()
     rt_retry=1   
     if verbose then gpio.write(zLED, gpio.LOW) tmr.delay(10000) gpio.write(zLED, gpio.HIGH) end
-    if console_port+yellow_tag == srv_rt:getpeer() then
+    if console_port == srv_rt:getpeer() then
         if verbose then gpio.write(zLED, gpio.LOW) end
     else
         if verbose then
             gpio.write(zLED, gpio.HIGH)
-            print("trying connect to "..console_host..":"..console_port+yellow_tag)
+            print("trying connect to "..console_host..":"..console_port)
             if verbose then print(node.heap()) collectgarbage() print(node.heap()) end
         end
         rt_connect()

@@ -1,10 +1,10 @@
 -- Petit script pour s'inregistrer sur zdyndns
 
 function send_zdyndns()
-    if verbose then print("\n 0_zdyndns.lua   zf200221.1209   \n") end
+    if verbose then print("\n 0_zdyndns.lua   zf200229.1553   \n") end
 
     zip = wifi.sta.getip()
-    zdyndns_str = "s "..node_id..","..console_host..":"..tostring(console_port+yellow_tag).." "..zip.."\n"
+    zdyndns_str = "s "..node_id..","..console_host..":"..tostring(console_port).." "..zip.."\n"
     if verbose then print("zdyndns_str: /"..zdyndns_str.."/") end
 
     srv_zdyndns = net.createConnection(net.TCP, 0)

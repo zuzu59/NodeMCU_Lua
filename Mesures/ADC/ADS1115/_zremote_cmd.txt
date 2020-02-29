@@ -1,16 +1,16 @@
 # Quelques commandes remote (luatool) à envoyer avec le plugin Atom-IDE-terminal de l'éditeur Atom
-# zf200217.0429
+# zf200229.1600
 
 
 Todo à faire pour ce projet !
 
-- ajouter la variable yellow_tag avec le numéro de l'étiquette jaune du NodeMCU
-- regarder pour mettre "Welcome to NodeMCU world." quand connected, en fait quand on arrive dans le telnet_listener après la redirection du port série !
-- ajouter l'adresse du zdyndns dans les secrets projets
-- se connecter sur le zdyndns avec le numéro du port du telnet reverse utilisé
+- refaire le fichier _secrets_project.lua_ à partir de secrets_project.lua
+- faire la documentation pour le fonctionnement de concept de rtelnet dans un fichier à part .md
+
 - y regarder pour faire tourner en MEME temps le reverse et le forward telnet
 - z lancement ou arrêt du WEBIDE via la home page
 v- ajouter fonction restart dans z_index.html (ATTENTION avec un argument restart, pas besoin de faire une page restart.html !)
+v- ajouter l'adresse du zdyndns dans les secrets projets
 v- ajouter l'affichage du node_id dans z_index.html
 v- ajouter le web_srv2 dans boot au lieu de boot2
 v- ajouter un état du RELAY et de la LED dans z_index.html
@@ -31,6 +31,8 @@ v- le wifi setup ne fonctionne toujours pas quand il y a déjà un ap de connect
 v- mettre le numéro jaune du nodemcu dans les secrets projet et prendre 23000+num_jaune comme numéro de port pour le reverse telnet
 v- passer à 10 secondes la seconde chance
 v- passer à 15x les tentatives de connexions au WIFI
+v- regarder pour mettre "Welcome to NodeMCU world." quand connected, en fait quand on arrive dans le telnet_listener après la redirection du port série !
+v- se connecter sur le zdyndns avec le numéro du port du telnet reverse utilisé
 v- terminer la page .html affichage de la température et de l'humidité
 v- terminer le reverse telnet ;-)
 v- trouver un moyen pour configurer la lED dans initz.lua sans le rendre dangereux en cas de problème (éviter le reflashing en cas de reboot loop)
