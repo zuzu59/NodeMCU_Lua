@@ -1,5 +1,5 @@
 # Quelques commandes remote (luatool) à envoyer avec le plugin Atom-IDE-terminal de l'éditeur Atom
-# zf200229.2300
+# zf200229.2315
 
 
 Todo à faire pour ce projet !
@@ -73,7 +73,9 @@ collectgarbage()
 for k,v in pairs(_G) do print(k,v) end
 
 
-# commandes lua pour ce projet
+################################
+# commandes lua pour ce projet #
+################################
 ssh ubuntu@www.zuzutest.ml killall -9 socat
 killall -9 ssh
 ssh ubuntu@www.zuzutest.ml socat TCP-LISTEN:23047,reuseaddr,fork TCP-LISTEN:23000,reuseaddr,bind=127.0.0.1 &
@@ -85,7 +87,9 @@ export zport="23000"
 telnet -rN $zIP $zport
 for k,v in pairs(_G) do print(k,v) end
 ~.
+zdyn
 
+./luatool.py --ip $zIP:$zport -f boot.lua
 ./luatool.py --ip $zIP:$zport -f z_index.html
 
 ./luatool.py --ip $zIP:$zport -f 0_send_data.lua
@@ -112,8 +116,12 @@ for k,v in pairs(_G) do print(k,v) end
 dofile("wifi_info.lua")
 
 node.restart()
-ping -c 10 $zIP
 
+~.
+./luatool.py --ip $zIP:$zport -f head.lua
+telnet -rN $zIP $zport
+dofile("head.lua")
+zhead("boot.lua")
 
 
 
@@ -196,11 +204,6 @@ ztmr_tst_err:unregister()
 
 
 
-~.
-./luatool.py --ip $zIP:$zport -f head.lua
-telnet -rN $zIP $zport
-dofile("head.lua")
-zhead("c.lua")
 
 ztmr_tst_err:unregister()
 for k,v in pairs(_G) do print(k,v) end

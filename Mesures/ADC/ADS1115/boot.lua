@@ -1,6 +1,6 @@
 -- Scripts à charger après le boot pour démarrer son projet
 
-print("\n boot.lua zf200229.1737 \n")
+print("\n boot.lua zf200229.2303 \n")
 
 function boot()
     verbose = true
@@ -12,7 +12,7 @@ function boot()
     --f="0_send_data.lua"   if file.exists(f) then dofile(f) end
     f="0_btn_flipflop.lua"   if file.exists(f) then dofile(f) end
 
---    f="0_cron.lua"   if file.exists(f) then dofile(f) end
+    f="0_cron.lua"   if file.exists(f) then dofile(f) end
     f="0_tst3_socat.lua"   if file.exists(f) then dofile(f) end
     --f="0_tst3_socat.lua"   if file.exists(f) then dofile(f) end
 
