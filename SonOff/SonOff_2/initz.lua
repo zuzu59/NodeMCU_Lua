@@ -3,7 +3,7 @@
 -- le script repair.lua pendant xx secondes avant de continuer
 --Source: https://nodemcu.readthedocs.io/en/master/en/modules/node/#nodebootreason
 
-print("\n init.lua zf200110.1948 \n")
+print("\n init.lua zf200118.1507 \n")
 
 function initz()
 
@@ -26,8 +26,8 @@ function initz()
 
     function second_chance()
         print("seconde chance...")
-        --zLED=4      -- NodeMCU
-        zLED=7      -- SonOff
+        zLED=4      -- NodeMCU
+        --zLED=7      -- SonOff
         gpio.write(zLED, gpio.LOW)   gpio.mode(zLED, gpio.OUTPUT)
         initalarme1=tmr.create()
         initalarme1:alarm(10*1000,  tmr.ALARM_SINGLE, function()

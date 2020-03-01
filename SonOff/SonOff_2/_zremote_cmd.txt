@@ -1,36 +1,16 @@
 # Quelques commandes remote (luatool) à envoyer avec le plugin Atom-IDE-terminal de l'éditeur Atom
-# zf200116.1833
+# zf200301.1318
 
 Todo à faire pour ce projet !
 
-- trouver un moyen pour configurer la lED dans initz.lua sans le rendre dangereux en cas de problème (éviter le reflashing en cas de reboot loop)
-- lancement ou arrêt du WEBIDE via la home page
+- refaire le fichier _secrets_project.lua_ à partir de secrets_project.lua
+- faire la documentation pour le fonctionnement de concept de rtelnet dans un fichier à part .md
+
 - flip/flop du relais depuis la page api_sonoff
-- arrêter de demander de connecter le WIFI automatiquement en mode station juste après le boot dans la config wifiinit (automatic connect)
 - ajouter le contrôle flip/flop du btn sur RELAY
-- if verbose print partout dans *.lua
-- le wifi setup ne fonctionne toujours pas quand il y a déjà un ap de connecté (problème du reboot quand adrs ip ok)!
 
-v- ajouter fonction restart dans z_index.html (ATTENTION avec un argument restart, pas besoin de faire une page restart.html !)
-v- ajouter l'affichage du node_id dans z_index.html
-v- ajouter le web_srv2 dans boot au lieu de boot2
-v- ajouter un état du RELAY et de la LED dans z_index.html
-v- ajouter une page affichage variables globales
-v- améliorer api_sonoff.html, il faut ajouter 'home' sur la page
-v- améliorer le résultat de api_sonoff.html, il faut sortir l'état des IO lors d'un changement comme confirmation
-v- copier secrets_project et secrets_wifi dans _secrets_project_  _secrets_wifi_ pour la documentation
-v- déplacer le mode AP dans wifi_init
-v- enlever la ligne wifi init dans z_index.html
-v- faire la page web service pour allumer la LED
-v- faire la page web service pour allumer le relay
-v- garder variable node_id pour identification après poweron général, reattribution adrs ip sur modem 4G
-v- passer à 10 secondes la seconde chance
-v- passer à 15x les tentatives de connexions au WIFI
-v- vérifier le fonctionnement d'allumer la LED, car ne marche plus !
-x- mettre ZLED2 et ZRELAY dans secrets_project
-x-ajouter argument ok dans wifi_init.html (sécurité)
-
-
+- y regarder pour faire tourner en MEME temps le reverse et le forward telnet
+- z lancement ou arrêt du WEBIDE via la home page
 
 
 
@@ -45,11 +25,11 @@ x-ajouter argument ok dans wifi_init.html (sécurité)
 # définitions à faire AVANT !
 export luatool_tty="/dev/cu.wchusbserial1410"
 
-export zIP="192.168.0.182"
+export zIP="192.168.0.150"
 export zport="23"
 
 export zIP="localhost"
-export zport="2323"
+export zport="23000"
 ATTENTION: voir les tunnels tout à la fin !
 
 
@@ -95,37 +75,58 @@ verbose=false
 zsort_rssi()   zshow()
 
 
-#commandes luatool pour ce projet le .137 est à jour avec la nouvelle version du wifi !
+################################
+# commandes lua pour ce projet #
+################################
+ssh ubuntu@www.zuzutest.ml killall -9 socat
+sleep 1
+killall -9 ssh
+sleep 1
+ssh ubuntu@www.zuzutest.ml socat TCP-LISTEN:23001,reuseaddr,fork TCP-LISTEN:23000,reuseaddr,bind=127.0.0.1 &
+watch -n 1 'ssh ubuntu@www.zuzutest.ml netstat -nat |grep 230'
+
+######## envoyer un CTRL-C dans le terminal !
+
+ssh -N -L 23000:localhost:23000 ubuntu@www.zuzutest.ml &
+
+export zIP="localhost"
+export zport="23000"
+telnet -rN $zIP $zport
+for k,v in pairs(_G) do print(k,v) end
+~.
+zdyn
+
+=node.heap()
+collectgarbage()
+=node.heap()
+
+
+dofile("dir.lua")
+dir()
+for k,v in pairs(_G) do print(k,v) end
+dofile("wifi_info.lua")
+
+node.restart()
+
+
 ~.
 ./luatool.py --ip $zIP:$zport -l
 ./luatool.py --ip $zIP:$zport -f wifi_init.lua
-
-
-./luatool.py --ip $zIP:$zport -f secrets_wifi.lua
-./luatool.py --ip $zIP:$zport -f initz.lua -t init.lua
 ./luatool.py --ip $zIP:$zport -f boot.lua
-./luatool.py --ip $zIP:$zport -f boot2.lua
-./luatool.py --ip $zIP:$zport -f wifi_init.lua
-./luatool.py --ip $zIP:$zport -f set_time.lua
-./luatool.py --ip $zIP:$zport -f wifi_info.lua
-./luatool.py --ip $zIP:$zport -f c.lua
-./luatool.py --ip $zIP:$zport -f cat.lua
-./luatool.py --ip $zIP:$zport -f flash_led_xfois.lua
-./luatool.py --ip $zIP:$zport -f head.lua
+./luatool.py --ip $zIP:$zport -f 0_tst3_socat.lua
+./luatool.py --ip $zIP:$zport -f 0_cron.lua
+./luatool.py --ip $zIP:$zport -f secrets_project.lua
+./luatool.py --ip $zIP:$zport -f 0_zdyndns.lua
+./luatool.py --ip $zIP:$zport -f 0_btn_flipflop.lua
 
-./luatool.py --ip $zIP:$zport -f b.lua
-./luatool.py --ip $zIP:$zport -f web_srv2.lua
+./luatool.py --ip $zIP:$zport -f api_sonoff.html
 ./luatool.py --ip $zIP:$zport -f z_index.html
 
-
-./luatool.py --ip $zIP:$zport -f wifi_get_conf.html
-./luatool.py --ip $zIP:$zport -f wifi_set_conf.html
+./luatool.py --ip $zIP:$zport -f initz.lua -t init.lua
 
 
-./luatool.py --ip $zIP:$zport -f z_page1.html
-./luatool.py --ip $zIP:$zport -f z_page2.html
-./luatool.py --ip $zIP:$zport -f z_page3.html
-./luatool.py --ip $zIP:$zport -f z_page4.html
+
+
 
 ./luatool.py --ip $zIP:$zport --delete wifi_ap_start.lua
 ./luatool.py --ip $zIP:$zport --delete wifi_cli_conf.lua
@@ -183,7 +184,7 @@ for k,v in pairs(_G) do print(k,v) end
 
 # faire un cat d'un fichier sur le NodeMCU
 dofile("cat.lua")
-cat("boot2.lua")
+cat("secrets_project.lua")
 
 
 # commandes luatool
