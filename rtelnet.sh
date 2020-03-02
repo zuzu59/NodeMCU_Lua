@@ -1,6 +1,7 @@
+
 #!/bin/bash
 # petit script provisoire pour se connecter sur les NodeMCU en reverse telnet
-# zf200229.1546
+# zf200302.0903
 
 #test si l'argument est vide
 if [ -z "$1" ]
@@ -24,8 +25,8 @@ killall -9 ssh
 sleep 1
 
 echo "On établit le serveur reverse telnet"
-#ssh ubuntu@www.zuzutest.ml socat TCP-LISTEN:$1,reuseaddr,fork TCP-LISTEN:23000,reuseaddr,bind=127.0.0.1 &
-ssh ubuntu@www.zuzutest.ml socat TCP-LISTEN:23047,reuseaddr,fork TCP-LISTEN:23000,reuseaddr,bind=127.0.0.1 &
+ssh ubuntu@www.zuzutest.ml socat TCP-LISTEN:$1,reuseaddr,fork TCP-LISTEN:23000,reuseaddr,bind=127.0.0.1 &
+#ssh ubuntu@www.zuzutest.ml socat TCP-LISTEN:23047,reuseaddr,fork TCP-LISTEN:23000,reuseaddr,bind=127.0.0.1 &
 
 watch -n 1 'ssh ubuntu@www.zuzutest.ml netstat -nat |grep 230'
 sleep 1

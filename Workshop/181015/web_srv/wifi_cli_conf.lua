@@ -1,4 +1,4 @@
 -- Petit script pour configurer le client WIFI du NodeMCU
-print("\n wifi_cli_conf.lua   zf180824.2000   \n")
+print("\n wifi_cli_conf.lua   zf200302.2300   \n")
 
-wifi.sta.config{ssid="3g-s7", pwd="12234567", save=true}
+wifi.sta.config{ssid="apzuzu6", pwd="12234567", save=true}

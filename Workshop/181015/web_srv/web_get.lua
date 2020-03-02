@@ -1,6 +1,6 @@
 -- petit script pour la gestion du GET du serveur web
 
-print("\n web_get.lua   zf181019.1130  \n")
+print("\n web_get.lua   zf203002.2320  \n")
  
 function web_get()
     if (_GET.led == "on") then
@@ -14,6 +14,7 @@ function web_get()
         blink_LED()
         html_home()
     elseif (_GET.led == "status") then
+        print("toto")
         html_status()
     else
         html_home()
