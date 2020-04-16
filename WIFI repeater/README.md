@@ -1,7 +1,27 @@
 # WIFI repeater, tout petit répéteur WIFI à base de NodeMCU ESP
+zf200416.2314
 
+<!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
+
+- [WIFI repeater, tout petit répéteur WIFI à base de NodeMCU ESP](#wifi-repeater-tout-petit-rpteur-wifi-base-de-nodemcu-esp)
+	- [Sources](#sources)
+	- [Description](#description)
+	- [Problématiques](#problmatiques)
+	- [Installation, flashing du firmware](#installation-flashing-du-firmware)
+	- [utilisation](#utilisation)
+	- [Utilisation de la console](#utilisation-de-la-console)
+		- [Via le port série](#via-le-port-srie)
+		- [Via telnet](#via-telnet)
+		- [Verrouillage du repeater](#verrouillage-du-repeater)
+		- [Changer les paramètres WIFI en console](#changer-les-paramtres-wifi-en-console)
+	- [Reset factory](#reset-factory)
+	- [Limitations](#limitations)
+	- [Goodies](#goodies)
+	- [Documentation complète](#documentation-complte)
+
+<!-- /TOC -->
 ## Sources
-
+https://github.com/martin-ger/esp_wifi_repeater
 
 
 ## Description
@@ -45,15 +65,59 @@ Pour la première configuration il faut se connecter sur l'AP *MyAP* et charger 
 ## Utilisation de la console
 On peut accéder à la console soit via le port série ou telnet. Après connexion demandez le help avec la commande help !
 
-### Via le port série
 
+### Via le port série
 ```
 screen /dev/cu.wchusbserial1410 115200
 ```
 
+
 ### Via telnet
 ```
 telnet -rN 192.168.4.1 7777
+```
+
+
+### Verrouillage du repeater
+<b>ATTENTION !
+
+SI VOUS UTILISEZ CE WIFI REPEATER POUR FAIRE UNE ZONE DMZ POUR ISOLER UN DEVICE, IL NE FAUT PAS OUBLIER DE BLOQUER LA CONFIGURATION VIA L'INTERFACE WEB OU LA CONSOLE TELNET</b>
+
+Des fois on aimerait bien qu'il ne soit pas possible de modifier la configuration du repeater via le WEB ou depuis la console telnet. Il suffit alors de faire depuis la console série:
+```
+set config_port 0
+set web_port 0
+set config_access 0
+save
+```
+
+ATTENTION: à ne pas oublier de faire un *save* à la fin !
+
+
+### Changer les paramètres WIFI en console
+Configurer le router WIFI de la maison à répéter avec le repeater
+```
+set ssid <votre routeur WIFI de la maison>
+```
+Configurer le password pour se connecter à votre routeur WIFI de la maison
+```
+set password <le password de votre routeur wifi de la maison>
+```
+Configurer le nom WIFI de votre repeater
+```
+set ap_ssid <le nom WIFI de votre repeater>
+```
+Configurer le password WIFI de votre repeater
+```
+set ap_password <le password WIFI de votre repeater>
+```
+Sauvegarder votre configuration
+```
+save
+```
+Redémarrer votre repeater
+```
+reset
 ```
 
 
@@ -80,6 +144,3 @@ https://fast.com/fr/
 ## Documentation complète
 https://github.com/martin-ger/esp_wifi_repeater/blob/master/README.md
 
-
-
-zf191201.1317
