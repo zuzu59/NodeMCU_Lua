@@ -1,5 +1,5 @@
 # WIFI repeater, tout petit répéteur WIFI à base de NodeMCU ESP
-zf200416.2314
+zf200422.1719
 
 <!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
@@ -8,18 +8,22 @@ zf200416.2314
 	- [Description](#description)
 	- [Problématiques](#problmatiques)
 	- [Installation, flashing du firmware](#installation-flashing-du-firmware)
-	- [utilisation](#utilisation)
-	- [Utilisation de la console](#utilisation-de-la-console)
+	- [Utilisation](#utilisation)
+		- [Utilisation de la console](#utilisation-de-la-console)
 		- [Via le port série](#via-le-port-srie)
 		- [Via telnet](#via-telnet)
 		- [Verrouillage du repeater](#verrouillage-du-repeater)
 		- [Changer les paramètres WIFI en console](#changer-les-paramtres-wifi-en-console)
+		- [Configuration du NAT](#configuration-du-nat)
 	- [Reset factory](#reset-factory)
 	- [Limitations](#limitations)
 	- [Goodies](#goodies)
 	- [Documentation complète](#documentation-complte)
 
 <!-- /TOC -->
+
+
+
 ## Sources
 https://github.com/martin-ger/esp_wifi_repeater
 
@@ -58,11 +62,11 @@ Script pour flasher le NodeMCU plus facilement:
 ./zflash.sh go
 ```
 
-## utilisation
+## Utilisation
 Pour la première configuration il faut se connecter sur l'AP *MyAP* et charger la page **192.168.4.1** pour la configuration du WIFI *repeater*.
 
 
-## Utilisation de la console
+### Utilisation de la console
 On peut accéder à la console soit via le port série ou telnet. Après connexion demandez le help avec la commande help !
 
 
@@ -113,11 +117,34 @@ set ap_password <le password WIFI de votre repeater>
 ```
 Sauvegarder votre configuration
 ```
-save
+save config
 ```
 Redémarrer votre repeater
 ```
 reset
+```
+
+### Configuration du NAT
+On peut configurer très facilement le NAT avec la commande *portmap*:<br>
+Ouvrir le port 22 de la machine 192.168.4.2 sur le port 2222 du routeur
+```
+portmap add TCP 2222 192.168.4.2 22
+```
+On peut voir après la configuration en faisant un:
+```
+show config
+```
+Fermeture du port 2222
+```
+portmap remove TCP 2222
+```
+ATTENTION: il ne faut pas oublier de sauver la configuration !
+```
+save config
+```
+Comme les adresses IP sont attribuées dynamiquement, il serait bien de sauvegarder après aussi le DHCP, afin que la même adresse IP soit attribuée à la même machine !
+```
+save dhcp
 ```
 
 

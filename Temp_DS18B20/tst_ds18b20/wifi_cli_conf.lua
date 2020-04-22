@@ -6,7 +6,7 @@ function wifi_cli_conf()
     --credentials par défaut
     --cli_ssid="3g-s7"
     cli_ssid="3G-zf"
-    cli_pwd="12234567"
+    cli_pwd="xxx"
     
     --ses propre credentials
     f= "credentials_tst_ds18b20.lua"    if file.exists(f) then dofile(f) end

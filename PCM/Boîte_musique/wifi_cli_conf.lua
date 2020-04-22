@@ -4,7 +4,7 @@ print("\n wifi_cli_conf.lua   zf190126.1533   \n")
 
 --credentials par défaut
 cli_ssid="3G-zf"
-cli_pwd="12234567"
+cli_pwd="xxx"
 
 --ses propre credentials
 f= "credentials.lua"    if file.exists(f) then dofile(f) end

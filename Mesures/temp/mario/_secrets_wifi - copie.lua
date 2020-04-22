@@ -9,7 +9,6 @@ function secrets_wifi()
 
    -- cli_ssid="3g-s7"
    -- cli_ssid="3G-zf2"
-   -- cli_ssid="apzuzu6_EXT"
    cli_ssid="xxx"
    cli_pwd="yyy"
 
