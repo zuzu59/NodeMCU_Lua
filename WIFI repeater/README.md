@@ -1,5 +1,5 @@
 # WIFI repeater, tout petit répéteur WIFI à base de NodeMCU ESP
-zf200422.1719
+zf200422.1737
 
 <!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
@@ -73,6 +73,7 @@ On peut accéder à la console soit via le port série ou telnet. Après connexi
 ### Via le port série
 ```
 screen /dev/cu.wchusbserial1410 115200
+screen /dev/cu.usbserial-14422310 115200
 ```
 
 
