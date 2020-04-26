@@ -1,0 +1,10 @@
+-- module https://learn.sparkfun.com/tutorials/htu21d-humidity-sensor-hookup-guide/all
+-- achat https://www.aliexpress.com/item/32480177429.html
+-- schéma https://github.com/sparkfun/HTU21D_Breakout/blob/master/hardware/SparkFun_HTU21D_Breakout.pdf
+-- data sheet https://cdn.sparkfun.com/assets/6/a/8/e/f/525778d4757b7f50398b4567.pdf
+-- Comparaison DHT22, AM2302, AM2320, AM2321, SHT71, HTU21D, Si7021, BME280
+--             http://www.kandrsmith.org/RJS/Misc/Hygrometers/calib_many.html
+-- théorie http://electromag1.wifeo.com/capteurs-de-temperature-et-humidite-gy-21-et-si7021.php
+-- source lua: https://github.com/tebben/NodeMCU
+
+-- ATTENTION: il n'y a seulement que certaines combinaisons de pins qui fonctionnent avec le capteur HTU21D avec le NodeMCU !
