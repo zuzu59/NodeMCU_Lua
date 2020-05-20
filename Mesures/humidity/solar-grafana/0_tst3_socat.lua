@@ -1,18 +1,33 @@
 --[[
-tests connection reverse telnet
-commande à faire tourner sur le serveur
+tests connection reverse telnet commande à faire tourner sur le GATEWAY !
 
 1ere console
 pour une liaison directe: 
-socat TCP-LISTEN:23047,fork,reuseaddr STDIO
+socat TCP-LISTEN:23043,fork,reuseaddr STDIO
 pour une console sur un port:
-socat TCP-LISTEN:23047,reuseaddr,fork TCP-LISTEN:23000,reuseaddr,bind=127.0.0.1
+socat TCP-LISTEN:23043,reuseaddr,fork TCP-LISTEN:23000,reuseaddr,bind=127.0.0.1
 
 2e console
 telnet -r localhost 23000
 ]]
 
-print("\n 0_tst3_socat.lua   zf200229.2243   \n")
+--[[
+tests connection reverse telnet commande à faire tourner sur le GATEWAY ET sur sa MACHINE !
+
+1ere console sur le GATEWAY
+socat TCP-LISTEN:23043,reuseaddr,fork TCP-LISTEN:23000,reuseaddr,bind=127.0.0.1
+
+2e console sur sa MACHINE
+ssh -L 23000:localhost:23000 user@GATEWAY
+
+3e console sur sa MACHINE (~.return pour sortir !)
+telnet -r localhost 23000
+ou sur MAC
+telnet -rN localhost 23000
+]]
+
+
+print("\n 0_tst3_socat.lua   zf200520.2007   \n")
 
 local node, table, tmr, uwrite, tostring =
       node, table, tmr, uart.write, tostring

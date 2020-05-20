@@ -1,11 +1,11 @@
 # Mesure de température et d'humidité avec un NodeMCU en Lua
-zf200426.1733
+zf200520.1808
 
 Petit projet pour mesurer la température et l'humidité avec un capteur HTU21D et l'afficher sur Grafana. Comme par exemple pour *enregistrer* la température et l'humidité d'un local au cours du temps.
 Petite subtilité dans ce projet on va mesurer DEUX capteurs HTU21D et partager la ligne du clock !
 
 **ATTENTION:<br>
-Ce README est parti d'un autre projet similaire, donc pas tout juste pour ce projets**
+Ce README est parti d'un autre projet similaire, donc pas tout juste pour ce projet**
 
 
 <br><br>![Image](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/humidity/bolo-thingspeak/img/graph_thingspeak1.png)
