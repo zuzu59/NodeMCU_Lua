@@ -2,12 +2,12 @@
 -- https://github.com/zuzu59/NodeMCU_Lua/tree/master/Mesures/humidity/bolo-thingspeak/docu/HTU21D.txt
 
 function readHTU21D()
-    if verbose then print("\n 0_htu21d.lua   zf200119.1517 \n") end
+    if verbose then print("\n 0_1_htu21d.lua   zf200521.1404 \n") end
     
     id = 0   sda = 5   scl = 6   addr = 0x40
     HUMIDITY = 0xE5   TEMPERATURE = 0xE3
     i2c.setup(id, sda, scl, i2c.SLOW)   sda = nil   scl = nil
-
+    
     function read_HTU21D(zreg, zdelay)
         i2c.start(id)   i2c.address(id, addr, i2c.TRANSMITTER)
         i2c.write(id, zreg)   i2c.stop(id)
