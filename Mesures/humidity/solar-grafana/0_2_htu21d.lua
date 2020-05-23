@@ -2,7 +2,7 @@
 -- https://github.com/zuzu59/NodeMCU_Lua/tree/master/Mesures/humidity/bolo-thingspeak/docu/HTU21D.txt
 
 function readHTU21D()
-    if verbose then print("\n 0_2_htu21d.lua   zf200523.1643 \n") end
+    if verbose then print("\n 0_2_htu21d.lua   zf200523.1816 \n") end
     
     id = 0   sda = 5   scl = 4   addr = 0x40
     HUMIDITY = 0xE5   TEMPERATURE = 0xE3
@@ -29,15 +29,15 @@ function readHTU21D()
         return tonumber(string.format("%.1f", tostring(r/100)))
     end
 
-    ztemp1=readTemp()   zhum1=readHumi()
-    if verbose then print("Temperature: "..ztemp1.." °C") end
-    if verbose then print("Humidity: "..zhum1.." %") end
+    ztemp2=readTemp()   zhum2=readHumi()
+    if verbose then print("Temperature: "..ztemp2.." °C") end
+    if verbose then print("Humidity: "..zhum2.." %") end
 
     id=nil addr=nil HUMIDITY=nil TEMPERATURE=nil r=nil
     read_HTU21D=nil readTemp=nil readHumi=nil readHTU21D=nil
-    if verbose then print(node.heap()) end
+    if verbose then print("End 2_htu21d:\n"..node.heap()) end
     collectgarbage()
     if verbose then print(node.heap()) end
 end
 
---readHTU21D()
+readHTU21D()

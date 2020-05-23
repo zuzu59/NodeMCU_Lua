@@ -1,7 +1,7 @@
 -- Petit script pour s'inregistrer sur zdyndns
 
 function send_zdyndns()
-    if verbose then print("\n 0_zdyndns.lua   zf200229.1553   \n") end
+    if verbose then print("\n 0_zdyndns.lua   zf200229.1816   \n") end
 
     zip = wifi.sta.getip()
     zdyndns_str = "s "..node_id..","..console_host..":"..tostring(console_port).." "..zip.."\n"
@@ -20,7 +20,7 @@ function send_zdyndns()
             sk:close()
             if verbose then print("close...") end
             zdyndns_str=nil zip=nil srv_zdyndns=nil send_zdyndns=nil
-            if verbose then print(node.heap()) end
+            if verbose then print("End zdyndns:\n"..node.heap()) end
             collectgarbage()
             if verbose then print(node.heap()) end
         end)
