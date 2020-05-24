@@ -1,7 +1,7 @@
 -- Scripts pour régler l'horloge quand on est connecté en WIFI
 -- Permet aussi de 'compresser' le unix time afin de prendre moins de place dans les strings
 
-print("\n set_time.lua zf191030.2026 \n")
+print("\n set_time.lua zf200524.1711 \n")
 
 --source: https://www.freeformatter.com/epoch-timestamp-to-date-converter.html
 
@@ -31,6 +31,10 @@ tmr.create():alarm(2*1000,  tmr.ALARM_SINGLE, function()
 end)
 
 
+--[[
+sec, usec = rtctime.get()   print(ztime_format(sec).."."..usec)
 
+
+]]
 
 

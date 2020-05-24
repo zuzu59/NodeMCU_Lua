@@ -1,12 +1,13 @@
 -- Petit script pour envoyer en // es valeurs sur un serveur WEB (InfluxDB)
 -- via un http POST à travers un FIFO
 
-if verbose then print("\n 0_http_post.lua   zf200524.1336   \n") end
+if verbose then print("\n 0_http_post.lua   zf200524.1656   \n") end
 
 t_zurl={}  t_zarg={} f_zpost=false
 
 function zpost()
     f_zpost=true  zurl=t_zurl[1]  zarg=t_zarg[1]
+    if verbose then print("zpost: "..ztime_format(rtctime.get())) end
     if verbose then print("zurl: "..zurl) end   if verbose then print("zarg: "..zarg) end
     
     http.post(zurl, 'Content-Type: application/x-www-form-urlencoded\r\n', zarg, function(code, data)
@@ -32,6 +33,7 @@ end
 
 
 function http_post(zurl,zarg)
+    if verbose then print("http_post: "..ztime_format(rtctime.get())) end
     table.insert(t_zurl, zurl)  table.insert(t_zarg, zarg)
     print("t_zurl:")  tprint(t_zurl)   print("t_zarg:")  tprint(t_zarg)
     if f_zpost==false then zpost() end
