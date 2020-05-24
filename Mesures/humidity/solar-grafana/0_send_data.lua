@@ -1,8 +1,8 @@
 -- Petit script pour envoyer les valeurs sur un serveur WEB (InfluxDB)
--- via un http GET
+-- via un http POST
 
 function send_data()
-    if verbose then print("\n 0_send_data.lua   zf200523.1816   \n") end
+    if verbose then print("\n 0_send_data.lua   zf200524.1225   \n") end
 
     function zpost(zarg)
         if verbose then print("influxdb_url: "..influxdb_url) end
