@@ -1,9 +1,13 @@
 -- Petit script pour envoyer en // es valeurs sur un serveur WEB (InfluxDB)
 -- via un http POST à travers un FIFO
 
-if verbose then print("\n 0_http_post.lua   zf200525.1403   \n") end
+if verbose then print("\n 0_http_post.lua   zf200525.1412   \n") end
 
 t_zurl={}  t_zarg={} f_zpost=false
+
+function tprint(t)    
+   for key,value in pairs(t) do  print(key, value)  end
+end
 
 function zpost()
     f_zpost=true  zurl=t_zurl[1]  zarg=t_zarg[1]
