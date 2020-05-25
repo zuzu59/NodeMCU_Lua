@@ -1,5 +1,5 @@
 -- Petit script pour faire office de crontab pour les mesures
-print("\n 0_cron.lua   zf200524.1915   \n")
+print("\n 0_cron.lua   zf200525.1402   \n")
 
 
 function tprint(t)    
@@ -14,7 +14,6 @@ ztemp1=20  zhum1=40   ztemp2=20  zhum2=40
 cron1=tmr.create()
 cron1:alarm(10*1000,  tmr.ALARM_AUTO, function()
     if verbose then print("cron1........................") end
-    if verbose then print("cron1: "..ztime_stamp()) end
     if verbose then gpio.write(zLED, gpio.LOW) tmr.delay(10000) gpio.write(zLED, gpio.HIGH) end
 
     http_post(influxdb_url,"energy,memory=cron1 ram="..node.heap())
@@ -32,7 +31,6 @@ cron1:alarm(10*1000,  tmr.ALARM_AUTO, function()
     f = "0_zdyndns.lua"   if file.exists(f) then dofile(f) end
 
     if verbose then print("End cron:\n"..node.heap()) end
-    if verbose then print("cron1: "..ztime_stamp()) end
     collectgarbage()
     if verbose then print(node.heap()) end
 end)
