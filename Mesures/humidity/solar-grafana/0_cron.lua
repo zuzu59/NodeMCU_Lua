@@ -29,9 +29,10 @@ cron1:alarm(10*1000,  tmr.ALARM_AUTO, function()
 
     ztemp1=nil  zhum1=nil  ztemp2=nil  zhum2=nil
 
-    --f = "0_zdyndns.lua"   if file.exists(f) then dofile(f) end
+    f = "0_zdyndns.lua"   if file.exists(f) then dofile(f) end
 
     if verbose then print("End cron:\n"..node.heap()) end
+    if verbose then print("cron1: "..ztime_stamp()) end
     collectgarbage()
     if verbose then print(node.heap()) end
 end)
