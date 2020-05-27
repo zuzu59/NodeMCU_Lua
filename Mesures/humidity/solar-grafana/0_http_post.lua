@@ -1,7 +1,7 @@
 -- Petit script pour envoyer en // es valeurs sur un serveur WEB (InfluxDB)
 -- via un http POST à travers un FIFO
 
-if verbose then print("\n 0_http_post.lua   zf200525.1808   \n") end
+if verbose then print("\n 0_http_post.lua   zf200527.1836   \n") end
 
 t_zurl={}  t_zarg={} f_zpost=false
 
@@ -32,6 +32,8 @@ function zpost()
         if verbose then print(node.heap()) end
     
     end)
+    
+    zurl=nil   zarg=nil
 end
 
 

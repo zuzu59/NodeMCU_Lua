@@ -1,5 +1,5 @@
 -- Petit script pour faire office de crontab pour les mesures
-print("\n 0_cron.lua   zf200525.1520   \n")
+print("\n 0_cron.lua   zf200527.1827   \n")
 
 cron1=tmr.create()
 cron1:alarm(10*1000,  tmr.ALARM_AUTO, function()
@@ -20,6 +20,8 @@ cron1:alarm(10*1000,  tmr.ALARM_AUTO, function()
 
     -- f = "0_zdyndns.lua"   if file.exists(f) then dofile(f) end
 
+    f=nil
+    
     if verbose then print("End cron:\n"..node.heap()) end
     collectgarbage()
     if verbose then print(node.heap()) end

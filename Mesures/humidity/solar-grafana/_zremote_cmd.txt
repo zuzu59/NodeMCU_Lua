@@ -1,12 +1,11 @@
 # Quelques commandes remote (luatool) à envoyer avec le plugin Atom-IDE-terminal de l'éditeur Atom
-# zf200229.2315
+# zf200527.1844
 
 
 Todo à faire pour ce projet !
 
-- refaire le fichier _secrets_project.lua_ à partir de secrets_project.lua
-- faire la documentation pour le fonctionnement de concept de rtelnet dans un fichier à part .md
 
+- faire la documentation pour le fonctionnement de concept de rtelnet dans un fichier à part .md
 - y regarder pour faire tourner en MEME temps le reverse et le forward telnet
 - z lancement ou arrêt du WEBIDE via la home page
 v- ajouter fonction restart dans z_index.html (ATTENTION avec un argument restart, pas besoin de faire une page restart.html !)
@@ -31,6 +30,7 @@ v- le wifi setup ne fonctionne toujours pas quand il y a déjà un ap de connect
 v- mettre le numéro jaune du nodemcu dans les secrets projet et prendre 23000+num_jaune comme numéro de port pour le reverse telnet
 v- passer à 10 secondes la seconde chance
 v- passer à 15x les tentatives de connexions au WIFI
+v- refaire le fichier _secrets_project.lua_ à partir de secrets_project.lua
 v- regarder pour mettre "Welcome to NodeMCU world." quand connected, en fait quand on arrive dans le telnet_listener après la redirection du port série !
 v- se connecter sur le zdyndns avec le numéro du port du telnet reverse utilisé
 v- terminer la page .html affichage de la température et de l'humidité
@@ -76,15 +76,17 @@ for k,v in pairs(_G) do print(k,v) end
 ################################
 # commandes lua pour ce projet #
 ################################
-ssh ubuntu@www.zuzutest.ml killall -9 socat
+ssh ubuntu@www.zuzu-test.ml killall -9 socat
 killall -9 ssh
-ssh ubuntu@www.zuzutest.ml socat TCP-LISTEN:23047,reuseaddr,fork TCP-LISTEN:23000,reuseaddr,bind=127.0.0.1 &
-watch -n 1 'ssh ubuntu@www.zuzutest.ml netstat -nat |grep 230'
-ssh -N -L 23000:localhost:23000 ubuntu@www.zuzutest.ml &
+ssh ubuntu@www.zuzu-test.ml socat TCP-LISTEN:23043,reuseaddr,fork TCP-LISTEN:23000,reuseaddr,bind=127.0.0.1 &
+watch -n 1 'ssh ubuntu@www.zuzu-test.ml netstat -nat |grep 230'
+CTRL+C
+ssh -N -L 23000:localhost:23000 ubuntu@www.zuzu-test.ml &
 
 export zIP="localhost"
 export zport="23000"
 telnet -rN $zIP $zport
+verbose=false
 for k,v in pairs(_G) do print(k,v) end
 ~.
 zdyn
@@ -94,7 +96,10 @@ zdyn
 
 ./luatool.py --ip $zIP:$zport -f 0_send_data.lua
 ./luatool.py --ip $zIP:$zport -f 0_cron.lua
+./luatool.py --ip $zIP:$zport -f 0_http_post.lua
 ./luatool.py --ip $zIP:$zport -f 0_htu21d.lua
+
+./luatool.py --ip $zIP:$zport --zrestart
 
 ./luatool.py --ip $zIP:$zport -f api_sonoff.html
 http://192.168.0.182
@@ -103,6 +108,7 @@ http://192.168.0.182
 
 telnet -rN $zIP $zport
 verbose=false
+verbose=true
 ~.
 
 =node.heap()
@@ -231,7 +237,7 @@ cat("boot2.lua")
 # création des tunnels ssh
 ATTENTION: dans un premier terminal !
 Pour Bolo à Ruchonnet:
-ssh -t -L 2323:localhost:2323 ubuntu@www.zuzutest.ml ssh -N -L 2323:192.168.8.102:23 ubuntu@localhost -p 20223
+ssh -t -L 2323:localhost:2323 ubuntu@www.zuzu-test.ml ssh -N -L 2323:192.168.8.102:23 ubuntu@localhost -p 20223
 
 Pour le Crêt
 ssh -N -L 2323:192.168.0.137:23 admin@z.zufferey.com -p 1822
@@ -270,13 +276,13 @@ status, err = pcall(function () toto() end)  if status==false then print("Error:
 
 Gestion de la passerelle SSH reverse
 Puis depuis une autre console on peut faire directement pour aller sur l'OpiZ (ici le 20223):
-ssh -t ubuntu@www.zuzutest.ml ssh ubuntu@localhost -p 20223
+ssh -t ubuntu@www.zuzu-test.ml ssh ubuntu@localhost -p 20223
 
 ou
 
 1ère console
 On établit le tunnel local avec l'OpiZ
-ssh -N -L 20223:localhost:20223 ubuntu@www.zuzutest.ml
+ssh -N -L 20223:localhost:20223 ubuntu@www.zuzu-test.ml
 
 
 2ème console, on utilise le tunnel OpiZ en local sur sa machine
