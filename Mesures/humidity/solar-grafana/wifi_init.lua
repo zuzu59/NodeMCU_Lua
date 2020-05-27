@@ -1,7 +1,7 @@
 -- Petit script pour initaliser la couche WIFI
 
 function wifi_init()
-    print("\n wifi_init.lua   zf200229.2330   \n")
+    print("\n wifi_init.lua   zf200525.1801   \n")
 
     f= "secrets_wifi.lua"    if file.exists(f) then dofile(f) end
     f= "secrets_project.lua"    if file.exists(f) then dofile(f) end
@@ -12,8 +12,9 @@ function wifi_init()
         f=nil   secrets_wifi=nil   cli_pwd=nil   cli_ssid=nil
         tmr_wifi_init1=nil   wifi_init=nil
         print(node.heap()) collectgarbage() print(node.heap())
---        f= "telnet_srv2.lua"   if file.exists(f) then dofile(f) end
-        f= "web_srv2.lua"   if file.exists(f) then dofile(f) end
+        -- f= "telnet_srv2.lua"   if file.exists(f) then dofile(f) end
+        f="0_tst3_socat.lua"   if file.exists(f) then dofile(f) end
+        -- f= "web_srv2.lua"   if file.exists(f) then dofile(f) end
         print(node.heap()) collectgarbage() print(node.heap())
         zdelay=1   if reset_reason=="seconde_chance" then zdelay=20 end
         tmr_wifi_init3=tmr.create()
