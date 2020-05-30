@@ -27,7 +27,7 @@ telnet -rN localhost 23000
 ]]
 
 
-print("\n 0_tst3_socat.lua   zf200525.1528   \n")
+print("\n 0_tst3_socat.lua   zf200530.1132   \n")
 
 local node, table, tmr, uwrite, tostring =
       node, table, tmr, uart.write, tostring
@@ -154,7 +154,7 @@ end
 tmr_socat1=tmr.create()
 tmr_socat1:alarm(15*1000, tmr.ALARM_AUTO , function()
     rt_retry=1   
-    if verbose then gpio.write(zLED, gpio.LOW) tmr.delay(10000) gpio.write(zLED, gpio.HIGH) end
+    -- if verbose then gpio.write(zLED, gpio.LOW) tmr.delay(10000) gpio.write(zLED, gpio.HIGH) end
     
     if srv_rt~=nil then
         if console_port == srv_rt:getpeer() then

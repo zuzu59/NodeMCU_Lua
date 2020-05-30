@@ -1,7 +1,7 @@
 -- Petit script pour initaliser la couche WIFI
 
 function wifi_init()
-    print("\n wifi_init.lua   zf200525.1801   \n")
+    print("\n wifi_init.lua   zf200530.1142   \n")
 
     f= "secrets_wifi.lua"    if file.exists(f) then dofile(f) end
     f= "secrets_project.lua"    if file.exists(f) then dofile(f) end
@@ -19,6 +19,7 @@ function wifi_init()
         zdelay=1   if reset_reason=="seconde_chance" then zdelay=20 end
         tmr_wifi_init3=tmr.create()
         tmr_wifi_init3:alarm(zdelay*1000, tmr.ALARM_SINGLE, function()
+            gpio.write(zLED, gpio.LOW)
             f= "boot.lua"   if file.exists(f) then dofile(f) end
             tmr_wifi_init3:unregister() tmr_wifi_init3=nil wifi_init_end=nil
             reset_reason=nil zdelay=nil
