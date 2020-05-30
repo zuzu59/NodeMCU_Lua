@@ -3,7 +3,7 @@
 -- le script repair.lua pendant xx secondes avant de continuer
 --Source: https://nodemcu.readthedocs.io/en/master/en/modules/node/#nodebootreason
 
-print("\n init.lua zf200530.1207 \n")
+print("\n init.lua zf200530.1228 \n")
 
 function initz()
 
@@ -19,16 +19,10 @@ function initz()
         gpio.trig(zswitch, "none")   zswitch=nil
         print("hvbouton...")
         print(tmr.now())
-        
-        
-        
         if tmr.now() > 5000000 then
             file.putcontents("_setup_wifi_", "toto")
-            print("on demande le setup wifi !")
+            print("on a demandé le setup wifi !")
         end
-        
-        
-        
         initalarme1:unregister() initalarme1=nil second_chance=nil
         gpio.write(zLED, gpio.HIGH)   zLED=nil
         reset_reason="hvbouton"
