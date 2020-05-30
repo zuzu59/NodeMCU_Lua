@@ -1,11 +1,13 @@
 # Mesure de température et d'humidité avec un NodeMCU en Lua
-zf200530.1242
+zf200530.1245
 
 Petit projet pour mesurer la température et l'humidité avec un capteur HTU21D et l'afficher sur Grafana. Comme par exemple pour *enregistrer* la température et l'humidité d'un local au cours du temps.
 Petite subtilité dans ce projet on va mesurer DEUX capteurs HTU21D et partager la ligne du clock !
 
 **AJOUT RAPIDE DE FONCTIONNALITÉS**
-Après avoir appuyé sur le bouton RESET ou un *power on*, une *seconde chance* est donnée pendant 10 secondes afin de pouvoir corriger le problème de crash boot.<br>
+
+Après avoir appuyé sur le bouton RESET ou un *power on*, une *seconde chance* est donnée pendant 10 secondes afin de pouvoir corriger le problème de crash boot.
+
 Mais si on appuie sur bouton FLASH deux effets:
 * si c'est moins de 5 secondes après le RESET, cela termine le mode *seconde chance* et continue le boot normalement
 * si c'est entre 5 et 10 secondes, cela demande le *setup config*, il faut alors se connecter sur le WIFI Setup Gadget et ouvrir http://192.168.4.1 pour changer la configuration du Wifi
