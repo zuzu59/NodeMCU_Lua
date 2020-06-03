@@ -1,10 +1,16 @@
 # Mesure d'énergie d'une installation monophasée
 
-zf200603.1508
+zf200603.1940
+
+**ATTENTION:<br>
+Ce README est parti d'un autre projet similaire, donc pas tout juste pour ce projet**
+
 
 <!-- TOC titleSize:2 tabSpaces:2 depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 skip:1 title:1 charForUnorderedList:* -->
 ## Table of Contents
 * [Astuces de mesures de la puissance](#astuces-de-mesures-de-la-puissance)
+  * [Schéma](#schéma)
+  * [Astuces](#astuces)
 * [Installation](#installation)
 * [Utilisation](#utilisation)
   * [Distribution des rôles de NodeMCU](#distribution-des-rôles-de-nodemcu)
@@ -55,7 +61,21 @@ Toutes les fonctions sont bien séparées dans des scripts, cela *complexifie* l
 
 ## Astuces de mesures de la puissance
 
-Dans ce projet il y a 1x NodeMCU qui mesure la production électrique de mon installation solaire PV. On mesure le courant injecté dans le réseau électrique de la maison avec un petit transformateur de courant 1/800 *clipsé* sur la phase de l'onduleur.<br>
+Dans ce projet il y a 1x NodeMCU qui mesure la production électrique de mon installation solaire PV. On mesure le courant injecté dans le réseau électrique de la maison avec un petit transformateur de courant *clipsé* sur la phase du smart inverter.<br>
+
+### Schéma
+
+![Image](https://github.com/zuzu59/NodeMCU_Lua/blob/master/Mesures/energy/transfo_courant_clip_1p/schemas/sch%C3%A9ma.png?raw=true)
+
+Le petit transfo de courant a un rapport de 25mA à 20A, soit 0.025/20=0.00125 soit encore 1/800.
+
+Une masse virtuelle de 0.5V est constituée avec le pont des résistances R2/R1, cela permet de *remonter* la tension alternative de la mesure de courant.
+
+La résistance R3 est utilisée pour la conversion courant/tension du transfo de courant.<br>
+Pour une charge maximale de 600W, la résistance R3 est de 100R, et pour 1'200W elle est de 56R.
+
+### Astuces
+
 * Comme le convertisseur ADC du NodeMCU ne peut mesurer que des valeurs positives comprises entre 0V et 1V, on ajoute une masse *fictive* au signal du transformateur de courant de 0.5V afin de *remonter* l'alternance négative.<br>
 Au lieu de *découper* la sinusoïde (50Hz) en 100 *parties*, c'est à dire toutes les 0.2ms (5'000x /s), pour en faire l'intégrale. On lit l'ADC toutes les 11ms (seulement 91x /s) donc beaucoup plus lentement.<br>
 * Comme la sinusoïde fait 20ms et est *répétitive*, on balaye (par *décalage*) statistiquement la sinusoïde.<br>

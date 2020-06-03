@@ -1,6 +1,6 @@
 -- Lit le convertisseur ADC connecté sur le transformateur de courant
 -- pour mesurer le courant électrique de l'installation PV
-print("\n 0_get_data.lua zf191024.1037 \n")
+print("\n 0_get_power.lua zf200603.2013 \n")
 
 -- Astuce de mesure:
 -- On converti le courant en tension avec la résistance de charge du
@@ -17,10 +17,9 @@ print("\n 0_get_data.lua zf191024.1037 \n")
 -- bien dans la plage de mesure avec le choix de la résistance de conversion
 -- la conversion courant/tension/puissance est faite avec une simple régle de 3
 
-
-zpow_cal=401    --puissance mesurée de la charge étalon
-zadc_cal=189    --valeur de l'adc pour zpow_cal
-zadc_offset=548
+zpow_cal=692    --puissance mesurée de la charge étalon
+zadc_cal=59     --valeur de l'adc pour zpow_cal
+zadc_offset=172
 
 zadc_sum=0   zadc_offset_sum=0   znb_mes=0
 zadc_min=zadc_offset   zadc_max=zadc_offset

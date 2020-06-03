@@ -1,5 +1,5 @@
 -- Petit script pour faire office de crontab pour les mesures
-print("\n 0_cron.lua   zf200527.1827   \n")
+print("\n 0_cron.lua   zf200603.1950   \n")
 
 cron1=tmr.create()
 cron1:alarm(10*1000,  tmr.ALARM_AUTO, function()
@@ -8,15 +8,14 @@ cron1:alarm(10*1000,  tmr.ALARM_AUTO, function()
 
     http_post(influxdb_url,"energy,memory=cron1_"..yellow_id.." ram="..node.heap())
 
-    f = "0_1_htu21d.lua"  if file.exists(f) then dofile(f) end
-    http_post(influxdb_url,"energy,capteur=th1 temperature="..ztemp1)
-    http_post(influxdb_url,"energy,capteur=th1 humidity="..zhum1)
+    -- f = "0_1_htu21d.lua"  if file.exists(f) then dofile(f) end
+    -- http_post(influxdb_url,"energy,capteur=th1 temperature="..ztemp1)
+    -- http_post(influxdb_url,"energy,capteur=th1 humidity="..zhum1)
+    -- 
+    -- ztemp1=nil  zhum1=nil  ztemp2=nil  zhum2=nil
 
-    f = "0_2_htu21d.lua"  if file.exists(f) then dofile(f) end
-    http_post(influxdb_url,"energy,capteur=th2 temperature="..ztemp2)
-    http_post(influxdb_url,"energy,capteur=th2 humidity="..zhum2)
 
-    ztemp1=nil  zhum1=nil  ztemp2=nil  zhum2=nil
+
 
     -- f = "0_zdyndns.lua"   if file.exists(f) then dofile(f) end
 
