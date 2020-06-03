@@ -1,5 +1,31 @@
 # Mesure de température et d'humidité avec un NodeMCU en Lua
-zf200530.1245
+zf200603.1529
+
+<!-- TOC titleSize:2 tabSpaces:4 depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 skip:1 title:1 charForUnorderedList:* -->
+## Table of Contents
+* [Autres utilisations de ce projet](#autres-utilisations-de-ce-projet)
+* [Avantages de travailler avec langage interprété (Lua) VS compilé (Arduino C++)](#avantages-de-travailler-avec-langage-interprété-lua-vs-compilé-arduino-c)
+* [Principes de mesures](#principes-de-mesures)
+    * [Schéma](#schéma)
+* [Le cloud ThingSpeak](#le-cloud-thingspeak)
+* [Parties principales du code](#parties-principales-du-code)
+    * [Les secrets du projet](#les-secrets-du-projet)
+    * [La mesure de température et d'humidité](#la-mesure-de-température-et-dhumidité)
+    * [L'envoi des mesures dans le Cloud ThingSpeak](#lenvoi-des-mesures-dans-le-cloud-thingspeak)
+    * [L'horloge des mesures](#lhorloge-des-mesures)
+* [Installation](#installation)
+* [Utilisation](#utilisation)
+    * [Configuration du WIFI du NodeMCU_Lua](#configuration-du-wifi-du-nodemculua)
+    * [Configuration de ThingSpeak](#configuration-de-thingspeak)
+    * [Visualisation des données dans ThingSpeak](#visualisation-des-données-dans-thingspeak)
+    * [Exportation des données en CSV depuis ThingSpeak](#exportation-des-données-en-csv-depuis-thingspeak)
+    * [Distribution des rôles de NodeMCU](#distribution-des-rôles-de-nodemcu)
+    * [Affichage des températures/humidité en local sur le NodeMCU](#affichage-des-températureshumidité-en-local-sur-le-nodemcu)
+    * [Affichage du petit serveur web du NodeMCU_Lua](#affichage-du-petit-serveur-web-du-nodemculua)
+    * [Modification du code source du NodeMCU en remote](#modification-du-code-source-du-nodemcu-en-remote)
+    * [Utilisation de la console du NodeMCU en remote](#utilisation-de-la-console-du-nodemcu-en-remote)
+<!-- /TOC -->
+
 
 Petit projet pour mesurer la température et l'humidité avec un capteur HTU21D et l'afficher sur Grafana. Comme par exemple pour *enregistrer* la température et l'humidité d'un local au cours du temps.
 Petite subtilité dans ce projet on va mesurer DEUX capteurs HTU21D et partager la ligne du clock !
