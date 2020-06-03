@@ -1,6 +1,8 @@
 # Mesure d'énergie d'une installation monophasée
 
-zf200603.1940
+Version pour l'installation solaire qui se trouve sur le sol !
+
+zf200603.2016
 
 **ATTENTION:<br>
 Ce README est parti d'un autre projet similaire, donc pas tout juste pour ce projet**
