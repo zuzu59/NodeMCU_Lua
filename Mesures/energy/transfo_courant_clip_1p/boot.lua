@@ -1,15 +1,35 @@
--- Scripts à charger après le boot pour démarrer le core system
+-- Scripts à charger après le boot pour démarrer son projet
 
-print("\n boot.lua zf190916.2359 \n")
+print("\n boot.lua zf200530.1211 \n")
 
--- charge ses propres secrets
-f= "secrets_energy.lua"    if file.exists(f) then dofile(f) end
+-- function ztime_stamp()  return tmr.now()/1000000  end
 
---f= "led_rgb.lua"   if file.exists(f) then dofile(f) end
---f= "wifi_ap_start.lua"   if file.exists(f) then dofile(f) end
-f= "wifi_ap_stop.lua"   if file.exists(f) then dofile(f) end
-f= "wifi_cli_conf.lua"   if file.exists(f) then dofile(f) end
-f= "wifi_cli_start.lua"   if file.exists(f) then dofile(f) end
-f= "telnet_srv2.lua"   if file.exists(f) then dofile(f) end
-f= "web_ide2.lua"   if file.exists(f) then dofile(f) end
-f= "web_srv2.lua"   if file.exists(f) then dofile(f) end
+function boot()
+    verbose = false
+    print("On lance le boot...")
+    print(node.heap()) collectgarbage() print(node.heap())
+    
+    f = "0_http_post.lua"  if file.exists(f) then dofile(f) end
+    http_post(influxdb_url,"energy,memory=boot_"..yellow_id.." ram="..node.heap())
+    
+    -- f="0_tst3_socat.lua"   if file.exists(f) then dofile(f) end
+    
+    -- f = "0_zdyndns.lua"   if file.exists(f) then dofile(f) end
+    -- print(node.heap()) collectgarbage() print(node.heap())
+
+    f="0_btn_flipflop.lua"   if file.exists(f) then dofile(f) end
+    -- print(node.heap()) collectgarbage() print(node.heap())
+
+    f="0_cron.lua"   if file.exists(f) then dofile(f) end
+
+    print("verbose:",verbose)   print("boot lancé...")
+    gpio.write(zLED, gpio.HIGH)    
+    f=nil boot=nil
+    print(node.heap()) collectgarbage() print(node.heap())
+end
+boot()
+
+--[[
+verbose = true
+verbose = false
+]]

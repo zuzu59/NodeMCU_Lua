@@ -1,6 +1,6 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
-version = "0.6.8 zf191225.1428"
+version = "0.6.5 zf191021.1558"
 
 print("luatool.py ver " + version)
 
@@ -68,8 +68,6 @@ class AbstractTransport:
         raise NotImplementedError('Function not implemented')
 
     def writer(self, data):
-        ##zzz191124 enlève la fin de ligne afin de ne pas perturber la vérification finale
-        data = data.rstrip('\r\n')
         self.writeln("file.writeline([==[" + data + "]==])\r")
 
     def performcheck(self, expected):
@@ -82,7 +80,7 @@ class AbstractTransport:
                 raise Exception('No proper answer from MCU')
             if char == chr(13) or char == chr(10):  # LF or CR
                 if line != '':
-                    #zzz191124 line = line.strip()
+                    line = line.strip()
                     # zzz191021 Affiche ce que l'on a reçu du NodeMCU
                     if args.verbose:
                         print("\n\nzread0957: {" + line + "\n}\n")
@@ -146,10 +144,7 @@ class SerialTransport(AbstractTransport):
         if len(data) > 0 and not args.bar:
             sys.stdout.write("\r\n->")
             sys.stdout.write(data.split("\r")[0])
-        ##zzz191124 attend encore un petit peu avant d'envoyer
-        sleep(self.delay)
         self.serial.write(data)
-        sleep(self.delay)
         # zzz191021 Affiche ce que l'on a envoyé au NodeMCU
         if args.verbose:
             print("\n\nzwrite0952: {" + data + "\n}\n")
@@ -218,7 +213,7 @@ if __name__ == '__main__':
     # parse arguments or use defaults
     parser = argparse.ArgumentParser(description='ESP8266 Lua script uploader.')
     parser.add_argument('--bar',           action='store_true',    help='Show a progress bar for uploads instead of printing each line')
-    parser.add_argument('--delay',         default=0.025,           help='Delay in seconds between each write, default 0.03 sec.', type=float)
+    parser.add_argument('--delay',         default=0.03,           help='Delay in seconds between each write, default 0.03 sec.', type=float)
     parser.add_argument('--delete',        default=None,           help='Delete a lua/lc file from device.')
     parser.add_argument('--ip',            default=None,           help='Connect via telnet server (--ip IP[:port])')
     parser.add_argument('--zrestart',      action='store_true',    help='Restart the NodeMCU.')
@@ -247,10 +242,7 @@ if __name__ == '__main__':
 
     if args.list:
         # zzz191020 Amélioré la sortie du listing des fichiers
-        #transport.writeln("print('\\n-----');local l = file.list();for k,v in pairs(l) do print(k..', size:'..v)end;print('-----\\n')\r", 0)
-        # zzz191225 Amélioré encore la sortie du listing des fichiers (sort file)
-        transport.writeln("zdir={};pfile = file.list();for k,v in pairs(pfile) do zdir[#zdir+1] = k..string.rep(' ',24-string.len(k))..' : '..v end;table.sort(zdir);print('\\n-----');for i=1, #zdir do print(zdir[i]) end;print('-----\\n');zdir=nil;pfile=nil;k=nil;v=nil;i=nil\r", 0)
-
+        transport.writeln("print('\\n-----');local l = file.list();for k,v in pairs(l) do print(k..', size:'..v)end;print('-----\\n')\r", 0)
         while True:
             char = transport.read(1)
             if char == '' or char == chr(62):    # '' or '>'
@@ -362,13 +354,11 @@ if __name__ == '__main__':
         sys.stderr.write("\r\nStage 3. Start writing data to flash memory...")
     if args.bar:
         for i in tqdm(range(0, num_lines)):
-            #zzz191124 transport.writer(line.strip())
-            transport.writer(line)
+            transport.writer(line.strip())
             line = f.readline()
     else:
         while line != '':
-            #zzz191124 transport.writer(line.strip())
-            transport.writer(line)
+            transport.writer(line.strip())
             line = f.readline()
 
     # close both files

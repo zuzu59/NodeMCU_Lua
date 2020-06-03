@@ -1,5 +1,5 @@
 -- fonction cat() pour afficher les 10 premières lignes d'un fichier dans la flash
-print("\n head.lua   zf192028.1516   \n")
+print("\n head.lua   zf192026.0942   \n")
 
 function zhead(zfile)
     print("\n"..zfile.."\n-------------------------------")
