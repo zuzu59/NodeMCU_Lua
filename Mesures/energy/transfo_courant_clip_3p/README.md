@@ -1,24 +1,43 @@
 # Mesure d'énergie d'une installation triphasée
 
+zf200603.1457
+
+<!-- TOC titleSize:2 tabSpaces:2 depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 skip:1 title:1 charForUnorderedList:* -->
+## Table of Contents
+* [ATTENTION, ce projet débute et la *base* de ce Readme est *emprunté* à un autre projet, il reste donc à le modifier !](#attention-ce-projet-débute-et-la-base-de-ce-readme-est-emprunté-à-un-autre-projet-il-reste-donc-à-le-modifier-)
+  * [Astuces de mesures](#astuces-de-mesures)
+  * [Installation](#installation)
+  * [Utilisation](#utilisation)
+    * [Visualisation des données dans Grafana](#visualisation-des-données-dans-grafana)
+    * [Distribution des rôles de NodeMCU](#distribution-des-rôles-de-nodemcu)
+    * [Exportation des données en CSV depuis Grafana](#exportation-des-données-en-csv-depuis-grafana)
+    * [Affichage des températures/humidité en local sur le NodeMCU](#affichage-des-températureshumidité-en-local-sur-le-nodemcu)
+    * [Affichage du petit serveur web du NodeMCU_Lua](#affichage-du-petit-serveur-web-du-nodemculua)
+    * [Modification du code source du NodeMCU en remote](#modification-du-code-source-du-nodemcu-en-remote)
+    * [Utilisation de la console du NodeMCU en remote](#utilisation-de-la-console-du-nodemcu-en-remote)
+<!-- /TOC -->
+
+# ATTENTION, ce projet débute et la *base* de ce Readme est *emprunté* à un autre projet, il reste donc à le modifier !
+zf191228.2308
+
+
+
+
 Petit projet pour mesurer la consommation électrique d'une installation triphasée et de l'afficher sur Grafana avec une DB InfluxDB. Comme par exemple pour monitorer la consommation électrique d'une maison au cours du temps.
 
 ![Image](https://zraw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/humidity/bolo/img/Constellation_sondes_mesures.jpg)
 
 
 
- # ATTENTION, ce projet débute et la *base* de ce Readme est *emprunté* à un autre projet, il reste donc à le modifier !
-zf191228.2308
-
-
 
 
 Constellation de sondes de mesures
 
-![Image](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/humidity/bolo/img/htu21d_on_NodeMCU.jpg)
+![Image](https://zraw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/humidity/bolo/img/htu21d_on_NodeMCU.jpg)
 
 Montage du capteur HTU21D directement sur le NodeMCU, chose à ne PAS faire, car la température du NodeMCU fausse complètement les mesures d'humidité !
 
-![Image](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/humidity/bolo/img/exemple_de_mesures_1.png)
+![Image](https://zraw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/humidity/bolo/img/exemple_de_mesures_1.png)
 
 Exemple de sortie sur Grafana
 
@@ -40,13 +59,13 @@ Toutes les fonctions sont bien séparées dans des scripts, cela *complexifie* l
 
 On utilise un tout petit capteur, le **HTU21D**, d'humidité et de température I2C.
 
-![Image](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/humidity/bolo/img/HTU21D.jpg)
+![Image](https://zraw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/humidity/bolo/img/HTU21D.jpg)
 
 Il est vraiment très bon marché (1.5$), simple à utiliser et super précis.
 
 https://www.aliexpress.com/item/32480177429.html
 
-![Image](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/humidity/bolo/img/super_definition_capteur_htu21d.jpg)
+![Image](https://zraw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/humidity/bolo/img/super_definition_capteur_htu21d.jpg)
 
 Incroyable la résolution de la mesure ! On peut observer ici l'arrivée le matin au salon, l'ouverture de la porte de la salle de bain après avoir pris la douche et l'ouverture de la fenêtre. Tout ceci dans la résolution de 1 à 3% de l'humidité relative
 
@@ -92,9 +111,9 @@ secrets_projet.lua
 
 Quand on a trouvé la mesure qui nous convient sur Grafana, on peut l'exporter en CSV pour en faire un rapport dans un tableur par exemple.
 
-![Image](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/humidity/bolo/img/exportation_data_csv.png)
+![Image](https://zraw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/humidity/bolo/img/exportation_data_csv.png)
 
-![Image](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/humidity/bolo/img/coisir_series_as_columns.png)
+![Image](https://zraw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/humidity/bolo/img/coisir_series_as_columns.png)
 
 
 ### Affichage des températures/humidité en local sur le NodeMCU
@@ -134,7 +153,7 @@ telnet -rN 192.168.0.xxx
 
 
 
-zf191221.0825
+
 
 
 pense bête:

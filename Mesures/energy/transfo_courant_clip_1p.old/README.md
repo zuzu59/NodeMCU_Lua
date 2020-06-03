@@ -1,25 +1,43 @@
 # transfo_courant_clip
+zf200603.1454
+
+Ancienne version encore en production :-(
+  
+
+<!-- TOC titleSize:2 tabSpaces:2 depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 skip:1 title:1 charForUnorderedList:* -->
+## Table of Contents
+* [Astuces de mesures de la puissance](#astuces-de-mesures-de-la-puissance)
+* [Installation](#installation)
+* [Utilisation](#utilisation)
+  * [Distribution des rôles de NodeMCU](#distribution-des-rôles-de-nodemcu)
+  * [Affichage des températures en local sur le NodeMCU](#affichage-des-températures-en-local-sur-le-nodemcu)
+  * [Affichage du petit serveur web du NodeMCU_Lua](#affichage-du-petit-serveur-web-du-nodemculua)
+  * [Modification du code source du NodeMCU en remote](#modification-du-code-source-du-nodemcu-en-remote)
+  * [Utilisation de la console du NodeMCU en remote](#utilisation-de-la-console-du-nodemcu-en-remote)
+* [Visualisation sur ThingSpeak](#visualisation-sur-thingspeak)
+<!-- /TOC -->
+
 
 Petit projet pour mesurer la puissance d'un appareil électrique à partir de la mesure du  courant avec un petit transformateur de courant qui se clips sur un conducteur avec un NodeMCU en LUA, et l'afficher sur Grafana avec une DB InfluxDB. Comme par exemple la production électrique d'une installation solaire photovoltaïque monophasée.
 
 ATTENTION, dans ce projet, on ne tient pas compte du déphasage entre la tension et le courant (cos phy) !
 
-![Image of Yaktocat](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/energy/transfo_courant_clip/img/20190908_134444.jpg)
+![Image of Yaktocat](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/energy/transfo_courant_clip_1p.old/img/20190908_134444.jpg)
 Petit transformateur de mesure du courant avec un rapport de 1/800 avec l'épissure pour la boucle de mesure de courant !
 
-![Image of Yaktocat](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/energy/transfo_courant_clip/img/20190908_221514.jpg)
+![Image of Yaktocat](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/energy/transfo_courant_clip_1p.old/img/20190908_221514.jpg)
 C'est mon NodeMCU de banc tests, il y a un pont diviseur pour faire une masse fictive à +0.5V qui permet de mesurer les alternances négatives du courant et la résistance *convertisseur* de courant de la mesure en tension (U=R*I).
 
-![Image of Yaktocat](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/energy/transfo_courant_clip/img/20190908_213927.jpg)
+![Image of Yaktocat](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/energy/transfo_courant_clip_1p.old/img/20190908_213927.jpg)
 On voit ici l'image du courant d'un foehn  (450W) en petite vitesse. On voit bien que la partie négative de l'alternance est effacée. C'est à cause de la mise ne série d'une diode avec le corps de chauffe du foehn, c'est un moyen très simple de diminuer le puissance.
 
-![Image of Yaktocat](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/energy/transfo_courant_clip/img/20190908_213900.jpg)
+![Image of Yaktocat](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/energy/transfo_courant_clip_1p.old/img/20190908_213900.jpg)
 On voit ici l'image du courant d'un foehn (450W) en grande vitesse. L'alternance est bien complète ici. On voit aussi qu'elle se trouve dans la plage des 1V du convertisseur ADC du NodeMCU grâce à l'astuce de la *masse fictive* de 0.5V.
 
-![Image of Yaktocat](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/energy/transfo_courant_clip/img/20190907_170403.jpg)
+![Image of Yaktocat](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/energy/transfo_courant_clip_1p.old/img/20190907_170403.jpg)
 Vue globale de mon installation solaire, pour l'instant posée sur le sol, de 2x panneaux de 280W  :-)
 
-![Image of Yaktocat](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/energy/transfo_courant_clip/img/20190907_170414.jpg)
+![Image of Yaktocat](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/energy/transfo_courant_clip_1p.old/img/20190907_170414.jpg)
 Vue des deux onduleurs (un par panneau) qui injectent directement l'énergie produite dans le réseau électrique 220V de la maison.
 
 
@@ -138,7 +156,6 @@ Seulement la corrélation entre les trois température
 https://thingspeak.com/apps/plugins/300559
 
 
-zf190922.1740
 
 
 pense bête:
