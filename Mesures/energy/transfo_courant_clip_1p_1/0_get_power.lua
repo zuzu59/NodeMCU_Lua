@@ -1,6 +1,6 @@
 -- Lit le convertisseur ADC connecté sur le transformateur de courant
 -- pour mesurer le courant électrique de l'installation PV
-print("\n 0_get_power.lua zf200603.2013 \n")
+print("\n 0_get_power.lua zf200605.1050 \n")
 
 -- Astuce de mesure:
 -- On converti le courant en tension avec la résistance de charge du
@@ -51,7 +51,8 @@ end
 
 function calc_rms()
     zadc_rms=math.floor(zadc_sum/znb_mes)
-    if zadc_rms<=8 then zadc_rms=0 end
+    if verbose then print(zadc_sum,znb_mes,zadc_rms) end
+    if zadc_rms<=4 then zadc_rms=0 end
     zadc_offset=math.floor(zadc_offset_sum/znb_mes)
     zpower=math.floor(zadc_rms*zpow_cal/zadc_cal)
     if verbose then print(zadc_min,zadc_max,zadc_max-zadc_min,zadc_offset,zadc_rms,zpower.."W") end

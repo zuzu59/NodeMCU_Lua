@@ -94,6 +94,8 @@ verbose=true
 #zdyn
 
 ./luatool.py --ip $zIP:$zport -f boot.lua
+./luatool.py --ip $zIP:$zport -f 0_get_power.lua
+
 ./luatool.py --ip $zIP:$zport -f z_index.html
 
 ./luatool.py --ip $zIP:$zport -f 0_send_data.lua
