@@ -1,5 +1,5 @@
 -- Petit script pour faire office de crontab pour les mesures
-print("\n 0_cron.lua   zf200604.1510   \n")
+print("\n 0_cron.lua   zf200604.1313   \n")
 
 cron1=tmr.create()
 cron1:alarm(10*1000,  tmr.ALARM_AUTO, function()
@@ -13,7 +13,7 @@ cron1:alarm(10*1000,  tmr.ALARM_AUTO, function()
 
     f=nil
     
-    if verbose then print("End cron:\n"..node.heap()) end
+    if verbose then print("End cron:") end
     collectgarbage()
     if verbose then print(node.heap()) end
 end)
