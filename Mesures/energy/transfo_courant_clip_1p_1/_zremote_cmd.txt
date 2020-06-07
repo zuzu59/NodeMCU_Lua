@@ -1,5 +1,5 @@
 # Quelques commandes remote (luatool) à envoyer avec le plugin Atom-IDE-terminal de l'éditeur Atom
-# zf200607.1109
+# zf200607.1550
 
 
 Todo à faire pour ce projet !
@@ -88,6 +88,10 @@ export zport="23000"
 
 telnet -rN $zIP $zport
 verbose=false
+
+= node.bootreason()
+# https://nodemcu.readthedocs.io/en/master/modules/node/#nodebootreason
+
 for k,v in pairs(_G) do print(k,v) end
 verbose=true
 ~.
@@ -95,10 +99,6 @@ verbose=true
 
 ./luatool.py --ip $zIP:$zport -f boot.lua
 ./luatool.py --ip $zIP:$zport -f 0_get_power.lua
-
-./luatool.py --ip $zIP:$zport -f z_index.html
-
-./luatool.py --ip $zIP:$zport -f 0_send_data.lua
 ./luatool.py --ip $zIP:$zport -f 0_cron.lua
 ./luatool.py --ip $zIP:$zport -f 0_http_post.lua
 ./luatool.py --ip $zIP:$zport -f 0_htu21d.lua

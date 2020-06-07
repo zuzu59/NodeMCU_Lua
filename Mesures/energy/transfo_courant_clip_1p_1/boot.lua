@@ -1,6 +1,6 @@
 -- Scripts à charger après le boot pour démarrer son projet
 
-print("\n boot.lua zf200606.1312 \n")
+print("\n boot.lua zf200607.1549 \n")
 
 -- function ztime_stamp()  return tmr.now()/1000000  end
 
@@ -12,8 +12,12 @@ function boot()
     f = "0_http_post.lua"  if file.exists(f) then dofile(f) end
     collectgarbage() print(node.heap())
 
-    http_post(influxdb_url,"energy,memory=boot_"..yellow_id.." ram="..node.heap())
-        
+    _, boot_reason = node.bootreason()
+    zarg_boot=           "energy,memory=boot_"..yellow_id.." ram="..node.heap().."\n"
+    zarg_boot=zarg_boot.."energy,boot=boot_reason_"..yellow_id.." err="..boot_reason
+    http_post(influxdb_url,zarg_boot)
+    boot_reason = nil
+    
     -- f = "0_zdyndns.lua"   if file.exists(f) then dofile(f) end
     -- print(node.heap()) collectgarbage() print(node.heap())
 
