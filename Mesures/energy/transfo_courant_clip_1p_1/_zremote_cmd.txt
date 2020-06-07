@@ -1,5 +1,5 @@
 # Quelques commandes remote (luatool) à envoyer avec le plugin Atom-IDE-terminal de l'éditeur Atom
-# zf200606.1231
+# zf200607.1109
 
 
 Todo à faire pour ce projet !
@@ -102,6 +102,7 @@ verbose=true
 ./luatool.py --ip $zIP:$zport -f 0_cron.lua
 ./luatool.py --ip $zIP:$zport -f 0_http_post.lua
 ./luatool.py --ip $zIP:$zport -f 0_htu21d.lua
+./luatool.py --ip $zIP:$zport -f 0_tst4_socat.lua
 
 ./luatool.py --ip $zIP:$zport --zrestart
 
