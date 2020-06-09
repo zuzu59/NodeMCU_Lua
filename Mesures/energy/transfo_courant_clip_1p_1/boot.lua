@@ -1,8 +1,40 @@
 -- Scripts à charger après le boot pour démarrer son projet
 
-print("\n boot.lua zf200607.1625 \n")
+print("\n boot.lua zf200607.1655 \n")
 
 -- function ztime_stamp()  return tmr.now()/1000000  end
+
+sntp.sync(nil, nil, nil, 1)
+
+function ztime_format(ztime)
+    tm = rtctime.epoch2cal(ztime + 3600)
+    return(string.format("%04d/%02d/%02d %02d:%02d:%02d", tm["year"], tm["mon"], tm["day"], tm["hour"], tm["min"], tm["sec"]))
+end
+
+print(ztime_format(rtctime.get()+3600))
+
+zsec, zusec = rtctime.get()
+
+print(zsec, zusec)
+zsec=zsec+3600+zusec/1000000
+print(ztime_format(zsec))
+
+print(zsec)
+znanosec= zsec*1000000000
+print(znanosec)
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 function boot()
     verbose = true
