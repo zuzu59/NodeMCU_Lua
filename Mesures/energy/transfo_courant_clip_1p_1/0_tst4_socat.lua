@@ -27,7 +27,7 @@ telnet -rN localhost 23000
 ]]
 
 
-print("\n 0_tst4_socat.lua   zf200607.1102   \n")
+print("\n 0_tst4_socat.lua   zf200610.1826   \n")
 
 local node, table, tmr, uwrite, tostring =
       node, table, tmr, uart.write, tostring
@@ -164,6 +164,9 @@ tmr_socat1:alarm(15*1000, tmr.ALARM_AUTO , function()
     -- rt_retry=1   
     -- if verbose then gpio.write(zLED, gpio.LOW) tmr.delay(10000) gpio.write(zLED, gpio.HIGH) end    
     if srv_rt~=nil then
+ 
+        if http_post~=nil then  http_post(influxdb_url,"energy,memory=srv_rt_no_nil_"..yellow_id.." ram="..node.heap())  end        
+    
         if console_port ~= srv_rt:getpeer() then
             --on relance...
             rt_connect()
