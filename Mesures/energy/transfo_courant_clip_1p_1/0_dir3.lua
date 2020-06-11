@@ -3,7 +3,7 @@
 
 function dir3()
         
-    print("\n 0_dir3.lua   zf200611.1658   \n")
+    print("\n 0_dir3.lua   zf200611.1714   \n")
 
     function file_vers(name_file)
         local z=""
@@ -24,64 +24,29 @@ function dir3()
                     z=name_file..": "..string.sub(t,j1+1,i2-2)
                     break
                 end
-    --            uart.write(0,".")
             end
             f:close()
-            print(z)        
+            uart.write(0,".")
         end
         return z
     end
 
-    function dir_vers()
-        zdir={}   list_files={}
-        local k,v = k,v   local pfile = file.list()
-        for k,v in pairs(pfile) do
-            zdir[#zdir+1] = file_vers(k)
-            -- print(file_vers(k))
-            -- list_files[#list_files+1]=k
-        end
-        print("\n\nEt le résultat est.....................")
-        table.sort(zdir)   for i=1, #zdir do   print(zdir[i])   end
-        -- zcmpt1 = 1   zrepeat()
+    zdir={}   list_files={}
+    local k,v = k,v   local pfile = file.list()
+    for k,v in pairs(pfile) do
+        zdir[#zdir+1] = file_vers(k)
     end
+    table.sort(zdir)   for i=1, #zdir do   print(zdir[i])   end
 
-    function dir()
-        local zdir={}
-        local pfile = file.list()
-        for k,v in pairs(pfile) do
-            zdir[#zdir+1] = k..string.rep(" ",24-string.len(k)).." : "..v
-        end
-        table.sort(zdir)   for i=1, #zdir do   print(zdir[i])   end
-        size_file=nil   chksum_file=nil  k=nil
-    end
-
-    function clear_dir()
-        dir=nil   dir3=nil   dir_vers=nil file_vers=nil
-        list_files=nil zdir=nil
-        clear_dir=nil
-    end
-
-    dir()
-    print("\nusage:")
-    print("   dir()")
-    print("   dir_vers()")
-    print("   file_vers('dir2.lua')")
-
+    dir_vers=nil   file_vers=nil   list_files=nil   zdir=nil
+    dir3=nil   
+    
 end
 dir3()
 
 --[[
-dir()
-dir_vers()
-
-file_vers("dir.lua")
-file_vers("dir3.lua")
-file_vers("cat.lua")
-
-=node.heap()
-clear_dir()
-=node.heap()
 
 status, err = pcall(function () print(zhash("il était une fois trois petits cochons roses...")) end)  if status==false then print("Error: ",err) end
+
 ]]
 

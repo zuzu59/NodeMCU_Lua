@@ -1,8 +1,9 @@
 -- Petit scripts pour faire un flip flop avec le bouton et la led du nodemcu
 -- Très intéressant la techno utilisée ici pour enlever les rebonds du micro switch
--- dans la variable b se trouve l'heure à laquelle l'interruption est arrivée, il suffit juste alors de lui mettre un petit délai de 300mS
+-- dans la variable b se trouve l'heure à laquelle l'interruption est arrivée, 
+-- il suffit juste alors de lui mettre un petit délai de 300mS
 
-print("\n 0_btn_flipflop.lua   zf200611.1153 \n")
+print("\n 0_btn_flipflop.lua   zf200611.1919   \n")
 
 gpio.write(zLED,1)  gpio.mode(zLED,gpio.OUTPUT)
 gpio.mode(zBTN,gpio.INT)
