@@ -1,6 +1,6 @@
 -- fonction dir() pour juste afficher les fichiers avec leur taille
 
-print("\n dir2.lua   zf191223.1455   \n")
+print("\n dir.lua   zf191223.1455   \n")
 
 function dir()
     local zdir={}

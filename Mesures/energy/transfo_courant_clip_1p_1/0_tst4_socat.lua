@@ -27,7 +27,7 @@ telnet -rN localhost 23000
 ]]
 
 
-print("\n 0_tst4_socat.lua   zf200610.1826   \n")
+print("\n 0_tst4_socat.lua   zf200611.1339   \n")
 
 local node, table, tmr, uwrite, tostring =
       node, table, tmr, uart.write, tostring
@@ -141,8 +141,9 @@ function rt_connect()
             gpio.write(zLED, gpio.LOW)
             print("connected on "..console_host..":"..console_port)
             print(node.heap())
-            if http_post~=nil then  http_post(influxdb_url,"energy,memory=socat_connected_"..yellow_id.." ram="..node.heap())  end
         end
+        if http_post~=nil then  http_post(influxdb_url,"energy,memory=socat_connected_"..yellow_id.." ram="..node.heap())  end
+        
         telnet_listener(sck)
         print("Welcome to NodeMCU world.")
     end)
@@ -152,8 +153,8 @@ function rt_connect()
         gpio.write(zLED, gpio.LOW) tmr.delay(10000) gpio.write(zLED, gpio.HIGH)
         print("trying connect to "..console_host..":"..console_port)
         print(node.heap())
-        if http_post~=nil then  http_post(influxdb_url,"energy,memory=socat_try_con_"..yellow_id.." ram="..node.heap())  end        
     end
+    if http_post~=nil then  http_post(influxdb_url,"energy,memory=socat_try_con_"..yellow_id.." ram="..node.heap())  end        
 end
 
 tmr_socat1=tmr.create()

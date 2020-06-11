@@ -1,6 +1,6 @@
 -- Scripts à charger après le boot pour démarrer son projet
 
-print("\n boot.lua zf200611.1053 \n")
+print("\n boot.lua zf200611.1328 \n")
 
 -- function ztime_stamp()  return tmr.now()/1000000  end
 
@@ -24,7 +24,7 @@ print("\n boot.lua zf200611.1053 \n")
 -- print(znanosec)
 
 function boot()
-    verbose = true
+    verbose = false
     print("On lance le boot...")
     collectgarbage() print(node.heap())
     
