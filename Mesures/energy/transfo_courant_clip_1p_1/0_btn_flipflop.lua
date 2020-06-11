@@ -2,14 +2,14 @@
 -- Très intéressant la techno utilisée ici pour enlever les rebonds du micro switch
 -- dans la variable b se trouve l'heure à laquelle l'interruption est arrivée, il suffit juste alors de lui mettre un petit délai de 300mS
 
-print("\n 0_btn_flipflop.lua   zf200216.1457 \n")
+print("\n 0_btn_flipflop.lua   zf200611.1153 \n")
 
 gpio.write(zLED,1)  gpio.mode(zLED,gpio.OUTPUT)
 gpio.mode(zBTN,gpio.INT)
 
 d=tmr.now()
 
-function zled (a,b,c)
+function z_btn_led (a,b,c)
     --print("a: "..a..",b: "..b..",c: "..c)
     if b-d > 300*1000 then
         if verbose then
@@ -24,4 +24,4 @@ function zled (a,b,c)
     end
 end
 
-gpio.trig(zBTN, "down", zled)
+gpio.trig(zBTN, "down", z_btn_led)

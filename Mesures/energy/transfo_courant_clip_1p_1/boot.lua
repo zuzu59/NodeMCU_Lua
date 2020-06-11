@@ -1,11 +1,8 @@
 -- Scripts à charger après le boot pour démarrer son projet
 
-print("\n boot.lua zf200610.2238 \n")
+print("\n boot.lua zf200611.1053 \n")
 
 -- function ztime_stamp()  return tmr.now()/1000000  end
-
-
-
 
 -- sntp.sync(nil, nil, nil, 1)
 -- 
@@ -26,22 +23,12 @@ print("\n boot.lua zf200610.2238 \n")
 -- znanosec= zsec*1000000000
 -- print(znanosec)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 function boot()
     verbose = true
     print("On lance le boot...")
+    collectgarbage() print(node.heap())
+    
+    f = "0_rec_boot.lua"  if file.exists(f) then dofile(f) end
     collectgarbage() print(node.heap())
     
     f = "0_http_post.lua"  if file.exists(f) then dofile(f) end
@@ -63,8 +50,8 @@ function boot()
     -- f="0_get_power.lua"   if file.exists(f) then dofile(f) end
     -- collectgarbage() print(node.heap())
     
-    f="0_cron.lua"   if file.exists(f) then dofile(f) end
-    collectgarbage() print(node.heap())
+    -- f="0_cron.lua"   if file.exists(f) then dofile(f) end
+    -- collectgarbage() print(node.heap())
 
     print("verbose:",verbose)   print("le boot est lancé...")
     gpio.write(zLED, gpio.HIGH)    
