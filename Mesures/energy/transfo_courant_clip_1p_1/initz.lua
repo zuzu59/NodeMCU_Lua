@@ -3,7 +3,9 @@
 -- le script repair.lua pendant xx secondes avant de continuer
 --Source: https://nodemcu.readthedocs.io/en/master/en/modules/node/#nodebootreason
 
-print("\n init.lua zf200530.1228 \n")
+print("\n init.lua zf200612.1632 \n")
+
+verbose = true
 
 function initz()
 

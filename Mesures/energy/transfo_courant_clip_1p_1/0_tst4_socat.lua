@@ -27,7 +27,7 @@ telnet -rN localhost 23000
 ]]
 
 
-print("\n 0_tst4_socat.lua   zf200611.1339   \n")
+print("\n 0_tst4_socat.lua   zf200612.1639   \n")
 
 local node, table, tmr, uwrite, tostring =
 node, table, tmr, uart.write, tostring
@@ -104,15 +104,18 @@ local function telnet_listener(socket)
         --insert, remove, concat, heap, gc = nil, nil, nil, nil, nil
         --wdclr, cnt = nil, nil
         node.output(nil)
+        collectgarbage()   print(node.heap())
         print("disconnected...")
-        --    print("rt_retry:",rt_retry)
-        --    rt_retry=rt_retry-1
-        --    print("rt_retry:",rt_retry)
-        -- if rt_retry>=0 then
-        print("on ressaie en vitesse une fois ;-)")
-        rt_connect()
-        -- end    
-    end
+        if http_post~=nil then  http_post(influxdb_url,"energy,memory=socat_disconnected_"..yellow_id.." ram="..node.heap())  end
+        print("rt_retry:",rt_retry)
+        rt_retry=rt_retry-1
+        print("rt_retry:",rt_retry)
+        if rt_retry>=0 then
+            print("on ressaie en vitesse une fois ;-)")
+            rt_connect()
+        end
+    end    
+    
     
     --zzz
     local function zconnection(s)
@@ -129,6 +132,10 @@ end
 --net.createServer(net.TCP, 180):listen(23, telnet_listener)
 print("Revers telnet server running...\n")
 
+
+
+
+
 function rt_connect()
     srv_rt = nil   collectgarbage()   srv_rt = net.createConnection(net.TCP, 0)
     srv_rt:on("connection", function(sck)
@@ -139,7 +146,6 @@ function rt_connect()
             print(node.heap())
         end
         if http_post~=nil then  http_post(influxdb_url,"energy,memory=socat_connected_"..yellow_id.." ram="..node.heap())  end
-        
         telnet_listener(sck)
         print("Welcome to NodeMCU world.")
     end)
@@ -152,6 +158,9 @@ function rt_connect()
     end
     if http_post~=nil then  http_post(influxdb_url,"energy,memory=socat_try_con_"..yellow_id.." ram="..node.heap())  end        
 end
+
+
+
 
 tmr_socat1=tmr.create()
 tmr_socat1:alarm(15*1000, tmr.ALARM_AUTO , function()
@@ -174,7 +183,7 @@ tmr_socat1:alarm(15*1000, tmr.ALARM_AUTO , function()
     end
 end)
 
--- rt_retry=3
+rt_retry=3
 rt_connect()
 
 
