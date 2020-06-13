@@ -27,7 +27,7 @@ telnet -rN localhost 23000
 ]]
 
 
-print("\n 0_tst4_socat.lua   zf200612.1639   \n")
+print("\n 0_tst4_socat.lua   zf200613.1806   \n")
 
 local node, table, tmr, uwrite, tostring =
 node, table, tmr, uart.write, tostring
@@ -103,7 +103,7 @@ local function telnet_listener(socket)
         fifo1, fifo1l, fifo2, fifo2l, s = nil, nil, nil, nil, nil
         --insert, remove, concat, heap, gc = nil, nil, nil, nil, nil
         --wdclr, cnt = nil, nil
-        node.output(nil)
+        node.output(nil)   srv_rt = nil
         collectgarbage()   print(node.heap())
         print("disconnected...")
         if http_post~=nil then  http_post(influxdb_url,"energy,memory=socat_disconnected_"..yellow_id.." ram="..node.heap())  end
@@ -140,51 +140,51 @@ function rt_connect()
     srv_rt = nil   collectgarbage()   srv_rt = net.createConnection(net.TCP, 0)
     srv_rt:on("connection", function(sck)
         collectgarbage()
-        if verbose then 
+--        if verbose then 
             gpio.write(zLED, gpio.LOW)
             print("connected on "..console_host..":"..console_port)
             print(node.heap())
-        end
+--        end
         if http_post~=nil then  http_post(influxdb_url,"energy,memory=socat_connected_"..yellow_id.." ram="..node.heap())  end
         telnet_listener(sck)
         print("Welcome to NodeMCU world.")
     end)
     srv_rt:connect(console_port,console_host)
     collectgarbage()
-    if verbose then
+--    if verbose then
         gpio.write(zLED, gpio.LOW) tmr.delay(10000) gpio.write(zLED, gpio.HIGH)
         print("trying connect to "..console_host..":"..console_port)
         print(node.heap())
-    end
+--    end
     if http_post~=nil then  http_post(influxdb_url,"energy,memory=socat_try_con_"..yellow_id.." ram="..node.heap())  end        
 end
 
 
 
 
-tmr_socat1=tmr.create()
-tmr_socat1:alarm(15*1000, tmr.ALARM_AUTO , function()
-    
-    if http_post~=nil then  http_post(influxdb_url,"energy,memory=tmr_socat1_"..yellow_id.." ram="..node.heap())  end        
-    
-    -- rt_retry=1   
-    -- if verbose then gpio.write(zLED, gpio.LOW) tmr.delay(10000) gpio.write(zLED, gpio.HIGH) end    
-    if srv_rt~=nil then
-        
-        if http_post~=nil then  http_post(influxdb_url,"energy,memory=srv_rt_no_nil_"..yellow_id.." ram="..node.heap())  end        
-        
-        if console_port ~= srv_rt:getpeer() then
-            --on relance...
-            rt_connect()
-        end
-    else
-        --on relance...
-        rt_connect()
-    end
-end)
+-- tmr_socat1=tmr.create()
+-- tmr_socat1:alarm(15*1000, tmr.ALARM_AUTO , function()
+-- 
+--     if http_post~=nil then  http_post(influxdb_url,"energy,memory=tmr_socat1_"..yellow_id.." ram="..node.heap())  end        
+-- 
+--     -- rt_retry=1   
+--     -- if verbose then gpio.write(zLED, gpio.LOW) tmr.delay(10000) gpio.write(zLED, gpio.HIGH) end    
+--     if srv_rt~=nil then
+-- 
+--         if http_post~=nil then  http_post(influxdb_url,"energy,memory=srv_rt_no_nil_"..yellow_id.." ram="..node.heap())  end        
+-- 
+--         if console_port ~= srv_rt:getpeer() then
+--             --on relance...
+--             rt_connect()
+--         end
+--     else
+--         --on relance...
+--         rt_connect()
+--     end
+-- end)
 
-rt_retry=3
-rt_connect()
+rt_retry=1
+--rt_connect()
 
 
 
@@ -192,6 +192,14 @@ rt_connect()
 
 
 --[[
+rt_connect()
+print(srv_rt)
+print(srv_rt:getpeer())
+
+print(console_port)
+
+
+
 tmr_socat1:unregister()
 for k,v in pairs(_G) do print(k,v) end
 
@@ -205,6 +213,4 @@ gpio.write(zLED, gpio.LOW)
 else
 gpio.write(zLED, gpio.HIGH)
 end
-
-
 ]]
