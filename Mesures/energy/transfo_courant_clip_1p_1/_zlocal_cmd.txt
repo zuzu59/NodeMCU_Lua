@@ -1,0 +1,16 @@
+node.stripdebug(3)
+node.compile('0_tst4_socat.lua')
+
+rt_connect()
+print(srv_rt)
+print(srv_rt:getpeer())
+
+
+total_allocated, estimated_used = node.egc.meminfo()
+print(total_allocated, estimated_used)
+
+print(console_port)
+
+srv_rt = nil   collectgarbage()
+
+

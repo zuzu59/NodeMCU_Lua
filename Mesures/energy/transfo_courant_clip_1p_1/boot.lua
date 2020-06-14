@@ -1,6 +1,20 @@
 -- Scripts à charger après le boot pour démarrer son projet
 
-print("\n boot.lua zf200612.0936 \n")
+print("\n boot.lua zf200614.1424 \n")
+
+function zztime_format(ztime)
+    tm = rtctime.epoch2cal(ztime + 3600)
+    return(string.format("%04d/%02d/%02d %02d:%02d:%02d", tm["year"], tm["mon"], tm["day"], tm["hour"], tm["min"], tm["sec"]))
+end
+
+function debug_rec(zdebug)
+    local sec, usec = rtctime.get()
+    file.open("00_boot_reason.txt", "a+")
+    file.writeline(zztime_format(sec).."."..usec..", "..zdebug)
+    file.close()
+end
+
+
 
 function boot()
     verbose = false
@@ -9,7 +23,7 @@ function boot()
     
     f = "0_rec_boot.lua"  if file.exists(f) then dofile(f) end
     collectgarbage() print(node.heap())
-    
+        
     f = "0_http_post.lua"  if file.exists(f) then dofile(f) end
     collectgarbage() print(node.heap())
 
@@ -38,6 +52,7 @@ function boot()
     collectgarbage() print(node.heap())
 end
 boot()
+
 
 --[[
 verbose = true
