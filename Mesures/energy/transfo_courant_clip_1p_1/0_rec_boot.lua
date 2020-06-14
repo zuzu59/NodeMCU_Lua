@@ -1,6 +1,6 @@
 -- Scripts qui permet d'enregistrer la raison du boot dans la flash
 
-print("\n 0_rec_boot.lua zf200614.1422 \n")
+print("\n 0_rec_boot.lua zf200614.1735 \n")
 
 -- Problématique:
 -- Afin de pouvoir enregistrer l'heure du boot dans la FLASH il faut 
@@ -27,10 +27,11 @@ function rec_boot()
         if rtctime.get() > 0 then
             print("Voilà on à l'heure, on peut enregistrer la raison du boot...")
             tmr_rec_boot1:unregister()   tmr_rec_boot1=nil
-            file.open("00_boot_reason.txt", "a+")
-            file.writeline(ztime_format(rtctime.get()+3600))
+            local sec, usec = rtctime.get()
             local _, zboot_reason, zboot_detail = node.bootreason()
-            file.writeline("boot reason: "..zboot_reason)            
+            file.open("00_debug.txt", "a+")
+            file.writeline(string.rep(".",20))
+            file.writeline(zztime_format(sec).."."..usec..", boot reason: "..zboot_reason)
             file.close()
             ztime_format=nil rec_boot=nil
             collectgarbage()   print(node.heap())

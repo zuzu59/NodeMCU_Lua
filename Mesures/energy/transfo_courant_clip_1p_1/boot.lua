@@ -1,15 +1,15 @@
 -- Scripts à charger après le boot pour démarrer son projet
 
-print("\n boot.lua zf200614.1424 \n")
+print("\n boot.lua zf200614.1724 \n")
 
 function zztime_format(ztime)
-    tm = rtctime.epoch2cal(ztime + 3600)
+    local tm = rtctime.epoch2cal(ztime + 3600)
     return(string.format("%04d/%02d/%02d %02d:%02d:%02d", tm["year"], tm["mon"], tm["day"], tm["hour"], tm["min"], tm["sec"]))
 end
 
 function debug_rec(zdebug)
     local sec, usec = rtctime.get()
-    file.open("00_boot_reason.txt", "a+")
+    file.open("00_debug.txt", "a+")
     file.writeline(zztime_format(sec).."."..usec..", "..zdebug)
     file.close()
 end

@@ -27,7 +27,7 @@ telnet -rN localhost 23000
 ]]
 
 
-print("\n 0_tst4_socat.lua   zf200614.1413   \n")
+print("\n 0_tst4_socat.lua   zf200614.1732   \n")
 
 local node, table, tmr, uwrite, tostring =
 node, table, tmr, uart.write, tostring
@@ -93,6 +93,7 @@ local function telnet_listener(socket)
     
     local function disconnect(s)
         debug_rec("disconnect, disconnected")
+        gpio.write(zLED, gpio.HIGH)
         fifo1, fifo1l, fifo2, fifo2l, s = nil, nil, nil, nil, nil
         node.output(nil)   srv_rt = nil
         collectgarbage()   print(node.heap())
@@ -111,13 +112,22 @@ local function telnet_listener(socket)
     
     --zzz
     local function zconnection(s)
-        print("Welcome on ne devrait jamais passer par là to NodeMCU world.")
-        debug_rec("zconnection, pas glop")
+        local zstr="zconnection, Welcome on ne devrait jamais passer par là to NodeMCU world."
+        print(zstr)   debug_rec(zstr)
     end
+    
+    --zzz
+    local function zreconnection(s)
+        local zstr="zreconnection, Oups... pourquoi ici ?"
+        print(zstr)   debug_rec(zstr)
+    end
+    
+    
     
     socket:on("connection",    zconnection)
     socket:on("receive",       receiveLine)
     socket:on("disconnection", disconnect)
+    socket:on("reconnection",  zreconnection)
     socket:on("sent",          sendLine)
     -- node.output(queueLine, 0)
     node.output(queueLine, 1)
