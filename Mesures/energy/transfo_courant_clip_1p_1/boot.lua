@@ -1,9 +1,9 @@
 -- Scripts à charger après le boot pour démarrer son projet
 
-print("\n boot.lua zf200614.1724 \n")
+print("\n boot.lua zf200615.1852 \n")
 
 function zztime_format(ztime)
-    local tm = rtctime.epoch2cal(ztime + 3600)
+    local tm = rtctime.epoch2cal(ztime + 2*3600)
     return(string.format("%04d/%02d/%02d %02d:%02d:%02d", tm["year"], tm["mon"], tm["day"], tm["hour"], tm["min"], tm["sec"]))
 end
 
@@ -40,8 +40,8 @@ function boot()
     collectgarbage() print(node.heap())
     
     zpower=0
-    f="0_get_power.lua"   if file.exists(f) then dofile(f) end
-    collectgarbage() print(node.heap())
+    -- f="0_get_power.lua"   if file.exists(f) then dofile(f) end
+    -- collectgarbage() print(node.heap())
     
     f="0_cron.lua"   if file.exists(f) then dofile(f) end
     collectgarbage() print(node.heap())

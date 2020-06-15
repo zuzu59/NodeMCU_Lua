@@ -1,3 +1,5 @@
+zf200615.1932
+
 node.stripdebug(3)
 node.compile('0_tst4_socat.lua')
 
@@ -5,6 +7,10 @@ rt_connect()
 print(srv_rt)
 print(srv_rt:getpeer())
 
+node.output(nil)
+
+=srv_rt:getaddr()
+srv_rt:close()
 
 total_allocated, estimated_used = node.egc.meminfo()
 print(total_allocated, estimated_used)

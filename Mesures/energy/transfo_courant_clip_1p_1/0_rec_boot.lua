@@ -1,6 +1,6 @@
 -- Scripts qui permet d'enregistrer la raison du boot dans la flash
 
-print("\n 0_rec_boot.lua zf200614.1735 \n")
+print("\n 0_rec_boot.lua zf200614.1851 \n")
 
 -- Problématique:
 -- Afin de pouvoir enregistrer l'heure du boot dans la FLASH il faut 
@@ -12,7 +12,7 @@ function rec_boot()
     sntp.sync(nil, nil, nil, 1)
     
     function ztime_format(ztime)
-        local tm = rtctime.epoch2cal(ztime + 3600)
+        local tm = rtctime.epoch2cal(ztime + 2*3600)
         return(string.format("%04d/%02d/%02d %02d:%02d:%02d", tm["year"], tm["mon"], tm["day"], tm["hour"], tm["min"], tm["sec"]))
     end
     
