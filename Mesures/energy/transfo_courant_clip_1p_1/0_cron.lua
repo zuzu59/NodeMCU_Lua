@@ -1,5 +1,5 @@
 -- Petit script pour faire office de crontab pour les mesures
-print("\n 0_cron.lua   zf200615.1605   \n")
+print("\n 0_cron.lua   zf200615.1934   \n")
 
 cron1=tmr.create()
 cron1:alarm(10*1000,  tmr.ALARM_AUTO, function()
@@ -11,7 +11,7 @@ cron1:alarm(10*1000,  tmr.ALARM_AUTO, function()
     http_post(influxdb_url,"energy,memory=cron1_"..yellow_id.." ram="..node.heap())
 
     -- if yellow_id == 60 then   http_post(influxdb_url,"energy,compteur=3 puissance="..zpower/1000)   end
-    -- if yellow_id == 64 then   http_post(influxdb_url,"energy,compteur=4 puissance="..zpower/1000)   end
+    if yellow_id == 64 then   http_post(influxdb_url,"energy,compteur=4 puissance="..zpower/1000)   end
 
     -- http_post(influxdb_url,"energy,value=test2_"..yellow_id.." val=2")
     -- http_post(influxdb_url,"energy,value=test3_"..yellow_id.." val=3")

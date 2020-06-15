@@ -27,7 +27,7 @@ telnet -rN localhost 23000
 ]]
 
 
-print("\n 0_tst4_socat.lua   zf200615.1850   \n")
+print("\n 0_tst4_socat.lua   zf200615.1937   \n")
 
 local node, table, tmr, uwrite, tostring =
 node, table, tmr, uart.write, tostring
@@ -108,10 +108,8 @@ local function telnet_listener(socket)
         if debug_rec~=nil then  debug_rec("durée de connexion... "..zlaps..", "..node.heap())   end
         
         if zlaps>1 then
-            -- if http_post~=nil then  http_post(influxdb_url,"energy,memory=socat_disconnected_"..yellow_id.." ram="..node.heap())  end
-            print("rt_retry:",rt_retry)
+            if http_post~=nil then  http_post(influxdb_url,"energy,memory=socat_disconnected_"..yellow_id.." ram="..node.heap())  end
             rt_retry=rt_retry-1
-            print("rt_retry:",rt_retry)
             if rt_retry>=0 then
                 local zstr="disconnect, reconnect 1x, "..node.heap()
                 print(zstr)   if debug_rec~=nil then  debug_rec(zstr)   end
