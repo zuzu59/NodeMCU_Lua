@@ -1,7 +1,7 @@
 -- Scripts à charger après le boot pour démarrer son projet
 
 function boot()
-    print("\n boot.lua zf200616.1613 \n")
+    print("\n boot.lua zf200616.1637 \n")
     print("On lance le boot...")
     collectgarbage() print(node.heap())
     local f        
@@ -20,11 +20,11 @@ function boot()
     collectgarbage() print(node.heap())
     
     zpower=0
-    -- f="0_get_power.lua"   if file.exists(f) then dofile(f) end
-    -- collectgarbage() print(node.heap())
-    -- 
-    -- f="0_cron.lua"   if file.exists(f) then dofile(f) end
-    -- collectgarbage() print(node.heap())
+    f="0_get_power.lua"   if file.exists(f) then dofile(f) end
+    collectgarbage() print(node.heap())
+    
+    f="0_cron.lua"   if file.exists(f) then dofile(f) end
+    collectgarbage() print(node.heap())
 
     verbose = false
     print("verbose: ",verbose,"\nle boot est lancé...")
