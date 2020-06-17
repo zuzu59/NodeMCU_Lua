@@ -1,4 +1,8 @@
-zf200617.1159
+zf200617.1902
+
+for k,v in ipairs(debug.getregistry()) do print(k,v) end
+
+
 
 node.stripdebug(3)
 node.compile('0_tst4_socat.lua')
