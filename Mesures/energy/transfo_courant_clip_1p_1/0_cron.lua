@@ -1,10 +1,14 @@
 -- Petit script pour faire office de crontab pour les mesures
-print("\n 0_cron.lua   zf200616.1638   \n")
+print("\n 0_cron.lua   zf200617.1014   \n")
 
 cron1=tmr.create()
 cron1:alarm(10*1000,  tmr.ALARM_AUTO, function()
     if verbose then print("cron1........................") end
     if verbose then gpio.write(zLED, gpio.LOW) tmr.delay(10000) gpio.write(zLED, gpio.HIGH) end
+
+
+    rt_launch()
+
 
     -- http_post(influxdb_url,"energy,value=test1_"..yellow_id.." val=1")
     

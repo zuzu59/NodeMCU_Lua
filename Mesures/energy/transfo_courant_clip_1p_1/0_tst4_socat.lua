@@ -27,7 +27,7 @@ telnet -rN localhost 23000
 ]]
 
 
-print("\n 0_tst4_socat.lua   zf200615.2242   \n")
+print("\n 0_tst4_socat.lua   zf200617.1014   \n")
 
 local node, table, tmr, uwrite, tostring =
 node, table, tmr, uart.write, tostring
@@ -170,8 +170,7 @@ end
 
 
 
-tmr_socat1=tmr.create()
-tmr_socat1:alarm(15*1000, tmr.ALARM_AUTO , function()
+function rt_launch()
     if http_post~=nil then  http_post(influxdb_url,"energy,memory=tmr_socat1_"..yellow_id.." ram="..node.heap())  end
     if srv_rt~=nil then
         -- if http_post~=nil then  http_post(influxdb_url,"energy,memory=srv_rt_no_nil_"..yellow_id.." ram="..node.heap())  end        
@@ -181,6 +180,14 @@ tmr_socat1:alarm(15*1000, tmr.ALARM_AUTO , function()
     else
         rt_connect()
     end
-end)
+end
+
+
+
+
+-- tmr_socat1=tmr.create()
+-- tmr_socat1:alarm(15*1000, tmr.ALARM_AUTO , rt_launch)
+
+
 
 rt_connect()

@@ -1,4 +1,4 @@
-zf200615.2238
+zf200617.1159
 
 node.stripdebug(3)
 node.compile('0_tst4_socat.lua')
@@ -8,6 +8,9 @@ print(srv_rt)
 print(srv_rt:getpeer())
 
 node.output(nil)
+
+http_post(influxdb_url,"energy,value=test1_"..yellow_id.." val=1")   print("toto",node.heap(),#t_zurl)
+
 
 =srv_rt:getaddr()
 tmr_socat1:unregister()
