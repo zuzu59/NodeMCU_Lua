@@ -1,28 +1,9 @@
 # Quelques commandes remote (luatool) à envoyer avec le plugin Atom-IDE-terminal de l'éditeur Atom
-# zf200101.1304
+# zf200619.1626
 
 Todo à faire pour ce projet !
 
--
-- ajouter fonction restart dans zindex.html (argument restart)
-- ajouter argument ok dans wifi_init.html
-- ajouter get_data() dans 0_send_data.lua
-- cron 10 seconde get_data avec moyenne et cron 300 sendata et zero moyenne
-- if verbose print partout dans 0_send_data.lua
-- garder variable node_id pour identification après poweron général, reattribution adrs ip sur modem 4G
-- indiquer nodeMCU name du dhcp modem 4G dans table liste adresses ip
-- passer à 10 secondes la seconde chance
-- passer à 15x les tentatives de connexions au WIFI
-- déplacer le mode AP dans wifi_init
-- ajouter le web_srv2 dans boot au lieu de boot2
-
-
-
-
-
-
-
-
+- mettre le nouveau système socat
 
 
 # si luatool ne marche pas sur le MAC, il faut lire ceci:
@@ -32,64 +13,70 @@ Todo à faire pour ce projet !
 # CTRL+ALT+ENTER envoie au terminal la ligne de l'éditeur
 # SHIT+CTRL+` ouvre le terminal (attention, ne pas oublier de copier le *path* dans le *tree* et le changer)
 # ALT+CMD+F bascule entre le terminal et l'éditeur
+# ALT+N+. fermer une session telnet sur le NodeMCU
 
-# définitions à faire AVANT !
-cd /Users/zuzu/Desktop/NodeMCU/NodeMCU_Lua/WIFI_sniffer/cret_project
+
+# définitions à faire si le NodeMCU est connecté en USB !
 export luatool_tty="/dev/cu.wchusbserial1410"
-export zIP="192.168.0.113"
 
-#th0 dev mobile
+
+###################################
+# A faire pour pouvoir manager les NodeMCU de ruru depuis la maison
+###################################
+# dans une 1ère console
+#th1, juste en face du déshumidificateur
+ssh -t -L 2323:localhost:2323 ubuntu@www.zuzu-test.ml ssh -N -L 2323:192.168.8.101:23 ubuntu@localhost -p 20223
+#th2, à l'étage en face du déshumidificateur
+ssh -t -L 2323:localhost:2323 ubuntu@www.zuzu-test.ml ssh -N -L 2323:192.168.8.102:23 ubuntu@localhost -p 20223
+#th3, dans la zone revues sur un rayon
+ssh -t -L 2323:localhost:2323 ubuntu@www.zuzu-test.ml ssh -N -L 2323:192.168.8.103:23 ubuntu@localhost -p 20223
+#th4, proche de la porte du local des archives
+ssh -t -L 2323:localhost:2323 ubuntu@www.zuzu-test.ml ssh -N -L 2323:192.168.8.104:23 ubuntu@localhost -p 20223
+###################################
+
+
+# les autres en local à la maison, attention, les adresses ip ne sont peut-être plus justes !
+#th0, banc test sur la planche à pain
 192.168.0.118
-#th1
-192.168.0.143   192.168.8.102
-#th2
-192.168.0.132   192.168.8.105
-#th3
-192.168.0.145   192.168.8.104
-#th4
-192.168.0.117   192.168.8.103
-#th5 chambre à coucher
+#th5,  chambre à coucher
 192.168.0.178
-#th6 buanderie
+#th6,  buanderie
 192.168.0.162
-#th7 cave
+#th7,  cave
 192.168.0.199
-#th8 salon
+#th8,  salon
 192.168.0.124
 
 
+###############################
+# commandes lua pour ce projet
+###############################
+# dans une 2e console
 
-export zIP="192.168.0.143"
-export zport="23"
-
-cd '/Users/zuzu/Google Drive/FamilleZ Share/FamilleZ/Papa/LUA/NodeMCU ESP8266/NodeMCU_Lua/Mesures/humidity/bolo
-'
 export zIP="localhost"
 export zport="2323"
-ATTENTION: voir les tunnels tout à la fin !
 
-
-# ouvrir et fermer (ALT+N+.) une session telnet sur le NodeMCU avec l'adresse zIP)
 telnet -rN $zIP $zport
-~.
---node.restart()
-collectgarbage()
+
+verbose=false
 =node.heap()
+
+=node_id
+=influxdb_url
 for k,v in pairs(_G) do print(k,v) end
 
-
-# commandes lua pour ce projet
-export zIP="192.168.0.162"
-telnet -rN $zIP $zport
-verbose=false
 dofile("dir.lua")
 dir()
-#filec('dir2.lua')
-#dirc()
+
+dofile("head.lua")
+zhead("secrets_project.lua")
+
 ~.
+
 ./luatool.py --ip $zIP:$zport -f dir.lua
+./luatool.py --ip $zIP:$zport -f secrets_project.lua
 
-
+./luatool.py --ip $zIP:$zport --zrestart
 
 verbose=true
 verbose=false
@@ -202,7 +189,7 @@ cat("boot2.lua")
 # création des tunnels ssh
 ATTENTION: dans un premier terminal !
 Pour Bolo à Ruchonnet:
-ssh -t -L 2323:localhost:2323 ubuntu@www.zuzutest.ml ssh -N -L 2323:192.168.8.102:23 ubuntu@localhost -p 20223
+ssh -t -L 2323:localhost:2323 ubuntu@www.zuzu-test.ml ssh -N -L 2323:192.168.8.102:23 ubuntu@localhost -p 20223
 
 Pour le Crêt
 ssh -N -L 2323:192.168.0.137:23 admin@z.zufferey.com -p 1822
@@ -241,13 +228,13 @@ status, err = pcall(function () toto() end)  if status==false then print("Error:
 
 Gestion de la passerelle SSH reverse
 Puis depuis une autre console on peut faire directement pour aller sur l'OpiZ (ici le 20223):
-ssh -t ubuntu@www.zuzutest.ml ssh ubuntu@localhost -p 20223
+ssh -t ubuntu@www.zuzu-test.ml ssh ubuntu@localhost -p 20223
 
 ou
 
 1ère console
 On établit le tunnel local avec l'OpiZ
-ssh -N -L 20223:localhost:20223 ubuntu@www.zuzutest.ml
+ssh -N -L 20223:localhost:20223 ubuntu@www.zuzu-test.ml
 
 
 2ème console, on utilise le tunnel OpiZ en local sur sa machine
