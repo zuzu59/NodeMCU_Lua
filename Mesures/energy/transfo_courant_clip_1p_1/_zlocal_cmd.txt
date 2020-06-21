@@ -1,13 +1,40 @@
 zf200621.1125
 
-verbose=true
+=node.heap()
 rt_connect()
+
+        node, table, tmr, uwrite, tostring = nil, nil, nil, nil, nil
+        insert, remove, concat, heap, gc = nil, nil, nil, nil, nil
+        fifo1, fifo1l, fifo2, fifo2l = nil, nil, nil, nil
+        rec = nil
+        s = nil
+        socket = nil
+        flushGarbage = nil
+        sendLine = nil
+        queueLine = nil
+        receiveLine = nil
+        zconnection = nil
+        disconnect = nil
+        telnet_listener=nil
+
+
+
+
+
+
+
+
+
+
 
 =node.heap()
 dofile("0_rtelnet1.lua")
 =node.heap()
 telnet_listener=nil
 =node.heap()
+srv_rt=nil
+=node.heap()
+
 
 
 for k,v in ipairs(debug.getregistry()) do print(k,v) end
@@ -25,7 +52,7 @@ print(socket)
 print(socket:getpeer())
 socket:close()
 
-
+verbose=true
 node.output(nil)
 
 http_post(influxdb_url,"energy,value=test1_"..yellow_id.." val=1")   print("toto",node.heap(),#t_zurl)
