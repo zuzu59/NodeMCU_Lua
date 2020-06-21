@@ -1,5 +1,5 @@
 # Quelques commandes remote (luatool) à envoyer avec le plugin Atom-IDE-terminal de l'éditeur Atom
-# zf200621.1154
+# zf200621.2312
 
 
 Todo à faire pour ce projet !
@@ -40,7 +40,7 @@ for k,v in pairs(_G) do print(k,v) end
 # pour les tests en direct sur la gateway
 ssh ubuntu@www.zuzu-test.ml
 socat TCP-LISTEN:23064,fork,reuseaddr STDIO
-
+################################
 # pour les tests en remote
 killall -9 ssh
 ssh ubuntu@www.zuzu-test.ml killall -9 socat

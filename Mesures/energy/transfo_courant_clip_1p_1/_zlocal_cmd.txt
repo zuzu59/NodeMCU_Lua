@@ -1,13 +1,19 @@
-zf200621.1125
+zf200621.2337
+
+srv_rt:on("connection", nil)
+
+
+
 
 =node.heap()
 rt_connect()
 
-        node, table, tmr, uwrite, tostring = nil, nil, nil, nil, nil
-        insert, remove, concat, heap, gc = nil, nil, nil, nil, nil
         fifo1, fifo1l, fifo2, fifo2l = nil, nil, nil, nil
         rec = nil
+        k = nil
+        l = nil
         s = nil
+        chunk = nil
         socket = nil
         flushGarbage = nil
         sendLine = nil
@@ -16,7 +22,8 @@ rt_connect()
         zconnection = nil
         disconnect = nil
         telnet_listener=nil
-
+        srv_rt=nil
+=node.heap()
 
 
 

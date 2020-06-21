@@ -1,7 +1,7 @@
 -- script telnet pour le socat
 
 function telnet_listener(socket)
-    print("\n 0_rtelnet1.lua   zf200621.1943   \n")
+    print("\n 0_rtelnet1.lua   zf200621.2309   \n")
     
     -- node, table, tmr, uwrite, tostring =
     -- node, table, tmr, uart.write, tostring
@@ -31,7 +31,9 @@ function telnet_listener(socket)
         rec =  table.remove(fifo2,1)..(table.remove(fifo2,1) or '') ..(table.remove(fifo2,1) or '') .. (table.remove(fifo2,1) or '')
         fifo2l = fifo2l - #rec
         flushGarbage()
-        s:send(rec)
+        if srv_rt:getpeer()~=nil then
+            s:send(rec)
+        end
     end
     
     local F1_SIZE = 256
@@ -71,6 +73,12 @@ function telnet_listener(socket)
         if socket~=nil then
             -- if http_post~=nil then  http_post(influxdb_url,"energy,memory=srv_rt_no_nil_"..yellow_id.." ram="..node.heap())  end        
             print("................disconnect 2e", socket, socket:getpeer())
+            socket:on("connection", nil)
+            socket:on("reconnection", nil)
+            socket:on("disconnection", nil)
+            socket:on("receive", nil)
+            socket:on("sent", nil)
+
             socket=nil
         end
         
@@ -92,6 +100,8 @@ function telnet_listener(socket)
         -- zconnection = nil
         -- disconnect = nil
         -- -- telnet_listener=nil
+
+
         
         fifo1, fifo1l, fifo2, fifo2l = nil, nil, nil, nil
         rec = nil
@@ -111,7 +121,7 @@ function telnet_listener(socket)
         
         
         -- collectgarbage()   
-        -- rt_connect()
+        rt_connect()
     end    
     
     --zzz

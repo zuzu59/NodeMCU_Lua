@@ -26,7 +26,7 @@ ou sur MAC
 telnet -rN localhost 23000
 ]]
 
-print("\n 0_tst5_socat.lua   zf200621.1944   \n")
+print("\n 0_tst5_socat.lua   zf200621.2330   \n")
 
 function rt_connect()
     print("................rt_connect")
@@ -34,7 +34,7 @@ function rt_connect()
     local zlaps=tmr.now()/1000000-ztime_connect
     print("time of retry connect... "..zlaps)
     -- if debug_rec~=nil then  debug_rec("time of retry connect... "..zlaps..", "..node.heap())   end
-    if zlaps>1.5 then
+    if zlaps>1 then
         local zstr="trying connect to "..console_host..":"..console_port..", "..node.heap()
         -- if debug_rec~=nil then  debug_rec(zstr)   end
         if verbose==verbose then
@@ -53,7 +53,7 @@ function rt_connect()
             collectgarbage()
             --        if verbose then 
             gpio.write(zLED, gpio.LOW)
-            print("connected on "..console_host..":"..console_port)
+            print("connected on "..console_host..":"..console_port..", "..node.heap())
             print(node.heap())
             --        end
             if http_post~=nil then  http_post(influxdb_url,"energy,memory=socat_connected_"..yellow_id.." ram="..node.heap())  end
@@ -61,6 +61,25 @@ function rt_connect()
             telnet_listener(sck)
             print("Welcome to NodeMCU world.")
         end)
+        
+        srv_rt:on("reconnection", function(sck)
+            print(";;;;;;;;;;;;;;;;reconnection")
+            srv_rt:on("connection", nil)
+            srv_rt:on("reconnection", nil)
+        end)
+        
+        -- srv_rt:on("disconnection", function(sck)
+        --     print(";;;;;;;;;;;;;;;;disconnection")
+        -- end)
+        -- 
+        -- srv_rt:on("receive", function(sck)
+        --     print(";;;;;;;;;;;;;;;;receive")
+        -- end)
+        -- 
+        -- srv_rt:on("sent", function(sck)
+        --     print(";;;;;;;;;;;;;;;;sent")
+        -- end)
+        
         
         srv_rt:connect(console_port,console_host)
     else
@@ -89,11 +108,8 @@ end
 -- tmr_socat1:alarm(15*1000, tmr.ALARM_AUTO , rt_launch)
 
 
+ztime_connect=tmr.now()/1000000-10
 
-
-
-ztime_connect=tmr.now()/1000000
-
--- rt_launch()
+rt_launch()
 
 print("Revers telnet server running...\n")
