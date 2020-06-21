@@ -94,7 +94,13 @@ local function telnet_listener(socket)
     
     local function disconnect(_,zerr)
         node.output(nil)
-        print("................disconnect", socket,socket:getpeer())
+        print("................disconnect")
+        
+        if socket~=nil then
+            -- if http_post~=nil then  http_post(influxdb_url,"energy,memory=srv_rt_no_nil_"..yellow_id.." ram="..node.heap())  end        
+            print("................disconnect 2e", socket, socket:getpeer())
+        end
+        
         gpio.write(zLED, gpio.HIGH)
         fifo1, fifo1l, fifo2, fifo2l, s = nil, nil, nil, nil, nil
         collectgarbage()   
@@ -186,6 +192,22 @@ srv_rt:on("connection", function(sck)
     telnet_listener(sck)
     print("Welcome to NodeMCU world.")
 end)
+
+
+srv_rt:on("receive", function(sck)
+    print("zdebug, receive")
+end)
+
+srv_rt:on("disconnection", function(sck)
+    print("zdebug, disconnection")
+end)
+
+srv_rt:on("sent", function(sck)
+    print("zdebug, sent")
+end)
+
+
+
 
 ztime_connect=tmr.now()/1000000
 
