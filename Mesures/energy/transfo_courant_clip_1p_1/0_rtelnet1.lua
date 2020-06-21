@@ -1,7 +1,7 @@
 -- script telnet pour le socat
 
 function telnet_listener(socket)
-    print("\n 0_rtelnet1.lua   zf200621.1603   \n")
+    print("\n 0_rtelnet1.lua   zf200621.1943   \n")
     
     -- node, table, tmr, uwrite, tostring =
     -- node, table, tmr, uart.write, tostring

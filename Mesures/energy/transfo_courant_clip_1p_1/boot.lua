@@ -1,7 +1,7 @@
 -- Scripts à charger après le boot pour démarrer son projet
 
 function boot()
-    print("\n boot.lua zf200621.1232 \n")
+    print("\n boot.lua zf200621.1939 \n")
     print("On lance le boot...")
     collectgarbage() print(node.heap())
     local f        
@@ -29,7 +29,7 @@ function boot()
     verbose = true
     print("verbose: ",verbose,"\nle boot est lancé...")
     gpio.write(zLED, gpio.HIGH)    
-    boot=nil
+    f=nil boot=nil
 end
 
 -- function debug_rec(zdebug)

@@ -26,14 +26,14 @@ ou sur MAC
 telnet -rN localhost 23000
 ]]
 
-print("\n 0_tst5_socat.lua   zf200621.1603   \n")
+print("\n 0_tst5_socat.lua   zf200621.1944   \n")
 
 function rt_connect()
     print("................rt_connect")
     collectgarbage()
     local zlaps=tmr.now()/1000000-ztime_connect
-    print("durée de retry connect... "..zlaps)
-    -- if debug_rec~=nil then  debug_rec("durée de retry connect... "..zlaps..", "..node.heap())   end
+    print("time of retry connect... "..zlaps)
+    -- if debug_rec~=nil then  debug_rec("time of retry connect... "..zlaps..", "..node.heap())   end
     if zlaps>1.5 then
         local zstr="trying connect to "..console_host..":"..console_port..", "..node.heap()
         -- if debug_rec~=nil then  debug_rec(zstr)   end
