@@ -27,7 +27,7 @@ telnet -rN localhost 23000
 ]]
 
 
-print("\n 0_tst4_socat.lua   zf200621.1118   \n")
+print("\n 0_tst4_socat.lua   zf200621.1256   \n")
 
 local node, table, tmr, uwrite, tostring =
 node, table, tmr, uart.write, tostring
@@ -59,12 +59,7 @@ local function telnet_listener(socket)
         (remove(fifo2,1) or '') .. (remove(fifo2,1) or '')
         fifo2l = fifo2l - #rec
         flushGarbage()
-        --zzz
-        -- if socket~=nil then
-        --     if console_port == socket:getpeer() then
-                s:send(rec)
-        --     end
-        -- end
+        s:send(rec)
     end
     
     local F1_SIZE = 256
@@ -100,37 +95,32 @@ local function telnet_listener(socket)
     local function disconnect(_,zerr)
         node.output(nil)
         print("................disconnect", socket,socket:getpeer())
-        -- socket:close()
         gpio.write(zLED, gpio.HIGH)
         fifo1, fifo1l, fifo2, fifo2l, s = nil, nil, nil, nil, nil
-        collectgarbage()   print("disconnected... "..zerr..", "..node.heap())
-        if debug_rec~=nil then  debug_rec("disconnect, disconnected, "..zerr..", "..node.heap())   end
-        
-        local zlaps=tmr.now()/1000000-ztime_connect
-        print("durée de connexion... "..zlaps)
-        if debug_rec~=nil then  debug_rec("durée de connexion... "..zlaps..", "..node.heap())   end
-        
-        if zlaps>1 then
-            if http_post~=nil then  http_post(influxdb_url,"energy,memory=socat_disconnected_"..yellow_id.." ram="..node.heap())  end
-            local zstr="disconnect, reconnect 1x, "..node.heap()
-            print(zstr)   if debug_rec~=nil then  debug_rec(zstr)   end
-            rt_connect()
-        else
-            print("on ne se reconnecte pas vite 1x...")
-        end
-        
-    end    
-    
+        collectgarbage()   
+        print("disconnected... "..zerr..", "..node.heap())
+        -- if debug_rec~=nil then  debug_rec("disconnect, disconnected, "..zerr..", "..node.heap())   end
+        rt_connect()
+        end    
+
     --zzz
     local function zconnection(s)
-        local zstr="zconnection, Welcome on ne devrait jamais passer par là to NodeMCU world."
+        print("socket: ",socket)
+        if socket~=nil then
+            -- if http_post~=nil then  http_post(influxdb_url,"energy,memory=srv_rt_no_nil_"..yellow_id.." ram="..node.heap())  end        
+            print(socket:getpeer())
+        end
+        
+        local zstr="zconnection, Oups, on ne devrait jamais passer par là to NodeMCU world."
         print(zstr)   if debug_rec~=nil then  debug_rec(zstr)   end
+        socket=nil
     end
     
     socket:on("connection",    zconnection)
     socket:on("receive",       receiveLine)
     socket:on("disconnection", disconnect)
     socket:on("sent",          sendLine)
+    
     -- node.output(queueLine, 0)
     print(queueLine, 0)
 end
@@ -142,21 +132,24 @@ end
 
 function rt_connect()
     print("................rt_connect")
-    -- srv_rt = nil   
     collectgarbage()
-    ztime_connect=tmr.now()/1000000
-
-    srv_rt:connect(console_port,console_host)
-    
-    collectgarbage()
-    -- if debug_rec~=nil then  debug_rec("rt_connect, try connect, "..node.heap())   end
-    
-    if verbose==verbose then
-        gpio.write(zLED, gpio.LOW) tmr.delay(10000) gpio.write(zLED, gpio.HIGH)
-        print("trying connect to "..console_host..":"..console_port)
-        print(node.heap())
+    local zlaps=tmr.now()/1000000-ztime_connect
+    print("durée de connexion... "..zlaps)
+    -- if debug_rec~=nil then  debug_rec("durée de connexion... "..zlaps..", "..node.heap())   end
+    if zlaps>1.5 then
+        local zstr="trying connect to "..console_host..":"..console_port..","..node.heap()
+        -- if debug_rec~=nil then  debug_rec(zstr)   end
+        if verbose==verbose then
+            gpio.write(zLED, gpio.LOW) tmr.delay(10000) gpio.write(zLED, gpio.HIGH)
+            print(zstr)   
+        end
+        if http_post~=nil then  http_post(influxdb_url,"energy,memory=socat_try_con_"..yellow_id.." ram="..node.heap())  end
+        ztime_connect=tmr.now()/1000000
+        srv_rt:connect(console_port,console_host)
+    else
+        print("on ne se reconnecte pas vite 1x...")
     end
-    if http_post~=nil then  http_post(influxdb_url,"energy,memory=socat_try_con_"..yellow_id.." ram="..node.heap())  end        
+    collectgarbage()    
 end
 
 
@@ -181,7 +174,7 @@ end
 srv_rt = net.createConnection(net.TCP, 0)
 
 srv_rt:on("connection", function(sck)
-    print("connection...")
+    print("................connection")
     if debug_rec~=nil then  debug_rec("rt_connect, srv_rt:on, connected on, "..node.heap())   end
     collectgarbage()
     --        if verbose then 
@@ -193,6 +186,8 @@ srv_rt:on("connection", function(sck)
     telnet_listener(sck)
     print("Welcome to NodeMCU world.")
 end)
+
+ztime_connect=tmr.now()/1000000
 
 -- rt_launch()
 
