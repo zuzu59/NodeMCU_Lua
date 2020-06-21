@@ -3,7 +3,11 @@ zf200621.1125
 verbose=true
 rt_connect()
 
+=node.heap()
+dofile("0_rtelnet1.lua")
+=node.heap()
 telnet_listener=nil
+=node.heap()
 
 
 for k,v in ipairs(debug.getregistry()) do print(k,v) end

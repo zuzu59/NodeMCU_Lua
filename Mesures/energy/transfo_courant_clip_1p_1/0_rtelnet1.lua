@@ -3,20 +3,20 @@
 function telnet_listener(socket)
     print("\n 0_rtelnet1.lua   zf200621.1603   \n")
     
-    local node, table, tmr, uwrite, tostring =
+    node, table, tmr, uwrite, tostring =
     node, table, tmr, uart.write, tostring
     
     print("................telnet_listener")
-    local insert, remove, concat, heap, gc =
+    insert, remove, concat, heap, gc =
     table.insert, table.remove, table.concat, node.heap, collectgarbage
-    local fifo1, fifo1l, fifo2, fifo2l = {}, 0, {}, 0
-    local s -- s is a copy of the TCP socket if and only if sending is in progress
+    fifo1, fifo1l, fifo2, fifo2l = {}, 0, {}, 0
+    -- local s -- s is a copy of the TCP socket if and only if sending is in progress
     
-    local function flushGarbage()
+    function flushGarbage()
         if heap() < 13440 then gc() end
     end
     
-    local function sendLine()
+    function sendLine()
         if not s then return end
         
         if fifo2l + fifo1l == 0 then -- both FIFOs empty, so clear down s
@@ -37,7 +37,7 @@ function telnet_listener(socket)
     
     local F1_SIZE = 256
     
-    local function queueLine(str)
+    function queueLine(str)
         while #str > 0 do  -- this is because str might be longer than the packet size!
             local k, l = F1_SIZE - fifo1l, #str
             local chunk
@@ -61,11 +61,11 @@ function telnet_listener(socket)
         end
     end
     
-    local function receiveLine(s, line)
+    function receiveLine(s, line)
         node.input(line)
     end
     
-    local function disconnect(_,zerr)
+    function disconnect(_,zerr)
         node.output(nil)
         gpio.write(zLED, gpio.HIGH)
         print("................disconnect")
@@ -79,12 +79,27 @@ function telnet_listener(socket)
         print("disconnected... "..zerr..", "..node.heap())
         -- if debug_rec~=nil then  debug_rec("disconnect, disconnected, "..zerr..", "..node.heap())   end
         -- telnet_listener=nil
+        
+        
+        node, table, tmr, uwrite, tostring = nil, nil, nil, nil, nil
+        insert, remove, concat, heap, gc = nil, nil, nil, nil, nil
+        fifo1, fifo1l, fifo2, fifo2l = nil, nil, nil, nil
+        s = nil
+        
+        flushGarbage = nil
+        sendLine = nil
+        queueLine = nil
+        receiveLine = nil
+        zconnection = nil
+        disconnect = nil
+        
+        
         collectgarbage()   
         -- rt_connect()
     end    
     
     --zzz
-    local function zconnection(s)
+    function zconnection(s)
         print("socket: ",socket)
         if socket~=nil then
             -- if http_post~=nil then  http_post(influxdb_url,"energy,memory=srv_rt_no_nil_"..yellow_id.." ram="..node.heap())  end        
