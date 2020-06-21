@@ -7,7 +7,7 @@ cron1:alarm(10*1000,  tmr.ALARM_AUTO, function()
     -- if verbose then gpio.write(zLED, gpio.LOW) tmr.delay(10000) gpio.write(zLED, gpio.HIGH) end
 
 
-   rt_launch()
+   -- rt_launch()
 
 
     -- http_post(influxdb_url,"energy,value=test1_"..yellow_id.." val=1")

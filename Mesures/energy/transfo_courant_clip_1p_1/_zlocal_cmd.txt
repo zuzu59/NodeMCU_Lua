@@ -3,7 +3,7 @@ zf200621.1125
 verbose=true
 rt_connect()
 
-
+telnet_listener=nil
 
 
 for k,v in ipairs(debug.getregistry()) do print(k,v) end
@@ -15,6 +15,12 @@ node.compile('0_tst4_socat.lua')
 
 print(srv_rt)
 print(srv_rt:getpeer())
+srv_rt:close()
+
+print(socket)
+print(socket:getpeer())
+socket:close()
+
 
 node.output(nil)
 

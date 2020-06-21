@@ -41,9 +41,7 @@ for k,v in pairs(_G) do print(k,v) end
 ssh ubuntu@www.zuzu-test.ml
 socat TCP-LISTEN:23064,fork,reuseaddr STDIO
 
-
-
-
+# pour les tests en remote
 killall -9 ssh
 ssh ubuntu@www.zuzu-test.ml killall -9 socat
 
