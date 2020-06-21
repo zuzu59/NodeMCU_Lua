@@ -3,7 +3,7 @@ tests connection reverse telnet commande à faire tourner sur le GATEWAY !
 
 1ere console
 pour une liaison directe: 
-socat TCP-LISTEN:23043,fork,reuseaddr STDIO
+socat TCP-LISTEN:23064,fork,reuseaddr STDIO
 pour une console sur un port:
 socat TCP-LISTEN:23043,reuseaddr,fork TCP-LISTEN:23000,reuseaddr,bind=127.0.0.1
 
@@ -27,12 +27,13 @@ telnet -rN localhost 23000
 ]]
 
 
-print("\n 0_tst4_socat.lua   zf200617.1014   \n")
+print("\n 0_tst4_socat.lua   zf200621.1118   \n")
 
 local node, table, tmr, uwrite, tostring =
 node, table, tmr, uart.write, tostring
 
 local function telnet_listener(socket)
+    print("................telnet_listener")
     local insert, remove, concat, heap, gc =
     table.insert, table.remove, table.concat, node.heap, collectgarbage
     local fifo1, fifo1l, fifo2, fifo2l = {}, 0, {}, 0
@@ -59,11 +60,11 @@ local function telnet_listener(socket)
         fifo2l = fifo2l - #rec
         flushGarbage()
         --zzz
-        if srv_rt~=nil then
-            if console_port == srv_rt:getpeer() then
+        -- if socket~=nil then
+        --     if console_port == socket:getpeer() then
                 s:send(rec)
-            end
-        end
+        --     end
+        -- end
     end
     
     local F1_SIZE = 256
@@ -97,7 +98,9 @@ local function telnet_listener(socket)
     end
     
     local function disconnect(_,zerr)
-        node.output(nil)   
+        node.output(nil)
+        print("................disconnect", socket,socket:getpeer())
+        -- socket:close()
         gpio.write(zLED, gpio.HIGH)
         fifo1, fifo1l, fifo2, fifo2l, s = nil, nil, nil, nil, nil
         collectgarbage()   print("disconnected... "..zerr..", "..node.heap())
@@ -112,10 +115,11 @@ local function telnet_listener(socket)
             local zstr="disconnect, reconnect 1x, "..node.heap()
             print(zstr)   if debug_rec~=nil then  debug_rec(zstr)   end
             rt_connect()
+        else
+            print("on ne se reconnecte pas vite 1x...")
         end
         
     end    
-    
     
     --zzz
     local function zconnection(s)
@@ -127,33 +131,21 @@ local function telnet_listener(socket)
     socket:on("receive",       receiveLine)
     socket:on("disconnection", disconnect)
     socket:on("sent",          sendLine)
-    node.output(queueLine, 0)
+    -- node.output(queueLine, 0)
+    print(queueLine, 0)
 end
 
-print("Revers telnet server running...\n")
 
 
 
 
 
 function rt_connect()
-    srv_rt = nil   collectgarbage()
-    srv_rt = net.createConnection(net.TCP, 0)
-    
-    srv_rt:on("connection", function(sck)
-        if debug_rec~=nil then  debug_rec("rt_connect, srv_rt:on, connected on, "..node.heap())   end
-        ztime_connect=tmr.now()/1000000
-        collectgarbage()
-        --        if verbose then 
-        gpio.write(zLED, gpio.LOW)
-        print("connected on "..console_host..":"..console_port)
-        print(node.heap())
-        --        end
-        if http_post~=nil then  http_post(influxdb_url,"energy,memory=socat_connected_"..yellow_id.." ram="..node.heap())  end
-        telnet_listener(sck)
-        print("Welcome to NodeMCU world.")
-    end)
-    
+    print("................rt_connect")
+    -- srv_rt = nil   
+    collectgarbage()
+    ztime_connect=tmr.now()/1000000
+
     srv_rt:connect(console_port,console_host)
     
     collectgarbage()
@@ -183,11 +175,25 @@ function rt_launch()
 end
 
 
-
-
 -- tmr_socat1=tmr.create()
 -- tmr_socat1:alarm(15*1000, tmr.ALARM_AUTO , rt_launch)
 
+srv_rt = net.createConnection(net.TCP, 0)
 
+srv_rt:on("connection", function(sck)
+    print("connection...")
+    if debug_rec~=nil then  debug_rec("rt_connect, srv_rt:on, connected on, "..node.heap())   end
+    collectgarbage()
+    --        if verbose then 
+    gpio.write(zLED, gpio.LOW)
+    print("connected on "..console_host..":"..console_port)
+    print(node.heap())
+    --        end
+    if http_post~=nil then  http_post(influxdb_url,"energy,memory=socat_connected_"..yellow_id.." ram="..node.heap())  end
+    telnet_listener(sck)
+    print("Welcome to NodeMCU world.")
+end)
 
-rt_connect()
+-- rt_launch()
+
+print("Revers telnet server running...\n")

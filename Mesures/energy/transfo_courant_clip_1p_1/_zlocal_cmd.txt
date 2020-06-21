@@ -1,4 +1,10 @@
-zf200617.1902
+zf200621.1125
+
+verbose=true
+rt_connect()
+
+
+
 
 for k,v in ipairs(debug.getregistry()) do print(k,v) end
 
@@ -7,7 +13,6 @@ for k,v in ipairs(debug.getregistry()) do print(k,v) end
 node.stripdebug(3)
 node.compile('0_tst4_socat.lua')
 
-rt_connect()
 print(srv_rt)
 print(srv_rt:getpeer())
 
