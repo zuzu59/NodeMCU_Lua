@@ -1,5 +1,5 @@
 -- Petit script pour faire office de crontab pour les mesures
-print("\n 0_cron.lua   zf200621.1936   \n")
+print("\n 0_cron.lua   zf200621.1922   \n")
 
 cron1=tmr.create()
 cron1:alarm(10*1000,  tmr.ALARM_AUTO, function()
@@ -7,7 +7,7 @@ cron1:alarm(10*1000,  tmr.ALARM_AUTO, function()
     -- if verbose then gpio.write(zLED, gpio.LOW) tmr.delay(10000) gpio.write(zLED, gpio.HIGH) end
 
 
-   rt_launch()
+   -- rt_launch()
 
 
     -- http_post(influxdb_url,"energy,value=test1_"..yellow_id.." val=1")
@@ -15,7 +15,15 @@ cron1:alarm(10*1000,  tmr.ALARM_AUTO, function()
     -- http_post(influxdb_url,"energy,memory=cron1_"..yellow_id.." ram="..node.heap())
 
     -- if yellow_id == 60 then   http_post(influxdb_url,"energy,compteur=3 puissance="..zpower/1000)   end
-    if yellow_id == 64 then   http_post(influxdb_url,"energy,compteur=4 puissance="..zpower/1000)   end
+    -- if yellow_id == 64 then   http_post(influxdb_url,"energy,compteur=4 puissance="..zpower/1000)   end
+
+
+    -- if yellow_id == 69 then   http_post(influxdb_url,"bolo_ruru,capteur="..node_id.." hauteur="..zlength)   end
+
+
+
+
+
 
     -- http_post(influxdb_url,"energy,value=test2_"..yellow_id.." val=2")
     -- http_post(influxdb_url,"energy,value=test3_"..yellow_id.." val=3")
