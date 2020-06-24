@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+
+    <head>
+      <meta charset='utf-8' name='viewport' content='width=device-width, initial-scale=1.0'>
+      <title>Affichage de la température et humidité</title>
+    </head>
+
+    <body>
+        <h1>Affichage de la température et humidité    200118.1800</h1>
+        <a href="/">Home...</a><br>
+        <%
+            zout("<h1>"..node_id.."&nbsp;&nbsp;&nbsp; 200112.1919 </h1>")
+        %>
+        <br>
+        <%
+        zout("Température: "..readTemp().." °C<br>")
+        zout("Humidité: "..readHumi().." %<br>")
+
+        zout("<br><br>RAM: "..node.heap().."<br>")
+        %>
+    </body>
+</html>

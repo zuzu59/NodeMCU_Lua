@@ -1,0 +1,55 @@
+# Quelques commandes remote (luatool) à envoyer avec le plugin Atom-IDE-terminal de l'éditeur Atom
+# zf191026.0913
+
+# si luatool ne marche pas sur le MAC, il faut lire ceci:
+# https://docs.google.com/document/d/1q64uK3IMOgEDdKaIAttbYuFt4GuLQ06k3FLeyfCsWLg/edit#heading=h.bmefcu67uwj0
+
+# raccourcis clavier
+# CTRL+ALT+ENTER envoie au terminal la ligne de l'éditeur
+# SHIT+CTRL+` ouvre le terminal (attention, ne pas oublier de copier le *path* dans le *tree* et le changer)
+# ALT+CMD+F bascule entre le terminal et l'éditeur
+
+# définitions à faire AVANT !
+export luatool_tty="/dev/cu.wchusbserial1410"
+export zIP="192.168.0.135"
+
+
+# ouvrir et fermer (ALT+n+.) une session telnet sur le NodeMCU avec l'adresse zIP)
+telnet -rN $zIP
+~.
+node.restart()
+=node.heap()
+
+
+# commandes lua pour ce projet
+verbose=true
+verbose=false
+
+
+#commandes luatool pour ce projet
+./luatool.py --ip $zIP -f 0_get_data.lua
+./luatool.py --ip $zIP -f 0_send_data.lua
+./luatool.py --ip $zIP -f cat.lua
+
+
+~.
+./luatool.py --ip $zIP -f head.lua
+telnet -rN $zIP
+dofile("head.lua")
+zhead("telnet_srv2.lua")
+
+
+./luatool.py --ip $zIP --zrestart
+
+
+# faire un cat d'un fichier sur le NodeMCU
+dofile("cat.lua")
+cat("boot2.lua")
+
+
+# commandes luatool
+./luatool.py -h
+./luatool.py --ip $zIP -i
+./luatool.py --ip $zIP -l
+./luatool.py --ip $zIP -f toto.lua -d
+./luatool.py --ip $zIP --delete toto.lua
