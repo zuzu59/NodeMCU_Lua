@@ -1,9 +1,10 @@
 -- Mesure la distance avec le module ultra-son de 15cm à 2m
 -- Attention le module à ultra-son doit être alimenté en 5V !
 
-print("\n 0_ultra_son.lua   zf200624.2011   \n")
+print("\n 0_ultra_son.lua   zf200624.1551   \n")
 
 speed_air=382
+zlength=0
 
 --Paramètres pour le module ultra son
 local ztrig=5
