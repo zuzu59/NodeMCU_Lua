@@ -26,20 +26,20 @@ ou sur MAC
 telnet -rN localhost 23000
 ]]
 
-print("\n 0_tst5_socat.lua   zf200621.2330   \n")
+print("\n 0_tst5_socat.lua   zf200625.1204   \n")
 
 function rt_connect()
-    print("................rt_connect")
+    -- print("................rt_connect")
     collectgarbage()
     local zlaps=tmr.now()/1000000-ztime_connect
-    print("time of retry connect... "..zlaps)
+    -- print("time of retry connect... "..zlaps)
     -- if debug_rec~=nil then  debug_rec("time of retry connect... "..zlaps..", "..node.heap())   end
     if zlaps>1 then
         local zstr="trying connect to "..console_host..":"..console_port..", "..node.heap()
         -- if debug_rec~=nil then  debug_rec(zstr)   end
         if verbose==verbose then
             gpio.write(zLED, gpio.LOW) tmr.delay(10000) gpio.write(zLED, gpio.HIGH)
-            print(zstr)   
+            -- print(zstr)   
         end
         if http_post~=nil then  http_post(influxdb_url,"energy,memory=socat_try_con_"..yellow_id.." ram="..node.heap())  end
         ztime_connect=tmr.now()/1000000
@@ -63,7 +63,7 @@ function rt_connect()
         end)
         
         srv_rt:on("reconnection", function(sck)
-            print(";;;;;;;;;;;;;;;;reconnection")
+            -- print(";;;;;;;;;;;;;;;;reconnection")
             srv_rt:on("connection", nil)
             srv_rt:on("reconnection", nil)
         end)
@@ -92,7 +92,7 @@ end
 
 
 function rt_launch()
-    if http_post~=nil then  http_post(influxdb_url,"energy,memory=tmr_socat1_"..yellow_id.." ram="..node.heap())  end
+    -- if http_post~=nil then  http_post(influxdb_url,"energy,memory=tmr_socat1_"..yellow_id.." ram="..node.heap())  end
     if srv_rt~=nil then
         -- if http_post~=nil then  http_post(influxdb_url,"energy,memory=srv_rt_no_nil_"..yellow_id.." ram="..node.heap())  end        
         if console_port ~= srv_rt:getpeer() then
@@ -104,8 +104,8 @@ function rt_launch()
 end
 
 
--- tmr_socat1=tmr.create()
--- tmr_socat1:alarm(15*1000, tmr.ALARM_AUTO , rt_launch)
+tmr_socat1=tmr.create()
+tmr_socat1:alarm(10*1000, tmr.ALARM_AUTO , rt_launch)
 
 
 ztime_connect=tmr.now()/1000000-10
