@@ -1,11 +1,6 @@
 # Mesure de hauteur d'eau dans un réservoir
 
-zf200627.1311
-
-
-
-**ATTENTION:<br>
-Ce README est parti d'un autre projet similaire, donc pas tout juste pour ce projet**
+zf200627.1325
 
 
 <!-- TOC titleSize:2 tabSpaces:2 depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 skip:1 title:1 charForUnorderedList:* -->
@@ -16,12 +11,11 @@ Ce README est parti d'un autre projet similaire, donc pas tout juste pour ce pro
   * [Astuces](#astuces)
 * [Installation](#installation)
 * [Utilisation](#utilisation)
-  * [Distribution des rôles de NodeMCU](#distribution-des-rôles-de-nodemcu)
-  * [Affichage des températures en local sur le NodeMCU](#affichage-des-températures-en-local-sur-le-nodemcu)
-  * [Affichage du petit serveur web du NodeMCU_Lua](#affichage-du-petit-serveur-web-du-nodemculua)
-  * [Modification du code source du NodeMCU en remote](#modification-du-code-source-du-nodemcu-en-remote)
+  * [Upload Lua code](#upload-lua-code)
+  * [Secrets pour le projet](#secrets-pour-le-projet)
+  * [Rename initz.lua pour le boot automatique](#rename-initzlua-pour-le-boot-automatique)
   * [Utilisation de la console du NodeMCU en remote](#utilisation-de-la-console-du-nodemcu-en-remote)
-* [Visualisation sur ThingSpeak](#visualisation-sur-thingspeak)
+  * [Visualisation sur Grafana/InfluxDB](#visualisation-sur-grafanainfluxdb)
 <!-- /TOC -->
 
 ## Buts
@@ -96,8 +90,11 @@ https://github.com/zuzu59/NodeMCU_Lua/blob/master/Firmware/nodemcu-master-19-mod
 
 ## Utilisation
 
+### Upload Lua code
 Après avoir *flashé* le NodeMCU avec le bon *firmware* il faut télécharger tous les fichiers \*.lua sur le NodeMCU.
 
+
+### Secrets pour le projet
 Mais il faut aussi bien *remplir* et charger sur le NodeMCU, le fichier des secrets du projet:
 ```
 secrets_project.lua
@@ -109,107 +106,49 @@ secrets_wifi.lua
 ```
 Tout en sachant que les variables utilisées pour les secrets sont utiles pour:
 
-* znode_chipid == iii then<br>
+* **znode_chipid == nnn then**<br>
 C'est l'id du NodeMCU que chaque NodeMCU ont gravé dans leur mémoire, on peut le lire avec cette commande:
 ```
 =node.chipid()
 ```
 
-* node_id = "iii"<br>
+* **node_id = "ttt"**<br>
 C'est le nom de *fonction* du NodeMCU qui sera *visible* dans la DB InfluxDB
 
-
-
-* yellow_id = nn
+* **yellow_id = nn**<br>
 C'est le *numéro* du NodeMCU que l'on indique sur une *petite étiquette jaune collée* sur le NodeMCU. Ce *numéro* permet par la suite de connaitre très facilement le numéro du *port* utilisé pour le *reverse telnet* quand on veut accéder à la console série du NodeMCU
 
-* -- thingspeak_url="http://api.thingspeak.com/update?api_key=kkk"<br>
+* **-- thingspeak_url="http://api.thingspeak.com/update?api_key=kkk"**<br>
 Pas utilisé dans ce projet
 
-* influxdb_url="http://uuu:8086/write?db=ddd&u=admin&p=ppp"<br>
-Secrets utilisé pour envoyer des données sur le DB InfluxDB
+* **influxdb_url="http://uuu:8086/write?db=ddd&u=admin&p=ppp"**<br>
+Secrets utilisés pour envoyer des données sur le DB InfluxDB
 
-* console_host = "uuu"   console_port = 23000+yellow_id<br>
+* **console_host = "uuu"   console_port = 23000+yellow_id**<br>
 Serveur utilisé pour le *tremplin* du reverse telnet utilisé pour accéder à la console série du NodeMCU au moyen d'un *socat*. L'information d'utilisation se trouve dans le fichier 0_tst5_socat.lua
 
-* -- zdyndns_host = "hhh"  zdyndns_port = nnn<br>
+* **-- zdyndns_host = "hhh"  zdyndns_port = nnn**<br>
 Pas utilisé dans ce projet
 
 
-
-
-
-
-
-### Distribution des rôles de NodeMCU
-
-Comme la mesure de production électrique est faite avec 1x NodeMCU, il y a donc 1x fichier de *secrets*. C'est dans ce fichier de *secrets* qu'il y a l'information de l'adresse IP de la base de donnée InfluxDB !<br>
-
-```
-secrets_energy.lua
-```
-
-
-
-**ATTENTION, readme pas encore terminé, il faut encore modifier le readme depuis ici ! zf190922.1740**
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-### Affichage des températures en local sur le NodeMCU
-
-On peut lire la température directement sur le NodeMCU au moyen de cet url (il faut modifier l'adresse IP du NodeMCU en question):
-
-nodemcu 28 int, http://192.168.0.171/disp_temp.html
-
-nodemcu 29 sud, http://192.168.0.180/disp_temp.html
-
-nodemcu 30 nord, http://192.168.0.105/disp_temp.html
-
-
-### Affichage du petit serveur web du NodeMCU_Lua
-
-Chaque NodeMCU a son propre serveur WEB, on peut l'accéder simplement depuis son adresse IP:
-
-nodemcu 28 int, http://192.168.0.171
-
-nodemcu 29 sud, http://192.168.0.180
-
-nodemcu 30 nord, http://192.168.0.105
-
-
-### Modification du code source du NodeMCU en remote
-
-Très pratique pour le debug, on peut directement modifier le code source Lua du NodeMCU en remote avec cet url:
-
-nodemcu 28 int, http://192.168.0.171:88
-
-nodemcu 29 sud, http://192.168.0.180:88
-
-nodemcu 30 sord, http://192.168.0.105:88
+### Rename initz.lua pour le boot automatique
+Ne pas oublier après avoir vérifié que tout fonctionne bien de *renommer* le fichier **initz.lua** en **init.lua** afin que quand le NodeMCU puisse démarrer automatiquement le code et bien fonctionner de manière autonome.
 
 
 ### Utilisation de la console du NodeMCU en remote
 
-Très pratique pour le debug, on peut accéder à la console du NodeMCU en remote avec telnet:
-
-nodemcu 28 int, **telnet -rN 192.168.0.171**
-
-nodemcu 29 sud, **telnet -rN 192.168.0.180**
-
-nodemcu 30 nord, **telnet -rN 192.168.0.105**
+Très pratique pour le debug, on peut directement modifier le code source Lua du NodeMCU en remote via un *reverse telnet*. Plus d'info dans le fichier 0_tst5_socat.lua.
+On peut aussi modifier le code Lua du NodeMCU en remote avec l'utilitaire *luatools.py*
 
 
-## Visualisation sur ThingSpeak
+### Visualisation sur Grafana/InfluxDB
+![Image](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/water-level/water-level_ruru_1/img/grafana2020-06-25.16.54.32.png)
+Graphique obtenu lors du banc test avec de l'eau dans le jardin
+
 La totale en détail
-https://thingspeak.com/channels/817940
 
-Seulement la corrélation entre les trois température
-https://thingspeak.com/apps/plugins/300559
+https://github.com/zuzu59/docker-influxdb-grafana
+
 
 
 
