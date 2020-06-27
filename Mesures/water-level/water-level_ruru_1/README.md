@@ -1,6 +1,6 @@
 # Mesure de hauteur d'eau dans un réservoir
 
-zf200627.1325
+zf200627.1330
 
 
 <!-- TOC titleSize:2 tabSpaces:2 depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 skip:1 title:1 charForUnorderedList:* -->
@@ -25,7 +25,7 @@ Petit projet pour mesurer la hauteur d'eau dans un réservoir de 100l au moyen d
 Le but est de mesurer la distance entre le haut du bidon et la surface de l'eau dans le bidon et ainsi pouvoir en déduire le pourcentage de remplissage du bidon.
 
 ![Image](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/water-level/water-level_ruru_1/img/20200625_163032.jpg)
-Senseur à ultrason, très bon marché, permettant de mesure la distance
+Senseur à ultrason, très bon marché, permettant de mesurer la distance
 
 
 ![Image](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/water-level/water-level_ruru_1/img/20200625_160818.jpg)
