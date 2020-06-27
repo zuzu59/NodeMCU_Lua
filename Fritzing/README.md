@@ -1,5 +1,5 @@
 #  Fritzing, super petit logiciel pour faire sa documentation électronique
-zf200126.1137
+zf200626.1826
 
 
 ## Fritzing
@@ -17,10 +17,10 @@ http://fritzing.org/home/
 
 #### Sous MAC
 
-ATTENTION: Sous MAC OS, il faut le *lancer* en ligne de commande si on ne veut pas de problème avec les mise à jour des composants !
+ATTENTION: Sous MAC OS, il faut le *lancer* en ligne de commande avec un 'sudo' si on ne veut pas de problème avec les mise à jour des composants !
 
 ```
-/Applications/Fritzing.app/Contents/MacOS/Fritzing
+sudo /Applications/Fritzing.app/Contents/MacOS/Fritzing
 ```
 
 ## Les composants qui vont bien
