@@ -1,12 +1,7 @@
-# Mesure d'énergie d'une installation monophasée
+# Mesure de hauteur d'eau dans un réservoir
 
-Version pour l'installation solaire qui se trouve sur le toit !
+zf200627.1311
 
-zf200607.1211
-
-
-Profilage de fuites mémoire sur IoT avec Lua
-https://docs.google.com/document/d/1H96RfhmMhTz6i1bq8uWTP3cOSOQD-78dgeGNKpzsJRg/edit?usp=sharing
 
 
 **ATTENTION:<br>
@@ -15,7 +10,8 @@ Ce README est parti d'un autre projet similaire, donc pas tout juste pour ce pro
 
 <!-- TOC titleSize:2 tabSpaces:2 depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 skip:1 title:1 charForUnorderedList:* -->
 ## Table of Contents
-* [Astuces de mesures de la puissance](#astuces-de-mesures-de-la-puissance)
+* [Buts](#buts)
+* [Astuces de mesures de la distance au moyen du senseur ultrason](#astuces-de-mesures-de-la-distance-au-moyen-du-senseur-ultrason)
   * [Schéma](#schéma)
   * [Astuces](#astuces)
 * [Installation](#installation)
@@ -28,86 +24,122 @@ Ce README est parti d'un autre projet similaire, donc pas tout juste pour ce pro
 * [Visualisation sur ThingSpeak](#visualisation-sur-thingspeak)
 <!-- /TOC -->
 
-Petit projet pour mesurer la puissance d'un appareil électrique à partir de la mesure du  courant avec un petit transformateur de courant qui se clips sur un conducteur avec un NodeMCU en LUA, et l'afficher sur Grafana avec une DB InfluxDB. Comme par exemple la production électrique d'une installation solaire photovoltaïque monophasée.
+## Buts
 
-ATTENTION, dans ce projet, on ne tient pas compte du déphasage entre la tension et le courant (cos phy) !
+Petit projet pour mesurer la hauteur d'eau dans un réservoir de 100l au moyen d'un senseur à ultrason utilisé pour de la robotique récréative.
 
-![Image](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/energy/transfo_courant_clip_1p/img/20190908_134444.jpg)
-Petit transformateur de mesure du courant avec un rapport de 1/800 avec l'épissure pour la boucle de mesure de courant !
+Le but est de mesurer la distance entre le haut du bidon et la surface de l'eau dans le bidon et ainsi pouvoir en déduire le pourcentage de remplissage du bidon.
 
-![Image](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/energy/transfo_courant_clip_1p/img/20190908_221514.jpg)
-C'est mon NodeMCU de banc tests, il y a un pont diviseur pour faire une masse fictive à +0.5V qui permet de mesurer les alternances négatives du courant et la résistance *convertisseur* de courant de la mesure en tension (U=R*I).
-
-![Image](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/energy/transfo_courant_clip_1p/img/20190908_213927.jpg)
-On voit ici l'image du courant d'un foehn  (450W) en petite vitesse. On voit bien que la partie négative de l'alternance est effacée. C'est à cause de la mise ne série d'une diode avec le corps de chauffe du foehn, c'est un moyen très simple de diminuer le puissance.
-
-![Image](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/energy/transfo_courant_clip_1p/img/20190908_213900.jpg)
-On voit ici l'image du courant d'un foehn (450W) en grande vitesse. L'alternance est bien complète ici. On voit aussi qu'elle se trouve dans la plage des 1V du convertisseur ADC du NodeMCU grâce à l'astuce de la *masse fictive* de 0.5V.
-
-![Image](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/energy/transfo_courant_clip_1p/img/20190907_170403.jpg)
-Vue globale de mon installation solaire, pour l'instant posée sur le sol, de 2x panneaux de 280W  :-)
-
-![Image](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/energy/transfo_courant_clip_1p/img/20190907_170414.jpg)
-Vue des deux onduleurs (un par panneau) qui injectent directement l'énergie produite dans le réseau électrique 220V de la maison.
+![Image](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/water-level/water-level_ruru_1/img/20200625_163032.jpg)
+Senseur à ultrason, très bon marché, permettant de mesure la distance
 
 
-<br><bR>
+![Image](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/water-level/water-level_ruru_1/img/20200625_160818.jpg)
+NodeMCU autonome, alimenté ici par une batterie, faisant la lecture de la hauteur d'eau et envoyant le résultat dans une DB InfluxDB via le WIFI
+
+
+![Image](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/water-level/water-level_ruru_1/img/20200625_164022.jpg)
+Banc test dans le jardin pour vérifier le bon fonctionnement du système
+
+![Image](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/water-level/water-level_ruru_1/img/grafana2020-06-25.16.54.32.png)
+Graphique obtenu lors du banc test avec de l'eau dans le jardin
+
+
+<br><br>
 On peut voir ici, avec ce projet assez complet, toutes les possibilités offertes de la programmation des NodeMCU en LUA, en mode événementiel. <br>
 Choses qui ne seraient pas possible si on l'avait fait en C++ (mode Arduino), comme par exemple:
 
-* serveur WEB Active Server Pages ZYX, permet de faire des pages HTML dynamiques avec du code LUA in line. Les pages HTML sont sauve dans la FLASH du NodeMCU
-* serveur WEB service pour le HUB concentrateur de mesures de différents NodeMCU (API GET)
-* serveur WEB pour l'affichage de la consommation électrique
-* serveur WEB pour l'IDE, modification du code source en remote directement depuis une page WEB, pas besoin d'IDE
 * crontab, horloge pour les mesures
-* serveur TELNET, utilisation de la console en remote pour le dépannage
+* envoi des données sur la DB InfluxDB
+* serveur reverse TELNET, traversant tous les routers sans devoir en modifier la configuration, permettant d'accéder à la console série (USB) du NodeMCU
 
 Toutes les fonctions sont bien séparées dans des scripts, cela *complexifie* le projet mais ce qui facilite la portabilité entre les projets et aussi sa mise au point.
 
 
 
-## Astuces de mesures de la puissance
+## Astuces de mesures de la distance au moyen du senseur ultrason
 
-Dans ce projet il y a 1x NodeMCU qui mesure la production électrique de mon installation solaire PV. On mesure le courant injecté dans le réseau électrique de la maison avec un petit transformateur de courant *clipsé* sur la phase du smart inverter.<br>
+Dans ce projet il y a 1x NodeMCU qui mesure la hauteur d'eau dans le bidon au moyen d'un senseur à ultrason utilisé pour de la robotique récréative très bon marché, 0.70FS
+
+https://www.aliexpress.com/item/32477198302.html
+
+https://cdn.sparkfun.com/datasheets/Sensors/Proximity/HCSR04.pdf
+
+Il n'y a pas de *module* NodeMCU pour ce senseur, mais son utilisation en Lua est vraiment très simple, il suffit juste d'envoyer une *pulse* de 10uS sur la pin *trig* et de *connecter* une interruption du NodeMCU sur la pin *echo*. <br>
+Après une simple règle de trois en relation avec la vitesse du son dans l'air et on a la distance en cm.
+
 
 ### Schéma
 
-![Image](https://github.com/zuzu59/NodeMCU_Lua/blob/master/Mesures/energy/transfo_courant_clip_1p/schemas/sch%C3%A9ma.png?raw=true)
+![Image](https://raw.githubusercontent.com/zuzu59/NodeMCU_Lua/master/Mesures/water-level/water-level_ruru_1/schemas/schema.png)
 
-Le petit transfo de courant a un rapport de 25mA à 20A, soit 0.025/20=0.00125 soit encore 1/800.
+Le schéma est vraiment très simple !
 
-Une masse virtuelle de 0.5V est constituée avec le pont des résistances R2/R1, cela permet de *remonter* la tension alternative de la mesure de courant.
-
-La résistance R3 est utilisée pour la conversion courant/tension du transfo de courant.<br>
-Pour une charge maximale de 600W, la résistance R3 est de 100R, et pour 1'200W elle est de 56R.
 
 ### Astuces
 
-* Comme le convertisseur ADC du NodeMCU ne peut mesurer que des valeurs positives comprises entre 0V et 1V, on ajoute une masse *fictive* au signal du transformateur de courant de 0.5V afin de *remonter* l'alternance négative.<br>
-Au lieu de *découper* la sinusoïde (50Hz) en 100 *parties*, c'est à dire toutes les 0.2ms (5'000x /s), pour en faire l'intégrale. On lit l'ADC toutes les 11ms (seulement 91x /s) donc beaucoup plus lentement.<br>
-* Comme la sinusoïde fait 20ms et est *répétitive*, on balaye (par *décalage*) statistiquement la sinusoïde.<br>
-* On *redresse* l'alternance par rapport à la masse fictive (env 0.5V), ce qui nous permet d'estimer une valeur RMS du courant quelque soit sa forme et on la moyenne sur une période de 2.1 secondes.<br>
-* Les mesures min et max ne sont là juste que pour vérifier que nous sommes bien dans la plage de mesure avec le choix de la résistance de *conversion* du transformateur de courant.<br>
-* Le calcul de la puissance mesurée est très simpliste, un simple ```P=U*I```. On ne tient donc pas compte ici du ```cos(phy)``` qui pourrait varier en fonction des charges inductives dans la maison !
-
+* La seul problématique dans ce projet c'est que le senseur DOIT absolument être alimenté en 5V et que le NodeMCU lui est en 3.3V. <br>
+Il faut donc lui ajouter une petite résistance, R1, d'adaptation du niveau pour le signal pour l'interruption du NodeMCU.
 
 
 ## Installation
 
 Il faut *flasher* le NodeMCU avec ce firmware:
 
-https://github.com/zuzu59/NodeMCU_Lua/blob/master/Firmware/nodemcu-master-20-modules-2019-07-01-06-35-13-float.bin
+https://github.com/zuzu59/NodeMCU_Lua/blob/master/Firmware/nodemcu-master-19-modules-2019-12-31-16-40-12-float.bin
 
 
 Avec ces modules:
 
-```
-adc ds18b20 file gpio http i2c mdns mqtt net
-node ow pcm rtctime sntp spi tmr uart wifi ws2812
-```
+https://github.com/zuzu59/NodeMCU_Lua/blob/master/Firmware/nodemcu-master-19-modules-2019-12-31-16-40-12-float.pdf
 
 
 ## Utilisation
+
+Après avoir *flashé* le NodeMCU avec le bon *firmware* il faut télécharger tous les fichiers \*.lua sur le NodeMCU.
+
+Mais il faut aussi bien *remplir* et charger sur le NodeMCU, le fichier des secrets du projet:
+```
+secrets_project.lua
+```
+
+ainsi que le fichier des secrets pour le WIFI
+```
+secrets_wifi.lua
+```
+Tout en sachant que les variables utilisées pour les secrets sont utiles pour:
+
+* znode_chipid == iii then<br>
+C'est l'id du NodeMCU que chaque NodeMCU ont gravé dans leur mémoire, on peut le lire avec cette commande:
+```
+=node.chipid()
+```
+
+* node_id = "iii"<br>
+C'est le nom de *fonction* du NodeMCU qui sera *visible* dans la DB InfluxDB
+
+
+
+* yellow_id = nn
+C'est le *numéro* du NodeMCU que l'on indique sur une *petite étiquette jaune collée* sur le NodeMCU. Ce *numéro* permet par la suite de connaitre très facilement le numéro du *port* utilisé pour le *reverse telnet* quand on veut accéder à la console série du NodeMCU
+
+* -- thingspeak_url="http://api.thingspeak.com/update?api_key=kkk"<br>
+Pas utilisé dans ce projet
+
+* influxdb_url="http://uuu:8086/write?db=ddd&u=admin&p=ppp"<br>
+Secrets utilisé pour envoyer des données sur le DB InfluxDB
+
+* console_host = "uuu"   console_port = 23000+yellow_id<br>
+Serveur utilisé pour le *tremplin* du reverse telnet utilisé pour accéder à la console série du NodeMCU au moyen d'un *socat*. L'information d'utilisation se trouve dans le fichier 0_tst5_socat.lua
+
+* -- zdyndns_host = "hhh"  zdyndns_port = nnn<br>
+Pas utilisé dans ce projet
+
+
+
+
+
+
 
 ### Distribution des rôles de NodeMCU
 
