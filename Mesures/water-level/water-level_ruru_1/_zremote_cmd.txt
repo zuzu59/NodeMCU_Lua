@@ -58,18 +58,11 @@ ssh -N -L 23000:localhost:23000 ubuntu@www.zuzu-test.ml &
 telnet -rN $zIP $zport
 
 verbose=false
-=node.heap()
 ~.
 
+=node.heap()
 verbose=true
 node.restart()
-
-= node.bootreason()
-# https://nodemcu.readthedocs.io/en/master/modules/node/#nodebootreason
-
-for k,v in pairs(_G) do print(k,v) end
-verbose=true
-#zdyn
 
 ./luatool.py --ip $zIP:$zport -f boot.lua
 ./luatool.py --ip $zIP:$zport -f 0_get_power.lua
@@ -79,6 +72,17 @@ verbose=true
 ./luatool.py --ip $zIP:$zport -f 0_ultra_son.lua
 
 ./luatool.py --ip $zIP:$zport --zrestart
+
+
+= node.bootreason()
+# https://nodemcu.readthedocs.io/en/master/modules/node/#nodebootreason
+
+for k,v in pairs(_G) do print(k,v) end
+verbose=true
+#zdyn
+
+
+
 
 ./luatool.py --ip $zIP:$zport -f api_sonoff.html
 http://192.168.0.182
