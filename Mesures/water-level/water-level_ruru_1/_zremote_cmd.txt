@@ -1,5 +1,5 @@
 # Quelques commandes remote (luatool) à envoyer avec le plugin Atom-IDE-terminal de l'éditeur Atom
-# zf200625.1133
+# zf200628.1329
 
 
 Todo à faire pour ce projet !
@@ -15,14 +15,13 @@ Todo à faire pour ce projet !
 # ALT+CMD+F bascule entre le terminal et l'éditeur
 
 # définitions à faire AVANT !
-export luatool_tty="/dev/cu.wchusbserial1410"
+#export luatool_tty="/dev/cu.wchusbserial1410"
 
-export zIP="192.168.0.182"
-export zport="23"
+#export zIP="192.168.0.182"
+#export zport="23"
 
 export zIP="localhost"
 export zport="23000"
-ATTENTION: voir les tunnels tout à la fin !
 
 
 # ouvrir et fermer (ALT+N+.) une session telnet sur le NodeMCU avec l'adresse zIP)
@@ -58,10 +57,12 @@ ssh -N -L 23000:localhost:23000 ubuntu@www.zuzu-test.ml &
 
 telnet -rN $zIP $zport
 
+verbose=false
 =node.heap()
 ~.
 
-verbose=false
+verbose=true
+node.restart()
 
 = node.bootreason()
 # https://nodemcu.readthedocs.io/en/master/modules/node/#nodebootreason
@@ -74,8 +75,8 @@ verbose=true
 ./luatool.py --ip $zIP:$zport -f 0_get_power.lua
 ./luatool.py --ip $zIP:$zport -f 0_cron.lua
 ./luatool.py --ip $zIP:$zport -f 0_http_post.lua
-./luatool.py --ip $zIP:$zport -f 0_htu21d.lua
 ./luatool.py --ip $zIP:$zport -f 0_tst4_socat.lua
+./luatool.py --ip $zIP:$zport -f 0_ultra_son.lua
 
 ./luatool.py --ip $zIP:$zport --zrestart
 

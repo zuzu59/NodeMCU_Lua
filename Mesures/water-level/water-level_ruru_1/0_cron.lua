@@ -1,8 +1,8 @@
 -- Petit script pour faire office de crontab pour les mesures
-print("\n 0_cron.lua   zf200627.1824   \n")
+print("\n 0_cron.lua   zf200628.1312   \n")
 
 cron1=tmr.create()
-cron1:alarm(20*1000,  tmr.ALARM_AUTO, function()
+cron1:alarm(3*1000,  tmr.ALARM_AUTO, function()
     -- if verbose then print("cron1........................") end
     -- if verbose then gpio.write(zLED, gpio.LOW) tmr.delay(10000) gpio.write(zLED, gpio.HIGH) end
 
@@ -18,7 +18,11 @@ cron1:alarm(20*1000,  tmr.ALARM_AUTO, function()
     -- if yellow_id == 64 then   http_post(influxdb_url,"energy,compteur=4 puissance="..zpower/1000)   end
 
 
-    if yellow_id == 69 then   http_post(influxdb_url,"bolo_ruru,capteur="..node_id.." hauteur="..zlength)   end
+    if yellow_id == 69 then   
+        local zmes="bolo_ruru,capteur="..node_id.." level="..zlevel
+        zmes=zmes.."\n".."bolo_ruru,capteur="..node_id.." hauteur="..zlength_brut
+        http_post(influxdb_url,zmes)
+   end
 
 
 

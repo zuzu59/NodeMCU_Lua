@@ -1,14 +1,17 @@
 -- Mesure la distance avec le module ultra-son de 15cm à 2m
 -- Attention le module à ultra-son doit être alimenté en 5V !
 
-print("\n 0_ultra_son.lua   zf200627.1846   \n")
+print("\n 0_ultra_son.lua   zf200628.1344   \n")
 
-speed_air = 382
-zlength_min = 0.15
-zlength_max = 0.62
+speed_air = 382             -- en m/s
+zlength_min = 20            -- en cm
+zlength_max = 61            -- en cm
 
+zlength_brut = 0
 zlength = (zlength_min+zlength_max)/2
 zlength_1, zlength_2, zlength_3 = zlength,zlength,zlength
+
+zlevel = 50                 -- en %
 
 --Paramètres pour le module ultra son
 local ztrig=5
@@ -24,7 +27,7 @@ local ultra_son_start, ultra_son_stop = 0,0
 
 --Function pour envoyer la pulse
 function zmesure_pulse()
-    gpio.serout(ztrig,gpio.HIGH,{10,1})
+    gpio.serout(ztrig,gpio.HIGH,{2,1})
 end
 
 --Fonction pour mesurer la pulse
@@ -34,23 +37,23 @@ function zmesure()
     else
         ultra_son_stop=tmr.now()
         -- print("Delta: "..ultra_son_stop-ultra_son_start)
-        zlength=math.floor(speed_air*(ultra_son_stop-ultra_son_start)/2/10000)/100
-        --zlength=speed_air*(ultra_son_stop-ultra_son_start)/2/10000
-        if zlength>zlength_max then zlength=zlength_max end
-        if zlength<zlength_min then zlength=zlength_min end
+        zlength_brut = math.floor(speed_air*(ultra_son_stop-ultra_son_start)/2/10000)
+        zlength = zlength_brut
         
-        zlength_3= zlength_2   zlength_2= zlength_1   zlength_1= zlength
-        zlength = (zlength_1+zlength_2+zlength_3)/3
+        if zlength>zlength_max then zlength = zlength_max end
+        if zlength<zlength_min then zlength = zlength_min end
         
-        disp_mesure()
+        zlength_3 = zlength_2   zlength_2 = zlength_1   zlength_1 = zlength
+        zlength = math.floor((zlength_1+zlength_2+zlength_3)/3)
+        
+        zlevel = 100-math.floor((zlength-zlength_min)/(zlength_max-zlength_min)*100)
+        
+        if verbose then   print("La distance est de "..zlength.."cm, "..zlevel.."%")   end 
     end
 end
 
 gpio.trig(zecho,"both",zmesure)
 
--- à commenter après les tests de calibration
-function disp_mesure()  print("La distance est de "..zlength.."m")   end 
-
 tmr_mesure=tmr.create()
-tmr_mesure:alarm(1*1000, tmr.ALARM_AUTO, zmesure_pulse)
+tmr_mesure:alarm(2*1000, tmr.ALARM_AUTO, zmesure_pulse)
 
