@@ -68,7 +68,7 @@ node.restart()
 ./luatool.py --ip $zIP:$zport -f 0_get_power.lua
 ./luatool.py --ip $zIP:$zport -f 0_cron.lua
 ./luatool.py --ip $zIP:$zport -f 0_http_post.lua
-./luatool.py --ip $zIP:$zport -f 0_tst4_socat.lua
+./luatool.py --ip $zIP:$zport -f 0_tst5_socat.lua
 ./luatool.py --ip $zIP:$zport -f 0_ultra_son.lua
 
 ./luatool.py --ip $zIP:$zport --zrestart
