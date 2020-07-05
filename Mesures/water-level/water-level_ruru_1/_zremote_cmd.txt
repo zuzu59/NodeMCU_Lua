@@ -1,5 +1,5 @@
 # Quelques commandes remote (luatool) à envoyer avec le plugin Atom-IDE-terminal de l'éditeur Atom
-# zf200704.1832
+# zf200704.2310
 
 
 Todo à faire pour ce projet !
@@ -64,6 +64,9 @@ verbose=false
 =node.heap()
 verbose=true
 node.restart()
+
+dofile("head.lua")
+zhead("0_ultra_son.lua")
 
 ./luatool.py --ip $zIP:$zport -f boot.lua
 ./luatool.py --ip $zIP:$zport -f 0_get_power.lua

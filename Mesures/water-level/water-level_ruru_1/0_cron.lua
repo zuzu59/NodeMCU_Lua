@@ -1,5 +1,5 @@
 -- Petit script pour faire office de crontab pour les mesures
-print("\n 0_cron.lua   zf200628.1457   \n")
+print("\n 0_cron.lua   zf200705.2247   \n")
 
 cron1=tmr.create()
 cron1:alarm(15*1000,  tmr.ALARM_AUTO, function()
@@ -20,7 +20,7 @@ cron1:alarm(15*1000,  tmr.ALARM_AUTO, function()
 
     if yellow_id == 69 then   
         local zmes="bolo_ruru,capteur="..node_id.." level="..zlevel
-        zmes=zmes.."\n".."bolo_ruru,capteur="..node_id.." hauteur="..zlength_brut
+        zmes=zmes.."\n".."bolo_ruru,capteur="..node_id.." hauteur="..zlength
         http_post(influxdb_url,zmes)
    end
 
