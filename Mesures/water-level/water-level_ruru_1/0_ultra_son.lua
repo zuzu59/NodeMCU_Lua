@@ -1,7 +1,7 @@
 -- Mesure la distance avec le module ultra-son de 15cm à 2m
 -- Attention le module à ultra-son doit être alimenté en 5V !
 
-print("\n 0_ultra_son.lua   zf200705.2259   \n")
+print("\n 0_ultra_son.lua   zf200706.1710   \n")
 
 speed_air = 382             -- en m/s
 zlength_min = 12            -- en cm
@@ -46,7 +46,7 @@ function zmesure()
         
 
         -- if (zlength_brut>=4) and (zlength_brut<=65) then zlength = zlength_brut end
-        if (math.abs(zlength_brut-zlength) < 10) or (znbmaxerr > 2) then
+        if (math.abs(zlength_brut-zlength) < 3) or (znbmaxerr > 2) then
             zlength = zlength_brut
             znbmaxerr = 0
         else
