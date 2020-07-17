@@ -1,28 +1,7 @@
---Petit serveur WEB pour allumer/éteindre une LED en mode client WIFI
+--Petit serveur WEB pour allumer/éteindre une LED en mode serveur WIFI
 
-print("\n web_led_onoff.lua   zf181015.1622   \n")
+print("\n web_ledstate_onoff.lua   zf200717.1734   \n")
 
-print("Démarrage")
---wifi.sta.disconnect()
---wifi.setmode(wifi.STATION)
---print("set mode=STATION (mode="..wifi.getmode()..")")
---wifi.sta.config{ssid="Hugo", pwd="tototutu"}
-
---[[wifi.sta.connect()
-
-tmr.alarm(0, 1000, tmr.ALARM_AUTO , function()
-   if wifi.sta.getip() == nil then
-      print("Connecting to AP...")
-   else
-      print("Connected! IP: ",wifi.sta.getip())
-      tmr.stop(0)
-   end
-end)
-]]
-
-zLED=0
-gpio.mode(zLED, gpio.OUTPUT)
-gpio.write(zLED, gpio.HIGH)
 srv = net.createServer(net.TCP)
 srv:listen(80, function(conn)
   conn:on("receive", function(client, request)
@@ -37,18 +16,21 @@ srv:listen(80, function(conn)
         _GET[k] = v
       end
     end
-    buf = buf .. "<!DOCTYPE html><html><body><h1>Hello, this is NodeMCU.</h1><form src=\"/\">Turn PIN <select name=\"pin\" onchange=\"form.submit()\">"
-    local _on, _off = "", ""
+    buf = "<!DOCTYPE html><html><body><h1>Hello, this is NodeMCU.</h1>"
+    buf = buf .. "<form src=\"/\">Turn PIN <select name=\"pin\" onchange=\"form.submit()\">"
+    local state_on, state_off = "", ""
     if (_GET.pin == "ON") then
-      _on = " selected=\"true\""
+      state_on = " selected=\"true\""
       gpio.write(zLED, gpio.LOW)
     elseif (_GET.pin == "OFF") then
-      _off = " selected=\"true\""
+      state_off = " selected=\"true\""
       gpio.write(zLED, gpio.HIGH)
     elseif (_GET.pin == "zuzu") then
       print("hello zuzu")
     end
-    buf = buf .. "<option" .. _off .. ">OFF</option><option" .. _on .. ">ON</option></select></form></body></html>"
+    buf = buf .. "<option" .. state_off .. ">OFF</option><option" .. state_on .. ">ON</option></select></form>"
+    buf = buf .. "</body></html>"
+    client:send("HTTP/1.1 200 OK\r\n\r\n")
     client:send(buf)
   end)
   conn:on("sent", function(c) c:close() end)

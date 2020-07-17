@@ -1,8 +1,8 @@
 -- Démarre le WIFI en mode AP
-print("\n wifi_ap_start.lua   zf200717.1610   \n")
+print("\n wifi_ap_start.lua   zf200717.1728   \n")
 
 wifi.setmode(wifi.SOFTAP)
-wifi.ap.config({ ssid = "btn_led", pwd = "12345678" })
+wifi.ap.config({ ssid = "web_srv", pwd = "12345678" })
 dofile("wifi_info.lua")
 
 

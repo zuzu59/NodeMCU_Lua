@@ -1,6 +1,6 @@
--- petit script de serveur WEB Wifi
+-- petit script de serveur WEB plus évolué
 
-print("\n web_srv.lua   zf200302.2323   \n")
+print("\n web_srv.lua   zf200717.1735   \n")
 
 dofile("web_get.lua")
 dofile("web_html.lua")
@@ -31,6 +31,7 @@ srv:listen(80, function(conn)
         web_get()
 --        html_home()
         --print("send html...")
+        client:send("HTTP/1.1 200 OK\r\n\r\n")
         client:send(buf)
         buf=nil
     end

@@ -9,6 +9,9 @@ function web_get()
     elseif (_GET.led == "off") then
         led_off()
         html_home()
+    elseif (_GET.name == "zuzu") then
+        print("zuzu")
+        html_zuzu()
     elseif (_GET.led == "flash") then
         xfois=tonumber(_GET.fois)
         blink_LED()
