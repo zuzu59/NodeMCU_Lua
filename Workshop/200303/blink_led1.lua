@@ -1,8 +1,8 @@
 -- programme pour faire clignoter une LED version simplifiée
 
-print("\n blink_led1.lua zf200302.2243 \n")
+print("\n blink_led1.lua   zf200718.1204   \n")
 
-zLED=0
+zLED=4
 gpio.mode(zLED, gpio.OUTPUT)
 ztmr_LED = tmr.create()
 value = true

@@ -1,9 +1,9 @@
 -- programme pour faire clignoter une LED avec un rapport on/off
 
-print("\n blink_led2.lua zf200302.2243 \n")
+print("\n blink_led2.lua   zf200718.1204   \n")
 
-zLED=0
-zTm_On_LED = 50    --> en ms
+zLED=4
+zTm_On_LED = 50      --> en ms
 zTm_Off_LED = 500    --> en ms
 zFlag_LED = 0
 

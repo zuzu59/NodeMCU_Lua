@@ -1,12 +1,11 @@
 -- programme pour faire clignoter x fois une LED avec un rapport on/off
-print("\n flash_led_xfois.lua zf200302.2316 \n")
+print("\n flash_led_xfois.lua zf200717.1748 \n")
 
-zLED=0
+zLED=4
 zTm_On_LED = 50    --> en ms
 zTm_Off_LED = 100    --> en ms
 nbfois = 0
-gpio.write(zLED, gpio.HIGH)
-gpio.mode(zLED, gpio.OUTPUT)
+gpio.write(zLED, gpio.HIGH)   gpio.mode(zLED, gpio.OUTPUT)
 ztmr_LED = tmr.create()
 
 function blink_LED ()
@@ -14,7 +13,7 @@ function blink_LED ()
         print(nbfois)
         nbfois = 0
     else 
-        if gpio.read(zLED)==gpio.HIGH then
+        if gpio.read(zLED) == gpio.HIGH then
             gpio.write(zLED, gpio.LOW)
             ztmr_LED:alarm(zTm_Off_LED, tmr.ALARM_SINGLE, blink_LED)
         else 
