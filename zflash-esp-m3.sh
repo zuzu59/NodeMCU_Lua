@@ -3,7 +3,7 @@
 
 #ATTENTION: c'est pour ma structure, il faudra donc l'adapter
 
-#zf200720.1838
+#zf200720.1959
 
 
 #test si l'argument est vide
@@ -33,12 +33,12 @@ echo ---------- start zflash.sh
 
 cd ./Tools/esptool-master
 
-python esptool.py flash_id
+python3 esptool.py flash_id
 sleep 2
 
-python esptool.py erase_flash
+python3 esptool.py erase_flash
 sleep 2
 
-python esptool.py write_flash -fm dout 0x00000 $1
+python3 esptool.py write_flash -fm dout 0x00000 $1
 sleep 2
-# screen /dev/cu.wchusbserial1410 115200
+screen /dev/cu.wchusbserial1410 115200

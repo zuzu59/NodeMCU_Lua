@@ -1,5 +1,5 @@
 # Quelques commandes remote (luatool) à envoyer avec le plugin Atom-IDE-terminal de l'éditeur Atom
-# zf200704.2310
+# zf200720.2019
 
 
 Todo à faire pour ce projet !
@@ -44,7 +44,7 @@ socat TCP-LISTEN:23069,fork,reuseaddr STDIO
 killall -9 ssh
 ssh ubuntu@www.zuzu-test.ml killall -9 socat
 
-ssh ubuntu@www.zuzu-test.ml socat TCP-LISTEN:23069,reuseaddr,fork TCP-LISTEN:23000,reuseaddr,bind=127.0.0.1 &
+ssh ubuntu@www.zuzu-test.ml socat TCP-LISTEN:23010,reuseaddr,fork TCP-LISTEN:23000,reuseaddr,bind=127.0.0.1 &
 # SHIFT+CMD+K    SHIFT+CMD+K   ALT+CMD+F
 
 watch -n 1 'ssh ubuntu@www.zuzu-test.ml netstat -nat |grep 230'
