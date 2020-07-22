@@ -3,7 +3,7 @@
 -- le script repair.lua pendant xx secondes avant de continuer
 --Source: https://nodemcu.readthedocs.io/en/master/en/modules/node/#nodebootreason
 
-print("\n init.lua zf200722.1142 \n")
+print("\n init.lua zf200722.1526 \n")
 
 verbose = true
 
@@ -63,7 +63,7 @@ function initz()
         print("external reset")
         if rtcmem.read32(10) == 43690 then
             print("dsleep wake up")
-            f = "0_dsleep.lua"   if file.exists(f) then dofile(f) end
+            f = "0_dsleep2.lua"   if file.exists(f) then dofile(f) end
         else
             second_chance()
         end

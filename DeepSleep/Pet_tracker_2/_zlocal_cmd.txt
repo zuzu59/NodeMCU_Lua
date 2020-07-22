@@ -1,4 +1,22 @@
-zf200621.2337
+zf200722.1537
+
+
+dsleep_on()
+print(node.bootreason())
+print("le flag est à "..rtcmem.read32(10))
+
+f= "wifi_info.lua"   if file.exists(f) then dofile(f) end
+
+function ztime()
+    tm = rtctime.epoch2cal(rtctime.get()+2*3600)
+    print(string.format("%04d/%02d/%02d %02d:%02d:%02d", tm["year"], tm["mon"], tm["day"], tm["hour"], tm["min"], tm["sec"]))
+end
+
+print(ztime())
+
+
+
+
 
 srv_rt:on("connection", nil)
 

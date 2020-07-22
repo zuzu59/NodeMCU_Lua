@@ -1,6 +1,6 @@
 -- Scripts pour tester l'écoute des AP WIFI
 
-print("\n a.lua zf181211.0016 \n")
+print("\n a.lua zf200722.1544 \n")
 
 --f= "wifi_ap_stop.lua"   if file.exists(f) then dofile(f) end
 --f= "wifi_cli_conf.lua"   if file.exists(f) then dofile(f) end
@@ -12,7 +12,7 @@ print("\n a.lua zf181211.0016 \n")
 
 -- print AP list in new format
 function a()
-    ztime()
+    print(ztime())
     function listap(t)
         print("")
         for k,v in pairs(t) do
@@ -23,7 +23,11 @@ function a()
     wifi.sta.getap(1, listap)
 end
 
---a()
+--[[
+a()
+]]
+
+
 
 --[[
 -- Print AP list that is easier to read
