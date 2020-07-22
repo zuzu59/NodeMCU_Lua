@@ -3,7 +3,7 @@
 
 #ATTENTION: c'est pour ma structure, il faudra donc l'adapter
 
-#zf200720.1959
+#zf200722.0927
 
 
 #test si l'argument est vide
@@ -19,6 +19,7 @@ Pour le dernier firmware à la mode:
 ./zflash-esp-m3.sh ../../Firmware/nodemcu-master-19-modules-2019-12-31-16-40-12-float.bin
 ./zflash-esp-m3.sh ../../Firmware/nodemcu-master-19-modules-2020-06-17-17-22-55-float.bin
 ./zflash-esp-m3.sh ../../Firmware/nodemcu-master-19-modules-2020-06-17-18-07-17-float.bin
+./zflash-esp-m3.sh ../../Firmware/nodemcu-master-17-modules-2020-07-22-07-21-16-float.bin
 
 Pour l'ancien qui supporte encore le DS18B20:
 ./zflash-esp-m3.sh ../../Firmware/nodemcu-master-20-modules-2019-06-01-12-50-39-float.bin

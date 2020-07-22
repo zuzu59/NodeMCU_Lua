@@ -1,6 +1,7 @@
 #!/bin/bash
 #Petit script pour lancer facilement ESPlorer en JAVA
-#zf180822.0848
+#zf200722.0033
 
 java -jar ./Tools/ESPlorer/ESPlorer.jar &
+#java -jar ./Tools/ESPlorer/ESPlorer/dist/ESPlorer.jar &
 
