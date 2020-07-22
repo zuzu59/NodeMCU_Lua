@@ -3,7 +3,7 @@
 
 -- ATTENTION: il faut connecter la pin 0 à la pin RESET avec une résistance de 1k !
 
-print("\n dsleep.lua   zf200722.1546   \n")
+print("\n dsleep.lua   zf200722.1944   \n")
 
 zLED=4
 f= "flash_led_xfois.lua"   if file.exists(f) then dofile(f) end
@@ -48,6 +48,19 @@ print(ztime())
 -- on se réveil, vérifie si on peut avoir du réseau autrement on va redormir
 function dsleep_wake_up()
     print("Coucou, je suis réveillé... et il est "..ztime())
+    if wifi.sta.getip() == nil then
+        print("Unconnected...")
+        f = "0_wifi_scan.lua"   if file.exists(f) then dofile(f) end
+        wifi.setmode(wifi.STATION)
+        scan_wifi()
+    else
+        print("Connected...")
+    end
+   -- f= "wifi_info.lua"   if file.exists(f) then dofile(f) end
+
+
+
+
 
 end
 
