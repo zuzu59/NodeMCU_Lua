@@ -3,20 +3,47 @@
 
 -- ATTENTION: il faut connecter la pin 0 à la pin RESET avec une résistance de 1k !
 
-print("\n dsleep.lua   zf200722.0933   \n")
+print("\n dsleep.lua   zf200722.1133   \n")
 
+zLED=4
 f= "flash_led_xfois.lua"   if file.exists(f) then dofile(f) end
+
+function ztime()
+    tm = rtctime.epoch2cal(rtctime.get()+2*3600)
+    print(string.format("%04d/%02d/%02d %02d:%02d:%02d", tm["year"], tm["mon"], tm["day"], tm["hour"], tm["min"], tm["sec"]))
+end
 
 function dsleep_on()
     print("timer dsleep on...")
     ztmr_SLEEP = tmr.create()
-    ztmr_SLEEP:alarm(5*1000, tmr.ALARM_SINGLE, function ()
+    ztmr_SLEEP:alarm(2*1000, tmr.ALARM_SINGLE, function ()
         print("Je dors...")
         tmr.delay(100*1000)
---        node.dsleep(4*1000*1000)
-        rtctime.dsleep(10*1000*1000,4)
+        -- node.dsleep(4*1000*1000)
+        -- print(node.bootreason())
+        rtcmem.write32(10, 43690)       --flag pour détecter le réveil dsleep
+        -- print("le flag est à "..rtcmem.read32(10))
+        wifi.setmode(wifi.NULLMODE,true)
+        rtctime.dsleep(4*1000*1000)
     end)
 end
+
+--[[
+dsleep_on()
+print(node.bootreason())
+print("le flag est à "..rtcmem.read32(10))
+
+f= "wifi_info.lua"   if file.exists(f) then dofile(f) end
+
+function ztime()
+    tm = rtctime.epoch2cal(rtctime.get()+2*3600)
+    print(string.format("%04d/%02d/%02d %02d:%02d:%02d", tm["year"], tm["mon"], tm["day"], tm["hour"], tm["min"], tm["sec"]))
+end
+
+print(ztime())
+
+
+]]
 
 function dsleep_off()
     print("timer dsleep off...")
