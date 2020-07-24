@@ -3,10 +3,11 @@
 
 -- ATTENTION: il faut connecter la pin 0 à la pin RESET avec une résistance de 1k !
 
-print("\n dsleep.lua   zf200722.1944   \n")
+print("\n dsleep.lua   zf200724.1803   \n")
 
 zLED=4
 f= "flash_led_xfois.lua"   if file.exists(f) then dofile(f) end
+f= "secrets_project.lua"    if file.exists(f) then dofile(f) end
 
 function ztime()
     tm = rtctime.epoch2cal(rtctime.get()+2*3600)
@@ -57,13 +58,20 @@ function dsleep_wake_up()
         print("Connected...")
     end
    -- f= "wifi_info.lua"   if file.exists(f) then dofile(f) end
-
-
-
-
-
 end
 
+
+
+
+function zcat_logs_ap_wifi()
+    zfilei = file.open(z_logs_ap_wifi, "r")
+    zline=file.readline()
+    repeat
+      print(string.sub(zline,1,string.len(zline)-1))
+      zline=file.readline()
+    until zline== nil
+    file.close(zfilei)
+end
 
 
 -- function dsleep_off()

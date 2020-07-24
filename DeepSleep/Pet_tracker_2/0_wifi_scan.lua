@@ -1,31 +1,36 @@
 -- Scripts pour tester l'écoute des AP WIFI
 
-print("\n wifi_scan.lua zf200722.1944 \n")
+print("\n wifi_scan.lua zf200724.1827 \n")
 
---f= "wifi_ap_stop.lua"   if file.exists(f) then dofile(f) end
---f= "wifi_cli_conf.lua"   if file.exists(f) then dofile(f) end
---f= "wifi_cli_start.lua"   if file.exists(f) then dofile(f) end
---f= "telnet_srv.lua"   if file.exists(f) then dofile(f) end
---f= "web_ide2.lua"   if file.exists(f) then dofile(f) end
---f= "dsleep.lua"   if file.exists(f) then dofile(f) end
+-- https://www.epochconverter.com/
+ztime2020 = 1577836800      -- Unix time pour 1.1.2020 0:0:0 GMT
 
+-- sauvegarde les données dans la flash du NodeMCU
+function save_flash(zstr_ap_wifi)
+    ztime1 = tostring(rtctime.get() + 2*3600 - ztime2020)
+    local zstr = ztime1..", "..zstr_ap_wifi
+    if verbose then print("saving to flash: "..zstr) end
+    file.open(z_logs_ap_wifi, "a+")   file.writeline(zstr)   file.close()
+end
 
 -- print AP list in new format
 function scan_wifi()
     print(ztime())
     function listap(t)
-        print("on affiche le résultat...")
+        print("start display liste ap wifi...")
         for k,v in pairs(t) do
-            local ssid, rssi, authmode, channel = string.match(v, "([^,]+),([^,]+),([^,]+),([^,]*)")
-            print(ssid,rssi)
---            print(k.." : "..v)
+            -- local ssid, rssi, authmode, channel = string.match(v, "([^,]+),([^,]+),([^,]+),([^,]*)")
+            -- print(ssid,rssi)
+            -- print(k.." : "..v)
+            -- local zstr = k..", "..v
+            local zstr = v
+            save_flash(zstr)
         end
-        print("on a terminé d'afficher...")
+        print("end display...")
         dsleep_on()
     end
-    print("on scanne...")
+    print("wifi scan...")
     wifi.sta.getap(1, listap)
-    print("on a terminé...")
 end
 
 --[[
