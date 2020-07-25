@@ -1,9 +1,12 @@
 # Enregistre sur la FLASH tous les AP WIFI vu lors du réveil du NodeMCU
 
-Version qui utilise la fonctionnalité d'enregistrer dans la mémoire rtc-mem un flag qui permet de détecter lors du boot si l'on sort du *sommeil profond*. Car quand le NodeMCU sort du *sommeil profond*, c'est une pin D0 qui fait un RESET une résistance de 1k !
-Nécessite donc d'avoir le module rtc-mem dans le firmware du NodeMCU
+Version qui part du principe que quand la *boot reason* est un RESET c'est par défaut une sortie de *sommeil profond*. Car quand le NodeMCU sort du *sommeil profond*, c'est une pin D0 qui fait un RESET une résistance de 1k !
 
-zf200725.1140
+Cela simplifie beaucoup la phase de réveil.
+
+Mais a pour corolaire de ne plus pouvoir faire de RESET et espérer arriver dans la partie seconde chance de la procédure de démarrage.
+
+zf200725.1144
 
 <!-- TOC titleSize:2 tabSpaces:2 depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 skip:1 title:1 charForUnorderedList:* -->
 ## Table of Contents

@@ -1,0 +1,16 @@
+zf200724.1053
+
+print(ztime())
+dsleep_on()
+
+zcat_logs_ap_wifi()
+
+print(node.bootreason())
+print("le flag est à "..rtcmem.read32(10))
+
+f= "wifi_info.lua"   if file.exists(f) then dofile(f) end
+
+
+
+
+
