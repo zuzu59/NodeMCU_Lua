@@ -57,10 +57,15 @@ export zport="23000"
 ssh -N -L 23000:localhost:23000 ubuntu@www.zuzu-test.ml &
 
 telnet -rN $zIP $zport
+verbose=false
+
 
 file.remove("apwifi.txt")
 print(ztime())
 dsleep_on()
+
+dofile("cat2.lua")
+cat2("apwifi.txt")
 
 zcat_logs_ap_wifi()
 
@@ -82,7 +87,7 @@ zhead("0_ultra_son.lua")
 ./luatool.py --ip $zIP:$zport -f 0_ultra_son.lua
 
 ./luatool.py --ip $zIP:$zport -f dir.lua
-./luatool.py --ip $zIP:$zport -f cat.lua
+./luatool.py --ip $zIP:$zport -f cat2.lua
 ./luatool.py --ip $zIP:$zport -f head.lua
 
 
