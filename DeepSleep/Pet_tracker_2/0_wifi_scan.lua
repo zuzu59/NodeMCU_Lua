@@ -1,6 +1,8 @@
 -- Scripts pour tester l'écoute des AP WIFI
 
-print("\n wifi_scan.lua zf200724.1827 \n")
+print("\n wifi_scan.lua zf200725.1053 \n")
+
+f= "secrets_project.lua"    if file.exists(f) then dofile(f) end
 
 -- https://www.epochconverter.com/
 ztime2020 = 1577836800      -- Unix time pour 1.1.2020 0:0:0 GMT

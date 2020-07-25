@@ -3,11 +3,10 @@
 
 -- ATTENTION: il faut connecter la pin 0 à la pin RESET avec une résistance de 1k !
 
-print("\n dsleep.lua   zf200724.1803   \n")
+print("\n dsleep.lua   zf200725.1053   \n")
 
 zLED=4
 f= "flash_led_xfois.lua"   if file.exists(f) then dofile(f) end
-f= "secrets_project.lua"    if file.exists(f) then dofile(f) end
 
 function ztime()
     tm = rtctime.epoch2cal(rtctime.get()+2*3600)
