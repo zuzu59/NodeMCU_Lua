@@ -58,6 +58,12 @@ ssh -N -L 23000:localhost:23000 ubuntu@www.zuzu-test.ml &
 
 telnet -rN $zIP $zport
 
+file.remove("apwifi.txt")
+print(ztime())
+dsleep_on()
+
+zcat_logs_ap_wifi()
+
 verbose=false
 ~.
 
@@ -74,6 +80,12 @@ zhead("0_ultra_son.lua")
 ./luatool.py --ip $zIP:$zport -f 0_http_post.lua
 ./luatool.py --ip $zIP:$zport -f 0_tst5_socat.lua
 ./luatool.py --ip $zIP:$zport -f 0_ultra_son.lua
+
+./luatool.py --ip $zIP:$zport -f dir.lua
+./luatool.py --ip $zIP:$zport -f cat.lua
+./luatool.py --ip $zIP:$zport -f head.lua
+
+
 
 ./luatool.py --ip $zIP:$zport --zrestart
 
