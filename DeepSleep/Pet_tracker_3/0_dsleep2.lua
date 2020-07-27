@@ -3,7 +3,7 @@
 
 -- ATTENTION: il faut connecter la pin 0 à la pin RESET avec une résistance de 1k !
 
-print("\n dsleep.lua   zf200727.1344   \n")
+print("\n dsleep.lua   zf200727.2113   \n")
 
 zLED=4
 f= "flash_led_xfois.lua"   if file.exists(f) then dofile(f) end
@@ -24,7 +24,7 @@ function dsleep_on()
         -- rtcmem.write32(10, 43690)       --flag pour détecter le réveil dsleep au moment du boot
         -- print("le flag est à "..rtcmem.read32(10))
         wifi.setmode(wifi.NULLMODE,true)
-        rtctime.dsleep(2*1000*1000)
+        rtctime.dsleep(0.1*1000*1000)
     -- end)
 end
 
