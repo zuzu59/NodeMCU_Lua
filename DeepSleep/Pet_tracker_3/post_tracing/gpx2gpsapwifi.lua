@@ -1,12 +1,20 @@
 -- parse les données GPX avec les données des ap wifi du NodeMCU pour les 
 -- cooréler  en fonction du temps afin de pouvoir géolocaliser les ap wifi 
 
-print("\n gpx2gpsapwifi.lua   zfzf200730.2304   \n")
+print("\n gpx2gpsapwifi.lua   zfzf200730.2321   \n")
 
 
-zidx_gps_tab = 0
+zidx_gpx_tab = 0
 zgpx_data = {}
+
+zidx_apwifi_tab = 0
+zapwifi_data = {}
+
+ztime2020 = 1577836800      -- Unix time pour 1.1.2020 0:0:0 GMT
+
+
 --[[
+zgpx_data
 1
     time = 123
     lon = 234
@@ -15,7 +23,42 @@ zgpx_data = {}
     time = 456
     lon = 567
     lat = 678
+
+gpx_data[1] = {time = 123, lon = 234, lat = 345}
 ]]
+
+--[[
+zapwifi_data
+-- 18050624, b0:7f:b9:3e:f1:f1, "apzuzu6_EXT", -71
+1
+    time = 123
+        idx = 1
+            zmacadresse = 123
+            apname = 234
+            rssi = 345
+            lon = 456
+            lat = 567
+        idx = 2
+            zmacadresse = 123
+            apname = 234
+            rssi = 345
+            lon = 456
+            lat = 567
+
+2
+    ...
+
+apwifi_data[1] = {time = 123}
+apwifi_data[1].time = {}
+
+
+ {time = 123, {idx[1] = {zmacadresse = 123, apname = 234, rssi = 345, lon = 456, lat = 567, idx = 2}}}
+
+]]
+
+
+
+
 
 
 function tprint(t)    
@@ -23,33 +66,6 @@ function tprint(t)
        print(key, value)
    end
 end
-
- 
-
--- gpx_data[1] = {time = 123, lon = 234, lat = 345}
--- gpx_data[2] = {time = 456, lon = 567, lat = 678}
--- 
--- print(gpx_data[1].time)
--- print(gpx_data[1].lon)
--- print(gpx_data[2].lat)
--- 
--- tprint(gpx_data[1])
--- 
--- for i=1, #gpx_data do
---     print(i)
---     tprint(gpx_data[i])
--- end
-
-
-
--- function zprintline()
---     print(string.sub(zline,1,string.len(zline)-1))
---     zline = file.readline()
---     if zline == nil then
---         ztmr_cat1:unregister()
---         file.close(zfilei)
---     end
--- end
 
 function zdatetime2unixtime(zdatetime)
     -- source: https://stackoverflow.com/questions/4105012/convert-a-string-date-to-a-timestamp
@@ -100,28 +116,84 @@ function gpx2tab(zfile_gpx)
             -- print("time: " ..ztime)
             zunixtime = zdatetime2unixtime(ztime)
             -- print("unixtime: " ..zunixtime)
-            
-            -- on a le temps et les coordonnées on peut les sauver
-            zidx_gps_tab = zidx_gps_tab + 1
-            zgpx_data[zidx_gps_tab] = {unixtime = zunixtime, time = ztime,lon = zlon, lat = zlat}
-
-            
+            -- on a le temps et les coordonnées on peut les sauver dans le tableau§
+            zidx_gpx_tab = zidx_gpx_tab + 1
+            zgpx_data[zidx_gpx_tab] = {unixtime = zunixtime, time = ztime,lon = zlon, lat = zlat}
         end
-        
-
+        -- juste un petit verrour pour ne pas parser tout le fichiers pendant les tests
         i = i + 1
         if i > 20000 then break end
+    end
+end
+
+
+
+function apwifi2tab(zfile_apwifi)
+    i = 1
+    
+    for line in io.lines(zfile_apwifi) do
+        print(line)
+
+        -- 18050624, b0:7f:b9:3e:f1:f1, "apzuzu6_EXT", -71
+        -- on récupère le temps unix 2020
+        p1 = string.find(line, ",")
+        zunixtime2020 = string.sub(line, 1, p1-1)
+        print(zunixtime2020)
+        -- on récupère le temps unix 1970
+        zunixtime = zunixtime2020 + ztime2020
+        print(zunixtime)
+        -- on récupère la mac adresse
+        p2 = string.find(line, ",", p1+1)
+        zmacadresse = string.sub(line, p1+2, p2-1)
+        print(zmacadresse)
+        -- on récupère le nom de l'ap wifi
+        p3 = string.find(line, ",", p2+1)
+        zapwifi = string.sub(line, p2+3, p3-2)
+        print(zapwifi)
+        -- on récupère le RSSI
+        p4 = string.len(line)
+        zrssi = string.sub(line, p3+2, p4)
+        print(zrssi)
+        
+        
+        
+        
+        
+        --     -- on a le temps et les coordonnées on peut les sauver
+        --     zidx_gpx_tab = zidx_gpx_tab + 1
+        --     zgpx_data[zidx_gpx_tab] = {unixtime = zunixtime, time = ztime,lon = zlon, lat = zlat}
+        -- 
+        -- 
+        -- end
+        
+        -- juste un petit verrour pour ne pas parser tout le fichiers pendant les tests
+        i = i + 1
+        if i > 20 then break end
     end
     
     
 end
 
-gpx2tab("osman_2020-07-27_22-03_Mon.gpx")
+
 -- print(zdatetime2unixtime("2020-07-27T20:03:27"))
 
+-- gpx2tab("osman_2020-07-27_22-03_Mon.gpx")
+-- 
+-- 
+-- for i=1, #zgpx_data do
+--     print(i)
+--     tprint(zgpx_data[i])
+-- end
 
-for i=1, #zgpx_data do
-    print(i)
-    tprint(zgpx_data[i])
-end
+apwifi2tab("pet_tracker_200727.2203.csv")
+
+
+-- for i=1, #zgpx_data do
+--     print(i)
+--     tprint(zgpx_data[i])
+-- end
+
+
+
+
 
