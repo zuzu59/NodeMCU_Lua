@@ -1,7 +1,7 @@
 -- parse les données GPX avec les données des ap wifi du NodeMCU pour les 
 -- cooréler  en fonction du temps afin de pouvoir géolocaliser les ap wifi 
 
-print("\n gpx2gpsapwifi.lua   zfzf200803.1736   \n")
+print("\n gpx2gpsapwifi.lua   zfzf200803.1814   \n")
 
 zgpx_tab = {}
 zidx_gpx_tab = 0
@@ -210,9 +210,21 @@ function zfind_unique_ap_wifi()
             zmacadresse = zapwifi_tab[i][j].mac
             if zapwifi_unique_tab[zmacadresse] == nil then
                 print("oh un nouveau: "..zapwifi_tab[i][j].mac..zapwifi_tab[i][j].name)
-                zapwifi_unique_tab[zmacadresse] = {name = zapwifi_tab[i][j].name, error = zapwifi_tab[i][j].error, lon = zapwifi_tab[i].lon, lat = zapwifi_tab[i].lat}
+                zapwifi_unique_tab[zmacadresse] = {
+                    name = zapwifi_tab[i][j].name, 
+                    error = zapwifi_tab[i][j].error, 
+                    lon = zapwifi_tab[i].lon, 
+                    lat = zapwifi_tab[i].lat}
                 -- zapwifi_unique_tab[zmacadresse] = {lon = zapwifi_tab[i][j].lon, lat =zapwifi_tab[i][j].lat}
                 zidx_apwifi_unique_tab = zidx_apwifi_unique_tab + 1
+            else
+                if zapwifi_tab[i][j].error < zapwifi_unique_tab[zmacadresse].error then
+                    print("oh il est plus proche "..zapwifi_tab[i][j].error.." < "..zapwifi_unique_tab[zmacadresse].error)
+                    zapwifi_unique_tab[zmacadresse].error = zapwifi_tab[i][j].error
+                    zapwifi_unique_tab[zmacadresse].lon = zapwifi_tab[i].lon
+                    zapwifi_unique_tab[zmacadresse].lat = zapwifi_tab[i].lat
+                end
+                    
             end
             
         end
@@ -224,11 +236,12 @@ end
 function zprint_ap_wifi_unique()
     for key,value in pairs(zapwifi_unique_tab) do
         -- print(key..", "..zapwifi_unique_tab[key].name..", "..zapwifi_unique_tab[key].error)
-        print(key
-            ..", \""..zapwifi_unique_tab[key].name.."\", "
-            ..zapwifi_unique_tab[key].lon..", "
-            ..zapwifi_unique_tab[key].lat..", "
-            ..zapwifi_unique_tab[key].error)
+        print(
+            key..", \""..
+            zapwifi_unique_tab[key].name.."\", "..
+            zapwifi_unique_tab[key].lon..", "..
+            zapwifi_unique_tab[key].lat..", "..
+            zapwifi_unique_tab[key].error)
     end    
 end
 
