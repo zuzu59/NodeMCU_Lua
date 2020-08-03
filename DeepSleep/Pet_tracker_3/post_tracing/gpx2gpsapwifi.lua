@@ -1,7 +1,7 @@
 -- parse les données GPX avec les données des ap wifi du NodeMCU pour les 
 -- cooréler  en fonction du temps afin de pouvoir géolocaliser les ap wifi 
 
-print("\n gpx2gpsapwifi.lua   zfzf200803.1056   \n")
+print("\n gpx2gpsapwifi.lua   zfzf200803.1218   \n")
 
 zgpx_tab = {}
 zidx_gpx_tab = 0
@@ -9,6 +9,9 @@ zidx_gpx_tab = 0
 zapwifi_tab = {}
 zidx_apwifi_tab1 = 0
 zidx_apwifi_tab2 = 0
+
+zapwifi_unique_tab = {}
+zidx_apwifi_unique_tab = 0
 
 ztime_old = 0
 ztime2020 = 1577836800      -- Unix time pour 1.1.2020 0:0:0 GMT
@@ -175,10 +178,50 @@ end
 gpx2tab("osman_2020-07-27_22-03_Mon.gpx")
 apwifi2tab("pet_tracker_200727.2203.csv")
 gpx2gpsapwifi()
-zprint_apwifi_tab()
+-- zprint_apwifi_tab()
 
 
+function zfind_unique_ap_wifi()
+    
+    -- zgpx_tab = {}
+    -- zidx_gpx_tab = 0
+    -- 
+    -- zapwifi_tab = {}
+    -- zidx_apwifi_tab1 = 0
+    -- zidx_apwifi_tab2 = 0
+    -- 
+    -- zapwifi_unique_tab = {}
+    zidx_apwifi_unique_tab = 0
 
+    for i=1, #zapwifi_tab do
+        print("groupe: "..i.." -----------------")
+        -- print("time: "..zapwifi_tab[i].time)
+        -- print("unxitime: "..zapwifi_tab[i].unixtime)
+        -- print("lon: "..zapwifi_tab[i].lon)
+        -- print("lat: "..zapwifi_tab[i].lat)
+        for j=1 , #zapwifi_tab[i] do
+            -- print("idx: "..j)
+            -- print("mac: "..zapwifi_tab[i][j].mac)
+            -- print("name: "..zapwifi_tab[i][j].name)
+            -- print("rssi: "..zapwifi_tab[i][j].rssi)
+            -- print("erreur: "..zapwifi_tab[i][j].erreur)
+            
+            zmacadresse = zapwifi_tab[i][j].mac
+            if zapwifi_unique_tab[zmacadresse] == nil then
+                print("oh un nouveau: "..zapwifi_tab[i][j].mac..zapwifi_tab[i][j].name)
+                zapwifi_unique_tab[zmacadresse] = zapwifi_tab[i][j].name
+                zidx_apwifi_unique_tab = zidx_apwifi_unique_tab + 1
+            end
+            
+        end
+    end
+    tprint(zapwifi_unique_tab)
+    print("j'en ai trouvé "..zidx_apwifi_unique_tab)
+    
+    
+end
+
+zfind_unique_ap_wifi()
 
 
 --[[
