@@ -1,7 +1,7 @@
 -- parse les données GPX avec les données des ap wifi du NodeMCU pour les 
 -- cooréler  en fonction du temps afin de pouvoir géolocaliser les ap wifi 
 
-print("\n gpx2gpsapwifi.lua   zfzf200803.1013   \n")
+print("\n gpx2gpsapwifi.lua   zfzf200803.1052   \n")
 
 zgpx_tab = {}
 zidx_gpx_tab = 0
@@ -126,49 +126,41 @@ function apwifi2tab(zfile_apwifi)
         zapwifi_tab[zidx_apwifi_tab1][zidx_apwifi_tab2] = {mac = zmacadresse, name = zapwifiname, rssi = zrssi, erreur = math.floor(zround(zcalc_distance(zrssi),0))}
         -- juste un petit verrou pour ne pas parser tout le fichiers pendant les tests
         i = i + 1
-        if i > 40 then break end
+        if i > 20000 then break end
     end    
 end
 
 function gpx2gpsapwifi()
-    
     for i=1, #zapwifi_tab do
-        print("groupe: "..i)
-        print("time apwifi: "..zapwifi_tab[i].time)
-        print("unxitime apwifi: "..zapwifi_tab[i].unixtime)
-        print("lon: "..zapwifi_tab[i].lon)
-        print("lat: "..zapwifi_tab[i].lat)
-
+        -- print("groupe: "..i)
+        -- print("time apwifi: "..zapwifi_tab[i].time)
+        -- print("unxitime apwifi: "..zapwifi_tab[i].unixtime)
+        -- print("lon: "..zapwifi_tab[i].lon)
+        -- print("lat: "..zapwifi_tab[i].lat)
         j = 1
         while zgpx_tab[j].unixtime < zapwifi_tab[i].unixtime do
             -- print("coucou")
             j = j + 1
         end
-        print("j: "..j)
-        print("time gpx: "..zgpx_tab[j].time)
-        print("unxitime gpx: "..zgpx_tab[j].unixtime)
-
+        -- print("j: "..j)
+        -- print("time gpx: "..zgpx_tab[j].time)
+        -- print("unxitime gpx: "..zgpx_tab[j].unixtime)
         zapwifi_tab[i].lon = zgpx_tab[j].lon
         zapwifi_tab[i].lat = zgpx_tab[j].lat
-        print("lon: "..zapwifi_tab[i].lon)
-        print("lat: "..zapwifi_tab[i].lat)
-
-    end
-    
+        -- print("lon: "..zapwifi_tab[i].lon)
+        -- print("lat: "..zapwifi_tab[i].lat)
+    end    
 end
-
-
-
 
 function zprint_apwifi_tab()
     for i=1, #zapwifi_tab do
-        print(i)
+        print("groupe: "..i.."-----------------")
         print("time: "..zapwifi_tab[i].time)
         print("unxitime: "..zapwifi_tab[i].unixtime)
         print("lon: "..zapwifi_tab[i].lon)
         print("lat: "..zapwifi_tab[i].lat)
         for j=1 , #zapwifi_tab[i] do
-            print(j)
+            print("idx: "..j)
             print("mac: "..zapwifi_tab[i][j].mac)
             print("name: "..zapwifi_tab[i][j].name)
             print("rssi: "..zapwifi_tab[i][j].rssi)
@@ -181,7 +173,7 @@ end
 gpx2tab("osman_2020-07-27_22-03_Mon.gpx")
 apwifi2tab("pet_tracker_200727.2203.csv")
 gpx2gpsapwifi()
-
+zprint_apwifi_tab()
 
 
 
@@ -232,7 +224,7 @@ print(zapwifi_tab[1][2].mac)
 
 
 
-print(zdatetime2unixtime("2020-07-27T20:03:27"))
+-- print(zdatetime2unixtime("2020-07-27T20:03:27"))
 
 -- for i=1, #zgpx_tab do
 --     print(i)
