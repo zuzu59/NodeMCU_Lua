@@ -1,7 +1,7 @@
 -- parse les données GPX avec les données des ap wifi du NodeMCU pour les 
 -- cooréler  en fonction du temps afin de pouvoir géolocaliser les ap wifi 
 
-print("\n gpx2gpsapwifi.lua   zfzf200731.1842   \n")
+print("\n gpx2gpsapwifi.lua   zfzf200803.0922   \n")
 
 
 zgpx_tab = {}
@@ -13,6 +13,17 @@ zidx_apwifi_tab2 = 0
 
 ztime_old = 0
 ztime2020 = 1577836800      -- Unix time pour 1.1.2020 0:0:0 GMT
+
+function zround(num, dec)
+    local mult = 10^(dec or 0)
+    return math.floor(num * mult + 0.5) / mult
+end
+
+function zcalc_distance(zrssi)
+    zrssi_1m=-40    zn=2
+    zdist=10^((zrssi_1m - zrssi) / (10 * zn))
+    return zdist
+end
 
 
 --[[
@@ -82,10 +93,8 @@ end
 
 function gpx2tab(zfile_gpx)    
     i = 1
-    
     for line in io.lines(zfile_gpx) do
         -- print(line)
-
         -- <trkpt lat="46.5421696" lon="6.5749532">
         if string.find(line, "<trkpt ") then
             -- print("coucou gps")
@@ -104,7 +113,6 @@ function gpx2tab(zfile_gpx)
             zlon = string.sub(line,p2+1,p3-1)
             -- print("lon: " ..zlon)
         end
-        
         -- <time>2020-07-27T20:03:27Z</time>
         if string.find(line, "<time>") then
             -- print("coucou time")
@@ -131,31 +139,28 @@ end
 
 function apwifi2tab(zfile_apwifi)
     i = 1
-    
     for line in io.lines(zfile_apwifi) do
-        print(line)
-
+        -- print(line)
         -- 18050624, b0:7f:b9:3e:f1:f1, "apzuzu6_EXT", -71
         -- on récupère le temps unix 2020
         p1 = string.find(line, ",")
         zunixtime2020 = string.sub(line, 1, p1-1)
-        print(zunixtime2020)
+        -- print(zunixtime2020)
         -- on récupère le temps unix 1970
         zunixtime = zunixtime2020 + ztime2020
-        print(zunixtime)
+        -- print(zunixtime)
         -- on récupère la mac adresse
         p2 = string.find(line, ",", p1+1)
         zmacadresse = string.sub(line, p1+2, p2-1)
-        print(zmacadresse)
+        -- print(zmacadresse)
         -- on récupère le nom de l'ap wifi
         p3 = string.find(line, ",", p2+1)
         zapwifiname = string.sub(line, p2+3, p3-2)
-        print(zapwifi)
+        -- print(zapwifi)
         -- on récupère le RSSI
         p4 = string.len(line)
         zrssi = string.sub(line, p3+2, p4)
-        print(zrssi)
-        
+        -- print(zrssi)
         -- est-ce un nouveau groupe de time ?
         if zunixtime ~= ztime_old then
             ztime_old = zunixtime
@@ -163,16 +168,12 @@ function apwifi2tab(zfile_apwifi)
             zidx_apwifi_tab1 = zidx_apwifi_tab1 + 1
             zapwifi_tab[zidx_apwifi_tab1] = {unixtime = zunixtime, time = os.date("%Y/%m/%d %H:%M:%S",zunixtime-2*3600), lon = 0, lat = 0, {}}
         end
-
         zidx_apwifi_tab2 = zidx_apwifi_tab2 + 1
-        zapwifi_tab[zidx_apwifi_tab1][zidx_apwifi_tab2] = {mac = zmacadresse, name = zapwifiname, rssi = zrssi, erreur = 1234}
-
+        zapwifi_tab[zidx_apwifi_tab1][zidx_apwifi_tab2] = {mac = zmacadresse, name = zapwifiname, rssi = zrssi, erreur = math.floor(zround(zcalc_distance(zrssi),0))}
         -- juste un petit verrou pour ne pas parser tout le fichiers pendant les tests
         i = i + 1
         if i > 20 then break end
-    end
-    
-    
+    end    
 end
 
 
@@ -191,6 +192,7 @@ apwifi2tab("pet_tracker_200727.2203.csv")
 
 -- zapwifi_tab[zidx_apwifi_tab1] = {unixtime = zunixtime, time = os.date("%Y/%m/%d %H:%M:%S",zunixtime-2*3600), lon = 0, lat = 0, {}}
 -- zapwifi_tab[zidx_apwifi_tab1][zidx_apwifi_tab2] = {mac = zmacadresse, name = zapwifiname, rssi = zrssi, erreur = 1234}
+
 
 
 for i=1, #zapwifi_tab do
