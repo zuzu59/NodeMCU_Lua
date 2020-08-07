@@ -1,7 +1,7 @@
 -- parse les données GPX avec les données des ap wifi du NodeMCU pour les 
 -- cooréler  en fonction du temps afin de pouvoir géolocaliser les ap wifi 
 
-print("\n gpx2gpsapwifi.lua   zfzf200807.1140   \n")
+print("\n gpx2gpsapwifi.lua   zfzf200807.1151   \n")
 
 zgpx_tab = {}
 zidx_gpx_tab = 0
@@ -318,73 +318,57 @@ end
 
 
 pet_tracker2tab("pet_tracker_200727.2203.csv")
-zprint_ap_wifi_tab(zpet_tracker_tab)
+-- zprint_ap_wifi_tab(zpet_tracker_tab)
 
 
 
 -- recherche les coordonnées GPS d'un ap wifi en fonction de sa patterne observée au temps t
 function zget_gps_ap_wifi(zidx_pet_tracker_tab1)
+    print("groupe: "..zidx_pet_tracker_tab1.." -------------------------------")
+    for zidx_pet_tracker_tab2 = 1, #zpet_tracker_tab[zidx_pet_tracker_tab1] do
+        print("idx: "..zidx_pet_tracker_tab2)
+        zmacadresse1 = zpet_tracker_tab[zidx_pet_tracker_tab1][zidx_pet_tracker_tab2].mac
+        print("zmacadresse: "..zmacadresse1)
+        
+        
+        -- parse toute la table ap_wifi à la recherche de la mac adresse
+        i = 1
+        for zidx_ap_wifi_tab1 = 1, #zap_wifi_tab do
+            print("groupe: "..zidx_ap_wifi_tab1.." -----------------")
+            -- print("time: "..zap_wifi_tab[zidx_ap_wifi_tab1].time)
+            -- print("unxitime: "..zap_wifi_tab[zidx_ap_wifi_tab1].unixtime)
+            -- print("lon: "..zap_wifi_tab[zidx_ap_wifi_tab1].lon)
+            -- print("lat: "..zap_wifi_tab[zidx_ap_wifi_tab1].lat)
+            for zidx_ap_wifi_tab2 = 1 , #zap_wifi_tab[zidx_ap_wifi_tab1] do
+                -- print("idx: "..zidx_ap_wifi_tab2)
+                -- print("mac: "..zap_wifi_tab[zidx_ap_wifi_tab1][zidx_ap_wifi_tab2].mac)
+                -- print("name: "..zap_wifi_tab[zidx_ap_wifi_tab1][zidx_ap_wifi_tab2].name)
+                -- print("rssi: "..zap_wifi_tab[zidx_ap_wifi_tab1][zidx_ap_wifi_tab2].rssi)
+                -- print("error: "..zap_wifi_tab[zidx_ap_wifi_tab1][zidx_ap_wifi_tab2].error)
+                zmacadresse2 = zap_wifi_tab[zidx_ap_wifi_tab1][zidx_ap_wifi_tab2].mac
+                if zmacadresse1 == zmacadresse2 then
+                    print("idx: "..zidx_ap_wifi_tab2.."/"..#zap_wifi_tab[zidx_ap_wifi_tab1])
+                    print("mac1: "..zmacadresse1)
+                    print("mac2: "..zmacadresse2)
+                    print("J'en ai trouvée une...")
+                end
+            end
+            i = i + 1
+            if i > 5 then break end
+        end
 
+        
+        
+        
+        
+        
+        
+    end
 
 
 end
 
 
+zget_gps_ap_wifi(1)
 
 
-
-
---[[
-zgpx_tab
-1
-    time = 123
-    lon = 234
-    lat = 345
-2
-    time = 456
-    lon = 567
-    lat = 678
-
-gpx_data[1] = {time = 123, lon = 234, lat = 345}
-]]
-
---[[
-zap_wifi_tab
--- 18050624, b0:7f:b9:3e:f1:f1, "apzuzu6_EXT", -71
-1
-    unixtime
-    time
-    lon
-    lat
-    ap_wifi 
-        mac
-        name
-        rssi
-        error
-        
-        
-2
-    ...
-            
-zap_wifi_tab[1] = {time = 123, lon = 234, lat = 345, {}}
-zap_wifi_tab[1][1] = {mac = 456, rssi = 567}
-zap_wifi_tab[1][2] = {mac = 678, rssi = 789}
-
-print(zap_wifi_tab[1][1].rssi)
-print(zap_wifi_tab[1][2].mac)
-
-]]
-
-
-
-
-
--- print(zdatetime2unixtime("2020-07-27T20:03:27"))
-
--- for i=1, #zgpx_tab do
---     print(i)
---     tprint(zgpx_tab[i])
--- end
-
--- zap_wifi_tab[zidx_ap_wifi_tab1] = {unixtime = zunixtime, time = os.date("%Y/%m/%d %H:%M:%S",zunixtime-ztimezone), lon = 0, lat = 0, {}}
--- zap_wifi_tab[zidx_ap_wifi_tab1][zidx_ap_wifi_tab2] = {mac = zmacadresse, name = zap_wifiname, rssi = zrssi, error = 1234}
