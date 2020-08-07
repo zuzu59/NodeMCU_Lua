@@ -1,17 +1,21 @@
 -- parse les données GPX avec les données des ap wifi du NodeMCU pour les 
 -- cooréler  en fonction du temps afin de pouvoir géolocaliser les ap wifi 
 
-print("\n gpx2gpsapwifi.lua   zfzf200804.1048   \n")
+print("\n gpx2gpsapwifi.lua   zfzf200807.1140   \n")
 
 zgpx_tab = {}
 zidx_gpx_tab = 0
 
-zapwifi_tab = {}
-zidx_apwifi_tab1 = 0
-zidx_apwifi_tab2 = 0
+zap_wifi_tab = {}
+zidx_ap_wifi_tab1 = 0
+zidx_ap_wifi_tab2 = 0
 
-zapwifi_unique_tab = {}
-zidx_apwifi_unique_tab = 0
+zap_wifi_unique_tab = {}
+zidx_ap_wifi_unique_tab = 0
+
+zpet_tracker_tab = {}
+zidx_pet_tracker_tab1 = 0
+zidx_pet_tracker_tab2 = 0
 
 ztime_old = 0
 ztime2020 = 1577836800      -- Unix time pour 1.1.2020 0:0:0 GMT
@@ -96,9 +100,9 @@ function gpx2tab(zfile_gpx)
     end
 end
 
-function apwifi2tab(zfile_apwifi)
+function ap_wifi2tab(zfile_ap_wifi)
     i = 1
-    for line in io.lines(zfile_apwifi) do
+    for line in io.lines(zfile_ap_wifi) do
         -- print(line)
         -- 18050624, b0:7f:b9:3e:f1:f1, "apzuzu6_EXT", -71
         -- on récupère le temps unix 2020
@@ -114,8 +118,8 @@ function apwifi2tab(zfile_apwifi)
         -- print(zmacadresse)
         -- on récupère le nom de l'ap wifi
         p3 = string.find(line, ",", p2+1)
-        zapwifiname = string.sub(line, p2+3, p3-2)
-        -- print(zapwifi)
+        zap_wifiname = string.sub(line, p2+3, p3-2)
+        -- print(zap_wifi)
         -- on récupère le RSSI
         p4 = string.len(line)
         zrssi = string.sub(line, p3+2, p4)
@@ -123,96 +127,96 @@ function apwifi2tab(zfile_apwifi)
         -- est-ce un nouveau groupe de time ?
         if zunixtime ~= ztime_old then
             ztime_old = zunixtime
-            zidx_apwifi_tab2 = 0
-            zidx_apwifi_tab1 = zidx_apwifi_tab1 + 1
-            zapwifi_tab[zidx_apwifi_tab1] = {unixtime = zunixtime, time = zunixtime2datetime(zunixtime), lon = 0, lat = 0, {}}
+            zidx_ap_wifi_tab2 = 0
+            zidx_ap_wifi_tab1 = zidx_ap_wifi_tab1 + 1
+            zap_wifi_tab[zidx_ap_wifi_tab1] = {unixtime = zunixtime, time = zunixtime2datetime(zunixtime), lon = 0, lat = 0, {}}
         end
-        zidx_apwifi_tab2 = zidx_apwifi_tab2 + 1
-        zapwifi_tab[zidx_apwifi_tab1][zidx_apwifi_tab2] = {mac = zmacadresse, name = zapwifiname, rssi = zrssi, error = math.floor(zround(zcalc_distance(zrssi),0))}
+        zidx_ap_wifi_tab2 = zidx_ap_wifi_tab2 + 1
+        zap_wifi_tab[zidx_ap_wifi_tab1][zidx_ap_wifi_tab2] = {mac = zmacadresse, name = zap_wifiname, rssi = zrssi, error = math.floor(zround(zcalc_distance(zrssi),0))}
         -- juste un petit verrou pour ne pas parser tout le fichiers pendant les tests
         i = i + 1
         if i > 20000 then break end
     end    
 end
 
-function gpx2gpsapwifi()
-    for i=1, #zapwifi_tab do
+function gpx2gpsap_wifi()
+    for i=1, #zap_wifi_tab do
         -- print("groupe: "..i)
-        -- print("time apwifi: "..zapwifi_tab[i].time)
-        -- print("unxitime apwifi: "..zapwifi_tab[i].unixtime)
-        -- print("lon: "..zapwifi_tab[i].lon)
-        -- print("lat: "..zapwifi_tab[i].lat)
+        -- print("time ap_wifi: "..zap_wifi_tab[i].time)
+        -- print("unxitime ap_wifi: "..zap_wifi_tab[i].unixtime)
+        -- print("lon: "..zap_wifi_tab[i].lon)
+        -- print("lat: "..zap_wifi_tab[i].lat)
         j = 1
-        while zgpx_tab[j].unixtime < zapwifi_tab[i].unixtime do
+        while zgpx_tab[j].unixtime < zap_wifi_tab[i].unixtime do
             -- print("coucou")
             j = j + 1
         end
         -- print("j: "..j)
         -- print("time gpx: "..zgpx_tab[j].time)
         -- print("unxitime gpx: "..zgpx_tab[j].unixtime)
-        zapwifi_tab[i].lon = zgpx_tab[j].lon
-        zapwifi_tab[i].lat = zgpx_tab[j].lat
-        -- print("lon: "..zapwifi_tab[i].lon)
-        -- print("lat: "..zapwifi_tab[i].lat)
+        zap_wifi_tab[i].lon = zgpx_tab[j].lon
+        zap_wifi_tab[i].lat = zgpx_tab[j].lat
+        -- print("lon: "..zap_wifi_tab[i].lon)
+        -- print("lat: "..zap_wifi_tab[i].lat)
     end    
 end
 
-function zprint_apwifi_tab()
-    for i=1, #zapwifi_tab do
+function zprint_ap_wifi_tab(ztab)
+    for i=1, #ztab do
         print("groupe: "..i.." -----------------")
-        print("time: "..zapwifi_tab[i].time)
-        print("unxitime: "..zapwifi_tab[i].unixtime)
-        print("lon: "..zapwifi_tab[i].lon)
-        print("lat: "..zapwifi_tab[i].lat)
-        for j=1 , #zapwifi_tab[i] do
+        print("time: "..ztab[i].time)
+        print("unxitime: "..ztab[i].unixtime)
+        print("lon: "..ztab[i].lon)
+        print("lat: "..ztab[i].lat)
+        for j=1 , #ztab[i] do
             print("idx: "..j)
-            print("mac: "..zapwifi_tab[i][j].mac)
-            print("name: "..zapwifi_tab[i][j].name)
-            print("rssi: "..zapwifi_tab[i][j].rssi)
-            print("error: "..zapwifi_tab[i][j].error)
+            print("mac: "..ztab[i][j].mac)
+            print("name: "..ztab[i][j].name)
+            print("rssi: "..ztab[i][j].rssi)
+            print("error: "..ztab[i][j].error)
         end
     end
 end
 
 
 gpx2tab("osman_2020-07-27_22-03_Mon.gpx")
-apwifi2tab("pet_tracker_200727.2203.csv")
-gpx2gpsapwifi()
--- zprint_apwifi_tab()
+ap_wifi2tab("pet_tracker_200727.2203.csv")
+gpx2gpsap_wifi()
+-- zprint_ap_wifi_tab()
 
 
 function zfind_unique_ap_wifi()
-    zidx_apwifi_unique_tab = 0
-    for i=1, #zapwifi_tab do
+    zidx_ap_wifi_unique_tab = 0
+    for i=1, #zap_wifi_tab do
         -- print("groupe: "..i.." -----------------")
-        -- print("time: "..zapwifi_tab[i].time)
-        -- print("unxitime: "..zapwifi_tab[i].unixtime)
-        -- print("lon: "..zapwifi_tab[i].lon)
-        -- print("lat: "..zapwifi_tab[i].lat)
-        for j=1 , #zapwifi_tab[i] do
+        -- print("time: "..zap_wifi_tab[i].time)
+        -- print("unxitime: "..zap_wifi_tab[i].unixtime)
+        -- print("lon: "..zap_wifi_tab[i].lon)
+        -- print("lat: "..zap_wifi_tab[i].lat)
+        for j=1 , #zap_wifi_tab[i] do
             -- print("idx: "..j)
-            -- print("mac: "..zapwifi_tab[i][j].mac)
-            -- print("name: "..zapwifi_tab[i][j].name)
-            -- print("rssi: "..zapwifi_tab[i][j].rssi)
-            -- print("error: "..zapwifi_tab[i][j].error)
-            zmacadresse = zapwifi_tab[i][j].mac
-            if zapwifi_unique_tab[zmacadresse] == nil then
-                -- print("oh un nouveau: "..zapwifi_tab[i][j].mac..zapwifi_tab[i][j].name)
-                zapwifi_unique_tab[zmacadresse] = {
-                    name = zapwifi_tab[i][j].name, 
-                    error = zapwifi_tab[i][j].error, 
+            -- print("mac: "..zap_wifi_tab[i][j].mac)
+            -- print("name: "..zap_wifi_tab[i][j].name)
+            -- print("rssi: "..zap_wifi_tab[i][j].rssi)
+            -- print("error: "..zap_wifi_tab[i][j].error)
+            zmacadresse = zap_wifi_tab[i][j].mac
+            if zap_wifi_unique_tab[zmacadresse] == nil then
+                -- print("oh un nouveau: "..zap_wifi_tab[i][j].mac..zap_wifi_tab[i][j].name)
+                zap_wifi_unique_tab[zmacadresse] = {
+                    name = zap_wifi_tab[i][j].name, 
+                    error = zap_wifi_tab[i][j].error, 
                     nb = 1, 
-                    lon = zapwifi_tab[i].lon, 
-                    lat = zapwifi_tab[i].lat}
-                -- zapwifi_unique_tab[zmacadresse] = {lon = zapwifi_tab[i][j].lon, lat =zapwifi_tab[i][j].lat}
-                zidx_apwifi_unique_tab = zidx_apwifi_unique_tab + 1
+                    lon = zap_wifi_tab[i].lon, 
+                    lat = zap_wifi_tab[i].lat}
+                -- zap_wifi_unique_tab[zmacadresse] = {lon = zap_wifi_tab[i][j].lon, lat =zap_wifi_tab[i][j].lat}
+                zidx_ap_wifi_unique_tab = zidx_ap_wifi_unique_tab + 1
             else
-                if zapwifi_tab[i][j].error < zapwifi_unique_tab[zmacadresse].error then
-                    -- print("oh il est plus proche "..zapwifi_tab[i][j].error.." < "..zapwifi_unique_tab[zmacadresse].error)
-                    zapwifi_unique_tab[zmacadresse].error = zapwifi_tab[i][j].error
-                    zapwifi_unique_tab[zmacadresse].nb = zapwifi_unique_tab[zmacadresse].nb + 1
-                    zapwifi_unique_tab[zmacadresse].lon = zapwifi_tab[i].lon
-                    zapwifi_unique_tab[zmacadresse].lat = zapwifi_tab[i].lat
+                if zap_wifi_tab[i][j].error < zap_wifi_unique_tab[zmacadresse].error then
+                    -- print("oh il est plus proche "..zap_wifi_tab[i][j].error.." < "..zap_wifi_unique_tab[zmacadresse].error)
+                    zap_wifi_unique_tab[zmacadresse].error = zap_wifi_tab[i][j].error
+                    zap_wifi_unique_tab[zmacadresse].nb = zap_wifi_unique_tab[zmacadresse].nb + 1
+                    zap_wifi_unique_tab[zmacadresse].lon = zap_wifi_tab[i].lon
+                    zap_wifi_unique_tab[zmacadresse].lat = zap_wifi_tab[i].lat
                 end
             end
         end
@@ -221,46 +225,47 @@ end
 
 function zprint_ap_wifi_unique()
     print("mac, name, nb, lon, lat, error")
-    for key,value in pairs(zapwifi_unique_tab) do
+    for key,value in pairs(zap_wifi_unique_tab) do
         print(
             key..", \""..
-            zapwifi_unique_tab[key].name.."\", "..
-            zapwifi_unique_tab[key].nb..", "..
-            zapwifi_unique_tab[key].lon..", "..
-            zapwifi_unique_tab[key].lat..", "..
-            zapwifi_unique_tab[key].error)
+            zap_wifi_unique_tab[key].name.."\", "..
+            zap_wifi_unique_tab[key].nb..", "..
+            zap_wifi_unique_tab[key].lon..", "..
+            zap_wifi_unique_tab[key].lat..", "..
+            zap_wifi_unique_tab[key].error)
     end    
 end
 
 
 zfind_unique_ap_wifi()
 -- zprint_ap_wifi_unique()
--- print("j'en ai trouvé "..zidx_apwifi_unique_tab.."x")
+-- print("j'en ai trouvé "..zidx_ap_wifi_unique_tab.."x")
 
--- affiche toutes les données pour un seul ap wifi afin de déterminer sa localisation visuelle
+
+-- affiche toutes les données pour un seul ap wifi afin de déterminer sa localisation visuellement
 function zget_ap_wifi(zmacadresse)
     print('"mac", "name", "lon", "lat", "error"')
     zidx_get_ap_wiifi = 0
-    for i=1, #zapwifi_tab do
+    for i=1, #zap_wifi_tab do
         print("groupe: "..i.." -----------------")
-        -- print("time: "..zapwifi_tab[i].time)
-        -- print("unxitime: "..zapwifi_tab[i].unixtime)
-        -- print("lon: "..zapwifi_tab[i].lon)
-        -- print("lat: "..zapwifi_tab[i].lat)
-        for j=1 , #zapwifi_tab[i] do
+        -- print("time: "..zap_wifi_tab[i].time)
+        -- print("unxitime: "..zap_wifi_tab[i].unixtime)
+        -- print("lon: "..zap_wifi_tab[i].lon)
+        -- print("lat: "..zap_wifi_tab[i].lat)
+        for j=1 , #zap_wifi_tab[i] do
             print("idx: "..j)
-            -- print("mac: "..zapwifi_tab[i][j].mac)
-            -- print("name: "..zapwifi_tab[i][j].name)
-            -- print("rssi: "..zapwifi_tab[i][j].rssi)
-            -- print("error: "..zapwifi_tab[i][j].error)
-            if zapwifi_tab[i][j].mac == zmacadresse then
+            -- print("mac: "..zap_wifi_tab[i][j].mac)
+            -- print("name: "..zap_wifi_tab[i][j].name)
+            -- print("rssi: "..zap_wifi_tab[i][j].rssi)
+            -- print("error: "..zap_wifi_tab[i][j].error)
+            if zap_wifi_tab[i][j].mac == zmacadresse then
                 zidx_get_ap_wiifi = zidx_get_ap_wiifi + 1
                 print(
-                    zapwifi_tab[i][j].mac..", \""..
-                    zapwifi_tab[i][j].name.."\", "..
-                    zapwifi_tab[i].lon..", "..
-                    zapwifi_tab[i].lat..", "..
-                    zapwifi_tab[i][j].error)
+                    zap_wifi_tab[i][j].mac..", \""..
+                    zap_wifi_tab[i][j].name.."\", "..
+                    zap_wifi_tab[i].lon..", "..
+                    zap_wifi_tab[i].lat..", "..
+                    zap_wifi_tab[i][j].error)
             end
         end
     end
@@ -268,7 +273,61 @@ function zget_ap_wifi(zmacadresse)
 end
 
 
-zget_ap_wifi("7a:d3:8d:fc:e9:a9")
+-- zget_ap_wifi("7a:d3:8d:fc:e9:a9")
+
+
+
+function pet_tracker2tab(zfile_pettracker)
+    i = 1
+    for line in io.lines(zfile_pettracker) do
+        -- print(line)
+        -- 18050624, b0:7f:b9:3e:f1:f1, "apzuzu6_EXT", -71
+        -- on récupère le temps unix 2020
+        p1 = string.find(line, ",")
+        zunixtime2020 = string.sub(line, 1, p1-1)
+        -- print(zunixtime2020)
+        -- on récupère le temps unix 1970
+        zunixtime = zunixtime2020 + ztime2020
+        -- print(zunixtime)
+        -- on récupère la mac adresse
+        p2 = string.find(line, ",", p1+1)
+        zmacadresse = string.sub(line, p1+2, p2-1)
+        -- print(zmacadresse)
+        -- on récupère le nom de l'ap wifi
+        p3 = string.find(line, ",", p2+1)
+        zap_wifiname = string.sub(line, p2+3, p3-2)
+        -- print(zap_wifi)
+        -- on récupère le RSSI
+        p4 = string.len(line)
+        zrssi = string.sub(line, p3+2, p4)
+        -- print(zrssi)
+        -- est-ce un nouveau groupe de time ?
+        if zunixtime ~= ztime_old then
+            ztime_old = zunixtime
+            zidx_pet_tracker_tab2 = 0
+            zidx_pet_tracker_tab1 = zidx_pet_tracker_tab1 + 1
+            zpet_tracker_tab[zidx_pet_tracker_tab1] = {unixtime = zunixtime, time = zunixtime2datetime(zunixtime), lon = 0, lat = 0, {}}
+        end
+        zidx_pet_tracker_tab2 = zidx_pet_tracker_tab2 + 1
+        zpet_tracker_tab[zidx_pet_tracker_tab1][zidx_pet_tracker_tab2] = {mac = zmacadresse, name = zap_wifiname, rssi = zrssi, error = math.floor(zround(zcalc_distance(zrssi),0))}
+        -- juste un petit verrou pour ne pas parser tout le fichiers pendant les tests
+        i = i + 1
+        if i > 20 then break end
+    end    
+end
+
+
+pet_tracker2tab("pet_tracker_200727.2203.csv")
+zprint_ap_wifi_tab(zpet_tracker_tab)
+
+
+
+-- recherche les coordonnées GPS d'un ap wifi en fonction de sa patterne observée au temps t
+function zget_gps_ap_wifi(zidx_pet_tracker_tab1)
+
+
+
+end
 
 
 
@@ -290,14 +349,14 @@ gpx_data[1] = {time = 123, lon = 234, lat = 345}
 ]]
 
 --[[
-zapwifi_tab
+zap_wifi_tab
 -- 18050624, b0:7f:b9:3e:f1:f1, "apzuzu6_EXT", -71
 1
     unixtime
     time
     lon
     lat
-    apwifi 
+    ap_wifi 
         mac
         name
         rssi
@@ -307,12 +366,12 @@ zapwifi_tab
 2
     ...
             
-zapwifi_tab[1] = {time = 123, lon = 234, lat = 345, {}}
-zapwifi_tab[1][1] = {mac = 456, rssi = 567}
-zapwifi_tab[1][2] = {mac = 678, rssi = 789}
+zap_wifi_tab[1] = {time = 123, lon = 234, lat = 345, {}}
+zap_wifi_tab[1][1] = {mac = 456, rssi = 567}
+zap_wifi_tab[1][2] = {mac = 678, rssi = 789}
 
-print(zapwifi_tab[1][1].rssi)
-print(zapwifi_tab[1][2].mac)
+print(zap_wifi_tab[1][1].rssi)
+print(zap_wifi_tab[1][2].mac)
 
 ]]
 
@@ -327,5 +386,5 @@ print(zapwifi_tab[1][2].mac)
 --     tprint(zgpx_tab[i])
 -- end
 
--- zapwifi_tab[zidx_apwifi_tab1] = {unixtime = zunixtime, time = os.date("%Y/%m/%d %H:%M:%S",zunixtime-ztimezone), lon = 0, lat = 0, {}}
--- zapwifi_tab[zidx_apwifi_tab1][zidx_apwifi_tab2] = {mac = zmacadresse, name = zapwifiname, rssi = zrssi, error = 1234}
+-- zap_wifi_tab[zidx_ap_wifi_tab1] = {unixtime = zunixtime, time = os.date("%Y/%m/%d %H:%M:%S",zunixtime-ztimezone), lon = 0, lat = 0, {}}
+-- zap_wifi_tab[zidx_ap_wifi_tab1][zidx_ap_wifi_tab2] = {mac = zmacadresse, name = zap_wifiname, rssi = zrssi, error = 1234}
