@@ -1,7 +1,7 @@
 -- parse les données GPX avec les données des ap wifi du NodeMCU pour les 
 -- cooréler  en fonction du temps afin de pouvoir géolocaliser les ap wifi 
 
-print("\n gpx2gpsapwifi.lua   zfzf200807.1151   \n")
+print("\n gpx2gpsapwifi.lua   zfzf200807.1633   \n")
 
 zgpx_tab = {}
 zidx_gpx_tab = 0
@@ -16,6 +16,9 @@ zidx_ap_wifi_unique_tab = 0
 zpet_tracker_tab = {}
 zidx_pet_tracker_tab1 = 0
 zidx_pet_tracker_tab2 = 0
+
+zvote_tab = {}
+zidx_vote_tab = 0
 
 ztime_old = 0
 ztime2020 = 1577836800      -- Unix time pour 1.1.2020 0:0:0 GMT
@@ -312,7 +315,8 @@ function pet_tracker2tab(zfile_pettracker)
         zpet_tracker_tab[zidx_pet_tracker_tab1][zidx_pet_tracker_tab2] = {mac = zmacadresse, name = zap_wifiname, rssi = zrssi, error = math.floor(zround(zcalc_distance(zrssi),0))}
         -- juste un petit verrou pour ne pas parser tout le fichiers pendant les tests
         i = i + 1
-        if i > 20 then break end
+        -- if i > 20 then break end
+        if i > 20000 then break end
     end    
 end
 
@@ -322,7 +326,7 @@ pet_tracker2tab("pet_tracker_200727.2203.csv")
 
 
 
--- recherche les coordonnées GPS d'un ap wifi en fonction de sa patterne observée au temps t
+-- recherche les coordonnées GPS d'une patterne ap wifi en fonction de sa patterne observée au temps t
 function zget_gps_ap_wifi(zidx_pet_tracker_tab1)
     print("groupe: "..zidx_pet_tracker_tab1.." -------------------------------")
     for zidx_pet_tracker_tab2 = 1, #zpet_tracker_tab[zidx_pet_tracker_tab1] do
@@ -334,7 +338,7 @@ function zget_gps_ap_wifi(zidx_pet_tracker_tab1)
         -- parse toute la table ap_wifi à la recherche de la mac adresse
         i = 1
         for zidx_ap_wifi_tab1 = 1, #zap_wifi_tab do
-            print("groupe: "..zidx_ap_wifi_tab1.." -----------------")
+            -- print("groupe: "..zidx_ap_wifi_tab1.." -----------------")
             -- print("time: "..zap_wifi_tab[zidx_ap_wifi_tab1].time)
             -- print("unxitime: "..zap_wifi_tab[zidx_ap_wifi_tab1].unixtime)
             -- print("lon: "..zap_wifi_tab[zidx_ap_wifi_tab1].lon)
@@ -347,14 +351,19 @@ function zget_gps_ap_wifi(zidx_pet_tracker_tab1)
                 -- print("error: "..zap_wifi_tab[zidx_ap_wifi_tab1][zidx_ap_wifi_tab2].error)
                 zmacadresse2 = zap_wifi_tab[zidx_ap_wifi_tab1][zidx_ap_wifi_tab2].mac
                 if zmacadresse1 == zmacadresse2 then
-                    print("idx: "..zidx_ap_wifi_tab2.."/"..#zap_wifi_tab[zidx_ap_wifi_tab1])
-                    print("mac1: "..zmacadresse1)
-                    print("mac2: "..zmacadresse2)
-                    print("J'en ai trouvée une...")
+                    -- print("idx: "..zidx_ap_wifi_tab2.."/"..#zap_wifi_tab[zidx_ap_wifi_tab1])
+                    -- print("mac1: "..zmacadresse1)
+                    -- print("mac2: "..zmacadresse2)
+                    -- print("J'en ai trouvée une...")
+                    zvote_tab[zidx_ap_wifi_tab2].idx = zidx_ap_wifi_tab2
+                    zvote_tab[zidx_ap_wifi_tab2].vote = zvote_tab[zidx_ap_wifi_tab2].vote + 1
+                    zvote_tab[zidx_ap_wifi_tab2].error = zap_wifi_tab[zidx_ap_wifi_tab1][zidx_ap_wifi_tab2].error
+                    -- print("vote: "..zvote_tab[zidx_ap_wifi_tab2].vote)
                 end
             end
             i = i + 1
-            if i > 5 then break end
+            -- if i > 5 then break end
+            if i > 50000 then break end
         end
 
         
@@ -368,7 +377,22 @@ function zget_gps_ap_wifi(zidx_pet_tracker_tab1)
 
 end
 
+-- efface le tableau de votes des paternes
+for zidx_vote_tab = 1, #zap_wifi_tab do
+    zvote_tab[zidx_vote_tab] = {
+        idx = 0, 
+        vote = 0, 
+        error = 0}
+end
+zidx_vote_tab = 0
 
-zget_gps_ap_wifi(1)
+zget_gps_ap_wifi(150)
 
+-- imprime le tableau de votes des paternes
+for zidx_vote_tab = 1, #zvote_tab do
+    if zvote_tab[zidx_vote_tab].idx > 0 then
+        print("pour "..zvote_tab[zidx_vote_tab].idx.." nombre de votes"..zvote_tab[zidx_vote_tab].vote)
+    end
+end
 
+print("il y a "..#zpet_tracker_tab.." paternes !")
