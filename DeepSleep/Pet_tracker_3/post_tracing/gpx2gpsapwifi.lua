@@ -1,7 +1,7 @@
 -- parse les données GPX avec les données des ap wifi du NodeMCU pour les 
 -- cooréler  en fonction du temps afin de pouvoir géolocaliser les ap wifi 
 
-print("\n gpx2gpsapwifi.lua   zfzf200807.1633   \n")
+print("\n gpx2gpsapwifi.lua   zfzf200808.1346   \n")
 
 zgpx_tab = {}
 zidx_gpx_tab = 0
@@ -355,9 +355,9 @@ function zget_gps_ap_wifi(zidx_pet_tracker_tab1)
                     -- print("mac1: "..zmacadresse1)
                     -- print("mac2: "..zmacadresse2)
                     -- print("J'en ai trouvée une...")
-                    zvote_tab[zidx_ap_wifi_tab2].idx = zidx_ap_wifi_tab2
-                    zvote_tab[zidx_ap_wifi_tab2].vote = zvote_tab[zidx_ap_wifi_tab2].vote + 1
-                    zvote_tab[zidx_ap_wifi_tab2].error = zap_wifi_tab[zidx_ap_wifi_tab1][zidx_ap_wifi_tab2].error
+                    zvote_tab[zidx_ap_wifi_tab1].idx = zidx_ap_wifi_tab1
+                    zvote_tab[zidx_ap_wifi_tab1].vote = zvote_tab[zidx_ap_wifi_tab1].vote + 1
+                    zvote_tab[zidx_ap_wifi_tab1].error = zap_wifi_tab[zidx_ap_wifi_tab1][zidx_ap_wifi_tab2].error
                     -- print("vote: "..zvote_tab[zidx_ap_wifi_tab2].vote)
                 end
             end
@@ -386,7 +386,7 @@ for zidx_vote_tab = 1, #zap_wifi_tab do
 end
 zidx_vote_tab = 0
 
-zget_gps_ap_wifi(150)
+zget_gps_ap_wifi(69)
 
 -- imprime le tableau de votes des paternes
 for zidx_vote_tab = 1, #zvote_tab do
