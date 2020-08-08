@@ -1,7 +1,7 @@
 -- parse les données GPX avec les données des ap wifi du NodeMCU pour les 
 -- cooréler  en fonction du temps afin de pouvoir géolocaliser les ap wifi 
 
-print("\n gpx2gpsapwifi.lua   zfzf200808.1453   \n")
+print("\n gpx2gpsapwifi.lua   zfzf200808.1512   \n")
 
 zgpx_tab = {}
 zidx_gpx_tab = 0
@@ -386,18 +386,35 @@ for zidx_vote_tab = 1, #zap_wifi_tab do
 end
 zidx_vote_tab = 0
 
--- A partir de ce seuil en mètre on tient compte du paramètre error de chaque ap wifi vu
-ztrig_error = 9000
-zget_gps_ap_wifi(27)
 
 -- imprime le tableau de votes des paternes
-for zidx_vote_tab = 1, #zvote_tab do
-    if zvote_tab[zidx_vote_tab].idx > 0 then
-        print("pour "..zvote_tab[zidx_vote_tab].idx..
-        " nombre de votes "..zvote_tab[zidx_vote_tab].vote..
-        "/"..math.floor(zvote_tab[zidx_vote_tab].sum_error))
-        -- /zvote_tab[zidx_vote_tab].vote))
+function zprint_vote_tab()
+    for zidx_vote_tab = 1, #zvote_tab do
+        if zvote_tab[zidx_vote_tab].idx > 0 then
+            print("pour "..zvote_tab[zidx_vote_tab].idx..
+            " nombre de votes "..zvote_tab[zidx_vote_tab].vote..
+            "/"..math.floor(zvote_tab[zidx_vote_tab].sum_error))
+        end
     end
 end
 
+
+-- A partir de ce seuil en mètre on tient compte du paramètre error de chaque ap wifi vu
+ztrig_error = 9000
+zget_gps_ap_wifi(200)
+zprint_vote_tab()
 print("il y a "..#zpet_tracker_tab.." paternes !")
+
+
+
+-- tests de tri de tableau à 2x dimensions
+-- myTable = {{1, 6.345}, {2, 3.678}, {3, 4.890}}
+-- for _, v in ipairs(myTable) do print(v[1], v[2]) end
+-- table.sort(myTable, function(lhs, rhs) return lhs[2] < rhs[2] end)
+-- for _, v in ipairs(myTable) do print(v[1], v[2]) end
+
+table.sort(zvote_tab, function(lhs, rhs) return lhs.vote > rhs.vote end)
+print("#####################################################")
+zprint_vote_tab()
+
+
