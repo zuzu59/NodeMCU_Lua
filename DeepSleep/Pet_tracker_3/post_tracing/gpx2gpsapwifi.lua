@@ -1,7 +1,7 @@
 -- parse les données GPX avec les données des ap wifi du NodeMCU pour les 
 -- cooréler  en fonction du temps afin de pouvoir géolocaliser les ap wifi 
 
-print("\n gpx2gpsapwifi.lua   zfzf200808.1346   \n")
+print("\n gpx2gpsapwifi.lua   zfzf200808.1453   \n")
 
 zgpx_tab = {}
 zidx_gpx_tab = 0
@@ -171,6 +171,7 @@ function zprint_ap_wifi_tab(ztab)
         print("unxitime: "..ztab[i].unixtime)
         print("lon: "..ztab[i].lon)
         print("lat: "..ztab[i].lat)
+        print("nombre de paternes: "..#ztab[i].."x")
         for j=1 , #ztab[i] do
             print("idx: "..j)
             print("mac: "..ztab[i][j].mac)
@@ -357,7 +358,13 @@ function zget_gps_ap_wifi(zidx_pet_tracker_tab1)
                     -- print("J'en ai trouvée une...")
                     zvote_tab[zidx_ap_wifi_tab1].idx = zidx_ap_wifi_tab1
                     zvote_tab[zidx_ap_wifi_tab1].vote = zvote_tab[zidx_ap_wifi_tab1].vote + 1
-                    zvote_tab[zidx_ap_wifi_tab1].error = zap_wifi_tab[zidx_ap_wifi_tab1][zidx_ap_wifi_tab2].error
+                    -- zerror_inv =  ztrig_error - zap_wifi_tab[zidx_ap_wifi_tab1][zidx_ap_wifi_tab2].error
+                    -- if zerror_inv > 0 then
+                    --     zvote_tab[zidx_ap_wifi_tab1].sum_error = zvote_tab[zidx_ap_wifi_tab1].sum_error + zerror_inv
+                    -- end
+                    if zap_wifi_tab[zidx_ap_wifi_tab1][zidx_ap_wifi_tab2].error < ztrig_error then
+                        zvote_tab[zidx_ap_wifi_tab1].sum_error = zvote_tab[zidx_ap_wifi_tab1].sum_error + zap_wifi_tab[zidx_ap_wifi_tab1][zidx_ap_wifi_tab2].error
+                    end
                     -- print("vote: "..zvote_tab[zidx_ap_wifi_tab2].vote)
                 end
             end
@@ -365,13 +372,6 @@ function zget_gps_ap_wifi(zidx_pet_tracker_tab1)
             -- if i > 5 then break end
             if i > 50000 then break end
         end
-
-        
-        
-        
-        
-        
-        
     end
 
 
@@ -382,16 +382,21 @@ for zidx_vote_tab = 1, #zap_wifi_tab do
     zvote_tab[zidx_vote_tab] = {
         idx = 0, 
         vote = 0, 
-        error = 0}
+        sum_error = 0}
 end
 zidx_vote_tab = 0
 
-zget_gps_ap_wifi(69)
+-- A partir de ce seuil en mètre on tient compte du paramètre error de chaque ap wifi vu
+ztrig_error = 9000
+zget_gps_ap_wifi(27)
 
 -- imprime le tableau de votes des paternes
 for zidx_vote_tab = 1, #zvote_tab do
     if zvote_tab[zidx_vote_tab].idx > 0 then
-        print("pour "..zvote_tab[zidx_vote_tab].idx.." nombre de votes"..zvote_tab[zidx_vote_tab].vote)
+        print("pour "..zvote_tab[zidx_vote_tab].idx..
+        " nombre de votes "..zvote_tab[zidx_vote_tab].vote..
+        "/"..math.floor(zvote_tab[zidx_vote_tab].sum_error))
+        -- /zvote_tab[zidx_vote_tab].vote))
     end
 end
 
