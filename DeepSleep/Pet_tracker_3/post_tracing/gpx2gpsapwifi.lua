@@ -1,7 +1,7 @@
 -- parse les données GPX avec les données des ap wifi du NodeMCU pour les 
 -- cooréler  en fonction du temps afin de pouvoir géolocaliser les ap wifi 
 
-print("\n gpx2gpsapwifi.lua   zfzf200808.1512   \n")
+print("\n gpx2gpsapwifi.lua   zfzf200809.1500   \n")
 
 zgpx_tab = {}
 zidx_gpx_tab = 0
@@ -357,15 +357,17 @@ function zget_gps_ap_wifi(zidx_pet_tracker_tab1)
                     -- print("mac2: "..zmacadresse2)
                     -- print("J'en ai trouvée une...")
                     zvote_tab[zidx_ap_wifi_tab1].idx = zidx_ap_wifi_tab1
-                    zvote_tab[zidx_ap_wifi_tab1].vote = zvote_tab[zidx_ap_wifi_tab1].vote + 1
-                    -- zerror_inv =  ztrig_error - zap_wifi_tab[zidx_ap_wifi_tab1][zidx_ap_wifi_tab2].error
-                    -- if zerror_inv > 0 then
-                    --     zvote_tab[zidx_ap_wifi_tab1].sum_error = zvote_tab[zidx_ap_wifi_tab1].sum_error + zerror_inv
-                    -- end
-                    if zap_wifi_tab[zidx_ap_wifi_tab1][zidx_ap_wifi_tab2].error < ztrig_error then
-                        zvote_tab[zidx_ap_wifi_tab1].sum_error = zvote_tab[zidx_ap_wifi_tab1].sum_error + zap_wifi_tab[zidx_ap_wifi_tab1][zidx_ap_wifi_tab2].error
+                    zvote_tab[zidx_ap_wifi_tab1].vote = zvote_tab[zidx_ap_wifi_tab1].vote + 1            
+                    zerror1 = zpet_tracker_tab[zidx_pet_tracker_tab1][zidx_pet_tracker_tab2].error
+                    zerror2 = zap_wifi_tab[zidx_ap_wifi_tab1][zidx_ap_wifi_tab2].error
+                    if zerror1 < zerror2 then
+                        zdeviation = zerror1 / zerror2 
+                    else
+                        zdeviation = zerror2 / zerror1 
                     end
+                    zvote_tab[zidx_ap_wifi_tab1].sum_deviation = zvote_tab[zidx_ap_wifi_tab1].sum_deviation + zdeviation
                     -- print("vote: "..zvote_tab[zidx_ap_wifi_tab2].vote)
+                    -- print("deviation: "..zdeviation)
                 end
             end
             i = i + 1
@@ -373,8 +375,6 @@ function zget_gps_ap_wifi(zidx_pet_tracker_tab1)
             if i > 50000 then break end
         end
     end
-
-
 end
 
 -- efface le tableau de votes des paternes
@@ -382,7 +382,9 @@ for zidx_vote_tab = 1, #zap_wifi_tab do
     zvote_tab[zidx_vote_tab] = {
         idx = 0, 
         vote = 0, 
-        sum_error = 0}
+        sum_deviation = 0,
+        deviation = 0,
+        key_sort = ""}
 end
 zidx_vote_tab = 0
 
@@ -393,16 +395,27 @@ function zprint_vote_tab()
         if zvote_tab[zidx_vote_tab].idx > 0 then
             print("pour "..zvote_tab[zidx_vote_tab].idx..
             " nombre de votes "..zvote_tab[zidx_vote_tab].vote..
-            "/"..math.floor(zvote_tab[zidx_vote_tab].sum_error))
+            ", déviation : "..zvote_tab[zidx_vote_tab].deviation)
         end
     end
 end
 
 
--- A partir de ce seuil en mètre on tient compte du paramètre error de chaque ap wifi vu
-ztrig_error = 9000
-zget_gps_ap_wifi(200)
-zprint_vote_tab()
+-- calcul les déviations
+function zcalc_deviations()
+    for zidx_vote_tab = 1, #zvote_tab do
+        if zvote_tab[zidx_vote_tab].vote > 0 then
+            zvote_tab[zidx_vote_tab].deviation = zround(zvote_tab[zidx_vote_tab].sum_deviation / zvote_tab[zidx_vote_tab].vote, 2)
+        end
+        zvote_tab[zidx_vote_tab].key_sort = string.format("%02d",zvote_tab[zidx_vote_tab].vote)..","..string.format("%.2f",zvote_tab[zidx_vote_tab].deviation)
+        -- print("key sort: "..zvote_tab[zidx_vote_tab].key_sort)
+    end
+end
+
+
+zget_gps_ap_wifi(70)
+zcalc_deviations()
+-- zprint_vote_tab()
 print("il y a "..#zpet_tracker_tab.." paternes !")
 
 
@@ -413,8 +426,12 @@ print("il y a "..#zpet_tracker_tab.." paternes !")
 -- table.sort(myTable, function(lhs, rhs) return lhs[2] < rhs[2] end)
 -- for _, v in ipairs(myTable) do print(v[1], v[2]) end
 
-table.sort(zvote_tab, function(lhs, rhs) return lhs.vote > rhs.vote end)
+
+
+
+table.sort(zvote_tab, function(lhs, rhs) return lhs.key_sort > rhs.key_sort end)
+-- table.sort(zvote_tab, function(lhs, rhs) return lhs.vote > rhs.vote end)
 print("#####################################################")
 zprint_vote_tab()
-
+print("et la gagnante est "..zvote_tab[1].idx)
 
