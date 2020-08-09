@@ -1,7 +1,7 @@
 -- parse les données GPX avec les données des ap wifi du NodeMCU pour les 
 -- cooréler  en fonction du temps afin de pouvoir géolocaliser les ap wifi 
 
-print("\n gpx2gpsapwifi.lua   zfzf200809.1500   \n")
+print("\n gpx2gpsapwifi.lua   zfzf200809.1646   \n")
 
 zgpx_tab = {}
 zidx_gpx_tab = 0
@@ -326,16 +326,14 @@ pet_tracker2tab("pet_tracker_200727.2203.csv")
 -- zprint_ap_wifi_tab(zpet_tracker_tab)
 
 
-
--- recherche les coordonnées GPS d'une patterne ap wifi en fonction de sa patterne observée au temps t
-function zget_gps_ap_wifi(zidx_pet_tracker_tab1)
+-- fait des votations de corespondances de paternes ap wifi
+-- ce qui permet de pouvoir comparer des paternes avec la déviation entre les paternes (rssi)
+function zvotation_ap_wifi(zidx_pet_tracker_tab1)
     print("groupe: "..zidx_pet_tracker_tab1.." -------------------------------")
     for zidx_pet_tracker_tab2 = 1, #zpet_tracker_tab[zidx_pet_tracker_tab1] do
         print("idx: "..zidx_pet_tracker_tab2)
         zmacadresse1 = zpet_tracker_tab[zidx_pet_tracker_tab1][zidx_pet_tracker_tab2].mac
         print("zmacadresse: "..zmacadresse1)
-        
-        
         -- parse toute la table ap_wifi à la recherche de la mac adresse
         i = 1
         for zidx_ap_wifi_tab1 = 1, #zap_wifi_tab do
@@ -351,11 +349,13 @@ function zget_gps_ap_wifi(zidx_pet_tracker_tab1)
                 -- print("rssi: "..zap_wifi_tab[zidx_ap_wifi_tab1][zidx_ap_wifi_tab2].rssi)
                 -- print("error: "..zap_wifi_tab[zidx_ap_wifi_tab1][zidx_ap_wifi_tab2].error)
                 zmacadresse2 = zap_wifi_tab[zidx_ap_wifi_tab1][zidx_ap_wifi_tab2].mac
+                -- avons-nous trouvé une corespondance ?
                 if zmacadresse1 == zmacadresse2 then
                     -- print("idx: "..zidx_ap_wifi_tab2.."/"..#zap_wifi_tab[zidx_ap_wifi_tab1])
                     -- print("mac1: "..zmacadresse1)
                     -- print("mac2: "..zmacadresse2)
                     -- print("J'en ai trouvée une...")
+                    -- oui ! Alors on va voter pour elle
                     zvote_tab[zidx_ap_wifi_tab1].idx = zidx_ap_wifi_tab1
                     zvote_tab[zidx_ap_wifi_tab1].vote = zvote_tab[zidx_ap_wifi_tab1].vote + 1            
                     zerror1 = zpet_tracker_tab[zidx_pet_tracker_tab1][zidx_pet_tracker_tab2].error
@@ -370,6 +370,7 @@ function zget_gps_ap_wifi(zidx_pet_tracker_tab1)
                     -- print("deviation: "..zdeviation)
                 end
             end
+            -- juste un petit verrou pour ne pas parser tout le fichiers pendant les tests
             i = i + 1
             -- if i > 5 then break end
             if i > 50000 then break end
@@ -377,17 +378,18 @@ function zget_gps_ap_wifi(zidx_pet_tracker_tab1)
     end
 end
 
--- efface le tableau de votes des paternes
-for zidx_vote_tab = 1, #zap_wifi_tab do
-    zvote_tab[zidx_vote_tab] = {
-        idx = 0, 
-        vote = 0, 
-        sum_deviation = 0,
-        deviation = 0,
-        key_sort = ""}
+-- initialise le tableau de votes des paternes
+function zclear_vote_tab()
+    for zidx_vote_tab = 1, #zap_wifi_tab do
+        zvote_tab[zidx_vote_tab] = {
+            idx = 0, 
+            vote = 0, 
+            sum_deviation = 0,
+            deviation = 0,
+            key_sort = ""}
+    end
+    zidx_vote_tab = 0
 end
-zidx_vote_tab = 0
-
 
 -- imprime le tableau de votes des paternes
 function zprint_vote_tab()
@@ -400,8 +402,7 @@ function zprint_vote_tab()
     end
 end
 
-
--- calcul les déviations
+-- calcul les déviations  et la key_sort dans le tableau de votes des paternes
 function zcalc_deviations()
     for zidx_vote_tab = 1, #zvote_tab do
         if zvote_tab[zidx_vote_tab].vote > 0 then
@@ -412,25 +413,18 @@ function zcalc_deviations()
     end
 end
 
+-- tri le tableau de votes des paternes pour trouver le gagnant
+function zsort_vote_tab()
+    table.sort(zvote_tab, function(lhs, rhs) return lhs.key_sort > rhs.key_sort end)
+end
 
-zget_gps_ap_wifi(70)
+
+zclear_vote_tab()
+zvotation_ap_wifi(200)
 zcalc_deviations()
 -- zprint_vote_tab()
 print("il y a "..#zpet_tracker_tab.." paternes !")
-
-
-
--- tests de tri de tableau à 2x dimensions
--- myTable = {{1, 6.345}, {2, 3.678}, {3, 4.890}}
--- for _, v in ipairs(myTable) do print(v[1], v[2]) end
--- table.sort(myTable, function(lhs, rhs) return lhs[2] < rhs[2] end)
--- for _, v in ipairs(myTable) do print(v[1], v[2]) end
-
-
-
-
-table.sort(zvote_tab, function(lhs, rhs) return lhs.key_sort > rhs.key_sort end)
--- table.sort(zvote_tab, function(lhs, rhs) return lhs.vote > rhs.vote end)
+zsort_vote_tab()
 print("#####################################################")
 zprint_vote_tab()
 print("et la gagnante est "..zvote_tab[1].idx)
