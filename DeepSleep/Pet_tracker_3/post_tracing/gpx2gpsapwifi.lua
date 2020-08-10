@@ -1,7 +1,7 @@
 -- parse les données GPX avec les données des ap wifi du NodeMCU pour les 
 -- cooréler  en fonction du temps afin de pouvoir géolocaliser les ap wifi 
 
-print("\n gpx2gpsapwifi.lua   zfzf200809.1646   \n")
+print("\n gpx2gpsapwifi.lua   zfzf200810.1832   \n")
 
 zgpx_tab = {}
 zidx_gpx_tab = 0
@@ -428,4 +428,8 @@ zsort_vote_tab()
 print("#####################################################")
 zprint_vote_tab()
 print("et la gagnante est "..zvote_tab[1].idx)
+zpet_tracker_tab[zvote_tab[1].idx].lon = zap_wifi_tab[zvote_tab[1].idx].lon
+zpet_tracker_tab[zvote_tab[1].idx].lat = zap_wifi_tab[zvote_tab[1].idx].lat
+print("avec comme longitude: "..zpet_tracker_tab[zvote_tab[1].idx].lon)
+print("et comme latitude: "..zpet_tracker_tab[zvote_tab[1].idx].lat)
 
