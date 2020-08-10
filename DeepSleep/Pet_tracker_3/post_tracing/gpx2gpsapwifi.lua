@@ -1,7 +1,8 @@
 -- parse les données GPX avec les données des ap wifi du NodeMCU pour les 
 -- cooréler  en fonction du temps afin de pouvoir géolocaliser les ap wifi 
 
-print("\n gpx2gpsapwifi.lua   zfzf200810.2045   \n")
+zversion = ("\n gpx2gpsapwifi.lua   zfzf200810.2114   \n")
+print(zversion)
 
 zgpx_tab = {}
 zidx_gpx_tab = 0
@@ -466,6 +467,65 @@ end
 
 zget_gps_pet_tracker()
 zprint_gps_pet_tracker_tab(zpet_tracker_tab)
+
+-- converti les coordonnées GPS du pet tracker en trace GPX pour pouvoir les afficher sur une carte Google
+function zgps_pet_tracker_to_gpx(ztab)
+    local i = 1
+    print("<?xml version='1.0' encoding='UTF-8' standalone='yes' ?>")
+    print("<gpx version=\"1.1\" creator=\"O"..zversion.."\" xmlns=\"http://www.topografix.com/GPX/1/1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd\">")
+    print("    <metadata>")
+    print("        <name>"..zversion.."</name>")
+    print("    </metadata>")
+    print("    <trk>")
+    print("    <trkseg>")
+    for zidx_paterne=1, #ztab do
+        -- print("groupe: "..zidx_paterne.." -----------------")
+        -- print("time: "..ztab[zidx_paterne].time)
+        -- -- print("unxitime: "..ztab[i].unixtime)
+        -- print("lon: "..ztab[zidx_paterne].lon)
+        -- print("lat: "..ztab[zidx_paterne].lat)
+        -- print("nombre de paternes: "..#ztab[zidx_paterne].."x")
+        print("        <trkpt lat=\""..ztab[zidx_paterne].lat.."\" lon=\""..ztab[zidx_paterne].lon.."\">")
+        print("            <time>"..ztab[zidx_paterne].time.."Z</time>")
+        print("        </trkpt>")
+        -- juste un petit verrou pour ne pas parser tout le fichiers pendant les tests
+        i = i + 1
+        if i > 20 then break end
+    end
+    print("    </trkseg>")
+    print("    </trk>")
+    print("</gpx>")
+end
+
+
+zgps_pet_tracker_to_gpx(zpet_tracker_tab)
+
+--[[
+<?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
+<gpx version="1.1" creator="OsmAnd+ 3.7.4" xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">
+    <metadata>
+        <name>2020-07-27_22-03_Mon</name>
+    </metadata>
+    <trk>
+    <trkseg>
+        <trkpt lat="46.5421696" lon="6.5749532">
+            <time>2020-07-27T20:03:27Z</time>
+        </trkpt>
+
+
+
+
+
+]]
+
+
+
+
+
+
+
+
+
 
 
 
