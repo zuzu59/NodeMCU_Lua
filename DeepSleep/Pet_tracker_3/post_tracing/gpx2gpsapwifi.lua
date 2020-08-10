@@ -1,7 +1,7 @@
 -- parse les données GPX avec les données des ap wifi du NodeMCU pour les 
 -- cooréler  en fonction du temps afin de pouvoir géolocaliser les ap wifi 
 
-print("\n gpx2gpsapwifi.lua   zfzf200810.1832   \n")
+print("\n gpx2gpsapwifi.lua   zfzf200810.1857   \n")
 
 zgpx_tab = {}
 zidx_gpx_tab = 0
@@ -60,7 +60,7 @@ function zdatetime2unixtime(zdatetime)
 end
 
 function gpx2tab(zfile_gpx)    
-    i = 1
+    local i = 1
     for line in io.lines(zfile_gpx) do
         -- print(line)
         -- <trkpt lat="46.5421696" lon="6.5749532">
@@ -104,7 +104,7 @@ function gpx2tab(zfile_gpx)
 end
 
 function ap_wifi2tab(zfile_ap_wifi)
-    i = 1
+    local i = 1
     for line in io.lines(zfile_ap_wifi) do
         -- print(line)
         -- 18050624, b0:7f:b9:3e:f1:f1, "apzuzu6_EXT", -71
@@ -282,7 +282,7 @@ end
 
 
 function pet_tracker2tab(zfile_pettracker)
-    i = 1
+    local i = 1
     for line in io.lines(zfile_pettracker) do
         -- print(line)
         -- 18050624, b0:7f:b9:3e:f1:f1, "apzuzu6_EXT", -71
@@ -328,14 +328,14 @@ pet_tracker2tab("pet_tracker_200727.2203.csv")
 
 -- fait des votations de corespondances de paternes ap wifi
 -- ce qui permet de pouvoir comparer des paternes avec la déviation entre les paternes (rssi)
-function zvotation_ap_wifi(zidx_pet_tracker_tab1)
-    print("groupe: "..zidx_pet_tracker_tab1.." -------------------------------")
-    for zidx_pet_tracker_tab2 = 1, #zpet_tracker_tab[zidx_pet_tracker_tab1] do
+function zvotation_ap_wifi(zidx_paterne)
+    print("groupe: "..zidx_paterne.." -------------------------------")
+    for zidx_pet_tracker_tab2 = 1, #zpet_tracker_tab[zidx_paterne] do
         print("idx: "..zidx_pet_tracker_tab2)
-        zmacadresse1 = zpet_tracker_tab[zidx_pet_tracker_tab1][zidx_pet_tracker_tab2].mac
+        zmacadresse1 = zpet_tracker_tab[zidx_paterne][zidx_pet_tracker_tab2].mac
         print("zmacadresse: "..zmacadresse1)
         -- parse toute la table ap_wifi à la recherche de la mac adresse
-        i = 1
+        local i = 1
         for zidx_ap_wifi_tab1 = 1, #zap_wifi_tab do
             -- print("groupe: "..zidx_ap_wifi_tab1.." -----------------")
             -- print("time: "..zap_wifi_tab[zidx_ap_wifi_tab1].time)
@@ -358,7 +358,7 @@ function zvotation_ap_wifi(zidx_pet_tracker_tab1)
                     -- oui ! Alors on va voter pour elle
                     zvote_tab[zidx_ap_wifi_tab1].idx = zidx_ap_wifi_tab1
                     zvote_tab[zidx_ap_wifi_tab1].vote = zvote_tab[zidx_ap_wifi_tab1].vote + 1            
-                    zerror1 = zpet_tracker_tab[zidx_pet_tracker_tab1][zidx_pet_tracker_tab2].error
+                    zerror1 = zpet_tracker_tab[zidx_paterne][zidx_pet_tracker_tab2].error
                     zerror2 = zap_wifi_tab[zidx_ap_wifi_tab1][zidx_ap_wifi_tab2].error
                     if zerror1 < zerror2 then
                         zdeviation = zerror1 / zerror2 
@@ -419,17 +419,73 @@ function zsort_vote_tab()
 end
 
 
-zclear_vote_tab()
-zvotation_ap_wifi(200)
-zcalc_deviations()
+-- parse toutes les paternes du tableau pet tracker à la recherche de la patterne la plus 
+-- proche des ap wifi du quartier afin de pouvoir récupérer les coordonnées GPS de chaque 
+-- paternes vu dans le pet tracker
+function zget_gps_pet_tracker()
+    local i = 1
+    for zidx_pet_tracker_tab1 = 1, #zpet_tracker_tab do
+        zclear_vote_tab()
+        zvotation_ap_wifi(zidx_pet_tracker_tab1)
+        zcalc_deviations()
+        -- zprint_vote_tab()
+        print("il y a "..#zpet_tracker_tab.." paternes !")
+        zsort_vote_tab()
+        print("#####################################################")
+        zprint_vote_tab()
+        print("et la gagnante est "..zvote_tab[1].idx)
+        zpet_tracker_tab[zvote_tab[1].idx].lon = zap_wifi_tab[zvote_tab[1].idx].lon
+        zpet_tracker_tab[zvote_tab[1].idx].lat = zap_wifi_tab[zvote_tab[1].idx].lat
+        print("avec comme longitude: "..zpet_tracker_tab[zvote_tab[1].idx].lon)
+        print("et comme latitude: "..zpet_tracker_tab[zvote_tab[1].idx].lat)
+    
+        -- juste un petit verrou pour ne pas parser tout le fichiers pendant les tests
+        i = i + 1
+        -- if i > 5 then break end
+        if i > 5 then break end
+        
+    end
+
+
+end
+
+
+function zprint_gps_pet_tracker_tab(ztab)
+    for i=1, #ztab do
+        print("groupe: "..i.." -----------------")
+        print("time: "..ztab[i].time)
+        -- print("unxitime: "..ztab[i].unixtime)
+        print("lon: "..ztab[i].lon)
+        print("lat: "..ztab[i].lat)
+        print("nombre de paternes: "..#ztab[i].."x")
+        -- for j=1 , #ztab[i] do
+        --     print("idx: "..j)
+        --     print("mac: "..ztab[i][j].mac)
+        --     print("name: "..ztab[i][j].name)
+        --     print("rssi: "..ztab[i][j].rssi)
+        --     print("error: "..ztab[i][j].error)
+        -- end
+    end
+end
+
+
+zget_gps_pet_tracker()
+zprint_gps_pet_tracker_tab(zpet_tracker_tab)
+
+
+
+
+-- zclear_vote_tab()
+-- zvotation_ap_wifi(200)
+-- zcalc_deviations()
+-- -- zprint_vote_tab()
+-- print("il y a "..#zpet_tracker_tab.." paternes !")
+-- zsort_vote_tab()
+-- print("#####################################################")
 -- zprint_vote_tab()
-print("il y a "..#zpet_tracker_tab.." paternes !")
-zsort_vote_tab()
-print("#####################################################")
-zprint_vote_tab()
-print("et la gagnante est "..zvote_tab[1].idx)
-zpet_tracker_tab[zvote_tab[1].idx].lon = zap_wifi_tab[zvote_tab[1].idx].lon
-zpet_tracker_tab[zvote_tab[1].idx].lat = zap_wifi_tab[zvote_tab[1].idx].lat
-print("avec comme longitude: "..zpet_tracker_tab[zvote_tab[1].idx].lon)
-print("et comme latitude: "..zpet_tracker_tab[zvote_tab[1].idx].lat)
+-- print("et la gagnante est "..zvote_tab[1].idx)
+-- zpet_tracker_tab[zvote_tab[1].idx].lon = zap_wifi_tab[zvote_tab[1].idx].lon
+-- zpet_tracker_tab[zvote_tab[1].idx].lat = zap_wifi_tab[zvote_tab[1].idx].lat
+-- print("avec comme longitude: "..zpet_tracker_tab[zvote_tab[1].idx].lon)
+-- print("et comme latitude: "..zpet_tracker_tab[zvote_tab[1].idx].lat)
 
