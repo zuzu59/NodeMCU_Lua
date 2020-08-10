@@ -1,0 +1,300 @@
+
+ gpx2gpsapwifi.lua   zfzf200810.2017   
+
+#####################################################
+pour 1 nombre de votes 13, déviation : 1.0
+pour 11 nombre de votes 12, déviation : 0.735
+pour 4 nombre de votes 11, déviation : 0.828
+pour 15 nombre de votes 11, déviation : 0.828
+pour 10 nombre de votes 11, déviation : 0.713
+et la gagnante est 1
+nombre de paternes: 13
+avec comme longitude: 6.5749067
+et comme latitude: 46.5421885
+#####################################################
+pour 2 nombre de votes 11, déviation : 1.0
+pour 4 nombre de votes 11, déviation : 0.783
+pour 3 nombre de votes 10, déviation : 0.875
+pour 16 nombre de votes 10, déviation : 0.785
+pour 9 nombre de votes 10, déviation : 0.782
+et la gagnante est 2
+nombre de paternes: 11
+avec comme longitude: 6.5749067
+et comme latitude: 46.5421885
+#####################################################
+pour 3 nombre de votes 12, déviation : 1.0
+pour 9 nombre de votes 11, déviation : 0.796
+pour 15 nombre de votes 11, déviation : 0.776
+pour 4 nombre de votes 11, déviation : 0.757
+pour 11 nombre de votes 11, déviation : 0.75
+et la gagnante est 3
+nombre de paternes: 12
+avec comme longitude: 6.5749067
+et comme latitude: 46.5421885
+#####################################################
+pour 4 nombre de votes 16, déviation : 1.0
+pour 15 nombre de votes 15, déviation : 0.777
+pour 11 nombre de votes 15, déviation : 0.705
+pour 16 nombre de votes 12, déviation : 0.714
+pour 17 nombre de votes 12, déviation : 0.64
+et la gagnante est 4
+nombre de paternes: 16
+avec comme longitude: 6.5749067
+et comme latitude: 46.5421885
+#####################################################
+pour 5 nombre de votes 12, déviation : 1.0
+pour 4 nombre de votes 11, déviation : 0.814
+pour 15 nombre de votes 11, déviation : 0.729
+pour 11 nombre de votes 10, déviation : 0.629
+pour 16 nombre de votes 9, déviation : 0.63
+et la gagnante est 5
+nombre de paternes: 12
+avec comme longitude: 6.5749067
+et comme latitude: 46.5421885
+#####################################################
+pour 6 nombre de votes 3, déviation : 1.0
+pour 15 nombre de votes 3, déviation : 0.866
+pour 11 nombre de votes 3, déviation : 0.798
+pour 1 nombre de votes 3, déviation : 0.766
+pour 236 nombre de votes 3, déviation : 0.465
+et la gagnante est 6
+nombre de paternes: 3
+avec comme longitude: 6.5749067
+et comme latitude: 46.5421885
+#####################################################
+pour 9 nombre de votes 2, déviation : 1.0
+pour 7 nombre de votes 2, déviation : 1.0
+pour 1 nombre de votes 2, déviation : 0.946
+pour 4 nombre de votes 2, déviation : 0.897
+pour 10 nombre de votes 2, déviation : 0.854
+et la gagnante est 9
+nombre de paternes: 14
+avec comme longitude: 6.5749067
+et comme latitude: 46.5421885
+#####################################################
+pour 8 nombre de votes 12, déviation : 1.0
+pour 9 nombre de votes 11, déviation : 0.83
+pour 11 nombre de votes 11, déviation : 0.767
+pour 4 nombre de votes 9, déviation : 0.736
+pour 10 nombre de votes 9, déviation : 0.706
+et la gagnante est 8
+nombre de paternes: 12
+avec comme longitude: 6.5749067
+et comme latitude: 46.5421885
+#####################################################
+pour 9 nombre de votes 14, déviation : 1.0
+pour 11 nombre de votes 13, déviation : 0.738
+pour 8 nombre de votes 11, déviation : 0.83
+pour 3 nombre de votes 11, déviation : 0.796
+pour 4 nombre de votes 11, déviation : 0.768
+et la gagnante est 9
+nombre de paternes: 14
+avec comme longitude: 6.5749067
+et comme latitude: 46.5421885
+#####################################################
+pour 10 nombre de votes 13, déviation : 1.0
+pour 11 nombre de votes 12, déviation : 0.805
+pour 15 nombre de votes 11, déviation : 0.716
+pour 1 nombre de votes 11, déviation : 0.713
+pour 4 nombre de votes 11, déviation : 0.683
+et la gagnante est 10
+nombre de paternes: 13
+avec comme longitude: 6.5749067
+et comme latitude: 46.5421885
+#####################################################
+pour 11 nombre de votes 19, déviation : 1.0
+pour 15 nombre de votes 15, déviation : 0.74
+pour 4 nombre de votes 15, déviation : 0.705
+pour 9 nombre de votes 13, déviation : 0.738
+pour 10 nombre de votes 12, déviation : 0.805
+et la gagnante est 11
+nombre de paternes: 19
+avec comme longitude: 6.5749067
+et comme latitude: 46.5421885
+#####################################################
+pour 12 nombre de votes 1, déviation : 1.0
+pour 31 nombre de votes 1, déviation : 0.631
+et la gagnante est 12
+nombre de paternes: 1
+avec comme longitude: 6.5749067
+et comme latitude: 46.5421885
+#####################################################
+pour 13 nombre de votes 5, déviation : 1.0
+pour 11 nombre de votes 5, déviation : 0.683
+pour 4 nombre de votes 5, déviation : 0.675
+pour 232 nombre de votes 5, déviation : 0.652
+pour 5 nombre de votes 5, déviation : 0.649
+et la gagnante est 13
+nombre de paternes: 5
+avec comme longitude: 6.5749067
+et comme latitude: 46.5421885
+#####################################################
+pour 14 nombre de votes 7, déviation : 1.0
+pour 11 nombre de votes 7, déviation : 0.817
+pour 4 nombre de votes 7, déviation : 0.767
+pour 15 nombre de votes 7, déviation : 0.749
+pour 3 nombre de votes 7, déviation : 0.724
+et la gagnante est 14
+nombre de paternes: 7
+avec comme longitude: 6.5749067
+et comme latitude: 46.5421885
+#####################################################
+pour 15 nombre de votes 18, déviation : 1.0
+pour 4 nombre de votes 15, déviation : 0.777
+pour 11 nombre de votes 15, déviation : 0.74
+pour 225 nombre de votes 13, déviation : 0.475
+pour 16 nombre de votes 12, déviation : 0.721
+et la gagnante est 15
+nombre de paternes: 18
+avec comme longitude: 6.5749067
+et comme latitude: 46.5421885
+#####################################################
+pour 16 nombre de votes 14, déviation : 1.0
+pour 15 nombre de votes 12, déviation : 0.721
+pour 4 nombre de votes 12, déviation : 0.714
+pour 17 nombre de votes 12, déviation : 0.663
+pour 225 nombre de votes 12, déviation : 0.539
+et la gagnante est 16
+nombre de paternes: 14
+avec comme longitude: 6.5749242
+et comme latitude: 46.5421726
+#####################################################
+pour 17 nombre de votes 14, déviation : 1.0
+pour 16 nombre de votes 12, déviation : 0.663
+pour 4 nombre de votes 12, déviation : 0.64
+pour 15 nombre de votes 12, déviation : 0.609
+pour 10 nombre de votes 11, déviation : 0.674
+et la gagnante est 17
+nombre de paternes: 14
+avec comme longitude: 6.5749114
+et comme latitude: 46.5421823
+#####################################################
+pour 18 nombre de votes 8, déviation : 1.0
+pour 21 nombre de votes 7, déviation : 0.542
+pour 236 nombre de votes 6, déviation : 0.655
+pour 22 nombre de votes 6, déviation : 0.55
+pour 25 nombre de votes 6, déviation : 0.358
+et la gagnante est 18
+nombre de paternes: 8
+avec comme longitude: 6.5749111
+et comme latitude: 46.5422034
+#####################################################
+pour 19 nombre de votes 8, déviation : 1.0
+pour 21 nombre de votes 8, déviation : 0.643
+pour 28 nombre de votes 8, déviation : 0.588
+pour 225 nombre de votes 7, déviation : 0.524
+pour 22 nombre de votes 7, déviation : 0.489
+et la gagnante est 19
+nombre de paternes: 8
+avec comme longitude: 6.5749098
+et comme latitude: 46.5422149
+#####################################################
+pour 20 nombre de votes 7, déviation : 1.0
+pour 21 nombre de votes 5, déviation : 0.649
+pour 42 nombre de votes 5, déviation : 0.622
+pour 236 nombre de votes 4, déviation : 0.771
+pour 231 nombre de votes 4, déviation : 0.641
+et la gagnante est 20
+nombre de paternes: 7
+avec comme longitude: 6.5749176
+et comme latitude: 46.5422284
+groupe: 1 -----------------
+time: 2020/07/27 22:03:44
+lon: 6.5749067
+lat: 46.5421885
+nombre de paternes: 13x
+groupe: 2 -----------------
+time: 2020/07/27 22:03:48
+lon: 6.5749067
+lat: 46.5421885
+nombre de paternes: 11x
+groupe: 3 -----------------
+time: 2020/07/27 22:03:52
+lon: 6.5749067
+lat: 46.5421885
+nombre de paternes: 12x
+groupe: 4 -----------------
+time: 2020/07/27 22:03:56
+lon: 6.5749067
+lat: 46.5421885
+nombre de paternes: 16x
+groupe: 5 -----------------
+time: 2020/07/27 22:04:00
+lon: 6.5749067
+lat: 46.5421885
+nombre de paternes: 12x
+groupe: 6 -----------------
+time: 2020/07/27 22:04:01
+lon: 6.5749067
+lat: 46.5421885
+nombre de paternes: 3x
+groupe: 7 -----------------
+time: 2020/07/27 22:04:04
+lon: 0
+lat: 0
+nombre de paternes: 2x
+groupe: 8 -----------------
+time: 2020/07/27 22:04:05
+lon: 6.5749067
+lat: 46.5421885
+nombre de paternes: 12x
+groupe: 9 -----------------
+time: 2020/07/27 22:04:09
+lon: 6.5749067
+lat: 46.5421885
+nombre de paternes: 14x
+groupe: 10 -----------------
+time: 2020/07/27 22:04:13
+lon: 6.5749067
+lat: 46.5421885
+nombre de paternes: 13x
+groupe: 11 -----------------
+time: 2020/07/27 22:04:17
+lon: 6.5749067
+lat: 46.5421885
+nombre de paternes: 19x
+groupe: 12 -----------------
+time: 2020/07/27 22:04:18
+lon: 6.5749067
+lat: 46.5421885
+nombre de paternes: 1x
+groupe: 13 -----------------
+time: 2020/07/27 22:04:21
+lon: 6.5749067
+lat: 46.5421885
+nombre de paternes: 5x
+groupe: 14 -----------------
+time: 2020/07/27 22:04:22
+lon: 6.5749067
+lat: 46.5421885
+nombre de paternes: 7x
+groupe: 15 -----------------
+time: 2020/07/27 22:04:26
+lon: 6.5749067
+lat: 46.5421885
+nombre de paternes: 18x
+groupe: 16 -----------------
+time: 2020/07/27 22:04:30
+lon: 6.5749242
+lat: 46.5421726
+nombre de paternes: 14x
+groupe: 17 -----------------
+time: 2020/07/27 22:04:34
+lon: 6.5749114
+lat: 46.5421823
+nombre de paternes: 14x
+groupe: 18 -----------------
+time: 2020/07/27 22:04:38
+lon: 6.5749111
+lat: 46.5422034
+nombre de paternes: 8x
+groupe: 19 -----------------
+time: 2020/07/27 22:04:42
+lon: 6.5749098
+lat: 46.5422149
+nombre de paternes: 8x
+groupe: 20 -----------------
+time: 2020/07/27 22:04:43
+lon: 6.5749176
+lat: 46.5422284
+nombre de paternes: 7x

@@ -1,7 +1,7 @@
 -- parse les données GPX avec les données des ap wifi du NodeMCU pour les 
 -- cooréler  en fonction du temps afin de pouvoir géolocaliser les ap wifi 
 
-print("\n gpx2gpsapwifi.lua   zfzf200810.2017   \n")
+print("\n gpx2gpsapwifi.lua   zfzf200810.2045   \n")
 
 zgpx_tab = {}
 zidx_gpx_tab = 0
@@ -135,7 +135,7 @@ function ap_wifi2tab(zfile_ap_wifi)
             zap_wifi_tab[zidx_ap_wifi_tab1] = {unixtime = zunixtime, time = zunixtime2datetime(zunixtime), lon = 0, lat = 0, {}}
         end
         zidx_ap_wifi_tab2 = zidx_ap_wifi_tab2 + 1
-        zap_wifi_tab[zidx_ap_wifi_tab1][zidx_ap_wifi_tab2] = {mac = zmacadresse, name = zap_wifiname, rssi = zrssi, error = math.floor(zround(zcalc_distance(zrssi),0))}
+        zap_wifi_tab[zidx_ap_wifi_tab1][zidx_ap_wifi_tab2] = {mac = zmacadresse, name = zap_wifiname, rssi = zrssi, error = zround(zcalc_distance(zrssi),2)}
         -- juste un petit verrou pour ne pas parser tout le fichiers pendant les tests
         i = i + 1
         if i > 20000 then break end
@@ -313,7 +313,7 @@ function pet_tracker2tab(zfile_pettracker)
             zpet_tracker_tab[zidx_pet_tracker_tab1] = {unixtime = zunixtime, time = zunixtime2datetime(zunixtime), lon = 0, lat = 0, {}}
         end
         zidx_pet_tracker_tab2 = zidx_pet_tracker_tab2 + 1
-        zpet_tracker_tab[zidx_pet_tracker_tab1][zidx_pet_tracker_tab2] = {mac = zmacadresse, name = zap_wifiname, rssi = zrssi, error = math.floor(zround(zcalc_distance(zrssi),0))}
+        zpet_tracker_tab[zidx_pet_tracker_tab1][zidx_pet_tracker_tab2] = {mac = zmacadresse, name = zap_wifiname, rssi = zrssi, error = zround(zcalc_distance(zrssi),2)}
         -- juste un petit verrou pour ne pas parser tout le fichiers pendant les tests
         i = i + 1
         if i > 20000 then break end
@@ -408,9 +408,9 @@ end
 function zcalc_deviations()
     for zidx_vote_tab = 1, #zvote_tab do
         if zvote_tab[zidx_vote_tab].vote > 0 then
-            zvote_tab[zidx_vote_tab].deviation = zround(zvote_tab[zidx_vote_tab].sum_deviation / zvote_tab[zidx_vote_tab].vote, 2)
+            zvote_tab[zidx_vote_tab].deviation = zround(zvote_tab[zidx_vote_tab].sum_deviation / zvote_tab[zidx_vote_tab].vote, 3)
         end
-        zvote_tab[zidx_vote_tab].key_sort = string.format("%02d",zvote_tab[zidx_vote_tab].vote)..","..string.format("%.2f",zvote_tab[zidx_vote_tab].deviation)
+        zvote_tab[zidx_vote_tab].key_sort = string.format("%02d",zvote_tab[zidx_vote_tab].vote)..","..string.format("%.3f",zvote_tab[zidx_vote_tab].deviation)
         -- print("key sort: "..zvote_tab[zidx_vote_tab].key_sort)
     end
 end
