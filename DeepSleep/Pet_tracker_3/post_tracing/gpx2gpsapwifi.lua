@@ -1,7 +1,7 @@
 -- parse les données GPX avec les données des ap wifi du NodeMCU pour les 
 -- cooréler  en fonction du temps afin de pouvoir géolocaliser les ap wifi 
 
-print("\n gpx2gpsapwifi.lua   zfzf200810.1857   \n")
+print("\n gpx2gpsapwifi.lua   zfzf200810.2017   \n")
 
 zgpx_tab = {}
 zidx_gpx_tab = 0
@@ -316,7 +316,6 @@ function pet_tracker2tab(zfile_pettracker)
         zpet_tracker_tab[zidx_pet_tracker_tab1][zidx_pet_tracker_tab2] = {mac = zmacadresse, name = zap_wifiname, rssi = zrssi, error = math.floor(zround(zcalc_distance(zrssi),0))}
         -- juste un petit verrou pour ne pas parser tout le fichiers pendant les tests
         i = i + 1
-        -- if i > 20 then break end
         if i > 20000 then break end
     end    
 end
@@ -329,11 +328,11 @@ pet_tracker2tab("pet_tracker_200727.2203.csv")
 -- fait des votations de corespondances de paternes ap wifi
 -- ce qui permet de pouvoir comparer des paternes avec la déviation entre les paternes (rssi)
 function zvotation_ap_wifi(zidx_paterne)
-    print("groupe: "..zidx_paterne.." -------------------------------")
+    -- print("groupe: "..zidx_paterne.." -------------------------------")
     for zidx_pet_tracker_tab2 = 1, #zpet_tracker_tab[zidx_paterne] do
-        print("idx: "..zidx_pet_tracker_tab2)
+        -- print("idx: "..zidx_pet_tracker_tab2)
         zmacadresse1 = zpet_tracker_tab[zidx_paterne][zidx_pet_tracker_tab2].mac
-        print("zmacadresse: "..zmacadresse1)
+        -- print("zmacadresse: "..zmacadresse1)
         -- parse toute la table ap_wifi à la recherche de la mac adresse
         local i = 1
         for zidx_ap_wifi_tab1 = 1, #zap_wifi_tab do
@@ -372,7 +371,6 @@ function zvotation_ap_wifi(zidx_paterne)
             end
             -- juste un petit verrou pour ne pas parser tout le fichiers pendant les tests
             i = i + 1
-            -- if i > 5 then break end
             if i > 50000 then break end
         end
     end
@@ -393,12 +391,16 @@ end
 
 -- imprime le tableau de votes des paternes
 function zprint_vote_tab()
+    local i = 1
     for zidx_vote_tab = 1, #zvote_tab do
         if zvote_tab[zidx_vote_tab].idx > 0 then
             print("pour "..zvote_tab[zidx_vote_tab].idx..
             " nombre de votes "..zvote_tab[zidx_vote_tab].vote..
             ", déviation : "..zvote_tab[zidx_vote_tab].deviation)
         end
+        -- juste un petit verrou pour ne pas parser tout le fichiers pendant les tests
+        i = i + 1
+        if i > 5 then break end
     end
 end
 
@@ -429,42 +431,35 @@ function zget_gps_pet_tracker()
         zvotation_ap_wifi(zidx_pet_tracker_tab1)
         zcalc_deviations()
         -- zprint_vote_tab()
-        print("il y a "..#zpet_tracker_tab.." paternes !")
+        -- print("il y a "..#zpet_tracker_tab.." paternes !")
         zsort_vote_tab()
         print("#####################################################")
         zprint_vote_tab()
         print("et la gagnante est "..zvote_tab[1].idx)
+        print("nombre de paternes: "..#zpet_tracker_tab[zvote_tab[1].idx])
         zpet_tracker_tab[zvote_tab[1].idx].lon = zap_wifi_tab[zvote_tab[1].idx].lon
         zpet_tracker_tab[zvote_tab[1].idx].lat = zap_wifi_tab[zvote_tab[1].idx].lat
         print("avec comme longitude: "..zpet_tracker_tab[zvote_tab[1].idx].lon)
         print("et comme latitude: "..zpet_tracker_tab[zvote_tab[1].idx].lat)
-    
         -- juste un petit verrou pour ne pas parser tout le fichiers pendant les tests
         i = i + 1
-        -- if i > 5 then break end
-        if i > 5 then break end
-        
+        if i > 20 then break end
     end
-
-
 end
 
 
 function zprint_gps_pet_tracker_tab(ztab)
-    for i=1, #ztab do
-        print("groupe: "..i.." -----------------")
-        print("time: "..ztab[i].time)
+    local i = 1
+    for zidx_paterne=1, #ztab do
+        print("groupe: "..zidx_paterne.." -----------------")
+        print("time: "..ztab[zidx_paterne].time)
         -- print("unxitime: "..ztab[i].unixtime)
-        print("lon: "..ztab[i].lon)
-        print("lat: "..ztab[i].lat)
-        print("nombre de paternes: "..#ztab[i].."x")
-        -- for j=1 , #ztab[i] do
-        --     print("idx: "..j)
-        --     print("mac: "..ztab[i][j].mac)
-        --     print("name: "..ztab[i][j].name)
-        --     print("rssi: "..ztab[i][j].rssi)
-        --     print("error: "..ztab[i][j].error)
-        -- end
+        print("lon: "..ztab[zidx_paterne].lon)
+        print("lat: "..ztab[zidx_paterne].lat)
+        print("nombre de paternes: "..#ztab[zidx_paterne].."x")
+        -- juste un petit verrou pour ne pas parser tout le fichiers pendant les tests
+        i = i + 1
+        if i > 20 then break end
     end
 end
 
