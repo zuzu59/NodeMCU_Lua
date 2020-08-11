@@ -402,7 +402,7 @@ function zprint_vote_tab()
         end
         -- juste un petit verrou pour ne pas parser tout le fichiers pendant les tests
         i = i + 1
-        if i > 5 then break end
+        if i > 5000 then break end
     end
 end
 
@@ -445,7 +445,7 @@ function zget_gps_pet_tracker()
         -- print("et comme latitude: "..zpet_tracker_tab[zvote_tab[1].idx].lat)
         -- juste un petit verrou pour ne pas parser tout le fichiers pendant les tests
         i = i + 1
-        if i > 20 then break end
+        if i > 2000 then break end
     end
 end
 
@@ -461,7 +461,7 @@ function zprint_gps_pet_tracker_tab(ztab)
         print("nombre de paternes: "..#ztab[zidx_paterne].."x")
         -- juste un petit verrou pour ne pas parser tout le fichiers pendant les tests
         i = i + 1
-        if i > 20 then break end
+        if i > 2000 then break end
     end
 end
 
@@ -487,7 +487,7 @@ function zgps_pet_tracker_to_gpx(ztab)
         end
         -- juste un petit verrou pour ne pas parser tout le fichiers pendant les tests
         i = i + 1
-        if i > 20 then break end
+        if i > 2000 then break end
     end
     
     print("    <trk>")
@@ -501,7 +501,7 @@ function zgps_pet_tracker_to_gpx(ztab)
         end
         -- juste un petit verrou pour ne pas parser tout le fichiers pendant les tests
         i = i + 1
-        if i > 20 then break end
+        if i > 2000 then break end
     end
     print("      </trkseg>")
     print("    </trk>")
