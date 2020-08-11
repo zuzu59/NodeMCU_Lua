@@ -1,7 +1,7 @@
 -- parse les données GPX avec les données des ap wifi du NodeMCU pour les 
 -- cooréler  en fonction du temps afin de pouvoir géolocaliser les ap wifi 
 
-zversion = ("gpx2gpsapwifi.lua   zfzf200811.2051   ")
+zversion = ("gpx2gpsapwifi.lua   zfzf200811.2128   ")
 -- print("\n"..zversion.."\n")
 
 zgpx_tab = {}
@@ -471,34 +471,41 @@ zget_gps_pet_tracker()
 
 -- converti les coordonnées GPS du pet tracker en trace GPX pour pouvoir les afficher sur une carte Google
 function zgps_pet_tracker_to_gpx(ztab)
-    local i = 1
     print("<?xml version='1.0' encoding='UTF-8' standalone='yes' ?>")
     print("<gpx version=\"1.1\" creator=\""..zversion.."\" xmlns=\"http://www.topografix.com/GPX/1/1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd\">")
     print("    <metadata>")
     print("        <name>"..zversion.."</name>")
     print("    </metadata>")
-    print("    <trk>")
-    print("    <trkseg>")
+    
+    local i = 1
     for zidx_paterne=1, #ztab do
-        -- print("groupe: "..zidx_paterne.." -----------------")
-        -- print("time: "..ztab[zidx_paterne].time)
-        -- -- print("unxitime: "..ztab[i].unixtime)
-        -- print("lon: "..ztab[zidx_paterne].lon)
-        -- print("lat: "..ztab[zidx_paterne].lat)
-        -- print("nombre de paternes: "..#ztab[zidx_paterne].."x")
+        if ztab[zidx_paterne].lat ~= 0 then
+            print("    <wpt lat=\""..ztab[zidx_paterne].lat.."\" lon=\""..ztab[zidx_paterne].lon.."\">")
+            print("      <time>"..ztab[zidx_paterne].time.."</time>")
+            print("      <name>"..ztab[zidx_paterne].time.."</name>")
+            print("    </wpt>")
+        end
+        -- juste un petit verrou pour ne pas parser tout le fichiers pendant les tests
+        i = i + 1
+        if i > 20 then break end
+    end
+    
+    print("    <trk>")
+    print("      <trkseg>")
+    local i = 1
+    for zidx_paterne=1, #ztab do
         if ztab[zidx_paterne].lat ~= 0 then
             print("        <trkpt lat=\""..ztab[zidx_paterne].lat.."\" lon=\""..ztab[zidx_paterne].lon.."\">")
-            -- print("        <ele>469.284</ele>")
-            print("            <time>"..ztab[zidx_paterne].time.."</time>")
-            -- print("        <hdop>6</hdop>")
+            print("          <time>"..ztab[zidx_paterne].time.."</time>")
             print("        </trkpt>")
         end
         -- juste un petit verrou pour ne pas parser tout le fichiers pendant les tests
         i = i + 1
         if i > 20 then break end
     end
-    print("    </trkseg>")
+    print("      </trkseg>")
     print("    </trk>")
+    -- print("    </trk>")
     print("</gpx>")
 end
 
