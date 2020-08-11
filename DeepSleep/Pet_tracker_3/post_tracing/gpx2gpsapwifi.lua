@@ -1,8 +1,8 @@
 -- parse les données GPX avec les données des ap wifi du NodeMCU pour les 
 -- cooréler  en fonction du temps afin de pouvoir géolocaliser les ap wifi 
 
-zversion = ("\n gpx2gpsapwifi.lua   zfzf200810.2114   \n")
-print(zversion)
+zversion = ("gpx2gpsapwifi.lua   zfzf200811.2051   ")
+-- print("\n"..zversion.."\n")
 
 zgpx_tab = {}
 zidx_gpx_tab = 0
@@ -44,7 +44,8 @@ function tprint(t)
 end
 
 function zunixtime2datetime(zunixtime)
-    local datetime = os.date("%Y/%m/%d %H:%M:%S",zunixtime-ztimezone)
+    -- local datetime = os.date("%Y/%m/%d %H:%M:%S",zunixtime-ztimezone)
+    local datetime = os.date("%Y-%m-%dT%H:%M:%SZ",zunixtime-2*ztimezone)
     return datetime
 end
 
@@ -434,14 +435,14 @@ function zget_gps_pet_tracker()
         -- zprint_vote_tab()
         -- print("il y a "..#zpet_tracker_tab.." paternes !")
         zsort_vote_tab()
-        print("#####################################################")
-        zprint_vote_tab()
-        print("et la gagnante est "..zvote_tab[1].idx)
-        print("nombre de paternes: "..#zpet_tracker_tab[zvote_tab[1].idx])
+        -- print("#####################################################")
+        -- zprint_vote_tab()
+        -- print("et la gagnante est "..zvote_tab[1].idx)
+        -- print("nombre de paternes: "..#zpet_tracker_tab[zvote_tab[1].idx])
         zpet_tracker_tab[zvote_tab[1].idx].lon = zap_wifi_tab[zvote_tab[1].idx].lon
         zpet_tracker_tab[zvote_tab[1].idx].lat = zap_wifi_tab[zvote_tab[1].idx].lat
-        print("avec comme longitude: "..zpet_tracker_tab[zvote_tab[1].idx].lon)
-        print("et comme latitude: "..zpet_tracker_tab[zvote_tab[1].idx].lat)
+        -- print("avec comme longitude: "..zpet_tracker_tab[zvote_tab[1].idx].lon)
+        -- print("et comme latitude: "..zpet_tracker_tab[zvote_tab[1].idx].lat)
         -- juste un petit verrou pour ne pas parser tout le fichiers pendant les tests
         i = i + 1
         if i > 20 then break end
@@ -466,13 +467,13 @@ end
 
 
 zget_gps_pet_tracker()
-zprint_gps_pet_tracker_tab(zpet_tracker_tab)
+-- zprint_gps_pet_tracker_tab(zpet_tracker_tab)
 
 -- converti les coordonnées GPS du pet tracker en trace GPX pour pouvoir les afficher sur une carte Google
 function zgps_pet_tracker_to_gpx(ztab)
     local i = 1
     print("<?xml version='1.0' encoding='UTF-8' standalone='yes' ?>")
-    print("<gpx version=\"1.1\" creator=\"O"..zversion.."\" xmlns=\"http://www.topografix.com/GPX/1/1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd\">")
+    print("<gpx version=\"1.1\" creator=\""..zversion.."\" xmlns=\"http://www.topografix.com/GPX/1/1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd\">")
     print("    <metadata>")
     print("        <name>"..zversion.."</name>")
     print("    </metadata>")
@@ -485,9 +486,13 @@ function zgps_pet_tracker_to_gpx(ztab)
         -- print("lon: "..ztab[zidx_paterne].lon)
         -- print("lat: "..ztab[zidx_paterne].lat)
         -- print("nombre de paternes: "..#ztab[zidx_paterne].."x")
-        print("        <trkpt lat=\""..ztab[zidx_paterne].lat.."\" lon=\""..ztab[zidx_paterne].lon.."\">")
-        print("            <time>"..ztab[zidx_paterne].time.."Z</time>")
-        print("        </trkpt>")
+        if ztab[zidx_paterne].lat ~= 0 then
+            print("        <trkpt lat=\""..ztab[zidx_paterne].lat.."\" lon=\""..ztab[zidx_paterne].lon.."\">")
+            -- print("        <ele>469.284</ele>")
+            print("            <time>"..ztab[zidx_paterne].time.."</time>")
+            -- print("        <hdop>6</hdop>")
+            print("        </trkpt>")
+        end
         -- juste un petit verrou pour ne pas parser tout le fichiers pendant les tests
         i = i + 1
         if i > 20 then break end

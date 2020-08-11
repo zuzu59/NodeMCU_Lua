@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
+<gpx version="1.1" creator="gpx2gpsapwifi.lua   zfzf200811.2051   " xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">
+    <metadata>
+        <name>gpx2gpsapwifi.lua   zfzf200811.2051   </name>
+    </metadata>
+    <trk>
+    <trkseg>
+        <trkpt lat="46.5421885" lon="6.5749067">
+            <time>2020-07-27T20:03:44Z</time>
+        </trkpt>
+        <trkpt lat="46.5421885" lon="6.5749067">
+            <time>2020-07-27T20:03:48Z</time>
+        </trkpt>
+        <trkpt lat="46.5421885" lon="6.5749067">
+            <time>2020-07-27T20:03:52Z</time>
+        </trkpt>
+        <trkpt lat="46.5421885" lon="6.5749067">
+            <time>2020-07-27T20:03:56Z</time>
+        </trkpt>
+        <trkpt lat="46.5421885" lon="6.5749067">
+            <time>2020-07-27T20:04:00Z</time>
+        </trkpt>
+        <trkpt lat="46.5421885" lon="6.5749067">
+            <time>2020-07-27T20:04:01Z</time>
+        </trkpt>
+        <trkpt lat="46.5421885" lon="6.5749067">
+            <time>2020-07-27T20:04:05Z</time>
+        </trkpt>
+        <trkpt lat="46.5421885" lon="6.5749067">
+            <time>2020-07-27T20:04:09Z</time>
+        </trkpt>
+        <trkpt lat="46.5421885" lon="6.5749067">
+            <time>2020-07-27T20:04:13Z</time>
+        </trkpt>
+        <trkpt lat="46.5421885" lon="6.5749067">
+            <time>2020-07-27T20:04:17Z</time>
+        </trkpt>
+        <trkpt lat="46.5421885" lon="6.5749067">
+            <time>2020-07-27T20:04:18Z</time>
+        </trkpt>
+        <trkpt lat="46.5421885" lon="6.5749067">
+            <time>2020-07-27T20:04:21Z</time>
+        </trkpt>
+        <trkpt lat="46.5421885" lon="6.5749067">
+            <time>2020-07-27T20:04:22Z</time>
+        </trkpt>
+        <trkpt lat="46.5421885" lon="6.5749067">
+            <time>2020-07-27T20:04:26Z</time>
+        </trkpt>
+        <trkpt lat="46.5421726" lon="6.5749242">
+            <time>2020-07-27T20:04:30Z</time>
+        </trkpt>
+        <trkpt lat="46.5421823" lon="6.5749114">
+            <time>2020-07-27T20:04:34Z</time>
+        </trkpt>
+        <trkpt lat="46.5422034" lon="6.5749111">
+            <time>2020-07-27T20:04:38Z</time>
+        </trkpt>
+        <trkpt lat="46.5422149" lon="6.5749098">
+            <time>2020-07-27T20:04:42Z</time>
+        </trkpt>
+        <trkpt lat="46.5422284" lon="6.5749176">
+            <time>2020-07-27T20:04:43Z</time>
+        </trkpt>
+    </trkseg>
+    </trk>
+</gpx>
