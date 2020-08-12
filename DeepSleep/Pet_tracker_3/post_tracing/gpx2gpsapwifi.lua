@@ -1,7 +1,7 @@
 -- parse les données GPX avec les données des ap wifi du NodeMCU pour les 
 -- cooréler  en fonction du temps afin de pouvoir géolocaliser les ap wifi 
 
-zversion = ("gpx2gpsapwifi.lua   zfzf200811.2128   ")
+zversion = ("gpx2gpsapwifi.lua   zfzf200811.2231   ")
 -- print("\n"..zversion.."\n")
 
 zgpx_tab = {}
@@ -505,38 +505,11 @@ function zgps_pet_tracker_to_gpx(ztab)
     end
     print("      </trkseg>")
     print("    </trk>")
-    -- print("    </trk>")
     print("</gpx>")
 end
 
 
 zgps_pet_tracker_to_gpx(zpet_tracker_tab)
-
---[[
-<?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
-<gpx version="1.1" creator="OsmAnd+ 3.7.4" xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">
-    <metadata>
-        <name>2020-07-27_22-03_Mon</name>
-    </metadata>
-    <trk>
-    <trkseg>
-        <trkpt lat="46.5421696" lon="6.5749532">
-            <time>2020-07-27T20:03:27Z</time>
-        </trkpt>
-
-
-
-
-
-]]
-
-
-
-
-
-
-
-
 
 
 
