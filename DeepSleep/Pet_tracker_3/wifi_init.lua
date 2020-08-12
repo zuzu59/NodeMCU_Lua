@@ -1,7 +1,7 @@
 -- Petit script pour initaliser la couche WIFI
 
 function wifi_init()
-    print("\n wifi_init.lua   zf200621.1608   \n")
+    print("\n wifi_init.lua   zf200812.1938   \n")
 
     f= "secrets_wifi.lua"    if file.exists(f) then dofile(f) end
     f= "secrets_project.lua"    if file.exists(f) then dofile(f) end
@@ -29,23 +29,30 @@ function wifi_init()
     end
 
     if file.exists("_setup_wifi_") then
-        print("setup wifi...")
+        print("dsleep wake up")
         file.remove("_setup_wifi_")
-        wifi.sta.config{ssid="", pwd=""}   wifi.sta.connect()
-        if zLED == nil then zLED = 4 end
-        gpio.write(zLED, gpio.HIGH)   gpio.mode(zLED, gpio.OUTPUT)
-        tmr_wifi_init4=tmr.create()
-        tmr_wifi_init4:alarm(0.1*1000, tmr.ALARM_AUTO , function()
-            gpio.write(zLED, gpio.LOW)   tmr.delay(10000)   gpio.write(zLED, gpio.HIGH)
-        end)
-        tmr.create():alarm(90*1000,  tmr.ALARM_SINGLE, function()
-            node.restart()
-        end)
-        enduser_setup.start(function()
-            print("on est sortit du setup wifi et on restart !")
-            node.restart()
-        end)
-        print("setup gadget lancé...")
+        f = "0_dsleep2.lua"   if file.exists(f) then dofile(f) end
+
+        -- 
+        -- print("setup wifi...")
+        -- file.remove("_setup_wifi_")
+        -- wifi.sta.config{ssid="", pwd=""}   wifi.sta.connect()
+        -- if zLED == nil then zLED = 4 end
+        -- gpio.write(zLED, gpio.HIGH)   gpio.mode(zLED, gpio.OUTPUT)
+        -- tmr_wifi_init4=tmr.create()
+        -- tmr_wifi_init4:alarm(0.1*1000, tmr.ALARM_AUTO , function()
+        --     gpio.write(zLED, gpio.LOW)   tmr.delay(10000)   gpio.write(zLED, gpio.HIGH)
+        -- end)
+        -- tmr.create():alarm(90*1000,  tmr.ALARM_SINGLE, function()
+        --     node.restart()
+        -- end)
+        -- enduser_setup.start(function()
+        --     print("on est sortit du setup wifi et on restart !")
+        --     node.restart()
+        -- end)
+        -- print("setup gadget lancé...")
+
+
     else
         wifi.setmode(wifi.STATION,true)
         wifi.sta.config{ssid=cli_ssid, pwd=cli_pwd}   wifi.sta.connect()

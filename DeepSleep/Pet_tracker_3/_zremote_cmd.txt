@@ -1,5 +1,5 @@
 # Quelques commandes remote (luatool) à envoyer avec le plugin Atom-IDE-terminal de l'éditeur Atom
-# zf200727.2227
+# zf200812.1928
 
 
 Todo à faire pour ce projet !
@@ -17,6 +17,9 @@ https://mygeodata.cloud/converter/gpx-to-csv
 # CTRL+ALT+ENTER envoie au terminal la ligne de l'éditeur
 # SHIT+CTRL+` ouvre le terminal (attention, ne pas oublier de copier le *path* dans le *tree* et le changer)
 # ALT+CMD+F bascule entre le terminal et l'éditeur
+
+screen /dev/cu.wchusb
+serial1410 115200
 
 # définitions à faire AVANT !
 #export luatool_tty="/dev/cu.wchusbserial1410"

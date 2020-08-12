@@ -1,6 +1,6 @@
 -- Scripts pour tester l'écoute des AP WIFI
 
-print("\n wifi_scan.lua zf200727.2115 \n")
+print("\n wifi_scan.lua zf200812.1948 \n")
 
 f= "secrets_project.lua"    if file.exists(f) then dofile(f) end
 
@@ -22,6 +22,13 @@ function scan_wifi()
         print("start display liste ap wifi...")
         for k,v in pairs(t) do
             local ssid, rssi, authmode, channel = string.match(v, "([^,]+),([^,]+),([^,]+),([^,]*)")
+
+            if ssid == "3g-s7" then 
+                print("ah je vois que je dois m'arrêter...")
+                -- node.restart()
+            end
+            print("coucou: ."..ssid..".")
+            
             -- print(ssid,rssi)
             -- print(k.." : "..v)
             -- local zstr = k..", "..v
