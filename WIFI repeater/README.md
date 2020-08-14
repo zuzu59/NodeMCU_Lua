@@ -1,27 +1,25 @@
 # WIFI repeater, tout petit répéteur WIFI à base de NodeMCU ESP
-zf200422.1737
+zf200814.2235
 
-<!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
-
-- [WIFI repeater, tout petit répéteur WIFI à base de NodeMCU ESP](#wifi-repeater-tout-petit-rpteur-wifi-base-de-nodemcu-esp)
-	- [Sources](#sources)
-	- [Description](#description)
-	- [Problématiques](#problmatiques)
-	- [Installation, flashing du firmware](#installation-flashing-du-firmware)
-	- [Utilisation](#utilisation)
-		- [Utilisation de la console](#utilisation-de-la-console)
-		- [Via le port série](#via-le-port-srie)
-		- [Via telnet](#via-telnet)
-		- [Verrouillage du repeater](#verrouillage-du-repeater)
-		- [Changer les paramètres WIFI en console](#changer-les-paramtres-wifi-en-console)
-		- [Configuration du NAT](#configuration-du-nat)
-	- [Reset factory](#reset-factory)
-	- [Limitations](#limitations)
-	- [Goodies](#goodies)
-	- [Documentation complète](#documentation-complte)
-
+<!-- TOC titleSize:2 tabSpaces:4 depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 skip:1 title:1 charForUnorderedList:* -->
+## Table of Contents
+* [Sources](#sources)
+* [Description](#description)
+* [Problématiques](#problématiques)
+* [Installation, flashing du firmware](#installation-flashing-du-firmware)
+* [Utilisation](#utilisation)
+    * [Utilisation de la console](#utilisation-de-la-console)
+    * [Via le port série](#via-le-port-série)
+    * [Via telnet](#via-telnet)
+    * [Verrouillage du repeater](#verrouillage-du-repeater)
+    * [Changer les paramètres WIFI en console](#changer-les-paramètres-wifi-en-console)
+    * [Configuration du NAT](#configuration-du-nat)
+* [Reset factory](#reset-factory)
+* [Limitations](#limitations)
+* [Goodies](#goodies)
+    * [Eteindre la LED de status du NodeMCU](#eteindre-la-led-de-status-du-nodemcu)
+* [Documentation complète](#documentation-complète)
 <!-- /TOC -->
-
 
 
 ## Sources
@@ -167,7 +165,20 @@ https://fast.com/fr/
 
 
 ## Goodies
+### Eteindre la LED de status du NodeMCU
+Simplement faire:
+```
+set status_led 255
+```
+Pour la réactiver il faut faire:
+```
+set status_led 2
+```
 
+ATTENTION: il ne faut pas oublier de sauver la config avec:
+```
+save config
+```
 
 ## Documentation complète
 https://github.com/martin-ger/esp_wifi_repeater/blob/master/README.md
