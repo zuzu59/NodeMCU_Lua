@@ -1,8 +1,15 @@
 # Quelques commandes remote (luatool) à envoyer avec le plugin Atom-IDE-terminal de l'éditeur Atom
-# zf200812.1928
+# zf200814.1936
 
 
 Todo à faire pour ce projet !
+
+- il faut que quand il se réveille et que la date est en 1970, il doit alors aller 
+chercher la date dans un fichier sur la flash. 
+Et qu'à chaque fois qu'il écrit le log dans la flash il sauve aussi la date qu'il 
+a pour si jamais qu'il puisse repartir au moins depuis un temps connu
+
+
 
 Convertisseur GPX to CSV
 https://mygeodata.cloud/converter/gpx-to-csv

@@ -1,7 +1,7 @@
 -- Petit script pour initaliser la couche WIFI
 
 function wifi_init()
-    print("\n wifi_init.lua   zf200812.1938   \n")
+    print("\n wifi_init.lua   zf200814.1917   \n")
 
     f= "secrets_wifi.lua"    if file.exists(f) then dofile(f) end
     f= "secrets_project.lua"    if file.exists(f) then dofile(f) end
@@ -75,7 +75,7 @@ function wifi_init()
             if wifi.sta.getip() == nil then
                 print(i,"Connecting to AP...")
                 i=i+1
-                if i > 30 then
+                if i > 10 then
                     print("pas de wifi :-(")
                     file.putcontents("_setup_wifi_", "toto")
                     print("on restart pour le setup wifi")

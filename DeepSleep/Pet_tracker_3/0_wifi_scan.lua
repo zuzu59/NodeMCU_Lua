@@ -1,6 +1,6 @@
 -- Scripts pour tester l'écoute des AP WIFI
 
-print("\n wifi_scan.lua zf200812.1948 \n")
+print("\n wifi_scan.lua zf200814.1924 \n")
 
 f= "secrets_project.lua"    if file.exists(f) then dofile(f) end
 
@@ -25,7 +25,7 @@ function scan_wifi()
 
             if ssid == "3g-s7" then 
                 print("ah je vois que je dois m'arrêter...")
-                -- node.restart()
+                zdsleep_stop =true
             end
             print("coucou: ."..ssid..".")
             
@@ -37,7 +37,11 @@ function scan_wifi()
             save_flash(zstr)
         end
         print("end display...")
-        dsleep_on()
+        if zdsleep_stop then
+            node.restart()
+        else
+            dsleep_on()
+        end
     end
     print("wifi scan...")
     wifi.sta.getap(1, listap)

@@ -1,7 +1,11 @@
-zf200724.1053
+zf200814.1936
 
 print(ztime())
 dsleep_on()
+
+        f = "0_wifi_scan.lua"   if file.exists(f) then dofile(f) end
+        wifi.setmode(wifi.STATION)
+        scan_wifi()
 
 zcat_logs_ap_wifi()
 
