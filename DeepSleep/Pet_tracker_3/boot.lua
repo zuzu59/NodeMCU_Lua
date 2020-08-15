@@ -1,7 +1,7 @@
 -- Scripts à charger après le boot pour démarrer son projet
 
 function boot()
-    print("\n boot.lua   zf200722.1944   \n")
+    print("\n boot.lua   zf200815.1358   \n")
     print("On lance le boot...")
     collectgarbage() print(node.heap())
     local f        
@@ -13,7 +13,7 @@ function boot()
     -- zarg_boot=zarg_boot.."energy,value=boot_reason_"..yellow_id.." val="..boot_reason
     -- http_post(influxdb_url,zarg_boot)
     
-    f = "set_time.lua"   if file.exists(f) then dofile(f) end
+    f = "set_time2.lua"   if file.exists(f) then dofile(f) end
     print(node.heap()) collectgarbage() print(node.heap())
 
     f = "0_dsleep2.lua"   if file.exists(f) then dofile(f) end

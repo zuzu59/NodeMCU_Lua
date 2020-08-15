@@ -1,6 +1,8 @@
-zf200814.1936
+zf200815.1404
 
 print(ztime())
+print("rtctime: "..rtctime.get())
+
 dsleep_on()
 
         f = "0_wifi_scan.lua"   if file.exists(f) then dofile(f) end
