@@ -1,6 +1,6 @@
 -- Scripts pour tester l'écoute des AP WIFI
 
-print("\n wifi_scan.lua zf200814.1924 \n")
+print("\n wifi_scan.lua zf200815.1454 \n")
 
 f= "secrets_project.lua"    if file.exists(f) then dofile(f) end
 
@@ -37,6 +37,9 @@ function scan_wifi()
             save_flash(zstr)
         end
         print("end display...")
+        -- sauve l'heure sur la flash pour si jamais il y a un boot power on sans Internet
+        file.putcontents("_ztime_", rtctime.get())
+
         if zdsleep_stop then
             node.restart()
         else
