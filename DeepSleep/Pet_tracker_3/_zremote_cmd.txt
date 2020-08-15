@@ -1,13 +1,38 @@
 # Quelques commandes remote (luatool) à envoyer avec le plugin Atom-IDE-terminal de l'éditeur Atom
-# zf200814.1936
+# zf200815.1253
 
 
 Todo à faire pour ce projet !
 
-- il faut que quand il se réveille et que la date est en 1970, il doit alors aller 
+
+J'ai encore 3x problèmes à régler ! 
+
+- comment faire pour sauver l'horloge afin d'avoir une horloge quand on n'a pas 
+eu de connexion internet au moment du power on ? 
+
+1: il faut que quand il se réveille et que la date est en 1970, il doit alors aller 
 chercher la date dans un fichier sur la flash. 
 Et qu'à chaque fois qu'il écrit le log dans la flash il sauve aussi la date qu'il 
 a pour si jamais qu'il puisse repartir au moins depuis un temps connu
+
+
+- comment se comporter quand on a trouvé un WIFI connu ? 
+Afin de pouvoir
+1) se connecter pour vider les logs
+2) récupérer l'horloge
+3) faire la maintenance 
+4) continuer quand même le recording
+
+1: s'il voit apzuzu6, il se connecte et va régler l'horloge et continue son dsleep habituel
+
+2: s'il voit 3g-s7, il se connecte et va régler l'horloge et arrête son dsleep 
+
+
+
+- comment avoir une balise de recherche quand le pet tracker est perdu ?
+
+
+
 
 
 

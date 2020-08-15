@@ -3,7 +3,7 @@
 
 -- ATTENTION: il faut connecter la pin 0 à la pin RESET avec une résistance de 1k !
 
-print("\n dsleep.lua   zf200727.2113   \n")
+print("\n dsleep2.lua   zf200815.1245   \n")
 
 zLED=4
 f= "flash_led_xfois.lua"   if file.exists(f) then dofile(f) end
@@ -28,89 +28,19 @@ function dsleep_on()
     -- end)
 end
 
---[[
-dsleep_on()
-print(node.bootreason())
-print("le flag est à "..rtcmem.read32(10))
-
-f= "wifi_info.lua"   if file.exists(f) then dofile(f) end
-
-function ztime()
-    tm = rtctime.epoch2cal(rtctime.get()+2*3600)
-    print(string.format("%04d/%02d/%02d %02d:%02d:%02d", tm["year"], tm["mon"], tm["day"], tm["hour"], tm["min"], tm["sec"]))
-end
-
-print(ztime())
-
-
-]]
 
 -- on se réveil, vérifie si on peut avoir du réseau autrement on va redormir
 function dsleep_wake_up()
     print("Coucou, je suis réveillé... et il est "..ztime())
     if wifi.sta.getip() == nil then
-        print("Unconnected...")
+        print("Pas de réseau donc je scan le wifi...")
         f = "0_wifi_scan.lua"   if file.exists(f) then dofile(f) end
         wifi.setmode(wifi.STATION)
         scan_wifi()
     else
-        print("Connected...")
+        print("Y'a du réseau donc je m'arrête...")
     end
-   -- f= "wifi_info.lua"   if file.exists(f) then dofile(f) end
 end
 
-
-
-
-function zcat_logs_ap_wifi()
-    zfilei = file.open(z_logs_ap_wifi, "r")
-    zline=file.readline()
-    repeat
-      print(string.sub(zline,1,string.len(zline)-1))
-      zline=file.readline()
-    until zline== nil
-    file.close(zfilei)
-end
-
-
--- function dsleep_off()
---     print("timer dsleep off...")
---     ztmr_SLEEP:unregister()
--- end
-
--- function watch_wifi_on()
---     dsleep_on()
---     ztmr_watch_wifi_on = tmr.create()
---     ztmr_watch_wifi_on:alarm(1*1000, tmr.ALARM_AUTO , function()
---         if wifi.sta.getip() == nil then
--- --            print("Unconnected... (on)")
---         else
---             ztmr_watch_wifi_on:stop()
---             print("Connected... (on)")
--- --            f= "wifi_info.lua"   if file.exists(f) then dofile(f) end
---             watch_wifi_off()
---         end
---     end)
--- end
-
--- function watch_wifi_off()
---     dsleep_off()
---     ztmr_watch_wifi_on:unregister()
---     ztmr_watch_wifi_off = tmr.create()
---     ztmr_watch_wifi_off:alarm(1*1000, tmr.ALARM_AUTO , function()
---         if wifi.sta.getip() == nil then
---             ztmr_watch_wifi_off:stop()
---             print("Unconnected... (off)")
---             watch_wifi_on()
---             ztmr_watch_wifi_off:unregister()
---         else
--- --            print("Connected... (off)")
---             xfois = 2
---             blink_LED ()
---         end
---     end)
--- end
-
--- watch_wifi_on()
 
 dsleep_wake_up()
