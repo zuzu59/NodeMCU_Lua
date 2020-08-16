@@ -1,5 +1,5 @@
 -- fonction cat() pour afficher le contenu d'un fichier dans la flash
-print("\n cat2.lua   zf200725.1319   \n")
+print("\n cat2.lua   zf200816.1417   \n")
 print("\nusage:")
 print("   cat2(\"filename\")")
 
@@ -17,7 +17,7 @@ function zprintline()
 end
 
 function cat2()
-    zfilei = file.open(z_logs_ap_wifi, "r")
+    zfilei = file.open(logs_ap_wifi, "r")
     zline = file.readline()
     ztmr_cat1:alarm(50, tmr.ALARM_AUTO, zprintline)
 end

@@ -1,6 +1,6 @@
 -- Scripts pour tester l'écoute des AP WIFI
 
-print("\n wifi_scan.lua zf200815.1454 \n")
+print("\n wifi_scan.lua zf200816.1417 \n")
 
 f= "secrets_project.lua"    if file.exists(f) then dofile(f) end
 
@@ -12,7 +12,7 @@ function save_flash(zstr_ap_wifi)
     ztime1 = tostring(rtctime.get() + 2*3600 - ztime2020)
     local zstr = ztime1..", "..zstr_ap_wifi
     if verbose then print("saving to flash: "..zstr) end
-    file.open(z_logs_ap_wifi, "a+")   file.writeline(zstr)   file.close()
+    file.open(logs_ap_wifi, "a+")   file.writeline(zstr)   file.close()
 end
 
 -- print AP list in new format

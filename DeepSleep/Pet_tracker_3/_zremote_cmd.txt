@@ -1,8 +1,10 @@
 # Quelques commandes remote (luatool) à envoyer avec le plugin Atom-IDE-terminal de l'éditeur Atom
-# zf200815.1253
+# zf200816.1420
 
 
 Todo à faire pour ce projet !
+
+- éviter de trop remplir la FLASH !
 
 
 J'ai encore 3x problèmes à régler ! 

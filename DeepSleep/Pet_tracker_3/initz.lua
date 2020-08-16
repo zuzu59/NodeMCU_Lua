@@ -3,7 +3,7 @@
 -- le script repair.lua pendant xx secondes avant de continuer
 --Source: https://nodemcu.readthedocs.io/en/master/en/modules/node/#nodebootreason
 
-print("\n init.lua zf200725.1150 \n")
+print("\n init.lua zf200816.1421 \n")
 
 verbose = true
 
@@ -52,22 +52,40 @@ function initz()
     print("reset_reason: ",reset_reason)
     if reset_reason == 0 then
         print("power on")
-        second_chance()
+        if node_mode == "dsleep" then
+            print("dsleep wake up")
+            f = "0_dsleep2.lua"   if file.exists(f) then dofile(f) end
+        else
+            second_chance()
+        end
     elseif reset_reason == 4 then
         print("node.restart")
         initz_end()
     elseif reset_reason == 5 then
         print("dsleep wake up")
-        initz_end()
+        if node_mode == "dsleep" then
+            print("dsleep wake up")
+            f = "0_dsleep2.lua"   if file.exists(f) then dofile(f) end
+        else
+            initz_end()
+        end
     elseif reset_reason == 6 then
         print("external reset")
-        print("dsleep wake up")
-        f = "0_dsleep2.lua"   if file.exists(f) then dofile(f) end
+        if node_mode == "dsleep" then
+            print("dsleep wake up")
+            f = "0_dsleep2.lua"   if file.exists(f) then dofile(f) end
+        else
+            initz_end()
+        end
     else
         print("autre raison")
         second_chance()
     end
 end
+
+f= "secrets_wifi.lua"    if file.exists(f) then dofile(f) end
+f= "secrets_project.lua"    if file.exists(f) then dofile(f) end
+
 initz()
 
 --[[

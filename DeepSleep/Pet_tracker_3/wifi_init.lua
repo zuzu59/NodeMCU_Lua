@@ -1,10 +1,10 @@
 -- Petit script pour initaliser la couche WIFI
 
 function wifi_init()
-    print("\n wifi_init.lua   zf200814.1917   \n")
+    print("\n wifi_init.lua   zf200816.1435   \n")
 
-    f= "secrets_wifi.lua"    if file.exists(f) then dofile(f) end
-    f= "secrets_project.lua"    if file.exists(f) then dofile(f) end
+    -- f= "secrets_wifi.lua"    if file.exists(f) then dofile(f) end
+    -- f= "secrets_project.lua"    if file.exists(f) then dofile(f) end
 
     function wifi_init_end()
         tmr_wifi_init1:unregister()   i=nil
@@ -29,28 +29,28 @@ function wifi_init()
     end
 
     if file.exists("_setup_wifi_") then
-        print("dsleep wake up")
-        file.remove("_setup_wifi_")
-        f = "0_dsleep2.lua"   if file.exists(f) then dofile(f) end
-
-        -- 
-        -- print("setup wifi...")
+        -- print("dsleep wake up")
         -- file.remove("_setup_wifi_")
-        -- wifi.sta.config{ssid="", pwd=""}   wifi.sta.connect()
-        -- if zLED == nil then zLED = 4 end
-        -- gpio.write(zLED, gpio.HIGH)   gpio.mode(zLED, gpio.OUTPUT)
-        -- tmr_wifi_init4=tmr.create()
-        -- tmr_wifi_init4:alarm(0.1*1000, tmr.ALARM_AUTO , function()
-        --     gpio.write(zLED, gpio.LOW)   tmr.delay(10000)   gpio.write(zLED, gpio.HIGH)
-        -- end)
-        -- tmr.create():alarm(90*1000,  tmr.ALARM_SINGLE, function()
-        --     node.restart()
-        -- end)
-        -- enduser_setup.start(function()
-        --     print("on est sortit du setup wifi et on restart !")
-        --     node.restart()
-        -- end)
-        -- print("setup gadget lancé...")
+        -- f = "0_dsleep2.lua"   if file.exists(f) then dofile(f) end
+
+        
+        print("setup wifi...")
+        file.remove("_setup_wifi_")
+        wifi.sta.config{ssid="", pwd=""}   wifi.sta.connect()
+        if zLED == nil then zLED = 4 end
+        gpio.write(zLED, gpio.HIGH)   gpio.mode(zLED, gpio.OUTPUT)
+        tmr_wifi_init4=tmr.create()
+        tmr_wifi_init4:alarm(0.1*1000, tmr.ALARM_AUTO , function()
+            gpio.write(zLED, gpio.LOW)   tmr.delay(10000)   gpio.write(zLED, gpio.HIGH)
+        end)
+        tmr.create():alarm(90*1000,  tmr.ALARM_SINGLE, function()
+            node.restart()
+        end)
+        enduser_setup.start(function()
+            print("on est sortit du setup wifi et on restart !")
+            node.restart()
+        end)
+        print("setup gadget lancé...")
 
 
     else
