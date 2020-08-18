@@ -1,39 +1,52 @@
 # Quelques commandes remote (luatool) à envoyer avec le plugin Atom-IDE-terminal de l'éditeur Atom
-# zf200816.1420
+# zf200818.2326
 
-
-Todo à faire pour ce projet !
-
+*****************************
+# Todo à faire pour ce projet !
 - éviter de trop remplir la FLASH !
+- faut mettre à jour le _secrets_projet.lua pour la documentation
+- refaire totalement la détection de connexion wifi start
+- faire un petit serveur en lua pour décharger les logs automatiquement quand on se trouve à la maison
+- comment avoir une balise de recherche quand le pet tracker est perdu ?
 
 
-J'ai encore 3x problèmes à régler ! 
 
-- comment faire pour sauver l'horloge afin d'avoir une horloge quand on n'a pas 
+*****************************
+# Logigramme de connexion au WIFI lors du boot
+1) on essaie en premier de se connecter sur le cli_ssid2, si oui, on continue la procédure de boot
+
+2) on essaie en deuxième de se connecter sur le cli_ssid1, si oui, on continue la procédure de boot
+
+3) on part en mode setup gadget
+
+4) si pas de réponse au setup gadget, on restart
+
+
+*****************************
+# J'ai encore quelques problèmes à régler ! 
+
+v- comment faire pour sauver l'horloge afin d'avoir une horloge quand on n'a pas 
 eu de connexion internet au moment du power on ? 
 
-1: il faut que quand il se réveille et que la date est en 1970, il doit alors aller 
+v- 1: il faut que quand il se réveille et que la date est en 1970, il doit alors aller 
 chercher la date dans un fichier sur la flash. 
 Et qu'à chaque fois qu'il écrit le log dans la flash il sauve aussi la date qu'il 
 a pour si jamais qu'il puisse repartir au moins depuis un temps connu
 
 
-- comment se comporter quand on a trouvé un WIFI connu ? 
+v- comment se comporter quand on a trouvé un WIFI connu ? 
 Afin de pouvoir
 1) se connecter pour vider les logs
 2) récupérer l'horloge
 3) faire la maintenance 
 4) continuer quand même le recording
 
-1: s'il voit apzuzu6, il se connecte et va régler l'horloge et continue son dsleep habituel
+v- 1: s'il voit apzuzu6, il se connecte, va régler l'horloge et continue son dsleep habituel
 
-2: s'il voit 3g-s7, il se connecte et va régler l'horloge et arrête son dsleep 
+- 1: s'il voit apzuzu6 ET qu'il voit le serveur de vidange de log, il se connecte, 
+va régler l'horloge, vide ses logs et continue son dsleep habituel
 
-
-
-- comment avoir une balise de recherche quand le pet tracker est perdu ?
-
-
+v- 2: s'il voit 3g-s7, il se connecte et va régler l'horloge et arrête son dsleep 
 
 
 

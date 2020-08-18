@@ -16,7 +16,47 @@ print("le flag est à "..rtcmem.read32(10))
 
 f= "wifi_info.lua"   if file.exists(f) then dofile(f) end
 
+wifi.sta.connect()
+wifi.sta.disconnect()
+print(wifi.sta.status())
 
+
+wifi.setmode(wifi.STATION,true)
+wifi.sta.setaplimit(2)
+wifi.sta.config{ssid="apzuzu66", pwd="12345678", save=true, auto=true}
+wifi.sta.config{ssid="apzuzu67", pwd="12345678", save=true, auto=true}
+wifi.sta.connect()
+print(wifi.sta.status())
+
+
+node.restore()
+wifi.sta.changeap(1)
+wifi.sta.clearconfig()
+wifi.sta.changeap(2)
+wifi.sta.clearconfig()
+print(wifi.sta.getapindex())
+--print stored access point info
+do
+  for k,v in pairs(wifi.sta.getapinfo()) do
+    if (type(v)=="table") then
+      print(" "..k.." : "..type(v))
+      for k,v in pairs(v) do
+        print("\t\t"..k.." : "..v)
+      end
+    else
+      print(" "..k.." : "..v)
+    end
+  end
+end
+
+
+
+print(wifi.STA_IDLE)
+print(wifi.STA_CONNECTING)
+print(wifi.STA_WRONGPWD)
+print(wifi.STA_APNOTFOUND)
+print(wifi.STA_FAIL)
+print(wifi.STA_GOTIP)
 
 
 
