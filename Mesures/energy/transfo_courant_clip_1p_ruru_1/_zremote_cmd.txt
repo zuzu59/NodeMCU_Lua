@@ -1,5 +1,5 @@
 # Quelques commandes remote (luatool) à envoyer avec le plugin Atom-IDE-terminal de l'éditeur Atom
-# zf200928.1111
+# zf200928.1126
 
 
 Todo à faire pour ce projet !
@@ -59,9 +59,9 @@ ssh -N -L 23000:localhost:23000 ubuntu@www.zuzu-test.ml &
 telnet -rN $zIP $zport
 
 =node.heap()
+verbose=false
 ~.
 
-verbose=false
 
 = node.bootreason()
 # https://nodemcu.readthedocs.io/en/master/modules/node/#nodebootreason
@@ -106,6 +106,7 @@ node.restart()
 telnet -rN $zIP $zport
 dofile("head.lua")
 zhead("boot.lua")
+zhead("0_cron.lua")
 
 
 

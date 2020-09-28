@@ -1,6 +1,6 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python2.7
 # -*- coding: utf-8 -*-
-version = "0.6.8 zf191225.1428"
+version = "0.6.9 zf200928.1126"
 
 print("luatool.py ver " + version)
 
