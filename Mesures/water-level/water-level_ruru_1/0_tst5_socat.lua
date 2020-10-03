@@ -26,7 +26,7 @@ ou sur MAC
 telnet -rN localhost 23000
 ]]
 
-print("\n 0_tst5_socat.lua   zf200628.1458   \n")
+print("\n 0_tst5_socat.lua   zf201003.1043   \n")
 
 function rt_connect()
     -- print("................rt_connect")
@@ -105,7 +105,7 @@ end
 
 
 tmr_socat1=tmr.create()
-tmr_socat1:alarm(20*1000, tmr.ALARM_AUTO , rt_launch)
+tmr_socat1:alarm(60*1000, tmr.ALARM_AUTO , rt_launch)
 
 
 ztime_connect=tmr.now()/1000000-10
