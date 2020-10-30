@@ -1,6 +1,6 @@
 -- Scripts à charger après le boot pour démarrer son appli
 
-print("\n boot.lua zf181125.1635 \n")
+print("\n boot.lua zf201030.1415 \n")
 
 --f= "wifi_ap_stop.lua"   if file.exists(f) then dofile(f) end
 --f= "wifi_cli_conf.lua"   if file.exists(f) then dofile(f) end
@@ -9,7 +9,7 @@ print("\n boot.lua zf181125.1635 \n")
 --f= "web_ide2.lua"   if file.exists(f) then dofile(f) end
 --f= "dsleep.lua"   if file.exists(f) then dofile(f) end
 
-f= "a_test_train.lua"   if file.exists(f) then dofile(f) end
+f= "a_train3.lua"   if file.exists(f) then dofile(f) end
 --f= "a_test_fill.lua"   if file.exists(f) then dofile(f) end
 
 

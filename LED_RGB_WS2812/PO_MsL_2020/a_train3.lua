@@ -2,13 +2,13 @@
 -- tout sur la couleur: https://www.w3schools.com/colors/default.asp
 -- roue des couleurs: https://iro.js.org/?ref=oldsite
 
-print("\n a_train3.lua zf181205.1903 \n")
+print("\n a_train3.lua zf201030.1411 \n")
 
-nbleds=36
+nbleds=300
 fade1=0.05  ;  fade2=0.2  ;  fade3=0.4  ;  fade4=1
 R1=255  ;  G1=0  ;  B1=0
-R2=255  ;  G2=0  ;  B2=0
-train_speed=50
+R2=0  ;  G2=0  ;  B2=255
+train_speed=20
 ws2812.init()
 myLedStrip = ws2812.newBuffer(nbleds, 3)
 myLedStrip1 = ws2812.newBuffer(nbleds, 3) 
